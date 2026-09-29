@@ -103,11 +103,22 @@ the exact endpoints that were probed.
 ### Adding a plan file later
 
 1. Put the file in `public/plans/<slug>/`, keeping its **original filename**.
-2. Run `npm run archive`.
+2. Run `npm run archive:local`. This is the offline ingest: it validates and
+   hashes whatever is sitting in `public/plans/`, and carries every other entry
+   forward from the existing manifest so no recorded probe history is lost. It
+   makes no network requests and takes about a second.
+   Use plain `npm run archive` only if you specifically want to re-probe the
+   public endpoints of the source site — that run is slow and needs repeating
+   never for a drop-in.
 3. The file is validated (ZIP central directory + per-entry CRC-32, PDF structure, DXF
    sections, SVG root), a SHA-256 is recorded, the manifest is updated, and the aircraft
    page's button switches to a real download on the next build.
 4. Commit and push.
+
+Drop as many files in as you like before running the command; a single run ingests all
+of them. Only one file per aircraft directory is used — the first entry in
+alphabetical order among the accepted extensions (`.zip .pdf .dxf .svg .dwg .rar .7z
+.skp .blend .igs .step .stp`) — so keep one plan file per aircraft.
 
 Nothing else needs to change. If validation fails, the aircraft is marked `MANUAL_REVIEW`
 rather than being silently offered as a download.
@@ -211,6 +222,7 @@ No code changes required. Four steps:
 | `npm run qa -- --url <pages url>` | The same matrix against the deployed site |
 | `npm run verify` | validate + test + build + check-links + audit |
 | `npm run migrate` | Re-run the whole import pipeline against the live site |
+| `npm run archive:local` | Offline ingest of plan files dropped into `public/plans/<slug>/` — no network |
 | `npm run resume` | Crash / power-loss recovery (see below) |
 
 The `npm run migrate` chain is a **one-shot migration tool**. The deployed site never calls

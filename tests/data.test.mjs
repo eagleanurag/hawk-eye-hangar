@@ -7,6 +7,7 @@
 
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
+import crypto from 'node:crypto';
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -234,8 +235,9 @@ test('no aircraft claims a download it does not have', () => {
 test('every local download validates and matches its recorded checksum', () => {
   for (const a of aircraft.filter((x) => x.download.type === 'local')) {
     const abs = path.join(ROOT, 'public', a.download.file.replace(/^\//, ''));
+    assert.ok(fs.existsSync(abs), `${a.slug} archived file missing on disk: ${a.download.file}`);
     const buf = fs.readFileSync(abs);
-    const sha = require('node:crypto').createHash('sha256').update(buf).digest('hex');
+    const sha = crypto.createHash('sha256').update(buf).digest('hex');
     assert.equal(sha, a.download.sha256, a.slug);
   }
 });
@@ -290,5 +292,34 @@ test('SOURCE_ONLY entries explain themselves', () => {
   for (const e of manifest.entries.filter((x) => x.archiveStatus === 'SOURCE_ONLY')) {
     assert.ok(e.notes && e.notes.length > 20, `${e.slug} has no explanation`);
     assert.ok(e.attempts.length > 0, `${e.slug} records no download attempts`);
+  }
+});
+
+test('recovery evidence vocabulary agrees with the site vocabulary', () => {
+  // scripts/migration-state.mjs counts plan files from `planStatus`, while the
+  // site renders `archiveStatus`. If the manifest ever stops carrying
+  // planStatus, recovery silently reports every aircraft as PENDING — a false
+  // state. These assertions keep the two vocabularies locked together.
+  for (const e of manifest.entries) {
+    assert.ok(e.planStatus, `${e.slug} has no planStatus for the recovery evidence collector`);
+    if (e.archiveStatus === 'ARCHIVED') {
+      assert.equal(e.planStatus, 'DOWNLOADED', e.slug);
+      assert.match(e.sha256, /^[0-9a-f]{64}$/, `${e.slug} claims DOWNLOADED without a digest`);
+      // and the claim must be backed by real bytes
+      const abs = path.join(ROOT, e.localFile.replace(/^\//, ''));
+      assert.ok(fs.existsSync(abs), `${e.slug} claims DOWNLOADED but ${e.localFile} is missing`);
+    }
+  }
+});
+
+test('no manifest entry claims a download it cannot prove', () => {
+  for (const e of manifest.entries) {
+    if (e.planStatus !== 'DOWNLOADED') continue;
+    assert.ok(e.localFile, `${e.slug} is DOWNLOADED with no localFile`);
+    const abs = path.join(ROOT, e.localFile);
+    assert.ok(fs.existsSync(abs), `${e.slug} DOWNLOADED but file absent: ${e.localFile}`);
+    const sha = crypto.createHash('sha256').update(fs.readFileSync(abs)).digest('hex');
+    assert.equal(sha, e.sha256, `${e.slug} DOWNLOADED but digest does not match the file`);
+    assert.equal(e.validation.status, 'passed', `${e.slug} DOWNLOADED but validation did not pass`);
   }
 });

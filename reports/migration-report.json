@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-29T12:56:47.810Z",
+  "generatedAt": "2026-09-29T20:12:51.619Z",
   "source": {
     "site": "https://www.parkjets.com",
     "collection": "/free-plans",
@@ -18,13 +18,13 @@
     "discovered": 109,
     "imported": 109,
     "importFailures": 0,
-    "archived": 0,
-    "sourceOnly": 109,
+    "archived": 109,
+    "sourceOnly": 0,
     "unavailable": 0,
     "manualReview": 0,
     "requiringReview": 20,
     "categories": 7,
-    "designers": 50,
+    "designers": 49,
     "uncreditedDesigners": 2,
     "images": 419,
     "imageFiles": 838,
@@ -33,7 +33,7 @@
     "specificationFields": 503,
     "buildThreads": 110,
     "externalLinks": 134,
-    "planFiles": 0
+    "planFiles": 109
   },
   "planFileTypesAtSource": {
     "ZIP": 105,
@@ -51,203 +51,546 @@
   "designers": [
     {
       "name": "Steve Shumate",
-      "count": 11
+      "designerKey": "steve shumate",
+      "count": 11,
+      "spellings": [
+        {
+          "name": "Steve Shumate",
+          "count": 11
+        }
+      ]
     },
     {
       "name": "Dennis Schmalzel",
-      "count": 9
+      "designerKey": "dennis schmalzel",
+      "count": 9,
+      "spellings": [
+        {
+          "name": "Dennis Schmalzel",
+          "count": 9
+        }
+      ]
     },
     {
       "name": "Jamie Rothwell",
-      "count": 7
+      "designerKey": "jamie rothwell",
+      "count": 7,
+      "spellings": [
+        {
+          "name": "Jamie Rothwell",
+          "count": 7
+        }
+      ]
     },
     {
       "name": "Robertus",
-      "count": 6
+      "designerKey": "robertus",
+      "count": 6,
+      "spellings": [
+        {
+          "name": "Robertus",
+          "count": 6
+        }
+      ]
     },
     {
       "name": "Marcel du Plessis",
-      "count": 5
+      "designerKey": "marcel du plessis",
+      "count": 5,
+      "spellings": [
+        {
+          "name": "Marcel du Plessis",
+          "count": 5
+        }
+      ]
     },
     {
       "name": "Nick Cara",
-      "count": 5
+      "designerKey": "nick cara",
+      "count": 5,
+      "spellings": [
+        {
+          "name": "Nick Cara",
+          "count": 5
+        }
+      ]
     },
     {
       "name": "Tomas Hellberg",
-      "count": 5
+      "designerKey": "tomas hellberg",
+      "count": 5,
+      "spellings": [
+        {
+          "name": "Tomas Hellberg",
+          "count": 5
+        }
+      ]
     },
     {
       "name": "GGRN",
-      "count": 4
+      "designerKey": "ggrn",
+      "count": 4,
+      "spellings": [
+        {
+          "name": "GGRN",
+          "count": 4
+        }
+      ]
     },
     {
       "name": "Domenico Sebastiani",
-      "count": 3
-    },
-    {
-      "name": "Robert Viskil",
-      "count": 3
-    },
-    {
-      "name": "Ben Song (Beanie)",
-      "count": 2
-    },
-    {
-      "name": "Chris Carpenter",
-      "count": 2
-    },
-    {
-      "name": "DCobra",
-      "count": 2
-    },
-    {
-      "name": "Eduardo Flores",
-      "count": 2
+      "designerKey": "domenico sebastiani",
+      "count": 3,
+      "spellings": [
+        {
+          "name": "Domenico Sebastiani",
+          "count": 3
+        }
+      ]
     },
     {
       "name": "Fuelsguy",
-      "count": 2
+      "designerKey": "fuelsguy",
+      "count": 3,
+      "spellings": [
+        {
+          "name": "Fuelsguy",
+          "count": 2
+        },
+        {
+          "name": "FuelsGuy",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "name": "Robert Viskil",
+      "designerKey": "robert viskil",
+      "count": 3,
+      "spellings": [
+        {
+          "name": "Robert Viskil",
+          "count": 3
+        }
+      ]
+    },
+    {
+      "name": "Ben Song (Beanie)",
+      "designerKey": "ben song",
+      "count": 2,
+      "spellings": [
+        {
+          "name": "Ben Song (Beanie)",
+          "count": 2
+        }
+      ]
+    },
+    {
+      "name": "Chris Carpenter",
+      "designerKey": "chris carpenter",
+      "count": 2,
+      "spellings": [
+        {
+          "name": "Chris Carpenter",
+          "count": 2
+        }
+      ]
+    },
+    {
+      "name": "DCobra",
+      "designerKey": "dcobra",
+      "count": 2,
+      "spellings": [
+        {
+          "name": "DCobra",
+          "count": 2
+        }
+      ]
+    },
+    {
+      "name": "Eduardo Flores",
+      "designerKey": "eduardo flores",
+      "count": 2,
+      "spellings": [
+        {
+          "name": "Eduardo Flores",
+          "count": 2
+        }
+      ]
     },
     {
       "name": "Hans-Joachim",
-      "count": 2
+      "designerKey": "hans-joachim",
+      "count": 2,
+      "spellings": [
+        {
+          "name": "Hans-Joachim",
+          "count": 2
+        }
+      ]
     },
     {
       "name": "Pat Gagnon",
-      "count": 2
+      "designerKey": "pat gagnon",
+      "count": 2,
+      "spellings": [
+        {
+          "name": "Pat Gagnon",
+          "count": 2
+        }
+      ]
     },
     {
       "name": "Sean Correia",
-      "count": 2
+      "designerKey": "sean correia",
+      "count": 2,
+      "spellings": [
+        {
+          "name": "Sean Correia",
+          "count": 2
+        }
+      ]
     },
     {
       "name": "Steven Wong",
-      "count": 2
+      "designerKey": "steven wong",
+      "count": 2,
+      "spellings": [
+        {
+          "name": "Steven Wong",
+          "count": 2
+        }
+      ]
     },
     {
       "name": "Adriel Baskoro",
-      "count": 1
+      "designerKey": "adriel baskoro",
+      "count": 1,
+      "spellings": [
+        {
+          "name": "Adriel Baskoro",
+          "count": 1
+        }
+      ]
     },
     {
       "name": "BadDog and Woody",
-      "count": 1
+      "designerKey": "baddog and woody",
+      "count": 1,
+      "spellings": [
+        {
+          "name": "BadDog and Woody",
+          "count": 1
+        }
+      ]
     },
     {
       "name": "Beanie",
-      "count": 1
+      "designerKey": "beanie",
+      "count": 1,
+      "spellings": [
+        {
+          "name": "Beanie",
+          "count": 1
+        }
+      ]
     },
     {
       "name": "Bigglesjets",
-      "count": 1
+      "designerKey": "bigglesjets",
+      "count": 1,
+      "spellings": [
+        {
+          "name": "Bigglesjets",
+          "count": 1
+        }
+      ]
     },
     {
       "name": "Bob Templeton",
-      "count": 1
+      "designerKey": "bob templeton",
+      "count": 1,
+      "spellings": [
+        {
+          "name": "Bob Templeton",
+          "count": 1
+        }
+      ]
     },
     {
       "name": "Brent Hecht",
-      "count": 1
+      "designerKey": "brent hecht",
+      "count": 1,
+      "spellings": [
+        {
+          "name": "Brent Hecht",
+          "count": 1
+        }
+      ]
     },
     {
       "name": "Brice Faucillon",
-      "count": 1
+      "designerKey": "brice faucillon",
+      "count": 1,
+      "spellings": [
+        {
+          "name": "Brice Faucillon",
+          "count": 1
+        }
+      ]
     },
     {
       "name": "David Martel",
-      "count": 1
+      "designerKey": "david martel",
+      "count": 1,
+      "spellings": [
+        {
+          "name": "David Martel",
+          "count": 1
+        }
+      ]
     },
     {
       "name": "Denis CyberD",
-      "count": 1
+      "designerKey": "denis cyberd",
+      "count": 1,
+      "spellings": [
+        {
+          "name": "Denis CyberD",
+          "count": 1
+        }
+      ]
     },
     {
       "name": "FoamyFactory (Tim Hart)",
-      "count": 1
-    },
-    {
-      "name": "FuelsGuy",
-      "count": 1
+      "designerKey": "foamyfactory",
+      "count": 1,
+      "spellings": [
+        {
+          "name": "FoamyFactory (Tim Hart)",
+          "count": 1
+        }
+      ]
     },
     {
       "name": "Hansie",
-      "count": 1
+      "designerKey": "hansie",
+      "count": 1,
+      "spellings": [
+        {
+          "name": "Hansie",
+          "count": 1
+        }
+      ]
     },
     {
       "name": "Jason Swisher",
-      "count": 1
+      "designerKey": "jason swisher",
+      "count": 1,
+      "spellings": [
+        {
+          "name": "Jason Swisher",
+          "count": 1
+        }
+      ]
     },
     {
       "name": "Jim Wagoner",
-      "count": 1
+      "designerKey": "jim wagoner",
+      "count": 1,
+      "spellings": [
+        {
+          "name": "Jim Wagoner",
+          "count": 1
+        }
+      ]
     },
     {
       "name": "John Bright",
-      "count": 1
+      "designerKey": "john bright",
+      "count": 1,
+      "spellings": [
+        {
+          "name": "John Bright",
+          "count": 1
+        }
+      ]
     },
     {
       "name": "Matt Halton",
-      "count": 1
+      "designerKey": "matt halton",
+      "count": 1,
+      "spellings": [
+        {
+          "name": "Matt Halton",
+          "count": 1
+        }
+      ]
     },
     {
       "name": "Matti Huaviala",
-      "count": 1
+      "designerKey": "matti huaviala",
+      "count": 1,
+      "spellings": [
+        {
+          "name": "Matti Huaviala",
+          "count": 1
+        }
+      ]
     },
     {
       "name": "Maybz",
-      "count": 1
+      "designerKey": "maybz",
+      "count": 1,
+      "spellings": [
+        {
+          "name": "Maybz",
+          "count": 1
+        }
+      ]
     },
     {
       "name": "Mike DiMonte",
-      "count": 1
+      "designerKey": "mike dimonte",
+      "count": 1,
+      "spellings": [
+        {
+          "name": "Mike DiMonte",
+          "count": 1
+        }
+      ]
     },
     {
       "name": "Mike Jackson",
-      "count": 1
+      "designerKey": "mike jackson",
+      "count": 1,
+      "spellings": [
+        {
+          "name": "Mike Jackson",
+          "count": 1
+        }
+      ]
     },
     {
       "name": "Miroslav Matousu",
-      "count": 1
+      "designerKey": "miroslav matousu",
+      "count": 1,
+      "spellings": [
+        {
+          "name": "Miroslav Matousu",
+          "count": 1
+        }
+      ]
     },
     {
       "name": "Mr. Boogie",
-      "count": 1
+      "designerKey": "mr. boogie",
+      "count": 1,
+      "spellings": [
+        {
+          "name": "Mr. Boogie",
+          "count": 1
+        }
+      ]
     },
     {
       "name": "Mr. Flash",
-      "count": 1
+      "designerKey": "mr. flash",
+      "count": 1,
+      "spellings": [
+        {
+          "name": "Mr. Flash",
+          "count": 1
+        }
+      ]
     },
     {
       "name": "Rane",
-      "count": 1
+      "designerKey": "rane",
+      "count": 1,
+      "spellings": [
+        {
+          "name": "Rane",
+          "count": 1
+        }
+      ]
     },
     {
       "name": "RC CAL",
-      "count": 1
+      "designerKey": "rc cal",
+      "count": 1,
+      "spellings": [
+        {
+          "name": "RC CAL",
+          "count": 1
+        }
+      ]
     },
     {
       "name": "RSteel",
-      "count": 1
+      "designerKey": "rsteel",
+      "count": 1,
+      "spellings": [
+        {
+          "name": "RSteel",
+          "count": 1
+        }
+      ]
     },
     {
       "name": "Sabastian Gulde",
-      "count": 1
+      "designerKey": "sabastian gulde",
+      "count": 1,
+      "spellings": [
+        {
+          "name": "Sabastian Gulde",
+          "count": 1
+        }
+      ]
     },
     {
       "name": "StarCad",
-      "count": 1
+      "designerKey": "starcad",
+      "count": 1,
+      "spellings": [
+        {
+          "name": "StarCad",
+          "count": 1
+        }
+      ]
     },
     {
       "name": "Steven Wong and Fuelsguy",
-      "count": 1
+      "designerKey": "steven wong and fuelsguy",
+      "count": 1,
+      "spellings": [
+        {
+          "name": "Steven Wong and Fuelsguy",
+          "count": 1
+        }
+      ]
     },
     {
       "name": "SuperHornet",
-      "count": 1
+      "designerKey": "superhornet",
+      "count": 1,
+      "spellings": [
+        {
+          "name": "SuperHornet",
+          "count": 1
+        }
+      ]
     },
     {
       "name": "Thomas Nelson",
-      "count": 1
+      "designerKey": "thomas nelson",
+      "count": 1,
+      "spellings": [
+        {
+          "name": "Thomas Nelson",
+          "count": 1
+        }
+      ]
     }
   ],
   "knownLimitations": {

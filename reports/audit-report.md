@@ -1,6 +1,6 @@
 # Parkjets Archive — performance & accessibility audit
 
-_Generated 2026-09-29T12:52:27.780Z by `npm run audit`._
+_Generated 2026-09-29T20:11:55.098Z by `npm run audit`._
 
 ## Payload
 
@@ -8,7 +8,7 @@ _Generated 2026-09-29T12:52:27.780Z by `npm run audit`._
 |---|---|
 | Shared JavaScript | 12.0 KB (6 files) |
 | Shared CSS | 49.3 KB (6 files) |
-| HTML | 2905.2 KB across 114 pages |
+| HTML | 2903.6 KB across 114 pages |
 | Archived media | 48.1 MB across 838 files |
 
 No third-party JavaScript is shipped. The only external request the site can make is a webfont stylesheet, loaded non-render-blocking.
@@ -17,8 +17,8 @@ No third-party JavaScript is shipped. The only external request the site can mak
 
 | Page | Requests | JS | CSS | Images | Other |
 |---|---:|---:|---:|---:|---:|
-| home | 12 | 3.6 KB | 40.7 KB | 46.2 KB | 148.5 KB |
-| catalog | 16 | 9.0 KB | 38.0 KB | 876.0 KB | 413.8 KB |
+| home | 12 | 3.6 KB | 40.7 KB | 46.2 KB | 148.4 KB |
+| catalog | 16 | 9.0 KB | 38.0 KB | 876.0 KB | 412.9 KB |
 | detail | 14 | 6.6 KB | 43.9 KB | 46.6 KB | 129.8 KB |
 | designers | 9 | 3.6 KB | 34.1 KB | 0.0 KB | 155.8 KB |
 | about | 9 | 3.6 KB | 36.6 KB | 0.0 KB | 122.2 KB |

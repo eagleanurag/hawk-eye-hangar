@@ -86,6 +86,38 @@ test('completion flags come from evidence, not from assertion', () => {
   }
 });
 
+test('plan-file archival cannot be claimed while aircraft are still PENDING', () => {
+  run('init');
+  const t = read(P.queue).tasks.find((x) => x.id === 'plan-files');
+  assert.ok(t, 'the plan-files gate exists as its own task');
+  assert.equal(typeof t.done, 'boolean');
+
+  // The gate must be the conjunction of every aircraft being terminal. Verified
+  // against the evidence directly so the assertion holds even after the blocked
+  // run resolves its PENDING aircraft.
+  const ev = JSON.parse(run('evidence').out);
+  const terminal = ev.planFilesDownloaded + ev.planFilesSourceOnly + ev.planFilesFailed;
+  assert.equal(
+    t.done,
+    ev.planFilesResolved > 0 && ev.planFilesResolved === ev.aircraftRecords && ev.planFilesPending === 0,
+    'plan-files.done agrees with the plan-file evidence'
+  );
+  assert.equal(terminal + ev.planFilesPending, ev.aircraftRecords, 'every aircraft is counted exactly once');
+  // A manifest full of entries must never, on its own, satisfy the gate.
+  assert.ok(ev.manifestEntries > 0, 'the manifest exists');
+  if (ev.planFilesPending > 0) {
+    assert.equal(t.done, false, 'PENDING aircraft block completion');
+  }
+});
+
+test('is-complete refuses to report completion while plan files are unresolved', () => {
+  const r = run('is-complete');
+  const ev = JSON.parse(run('evidence').out);
+  if (ev.planFilesPending > 0 || ev.planFilesDownloaded < ev.aircraftRecords) {
+    assert.notEqual(r.code, 0, 'is-complete is non-zero while plan files are unresolved');
+  }
+});
+
 test('done / fail / next drive the queue', () => {
   run('init');
   const first = run('next');

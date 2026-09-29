@@ -25,6 +25,7 @@
 
 import fs from 'node:fs';
 import path from 'node:path';
+import crypto from 'node:crypto';
 import { ROOT, fetchURL, readJSON, writeJSON, ensureDir, log, sleep } from './lib.mjs';
 import { validateFile, humanBytes } from './validate-files.mjs';
 
@@ -33,6 +34,18 @@ const RAW = path.join(ROOT, 'data', '_raw', 'collection.json');
 const PLANS = path.join(ROOT, 'public', 'plans');
 const ORIGIN = 'https://www.parkjets.com';
 const PROBE_TIMEOUT = 25000;
+
+/**
+ * `--local-only` skips the network probe phase entirely.
+ *
+ * The default run re-probes every public endpoint for every aircraft, which is
+ * the right thing when first surveying the source site but takes many minutes
+ * and does not need repeating. When a maintainer drops plan files into
+ * public/plans/<slug>/ by hand, this mode picks them up, validates and hashes
+ * them, and carries every other entry forward from the previous manifest so no
+ * recorded probe history is lost.
+ */
+const LOCAL_ONLY = process.argv.includes('--local-only');
 
 const ARCHIVE_STATUS = {
   ARCHIVED: 'ARCHIVED',
@@ -84,7 +97,7 @@ async function tryDownload(url, referer) {
 let page0 = 'https://www.parkjets.com/';
 
 /** Any file the maintainer dropped into public/plans/<slug>/ by hand. */
-function findLocalPlan(ac) {
+function findLocalPlan(ac, publishedFilename) {
   const dir = path.join(PLANS, ac.slug);
   if (!fs.existsSync(dir)) return null;
   const files = fs
@@ -93,7 +106,56 @@ function findLocalPlan(ac) {
     .map((e) => path.join(dir, e.name));
   const allowed = /\.(zip|pdf|dxf|svg|dwg|rar|7z|skp|blend|igs|step|stp)$/i;
   const candidates = files.filter((f) => allowed.test(f));
-  return candidates[0] || null;
+  if (candidates.length === 0) return null;
+  if (candidates.length === 1) return candidates[0];
+
+  // Several files in one aircraft directory. Selection must be deterministic
+  // and evidence-based. A filename is never trusted on its own: the published
+  // original filename is the authority, and a trailing "-22" in "F-22" is an
+  // aircraft designation, NOT a browser duplicate marker.
+  const normName = (n) =>
+    String(n || '')
+      .toLowerCase()
+      .replace(/\.[^.]+$/, '')
+      .replace(/[^a-z0-9]+/g, '');
+  const target = normName(publishedFilename);
+
+  const scored = candidates
+    .map((f) => {
+      const name = path.basename(f);
+      // "(1)" is an unambiguous browser re-download marker; a bare "-1" is not,
+      // because designators legitimately end in numbers (F-22, B-52, X-29).
+      const parenDup = /\(\d+\)(?=\.[^.]+$)/.test(name) ? 1 : 0;
+      return {
+        f,
+        name,
+        parenDup,
+        matchesPublished: target ? (normName(name) === target ? 0 : 1) : 1,
+        size: fs.statSync(f).size,
+      };
+    })
+    .sort(
+      (a, b) =>
+        a.matchesPublished - b.matchesPublished ||
+        a.parenDup - b.parenDup ||
+        b.size - a.size ||
+        a.name.localeCompare(b.name)
+    );
+
+  const distinct = new Set(scored.map((s) => hashOf(s.f)));
+  if (distinct.size > 1) {
+    log(
+      `  ! ${ac.slug}: ${candidates.length} files with DIFFERENT content in ` +
+        `${path.relative(ROOT, dir)} — chose "${scored[0].name}". Review this aircraft.`
+    );
+  } else if (scored.length > 1) {
+    log(`  ${ac.slug}: ${scored.length} identical copies present — archived "${scored[0].name}".`);
+  }
+  return scored[0].f;
+}
+
+function hashOf(file) {
+  return crypto.createHash('sha256').update(fs.readFileSync(file)).digest('hex');
 }
 
 async function main() {
@@ -105,6 +167,21 @@ async function main() {
   ensureDir(PLANS);
   const manifest = [];
   const stats = { archived: 0, sourceOnly: 0, unavailable: 0, manualReview: 0, localFound: 0, downloaded: 0 };
+
+  // In offline mode the previous manifest is the source of truth for every
+  // entry that has no new local file.
+  const prevBySlug = LOCAL_ONLY
+    ? new Map(
+        (readJSON(path.join(ROOT, 'data', 'archive-manifest.json'), { entries: [] }).entries || []).map((e) => [
+          e.slug,
+          e,
+        ])
+      )
+    : new Map();
+
+  if (LOCAL_ONLY) {
+    log(`offline mode: ${prevBySlug.size} existing manifest entries carried forward; no network probes`);
+  }
 
   for (const ac of aircraft) {
     const dg = dgBySlug.get(ac.sourceSlug) || null;
@@ -133,7 +210,7 @@ async function main() {
     };
 
     // 1) A file already archived locally wins.
-    const local = findLocalPlan(ac);
+    const local = findLocalPlan(ac, dg?.filename);
     if (local) {
       const v = validateFile(local);
       entry.localFile = path.relative(ROOT, local).split(path.sep).join('/');
@@ -162,7 +239,63 @@ async function main() {
       continue;
     }
 
-    // 2) Otherwise try the source site's own public endpoints, once.
+    // 2) Offline mode: no local file, so carry the previous manifest entry
+    //    forward untouched. The recorded probe history and the original
+    //    filename must survive a drop-in ingest, not be reset to a guess.
+    if (LOCAL_ONLY) {
+      const prev = prevBySlug.get(ac.slug);
+      if (prev) {
+        manifest.push(prev);
+        if (prev.archiveStatus === ARCHIVE_STATUS.ARCHIVED) stats.archived += 1;
+        else if (prev.archiveStatus === ARCHIVE_STATUS.MANUAL_REVIEW) stats.manualReview += 1;
+        else if (prev.archiveStatus === ARCHIVE_STATUS.UNAVAILABLE) stats.unavailable += 1;
+        else stats.sourceOnly += 1;
+
+        ac.archiveStatus = prev.archiveStatus;
+        ac.download = prev.localFile
+          ? {
+              type: 'local',
+              file: prev.publicPath,
+              filename: path.basename(prev.localFile),
+              sourceUrl: ac.sourceUrl,
+              status: 'Archived and validated',
+              bytes: prev.bytes,
+              sha256: prev.sha256,
+              fileType: prev.fileType,
+            }
+          : {
+              type: 'source',
+              file: null,
+              sourceUrl: ac.sourceUrl,
+              originalFilename: prev.originalFilename,
+              format: prev.declaredType,
+              status: prev.notes,
+            };
+        continue;
+      }
+
+      // No local file and no previous record: record it honestly, no probing.
+      entry.archiveStatus = dg ? ARCHIVE_STATUS.SOURCE_ONLY : ARCHIVE_STATUS.UNAVAILABLE;
+      entry.notes = dg
+        ? 'No local file supplied yet. Awaiting a plan file dropped into public/plans/' +
+          ac.slug +
+          '/.'
+        : 'Source page publishes no downloadable file for this entry.';
+      stats[entry.archiveStatus === ARCHIVE_STATUS.UNAVAILABLE ? 'unavailable' : 'sourceOnly'] += 1;
+      ac.archiveStatus = entry.archiveStatus;
+      ac.download = {
+        type: 'source',
+        file: null,
+        sourceUrl: ac.sourceUrl,
+        originalFilename: dg?.filename || null,
+        format: dg?.systemDataSourceType || null,
+        status: entry.notes,
+      };
+      manifest.push(entry);
+      continue;
+    }
+
+    // 3) Otherwise try the source site's own public endpoints, once.
     if (dg) {
       for (const c of candidateUrls(ac, dg)) {
         await sleep(150);
@@ -197,7 +330,7 @@ async function main() {
       entry.attempts.push({ result: 'no digital good published for this item' });
     }
 
-    // 3) Classify.
+    // 4) Classify.
     if (!entry.localFile) {
       if (dg) {
         entry.archiveStatus = ARCHIVE_STATUS.SOURCE_ONLY;
@@ -235,6 +368,30 @@ async function main() {
     }
     ac.archiveStatus = entry.archiveStatus;
     manifest.push(entry);
+  }
+
+  /*
+   * `planStatus` is the vocabulary the migration/recovery evidence code reads
+   * (DOWNLOADED / SOURCE_ONLY / FAILED), while `archiveStatus` is the one the
+   * site renders. Both are written so a single manifest serves the website and
+   * the recovery machinery, and so the two can never disagree.
+   *
+   * DOWNLOADED is only ever claimed for an entry that already passed real
+   * validation above — the evidence collector re-verifies the bytes on disk
+   * before it will count it, so this cannot become a false completion.
+   */
+  const PLAN_STATUS = {
+    ARCHIVED: 'DOWNLOADED',
+    MANUAL_REVIEW: 'FAILED',
+    SOURCE_ONLY: 'SOURCE_ONLY',
+    UNAVAILABLE: 'SOURCE_ONLY',
+  };
+  for (const e of manifest) {
+    e.planStatus = PLAN_STATUS[e.archiveStatus] || 'PENDING';
+    if (e.planStatus === 'DOWNLOADED' && !e.sha256) {
+      // no digest means no proof of bytes — refuse to claim it
+      e.planStatus = 'PENDING';
+    }
   }
 
   writeJSON(path.join(ROOT, 'data', 'archive-manifest.json'), {

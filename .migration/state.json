@@ -4,18 +4,44 @@
   "status": "completed",
   "phase": "completed",
   "resumeRequired": false,
-  "recoveryReason": "power-loss-recovery",
-  "lastKnownCommit": "79baaf4697c5cfee0457e5e209d3fd0f6cf49e8b",
+  "planAcquisition": {
+    "target": "Archive a validated local copy of the plan file for every aircraft",
+    "outcome": "complete",
+    "method": "Plan files were NOT retrieved from Parkjets. The authorised MemberSpace account is behind a paid membership ($24.99/yr or $5 one-time) and the archive does not circumvent a paywall. The maintainer supplied their own paid-membership downloads from a local folder; those files were matched to aircraft by exact original filename from the Parkjets catalogue, validated, hashed, and copied in.",
+    "downloaded": 109,
+    "sourceOnly": 0,
+    "manualReview": 0,
+    "failed": 0,
+    "pending": 0,
+    "totalAircraft": 109,
+    "bytesArchived": 204902396,
+    "fileTypes": {
+      "ZIP": 105,
+      "PDF": 4
+    },
+    "loginEndpoint": "https://parkjets.memberspace.com/member/sign_in",
+    "collection": "https://www.parkjets.com/free-plans",
+    "probeAircraft": "f-22-raptor",
+    "probeSourceUrl": "https://www.parkjets.com/free-plans/p/f-22-raptor",
+    "verifiedBy": "scripts: validate-aircraft, validate-files, audit, and an independent filesystem re-hash of all 109 files"
+  },
+  "priorCompletionClaim": {
+    "note": "Retained for audit. This earlier claim was NOT valid: it counted 109 source URLs as plan archival. It was corrected, and this completion is backed by 109 validated files on disk with recorded SHA-256 digests.",
+    "claimedStatus": "completed",
+    "claimedAt": "2026-09-29T12:57:11.765Z",
+    "claimedCommit": "79baaf4697c5cfee0457e5e209d3fd0f6cf49e8b",
+    "supersededBy": "verified-file-ingest"
+  },
+  "lastKnownCommit": "997fd69301e0feaa7592d58b05608c7a56c728a2",
   "branch": "main",
   "origin": "https://github.com/eagleanurag/parkjet-aircraft-archive.git",
   "pagesUrl": "https://eagleanurag.github.io/parkjet-aircraft-archive/",
   "currentTask": null,
-  "lastCheckpoint": "2026-09-29T12:57:11.766Z",
+  "lastCheckpoint": "2026-09-29T20:18:18.603Z",
   "lastCheckpointReason": "project-complete",
   "startedAt": "2026-09-29T11:33:26.643Z",
-  "updatedAt": "2026-09-29T12:57:13.379Z",
-  "completedAt": "2026-09-29T12:57:11.765Z",
-  "finalCommit": "79baaf4697c5cfee0457e5e209d3fd0f6cf49e8b",
+  "updatedAt": "2026-09-29T20:18:18.603Z",
+  "finalCommit": "b5482cfb7a281b2431d1e0daf40e7130c885c61c",
   "evidence": {
     "aircraftRecords": 109,
     "uniqueSlugs": 109,
@@ -28,18 +54,24 @@
     "uncreditedDesigners": 2,
     "categories": 7,
     "archiveStatus": {
-      "SOURCE_ONLY": 109
+      "ARCHIVED": 109
     },
+    "planFilesDownloaded": 109,
+    "planFilesSourceOnly": 0,
+    "planFilesFailed": 0,
+    "planFilesPending": 0,
+    "planFilesResolved": 109,
     "manifestEntries": 109,
     "mediaDirs": 109,
     "mediaFiles": 838,
     "mediaBytes": 50413786,
     "distPages": 114,
-    "distFiles": 972,
-    "head": "79baaf4697c5cfee0457e5e209d3fd0f6cf49e8b",
+    "distFiles": 1081,
+    "head": "997fd69301e0feaa7592d58b05608c7a56c728a2",
     "branch": "main",
-    "originHead": "1cde6bb95a925d922f769924641b7fcae9e7f3ba",
-    "dirtyFiles": 2,
+    "originHead": "997fd69301e0feaa7592d58b05608c7a56c728a2",
+    "dirtyFiles": 25,
     "npmAuditClean": true
-  }
+  },
+  "completedAt": "2026-09-29T20:18:18.589Z"
 }

@@ -60,14 +60,16 @@
       }
     ],
     "sourceUrl": "https://www.parkjets.com/free-plans/p/a-4-skyhawk",
-    "archiveStatus": "SOURCE_ONLY",
+    "archiveStatus": "ARCHIVED",
     "download": {
-      "type": "source",
-      "file": null,
+      "type": "local",
+      "file": "/plans/a-4-skyhawk/GGRN+A-4.zip",
+      "filename": "GGRN+A-4.zip",
       "sourceUrl": "https://www.parkjets.com/free-plans/p/a-4-skyhawk",
-      "originalFilename": "GGRN A-4.zip",
-      "format": "ZIP",
-      "status": "Plan file is released to signed-in Parkjets members only. No public download endpoint exists; the original product page is linked instead."
+      "status": "Archived and validated",
+      "bytes": 1455219,
+      "sha256": "0ff7d0bbdfdb0ca8315ac727a9ee7995914db12fc1bbce939b1bfd265a87f4d0",
+      "fileType": "ZIP"
     },
     "license": {
       "status": "Third-party design — attribution to original designer",
@@ -146,14 +148,16 @@
       }
     ],
     "sourceUrl": "https://www.parkjets.com/free-plans/p/a-6-intruder",
-    "archiveStatus": "SOURCE_ONLY",
+    "archiveStatus": "ARCHIVED",
     "download": {
-      "type": "source",
-      "file": null,
+      "type": "local",
+      "file": "/plans/a-6-intruder/Fuelsguy+A-6.zip",
+      "filename": "Fuelsguy+A-6.zip",
       "sourceUrl": "https://www.parkjets.com/free-plans/p/a-6-intruder",
-      "originalFilename": "Fuelsguy A-6.zip",
-      "format": "ZIP",
-      "status": "Plan file is released to signed-in Parkjets members only. No public download endpoint exists; the original product page is linked instead."
+      "status": "Archived and validated",
+      "bytes": 682602,
+      "sha256": "2731ae4f691f4154a2f2bf2cb1d5383b886e2b9433e5fc81b93ee7c502368385",
+      "fileType": "ZIP"
     },
     "license": {
       "status": "Third-party design — attribution to original designer",
@@ -264,14 +268,16 @@
       }
     ],
     "sourceUrl": "https://www.parkjets.com/free-plans/p/av8-harrier",
-    "archiveStatus": "SOURCE_ONLY",
+    "archiveStatus": "ARCHIVED",
     "download": {
-      "type": "source",
-      "file": null,
+      "type": "local",
+      "file": "/plans/av8-harrier/AV8+Harrier.zip",
+      "filename": "AV8+Harrier.zip",
       "sourceUrl": "https://www.parkjets.com/free-plans/p/av8-harrier",
-      "originalFilename": "AV8 Harrier.zip",
-      "format": "ZIP",
-      "status": "Plan file is released to signed-in Parkjets members only. No public download endpoint exists; the original product page is linked instead."
+      "status": "Archived and validated",
+      "bytes": 519297,
+      "sha256": "cc195567be58b116d682c78216f2348a8851a25ff21616ed44097d8dba02faf5",
+      "fileType": "ZIP"
     },
     "license": {
       "status": "Third-party design — attribution to original designer",
@@ -355,14 +361,16 @@
       }
     ],
     "sourceUrl": "https://www.parkjets.com/free-plans/p/avro-arrow",
-    "archiveStatus": "SOURCE_ONLY",
+    "archiveStatus": "ARCHIVED",
     "download": {
-      "type": "source",
-      "file": null,
+      "type": "local",
+      "file": "/plans/avro-arrow/Avro+Arrow.zip",
+      "filename": "Avro+Arrow.zip",
       "sourceUrl": "https://www.parkjets.com/free-plans/p/avro-arrow",
-      "originalFilename": "Avro Arrow.zip",
-      "format": "ZIP",
-      "status": "Plan file is released to signed-in Parkjets members only. No public download endpoint exists; the original product page is linked instead."
+      "status": "Archived and validated",
+      "bytes": 2753550,
+      "sha256": "0afce4287f5626c9eda62a20dc9f42337c25373491765381716813267262d868",
+      "fileType": "ZIP"
     },
     "license": {
       "status": "Third-party design — attribution to original designer",
@@ -460,14 +468,16 @@
       }
     ],
     "sourceUrl": "https://www.parkjets.com/free-plans/p/b-52-buff",
-    "archiveStatus": "SOURCE_ONLY",
+    "archiveStatus": "ARCHIVED",
     "download": {
-      "type": "source",
-      "file": null,
+      "type": "local",
+      "file": "/plans/b-52-buff/B-52.zip",
+      "filename": "B-52.zip",
       "sourceUrl": "https://www.parkjets.com/free-plans/p/b-52-buff",
-      "originalFilename": "B-52.zip",
-      "format": "ZIP",
-      "status": "Plan file is released to signed-in Parkjets members only. No public download endpoint exists; the original product page is linked instead."
+      "status": "Archived and validated",
+      "bytes": 1006854,
+      "sha256": "9c6a1be416b506702adb78fab67b48c0e603b08bde9eae400b2d8089aa5af262",
+      "fileType": "ZIP"
     },
     "license": {
       "status": "Third-party design — attribution to original designer",
@@ -615,14 +625,16 @@
       }
     ],
     "sourceUrl": "https://www.parkjets.com/free-plans/p/b-58-hustler",
-    "archiveStatus": "SOURCE_ONLY",
+    "archiveStatus": "ARCHIVED",
     "download": {
-      "type": "source",
-      "file": null,
+      "type": "local",
+      "file": "/plans/b-58-hustler/B-58+Hustler.zip",
+      "filename": "B-58+Hustler.zip",
       "sourceUrl": "https://www.parkjets.com/free-plans/p/b-58-hustler",
-      "originalFilename": "B-58 Hustler.zip",
-      "format": "ZIP",
-      "status": "Plan file is released to signed-in Parkjets members only. No public download endpoint exists; the original product page is linked instead."
+      "status": "Archived and validated",
+      "bytes": 439795,
+      "sha256": "cd67358767e26185fed6ebbaab65846cfdfcf542ffaaf8831420c1c017e243ea",
+      "fileType": "ZIP"
     },
     "license": {
       "status": "Third-party design — attribution to original designer",
@@ -739,14 +751,16 @@
       }
     ],
     "sourceUrl": "https://www.parkjets.com/free-plans/p/bd-5",
-    "archiveStatus": "SOURCE_ONLY",
+    "archiveStatus": "ARCHIVED",
     "download": {
-      "type": "source",
-      "file": null,
+      "type": "local",
+      "file": "/plans/bd-5/BD-5.zip",
+      "filename": "BD-5.zip",
       "sourceUrl": "https://www.parkjets.com/free-plans/p/bd-5",
-      "originalFilename": "BD-5.zip",
-      "format": "ZIP",
-      "status": "Plan file is released to signed-in Parkjets members only. No public download endpoint exists; the original product page is linked instead."
+      "status": "Archived and validated",
+      "bytes": 2026342,
+      "sha256": "4d6e7a8678fa3085e308030c89e9df21773c7c39b13f1128c4310b87c6f4bf3f",
+      "fileType": "ZIP"
     },
     "license": {
       "status": "Third-party design — attribution to original designer",
@@ -884,14 +898,16 @@
       }
     ],
     "sourceUrl": "https://www.parkjets.com/free-plans/p/boeing-sonic-cruiser",
-    "archiveStatus": "SOURCE_ONLY",
+    "archiveStatus": "ARCHIVED",
     "download": {
-      "type": "source",
-      "file": null,
+      "type": "local",
+      "file": "/plans/boeing-sonic-cruiser/Boeing+Sonic+Cruiser.zip",
+      "filename": "Boeing+Sonic+Cruiser.zip",
       "sourceUrl": "https://www.parkjets.com/free-plans/p/boeing-sonic-cruiser",
-      "originalFilename": "Boeing Sonic Cruiser.zip",
-      "format": "ZIP",
-      "status": "Plan file is released to signed-in Parkjets members only. No public download endpoint exists; the original product page is linked instead."
+      "status": "Archived and validated",
+      "bytes": 114215,
+      "sha256": "1b6ac56d7a0f4c6e9872088fb2d63ae6ebd2c9e9f32b16c27134a272b7dfb867",
+      "fileType": "ZIP"
     },
     "license": {
       "status": "Third-party design — attribution to original designer",
@@ -1058,14 +1074,16 @@
       }
     ],
     "sourceUrl": "https://www.parkjets.com/free-plans/p/cargo-twin",
-    "archiveStatus": "SOURCE_ONLY",
+    "archiveStatus": "ARCHIVED",
     "download": {
-      "type": "source",
-      "file": null,
+      "type": "local",
+      "file": "/plans/cargo-twin/BOXERMAD84+CARGO+TWIN.zip",
+      "filename": "BOXERMAD84+CARGO+TWIN.zip",
       "sourceUrl": "https://www.parkjets.com/free-plans/p/cargo-twin",
-      "originalFilename": "BOXERMAD84 CARGO TWIN.zip",
-      "format": "ZIP",
-      "status": "Plan file is released to signed-in Parkjets members only. No public download endpoint exists; the original product page is linked instead."
+      "status": "Archived and validated",
+      "bytes": 1618820,
+      "sha256": "105930c6a8caa98f6de356aa2f0e2a46d45cf8f7e01313df85af2bbf85673ef5",
+      "fileType": "ZIP"
     },
     "license": {
       "status": "Third-party design — attribution to original designer",
@@ -1174,14 +1192,16 @@
       }
     ],
     "sourceUrl": "https://www.parkjets.com/free-plans/p/cat",
-    "archiveStatus": "SOURCE_ONLY",
+    "archiveStatus": "ARCHIVED",
     "download": {
-      "type": "source",
-      "file": null,
+      "type": "local",
+      "file": "/plans/cat/Cat+Project.zip",
+      "filename": "Cat+Project.zip",
       "sourceUrl": "https://www.parkjets.com/free-plans/p/cat",
-      "originalFilename": "Cat Project.zip",
-      "format": "ZIP",
-      "status": "Plan file is released to signed-in Parkjets members only. No public download endpoint exists; the original product page is linked instead."
+      "status": "Archived and validated",
+      "bytes": 15389,
+      "sha256": "72337e49321bae22e1e0a366feff97dcbf153d98c9f2f4933207d5b1c515bcaa",
+      "fileType": "ZIP"
     },
     "license": {
       "status": "Third-party design — attribution to original designer",
@@ -1295,14 +1315,16 @@
       }
     ],
     "sourceUrl": "https://www.parkjets.com/free-plans/p/chiggy",
-    "archiveStatus": "SOURCE_ONLY",
+    "archiveStatus": "ARCHIVED",
     "download": {
-      "type": "source",
-      "file": null,
+      "type": "local",
+      "file": "/plans/chiggy/chiggy.zip",
+      "filename": "chiggy.zip",
       "sourceUrl": "https://www.parkjets.com/free-plans/p/chiggy",
-      "originalFilename": "chiggy.zip",
-      "format": "ZIP",
-      "status": "Plan file is released to signed-in Parkjets members only. No public download endpoint exists; the original product page is linked instead."
+      "status": "Archived and validated",
+      "bytes": 98626,
+      "sha256": "b689d6f4060389bbf3fbafa91f722932a28f328122b3b057d1247f84b5ea7f88",
+      "fileType": "ZIP"
     },
     "license": {
       "status": "Third-party design — attribution to original designer",
@@ -1461,14 +1483,16 @@
       }
     ],
     "sourceUrl": "https://www.parkjets.com/free-plans/p/concorde-sst",
-    "archiveStatus": "SOURCE_ONLY",
+    "archiveStatus": "ARCHIVED",
     "download": {
-      "type": "source",
-      "file": null,
+      "type": "local",
+      "file": "/plans/concorde-sst/Nico+Concord+SST.zip",
+      "filename": "Nico+Concord+SST.zip",
       "sourceUrl": "https://www.parkjets.com/free-plans/p/concorde-sst",
-      "originalFilename": "Nico Concord SST.zip",
-      "format": "ZIP",
-      "status": "Plan file is released to signed-in Parkjets members only. No public download endpoint exists; the original product page is linked instead."
+      "status": "Archived and validated",
+      "bytes": 1064184,
+      "sha256": "47c41343bc5bd84acd9d41b42cb7ef1b95ba5963ad36d175aab18c3523f28285",
+      "fileType": "ZIP"
     },
     "license": {
       "status": "Third-party design — attribution to original designer",
@@ -1635,14 +1659,16 @@
       }
     ],
     "sourceUrl": "https://www.parkjets.com/free-plans/p/convair-xf2y-seadart",
-    "archiveStatus": "SOURCE_ONLY",
+    "archiveStatus": "ARCHIVED",
     "download": {
-      "type": "source",
-      "file": null,
+      "type": "local",
+      "file": "/plans/convair-xf2y-seadart/SeaDartV2.zip",
+      "filename": "SeaDartV2.zip",
       "sourceUrl": "https://www.parkjets.com/free-plans/p/convair-xf2y-seadart",
-      "originalFilename": "SeaDartV2.zip",
-      "format": "ZIP",
-      "status": "Plan file is released to signed-in Parkjets members only. No public download endpoint exists; the original product page is linked instead."
+      "status": "Archived and validated",
+      "bytes": 372681,
+      "sha256": "1d86852742bb3bbdbddbed41cd03361271fc31857c1577897b85fc3430fecd4c",
+      "fileType": "ZIP"
     },
     "license": {
       "status": "Third-party design — attribution to original designer",
@@ -1755,14 +1781,16 @@
       }
     ],
     "sourceUrl": "https://www.parkjets.com/free-plans/p/cozy",
-    "archiveStatus": "SOURCE_ONLY",
+    "archiveStatus": "ARCHIVED",
     "download": {
-      "type": "source",
-      "file": null,
+      "type": "local",
+      "file": "/plans/cozy/Cozy.zip",
+      "filename": "Cozy.zip",
       "sourceUrl": "https://www.parkjets.com/free-plans/p/cozy",
-      "originalFilename": "Cozy.zip",
-      "format": "ZIP",
-      "status": "Plan file is released to signed-in Parkjets members only. No public download endpoint exists; the original product page is linked instead."
+      "status": "Archived and validated",
+      "bytes": 1376891,
+      "sha256": "c936b3cf5a01ef9b7321b79cab3f6281764e454856cdd88da173c1f2ad4954c6",
+      "fileType": "ZIP"
     },
     "license": {
       "status": "Third-party design — attribution to original designer",
@@ -1898,14 +1926,16 @@
       }
     ],
     "sourceUrl": "https://www.parkjets.com/free-plans/p/cutlass",
-    "archiveStatus": "SOURCE_ONLY",
+    "archiveStatus": "ARCHIVED",
     "download": {
-      "type": "source",
-      "file": null,
+      "type": "local",
+      "file": "/plans/cutlass/Cutlass.zip",
+      "filename": "Cutlass.zip",
       "sourceUrl": "https://www.parkjets.com/free-plans/p/cutlass",
-      "originalFilename": "Cutlass.zip",
-      "format": "ZIP",
-      "status": "Plan file is released to signed-in Parkjets members only. No public download endpoint exists; the original product page is linked instead."
+      "status": "Archived and validated",
+      "bytes": 314744,
+      "sha256": "7d017b898faf34d0a55ee638ed94ddf542609c730f91d58d2b4bcf83f744cc75",
+      "fileType": "ZIP"
     },
     "license": {
       "status": "Third-party design — attribution to original designer",
@@ -2046,14 +2076,16 @@
       }
     ],
     "sourceUrl": "https://www.parkjets.com/free-plans/p/cylon-raider",
-    "archiveStatus": "SOURCE_ONLY",
+    "archiveStatus": "ARCHIVED",
     "download": {
-      "type": "source",
-      "file": null,
+      "type": "local",
+      "file": "/plans/cylon-raider/Cylon+Raider.zip",
+      "filename": "Cylon+Raider.zip",
       "sourceUrl": "https://www.parkjets.com/free-plans/p/cylon-raider",
-      "originalFilename": "Cylon Raider.zip",
-      "format": "ZIP",
-      "status": "Plan file is released to signed-in Parkjets members only. No public download endpoint exists; the original product page is linked instead."
+      "status": "Archived and validated",
+      "bytes": 667626,
+      "sha256": "c11a867267e07ad400f22c6bac107658a88c129ba641a64a482c4337426375c4",
+      "fileType": "ZIP"
     },
     "license": {
       "status": "Third-party design — attribution to original designer",
@@ -2184,14 +2216,16 @@
       }
     ],
     "sourceUrl": "https://www.parkjets.com/free-plans/p/dassault-rafale",
-    "archiveStatus": "SOURCE_ONLY",
+    "archiveStatus": "ARCHIVED",
     "download": {
-      "type": "source",
-      "file": null,
+      "type": "local",
+      "file": "/plans/dassault-rafale/Dassault+Rafale.zip",
+      "filename": "Dassault+Rafale.zip",
       "sourceUrl": "https://www.parkjets.com/free-plans/p/dassault-rafale",
-      "originalFilename": "Dassault Rafale.zip",
-      "format": "ZIP",
-      "status": "Plan file is released to signed-in Parkjets members only. No public download endpoint exists; the original product page is linked instead."
+      "status": "Archived and validated",
+      "bytes": 73005,
+      "sha256": "6ddcbd676be82ebda9f5faa891d3aa3d23b8176e40ee09174f1da8e104dd792b",
+      "fileType": "ZIP"
     },
     "license": {
       "status": "Third-party design — attribution to original designer",
@@ -2452,14 +2486,16 @@
       }
     ],
     "sourceUrl": "https://www.parkjets.com/free-plans/p/decal-pack",
-    "archiveStatus": "SOURCE_ONLY",
+    "archiveStatus": "ARCHIVED",
     "download": {
-      "type": "source",
-      "file": null,
+      "type": "local",
+      "file": "/plans/decal-pack/Decals.zip",
+      "filename": "Decals.zip",
       "sourceUrl": "https://www.parkjets.com/free-plans/p/decal-pack",
-      "originalFilename": "Decals.zip",
-      "format": "ZIP",
-      "status": "Plan file is released to signed-in Parkjets members only. No public download endpoint exists; the original product page is linked instead."
+      "status": "Archived and validated",
+      "bytes": 38838649,
+      "sha256": "8efc82fe26200365e2b30357a2abc5ff16c46e748ad1a8103258dffeffc42fa8",
+      "fileType": "ZIP"
     },
     "license": {
       "status": "Third-party design — attribution to original designer",
@@ -2545,14 +2581,16 @@
       }
     ],
     "sourceUrl": "https://www.parkjets.com/free-plans/p/decent-spaceship",
-    "archiveStatus": "SOURCE_ONLY",
+    "archiveStatus": "ARCHIVED",
     "download": {
-      "type": "source",
-      "file": null,
+      "type": "local",
+      "file": "/plans/decent-spaceship/Decent+Ship.zip",
+      "filename": "Decent+Ship.zip",
       "sourceUrl": "https://www.parkjets.com/free-plans/p/decent-spaceship",
-      "originalFilename": "Decent Ship.zip",
-      "format": "ZIP",
-      "status": "Plan file is released to signed-in Parkjets members only. No public download endpoint exists; the original product page is linked instead."
+      "status": "Archived and validated",
+      "bytes": 1599165,
+      "sha256": "2ac68e42c2ff0dce155cae327faeff5ad63874b542140f10925d1668915d06ee",
+      "fileType": "ZIP"
     },
     "license": {
       "status": "Third-party design — attribution to original designer",
@@ -2717,14 +2755,16 @@
       }
     ],
     "sourceUrl": "https://www.parkjets.com/free-plans/p/drongo",
-    "archiveStatus": "SOURCE_ONLY",
+    "archiveStatus": "ARCHIVED",
     "download": {
-      "type": "source",
-      "file": null,
+      "type": "local",
+      "file": "/plans/drongo/Drongo.zip",
+      "filename": "Drongo.zip",
       "sourceUrl": "https://www.parkjets.com/free-plans/p/drongo",
-      "originalFilename": "Drongo.zip",
-      "format": "ZIP",
-      "status": "Plan file is released to signed-in Parkjets members only. No public download endpoint exists; the original product page is linked instead."
+      "status": "Archived and validated",
+      "bytes": 319629,
+      "sha256": "efc71d35c614f4c83d5526743294891608f9882f87cb047e7bd969d91c625f02",
+      "fileType": "ZIP"
     },
     "license": {
       "status": "Third-party design — attribution to original designer",
@@ -2874,14 +2914,16 @@
       }
     ],
     "sourceUrl": "https://www.parkjets.com/free-plans/p/eads-barracuda",
-    "archiveStatus": "SOURCE_ONLY",
+    "archiveStatus": "ARCHIVED",
     "download": {
-      "type": "source",
-      "file": null,
+      "type": "local",
+      "file": "/plans/eads-barracuda/EADS+Barracuda+EDF2.zip",
+      "filename": "EADS+Barracuda+EDF2.zip",
       "sourceUrl": "https://www.parkjets.com/free-plans/p/eads-barracuda",
-      "originalFilename": "EADS Barracuda EDF2.zip",
-      "format": "ZIP",
-      "status": "Plan file is released to signed-in Parkjets members only. No public download endpoint exists; the original product page is linked instead."
+      "status": "Archived and validated",
+      "bytes": 2257304,
+      "sha256": "a85d90362a12dc048f15839406e071c41fc562e71f8049258b2187df3e8f5d3c",
+      "fileType": "ZIP"
     },
     "license": {
       "status": "Third-party design — attribution to original designer",
@@ -3004,14 +3046,16 @@
       }
     ],
     "sourceUrl": "https://www.parkjets.com/free-plans/p/enterprise-d",
-    "archiveStatus": "SOURCE_ONLY",
+    "archiveStatus": "ARCHIVED",
     "download": {
-      "type": "source",
-      "file": null,
+      "type": "local",
+      "file": "/plans/enterprise-d/Enterprise+D.zip",
+      "filename": "Enterprise+D.zip",
       "sourceUrl": "https://www.parkjets.com/free-plans/p/enterprise-d",
-      "originalFilename": "Enterprise D.zip",
-      "format": "ZIP",
-      "status": "Plan file is released to signed-in Parkjets members only. No public download endpoint exists; the original product page is linked instead."
+      "status": "Archived and validated",
+      "bytes": 3774440,
+      "sha256": "95866691146e2c7aaecabdf6b66111233e7e848425de7e27aa4ce1eb052887de",
+      "fileType": "ZIP"
     },
     "license": {
       "status": "Third-party design — attribution to original designer",
@@ -3091,14 +3135,16 @@
       }
     ],
     "sourceUrl": "https://www.parkjets.com/free-plans/p/etendard",
-    "archiveStatus": "SOURCE_ONLY",
+    "archiveStatus": "ARCHIVED",
     "download": {
-      "type": "source",
-      "file": null,
+      "type": "local",
+      "file": "/plans/etendard/Super+Extendard.zip",
+      "filename": "Super+Extendard.zip",
       "sourceUrl": "https://www.parkjets.com/free-plans/p/etendard",
-      "originalFilename": "Super Extendard.zip",
-      "format": "ZIP",
-      "status": "Plan file is released to signed-in Parkjets members only. No public download endpoint exists; the original product page is linked instead."
+      "status": "Archived and validated",
+      "bytes": 243676,
+      "sha256": "90c1ea76e25e1604d53b8d93c7e414d80a4c62639aecc48f01634fdf40d15780",
+      "fileType": "ZIP"
     },
     "license": {
       "status": "Third-party design — attribution to original designer",
@@ -3238,14 +3284,16 @@
       }
     ],
     "sourceUrl": "https://www.parkjets.com/free-plans/p/tw9dvaufkozwogojgllovt9zpnd438",
-    "archiveStatus": "SOURCE_ONLY",
+    "archiveStatus": "ARCHIVED",
     "download": {
-      "type": "source",
-      "file": null,
+      "type": "local",
+      "file": "/plans/eurofighter/Tomhe-Eurofighter.zip",
+      "filename": "Tomhe-Eurofighter.zip",
       "sourceUrl": "https://www.parkjets.com/free-plans/p/tw9dvaufkozwogojgllovt9zpnd438",
-      "originalFilename": "Tomhe-Eurofighter.zip",
-      "format": "ZIP",
-      "status": "Plan file is released to signed-in Parkjets members only. No public download endpoint exists; the original product page is linked instead."
+      "status": "Archived and validated",
+      "bytes": 56809,
+      "sha256": "e3cf7de9f7f458173212430651115f7a33c38033a6162f2f6586a9d725c301fa",
+      "fileType": "ZIP"
     },
     "license": {
       "status": "Third-party design — attribution to original designer",
@@ -3334,14 +3382,16 @@
       }
     ],
     "sourceUrl": "https://www.parkjets.com/free-plans/p/eurofighter-2000",
-    "archiveStatus": "SOURCE_ONLY",
+    "archiveStatus": "ARCHIVED",
     "download": {
-      "type": "source",
-      "file": null,
+      "type": "local",
+      "file": "/plans/eurofighter-2000/EF2000+Alan.zip",
+      "filename": "EF2000+Alan.zip",
       "sourceUrl": "https://www.parkjets.com/free-plans/p/eurofighter-2000",
-      "originalFilename": "EF2000 Alan.zip",
-      "format": "ZIP",
-      "status": "Plan file is released to signed-in Parkjets members only. No public download endpoint exists; the original product page is linked instead."
+      "status": "Archived and validated",
+      "bytes": 1498210,
+      "sha256": "e48b2af53e6e3af3328550f57063c23dfd4dd08f6d3a275f631fd42608354f25",
+      "fileType": "ZIP"
     },
     "license": {
       "status": "Third-party design — attribution to original designer",
@@ -3496,14 +3546,16 @@
       }
     ],
     "sourceUrl": "https://www.parkjets.com/free-plans/p/eurofighter",
-    "archiveStatus": "SOURCE_ONLY",
+    "archiveStatus": "ARCHIVED",
     "download": {
-      "type": "source",
-      "file": null,
+      "type": "local",
+      "file": "/plans/eurofighter-2/Eurofighter+JR.zip",
+      "filename": "Eurofighter+JR.zip",
       "sourceUrl": "https://www.parkjets.com/free-plans/p/eurofighter",
-      "originalFilename": "Eurofighter JR.zip",
-      "format": "ZIP",
-      "status": "Plan file is released to signed-in Parkjets members only. No public download endpoint exists; the original product page is linked instead."
+      "status": "Archived and validated",
+      "bytes": 1972902,
+      "sha256": "56f7e0714d8dad7313258bc10423ce3f0766d4a9b7c09e5f7eac220de1fbbf77",
+      "fileType": "ZIP"
     },
     "license": {
       "status": "Third-party design — attribution to original designer",
@@ -3602,14 +3654,16 @@
       }
     ],
     "sourceUrl": "https://www.parkjets.com/free-plans/p/f-100-super-sabre",
-    "archiveStatus": "SOURCE_ONLY",
+    "archiveStatus": "ARCHIVED",
     "download": {
-      "type": "source",
-      "file": null,
+      "type": "local",
+      "file": "/plans/f-100-super-sabre/F-100.zip",
+      "filename": "F-100.zip",
       "sourceUrl": "https://www.parkjets.com/free-plans/p/f-100-super-sabre",
-      "originalFilename": "F-100.zip",
-      "format": "ZIP",
-      "status": "Plan file is released to signed-in Parkjets members only. No public download endpoint exists; the original product page is linked instead."
+      "status": "Archived and validated",
+      "bytes": 138984,
+      "sha256": "c29fdc04e64f09bdc12ff5d8b7b8c14f449e0e3631d3a8d94703d0c0916edf5e",
+      "fileType": "ZIP"
     },
     "license": {
       "status": "Third-party design — attribution to original designer",
@@ -3695,14 +3749,16 @@
       }
     ],
     "sourceUrl": "https://www.parkjets.com/free-plans/p/f-104-starfighter",
-    "archiveStatus": "SOURCE_ONLY",
+    "archiveStatus": "ARCHIVED",
     "download": {
-      "type": "source",
-      "file": null,
+      "type": "local",
+      "file": "/plans/f-104-starfighter/F-104.zip",
+      "filename": "F-104.zip",
       "sourceUrl": "https://www.parkjets.com/free-plans/p/f-104-starfighter",
-      "originalFilename": "F-104.zip",
-      "format": "ZIP",
-      "status": "Plan file is released to signed-in Parkjets members only. No public download endpoint exists; the original product page is linked instead."
+      "status": "Archived and validated",
+      "bytes": 34498,
+      "sha256": "d45dd930195eef0e1b71a1cecf21ea0ec0a036818c8eb16803339ac4fca924bc",
+      "fileType": "ZIP"
     },
     "license": {
       "status": "Third-party design — attribution to original designer",
@@ -3804,14 +3860,16 @@
       }
     ],
     "sourceUrl": "https://www.parkjets.com/free-plans/p/f-105",
-    "archiveStatus": "SOURCE_ONLY",
+    "archiveStatus": "ARCHIVED",
     "download": {
-      "type": "source",
-      "file": null,
+      "type": "local",
+      "file": "/plans/f-105/F-105D.zip",
+      "filename": "F-105D.zip",
       "sourceUrl": "https://www.parkjets.com/free-plans/p/f-105",
-      "originalFilename": "F-105D.zip",
-      "format": "ZIP",
-      "status": "Plan file is released to signed-in Parkjets members only. No public download endpoint exists; the original product page is linked instead."
+      "status": "Archived and validated",
+      "bytes": 490279,
+      "sha256": "f992d7ab03a1e06d789d94a5fd6112d6b47773555fdf1e98d07bee3057c05903",
+      "fileType": "ZIP"
     },
     "license": {
       "status": "Third-party design — attribution to original designer",
@@ -3899,14 +3957,16 @@
       }
     ],
     "sourceUrl": "https://www.parkjets.com/free-plans/p/f-106-delta-dart",
-    "archiveStatus": "SOURCE_ONLY",
+    "archiveStatus": "ARCHIVED",
     "download": {
-      "type": "source",
-      "file": null,
+      "type": "local",
+      "file": "/plans/f-106-delta-dart/F-106.zip",
+      "filename": "F-106.zip",
       "sourceUrl": "https://www.parkjets.com/free-plans/p/f-106-delta-dart",
-      "originalFilename": "F-106.zip",
-      "format": "ZIP",
-      "status": "Plan file is released to signed-in Parkjets members only. No public download endpoint exists; the original product page is linked instead."
+      "status": "Archived and validated",
+      "bytes": 101154,
+      "sha256": "0e03d89c4c4b36558a2e363898423d1d1a0943cc1c3a7b8f04a68c725847133f",
+      "fileType": "ZIP"
     },
     "license": {
       "status": "Third-party design — attribution to original designer",
@@ -4005,14 +4065,16 @@
       }
     ],
     "sourceUrl": "https://www.parkjets.com/free-plans/p/f-117-night-hawk",
-    "archiveStatus": "SOURCE_ONLY",
+    "archiveStatus": "ARCHIVED",
     "download": {
-      "type": "source",
-      "file": null,
+      "type": "local",
+      "file": "/plans/f-117-night-hawk/F-117.zip",
+      "filename": "F-117.zip",
       "sourceUrl": "https://www.parkjets.com/free-plans/p/f-117-night-hawk",
-      "originalFilename": "F-117.zip",
-      "format": "ZIP",
-      "status": "Plan file is released to signed-in Parkjets members only. No public download endpoint exists; the original product page is linked instead."
+      "status": "Archived and validated",
+      "bytes": 264994,
+      "sha256": "9490523425acd850c9989b98a57512b15371ba3a63d8e02c979af0f42d3c6cdb",
+      "fileType": "ZIP"
     },
     "license": {
       "status": "Third-party design — attribution to original designer",
@@ -4212,14 +4274,16 @@
       }
     ],
     "sourceUrl": "https://www.parkjets.com/free-plans/p/f-14-tomcat-3",
-    "archiveStatus": "SOURCE_ONLY",
+    "archiveStatus": "ARCHIVED",
     "download": {
-      "type": "source",
-      "file": null,
+      "type": "local",
+      "file": "/plans/f-14-tomcat-3/Shumate+F-14.zip",
+      "filename": "Shumate+F-14.zip",
       "sourceUrl": "https://www.parkjets.com/free-plans/p/f-14-tomcat-3",
-      "originalFilename": "Shumate F-14.zip",
-      "format": "ZIP",
-      "status": "Plan file is released to signed-in Parkjets members only. No public download endpoint exists; the original product page is linked instead."
+      "status": "Archived and validated",
+      "bytes": 6147461,
+      "sha256": "db24b448480aac453af096ac5bdb4e3a0e26d702614a764efa41a6c2e35485ca",
+      "fileType": "ZIP"
     },
     "license": {
       "status": "Third-party design — attribution to original designer",
@@ -4405,14 +4469,16 @@
       }
     ],
     "sourceUrl": "https://www.parkjets.com/free-plans/p/f-14-tomcat-1",
-    "archiveStatus": "SOURCE_ONLY",
+    "archiveStatus": "ARCHIVED",
     "download": {
-      "type": "source",
-      "file": null,
+      "type": "local",
+      "file": "/plans/f-14-tomcat-1/F-14JS.zip",
+      "filename": "F-14JS.zip",
       "sourceUrl": "https://www.parkjets.com/free-plans/p/f-14-tomcat-1",
-      "originalFilename": "F-14JS.zip",
-      "format": "ZIP",
-      "status": "Plan file is released to signed-in Parkjets members only. No public download endpoint exists; the original product page is linked instead."
+      "status": "Archived and validated",
+      "bytes": 96507,
+      "sha256": "3d2d547966aa3dbb173e108a1dae01ab529f4aa5b297014a8d3eaabbc0257e76",
+      "fileType": "ZIP"
     },
     "license": {
       "status": "Third-party design — attribution to original designer",
@@ -4594,14 +4660,16 @@
       }
     ],
     "sourceUrl": "https://www.parkjets.com/free-plans/p/f-14-tomcat",
-    "archiveStatus": "SOURCE_ONLY",
+    "archiveStatus": "ARCHIVED",
     "download": {
-      "type": "source",
-      "file": null,
+      "type": "local",
+      "file": "/plans/f-14-tomcat/MDC+F-14.zip",
+      "filename": "MDC+F-14.zip",
       "sourceUrl": "https://www.parkjets.com/free-plans/p/f-14-tomcat",
-      "originalFilename": "MDC F-14.zip",
-      "format": "ZIP",
-      "status": "Plan file is released to signed-in Parkjets members only. No public download endpoint exists; the original product page is linked instead."
+      "status": "Archived and validated",
+      "bytes": 68286,
+      "sha256": "52119492bd6addba0681b32f6ff5555f697654465e059c0cdb7854953142b3c3",
+      "fileType": "ZIP"
     },
     "license": {
       "status": "Third-party design — attribution to original designer",
@@ -4732,14 +4800,16 @@
       }
     ],
     "sourceUrl": "https://www.parkjets.com/free-plans/p/f-14-tomcat-2",
-    "archiveStatus": "SOURCE_ONLY",
+    "archiveStatus": "ARCHIVED",
     "download": {
-      "type": "source",
-      "file": null,
+      "type": "local",
+      "file": "/plans/f-14-tomcat-2/MHF-14.zip",
+      "filename": "MHF-14.zip",
       "sourceUrl": "https://www.parkjets.com/free-plans/p/f-14-tomcat-2",
-      "originalFilename": "MHF-14.zip",
-      "format": "ZIP",
-      "status": "Plan file is released to signed-in Parkjets members only. No public download endpoint exists; the original product page is linked instead."
+      "status": "Archived and validated",
+      "bytes": 3856976,
+      "sha256": "87063ad73da00fe8bd049ab49298587d322fc652e5ec3986f98ededaff8b3f5f",
+      "fileType": "ZIP"
     },
     "license": {
       "status": "Third-party design — attribution to original designer",
@@ -4870,14 +4940,16 @@
       }
     ],
     "sourceUrl": "https://www.parkjets.com/free-plans/p/f-15-eagle",
-    "archiveStatus": "SOURCE_ONLY",
+    "archiveStatus": "ARCHIVED",
     "download": {
-      "type": "source",
-      "file": null,
+      "type": "local",
+      "file": "/plans/f-15-eagle/f15plans.zip",
+      "filename": "f15plans.zip",
       "sourceUrl": "https://www.parkjets.com/free-plans/p/f-15-eagle",
-      "originalFilename": "f15plans.zip",
-      "format": "ZIP",
-      "status": "Plan file is released to signed-in Parkjets members only. No public download endpoint exists; the original product page is linked instead."
+      "status": "Archived and validated",
+      "bytes": 2105391,
+      "sha256": "a4d2330313cd5207f63aff5606eba9877aeb6c1506e9cdd7fe5d8976a0541eaa",
+      "fileType": "ZIP"
     },
     "license": {
       "status": "Third-party design — attribution to original designer",
@@ -5009,14 +5081,16 @@
       }
     ],
     "sourceUrl": "https://www.parkjets.com/free-plans/p/f-15-mk2",
-    "archiveStatus": "SOURCE_ONLY",
+    "archiveStatus": "ARCHIVED",
     "download": {
-      "type": "source",
-      "file": null,
+      "type": "local",
+      "file": "/plans/f-15-mk2/FRCFOAMIES+F15-MK2.zip",
+      "filename": "FRCFOAMIES+F15-MK2.zip",
       "sourceUrl": "https://www.parkjets.com/free-plans/p/f-15-mk2",
-      "originalFilename": "FRCFOAMIES F15-MK2.zip",
-      "format": "ZIP",
-      "status": "Plan file is released to signed-in Parkjets members only. No public download endpoint exists; the original product page is linked instead."
+      "status": "Archived and validated",
+      "bytes": 5020836,
+      "sha256": "fd8215773cbb62ebd6510760d3847f41ae0dc05c5009cd1ff67228242bf110db",
+      "fileType": "ZIP"
     },
     "license": {
       "status": "Third-party design — attribution to original designer",
@@ -5164,14 +5238,16 @@
       }
     ],
     "sourceUrl": "https://www.parkjets.com/free-plans/p/f-16-falcon",
-    "archiveStatus": "SOURCE_ONLY",
+    "archiveStatus": "ARCHIVED",
     "download": {
-      "type": "source",
-      "file": null,
+      "type": "local",
+      "file": "/plans/f-16-falcon/NAC+F-16.zip",
+      "filename": "NAC+F-16.zip",
       "sourceUrl": "https://www.parkjets.com/free-plans/p/f-16-falcon",
-      "originalFilename": "NAC F-16.zip",
-      "format": "ZIP",
-      "status": "Plan file is released to signed-in Parkjets members only. No public download endpoint exists; the original product page is linked instead."
+      "status": "Archived and validated",
+      "bytes": 706454,
+      "sha256": "f038c91028c10568ec7a93d0961a48d4731287748ae1c771f7cee6eee0a6d790",
+      "fileType": "ZIP"
     },
     "license": {
       "status": "Third-party design — attribution to original designer",
@@ -5258,14 +5334,16 @@
       }
     ],
     "sourceUrl": "https://www.parkjets.com/free-plans/p/f-16-falcon-1",
-    "archiveStatus": "SOURCE_ONLY",
+    "archiveStatus": "ARCHIVED",
     "download": {
-      "type": "source",
-      "file": null,
+      "type": "local",
+      "file": "/plans/f-16-falcon-1/JH+F-16.zip",
+      "filename": "JH+F-16.zip",
       "sourceUrl": "https://www.parkjets.com/free-plans/p/f-16-falcon-1",
-      "originalFilename": "JH F-16.zip",
-      "format": "ZIP",
-      "status": "Plan file is released to signed-in Parkjets members only. No public download endpoint exists; the original product page is linked instead."
+      "status": "Archived and validated",
+      "bytes": 4571350,
+      "sha256": "8ec483edbaf954f02ded58fa0c91a006a6b36b65ee6b0b414765764e38e8b5cd",
+      "fileType": "ZIP"
     },
     "license": {
       "status": "Third-party design — attribution to original designer",
@@ -5367,14 +5445,16 @@
       }
     ],
     "sourceUrl": "https://www.parkjets.com/free-plans/p/f-16xl",
-    "archiveStatus": "SOURCE_ONLY",
+    "archiveStatus": "ARCHIVED",
     "download": {
-      "type": "source",
-      "file": null,
+      "type": "local",
+      "file": "/plans/f-16xl/F-16XL.zip",
+      "filename": "F-16XL.zip",
       "sourceUrl": "https://www.parkjets.com/free-plans/p/f-16xl",
-      "originalFilename": "F-16XL.zip",
-      "format": "ZIP",
-      "status": "Plan file is released to signed-in Parkjets members only. No public download endpoint exists; the original product page is linked instead."
+      "status": "Archived and validated",
+      "bytes": 1743582,
+      "sha256": "3aa631f46bedc25132b941b036d9378a1facfefe709bebcf85c26fffc2e59f50",
+      "fileType": "ZIP"
     },
     "license": {
       "status": "Third-party design — attribution to original designer",
@@ -5452,14 +5532,16 @@
       }
     ],
     "sourceUrl": "https://www.parkjets.com/free-plans/p/f-18a-hornet",
-    "archiveStatus": "SOURCE_ONLY",
+    "archiveStatus": "ARCHIVED",
     "download": {
-      "type": "source",
-      "file": null,
+      "type": "local",
+      "file": "/plans/f-18a-hornet/Boogie+F-18.zip",
+      "filename": "Boogie+F-18.zip",
       "sourceUrl": "https://www.parkjets.com/free-plans/p/f-18a-hornet",
-      "originalFilename": "Boogie F-18.zip",
-      "format": "ZIP",
-      "status": "Plan file is released to signed-in Parkjets members only. No public download endpoint exists; the original product page is linked instead."
+      "status": "Archived and validated",
+      "bytes": 549847,
+      "sha256": "72e7f57be697c3185273a29be7a249ab727800737aebcbf31d2bc35b59b6c6b1",
+      "fileType": "ZIP"
     },
     "license": {
       "status": "Third-party design — attribution to original designer",
@@ -5570,14 +5652,16 @@
       }
     ],
     "sourceUrl": "https://www.parkjets.com/free-plans/p/f-18c-hornet",
-    "archiveStatus": "SOURCE_ONLY",
+    "archiveStatus": "ARCHIVED",
     "download": {
-      "type": "source",
-      "file": null,
+      "type": "local",
+      "file": "/plans/f-18c-hornet/Shumate+F-18.zip",
+      "filename": "Shumate+F-18.zip",
       "sourceUrl": "https://www.parkjets.com/free-plans/p/f-18c-hornet",
-      "originalFilename": "Shumate F-18.zip",
-      "format": "ZIP",
-      "status": "Plan file is released to signed-in Parkjets members only. No public download endpoint exists; the original product page is linked instead."
+      "status": "Archived and validated",
+      "bytes": 3481844,
+      "sha256": "3d561ee10f0df5cad9515cec5ec8ee30e8fb97881c245fe77b100a35e8b5db79",
+      "fileType": "ZIP"
     },
     "license": {
       "status": "Third-party design — attribution to original designer",
@@ -5695,14 +5779,16 @@
       }
     ],
     "sourceUrl": "https://www.parkjets.com/free-plans/p/f-18e-super-hornet-1",
-    "archiveStatus": "SOURCE_ONLY",
+    "archiveStatus": "ARCHIVED",
     "download": {
-      "type": "source",
-      "file": null,
+      "type": "local",
+      "file": "/plans/f-18e-super-hornet-1/Super+Hornet-2.zip",
+      "filename": "Super+Hornet-2.zip",
       "sourceUrl": "https://www.parkjets.com/free-plans/p/f-18e-super-hornet-1",
-      "originalFilename": "Super Hornet-2.zip",
-      "format": "ZIP",
-      "status": "Plan file is released to signed-in Parkjets members only. No public download endpoint exists; the original product page is linked instead."
+      "status": "Archived and validated",
+      "bytes": 453988,
+      "sha256": "9ea5e42083c155bc8e7132d8eb74ca796c5224f4eeca4cd8c013a47ead2a5392",
+      "fileType": "ZIP"
     },
     "license": {
       "status": "Third-party design — attribution to original designer",
@@ -5824,14 +5910,16 @@
       }
     ],
     "sourceUrl": "https://www.parkjets.com/free-plans/p/f-18e-super-hornet",
-    "archiveStatus": "SOURCE_ONLY",
+    "archiveStatus": "ARCHIVED",
     "download": {
-      "type": "source",
-      "file": null,
+      "type": "local",
+      "file": "/plans/f-18e-super-hornet/Tomhe+F-18E.zip",
+      "filename": "Tomhe+F-18E.zip",
       "sourceUrl": "https://www.parkjets.com/free-plans/p/f-18e-super-hornet",
-      "originalFilename": "Tomhe F-18E.zip",
-      "format": "ZIP",
-      "status": "Plan file is released to signed-in Parkjets members only. No public download endpoint exists; the original product page is linked instead."
+      "status": "Archived and validated",
+      "bytes": 26765,
+      "sha256": "99676a52cf3c609dd9fbe3360aab1b93debb7dbbb1dc0c476a90b1ff9b3c6086",
+      "fileType": "ZIP"
     },
     "license": {
       "status": "Third-party design — attribution to original designer",
@@ -5952,14 +6040,16 @@
       }
     ],
     "sourceUrl": "https://www.parkjets.com/free-plans/p/f-19-sea-wasp",
-    "archiveStatus": "SOURCE_ONLY",
+    "archiveStatus": "ARCHIVED",
     "download": {
-      "type": "source",
-      "file": null,
+      "type": "local",
+      "file": "/plans/f-19-sea-wasp/F-19.zip",
+      "filename": "F-19.zip",
       "sourceUrl": "https://www.parkjets.com/free-plans/p/f-19-sea-wasp",
-      "originalFilename": "F-19.zip",
-      "format": "ZIP",
-      "status": "Plan file is released to signed-in Parkjets members only. No public download endpoint exists; the original product page is linked instead."
+      "status": "Archived and validated",
+      "bytes": 792564,
+      "sha256": "71bedfdccbff38fd46cde2fabeff46cd621f418074ff414ec04ebd25083cdbe2",
+      "fileType": "ZIP"
     },
     "license": {
       "status": "Third-party design — attribution to original designer",
@@ -6042,14 +6132,16 @@
       }
     ],
     "sourceUrl": "https://www.parkjets.com/free-plans/p/f-20-tigershark",
-    "archiveStatus": "SOURCE_ONLY",
+    "archiveStatus": "ARCHIVED",
     "download": {
-      "type": "source",
-      "file": null,
+      "type": "local",
+      "file": "/plans/f-20-tigershark/F-20+Templates-complete.zip",
+      "filename": "F-20+Templates-complete.zip",
       "sourceUrl": "https://www.parkjets.com/free-plans/p/f-20-tigershark",
-      "originalFilename": "F-20 Templates-complete.zip",
-      "format": "ZIP",
-      "status": "Plan file is released to signed-in Parkjets members only. No public download endpoint exists; the original product page is linked instead."
+      "status": "Archived and validated",
+      "bytes": 1236844,
+      "sha256": "517fee4b8461d14395363794f7bb8a5697feff8624c70c676407bc91b2b875e7",
+      "fileType": "ZIP"
     },
     "license": {
       "status": "Third-party design — attribution to original designer",
@@ -6155,14 +6247,16 @@
       }
     ],
     "sourceUrl": "https://www.parkjets.com/free-plans/p/f-20-tigershark-1",
-    "archiveStatus": "SOURCE_ONLY",
+    "archiveStatus": "ARCHIVED",
     "download": {
-      "type": "source",
-      "file": null,
+      "type": "local",
+      "file": "/plans/f-20-tigershark-1/DCobra+F-20.zip",
+      "filename": "DCobra+F-20.zip",
       "sourceUrl": "https://www.parkjets.com/free-plans/p/f-20-tigershark-1",
-      "originalFilename": "DCobra F-20.zip",
-      "format": "ZIP",
-      "status": "Plan file is released to signed-in Parkjets members only. No public download endpoint exists; the original product page is linked instead."
+      "status": "Archived and validated",
+      "bytes": 1618484,
+      "sha256": "e69fbf31258044a4ca21b489c86a1dd53ebf81a7aa0f17ac68e555ae0a6878cc",
+      "fileType": "ZIP"
     },
     "license": {
       "status": "Third-party design — attribution to original designer",
@@ -6400,14 +6494,16 @@
       }
     ],
     "sourceUrl": "https://www.parkjets.com/free-plans/p/f-22-raptor",
-    "archiveStatus": "SOURCE_ONLY",
+    "archiveStatus": "ARCHIVED",
     "download": {
-      "type": "source",
-      "file": null,
+      "type": "local",
+      "file": "/plans/f-22-raptor/Shumate+F-22.zip",
+      "filename": "Shumate+F-22.zip",
       "sourceUrl": "https://www.parkjets.com/free-plans/p/f-22-raptor",
-      "originalFilename": "Shumate F-22.zip",
-      "format": "ZIP",
-      "status": "Plan file is released to signed-in Parkjets members only. No public download endpoint exists; the original product page is linked instead."
+      "status": "Archived and validated",
+      "bytes": 6237494,
+      "sha256": "cb41eef2a2cc15e63dd0684a9ede24e25131b33d54096253fab719aa1a062723",
+      "fileType": "ZIP"
     },
     "license": {
       "status": "Third-party design — attribution to original designer",
@@ -6549,14 +6645,16 @@
       }
     ],
     "sourceUrl": "https://www.parkjets.com/free-plans/p/f-22-raptor-1",
-    "archiveStatus": "SOURCE_ONLY",
+    "archiveStatus": "ARCHIVED",
     "download": {
-      "type": "source",
-      "file": null,
+      "type": "local",
+      "file": "/plans/f-22-raptor-1/Tomhe+F-22.zip",
+      "filename": "Tomhe+F-22.zip",
       "sourceUrl": "https://www.parkjets.com/free-plans/p/f-22-raptor-1",
-      "originalFilename": "Tomhe F-22.zip",
-      "format": "ZIP",
-      "status": "Plan file is released to signed-in Parkjets members only. No public download endpoint exists; the original product page is linked instead."
+      "status": "Archived and validated",
+      "bytes": 2845188,
+      "sha256": "3e8b8118f12db743a1306727b665b62a0be18c1c2f80c1d35af7eaaefd284a8a",
+      "fileType": "ZIP"
     },
     "license": {
       "status": "Third-party design — attribution to original designer",
@@ -6680,14 +6778,16 @@
       }
     ],
     "sourceUrl": "https://www.parkjets.com/free-plans/p/frxoquedh3vabsgl72bt69lpvukrr6",
-    "archiveStatus": "SOURCE_ONLY",
+    "archiveStatus": "ARCHIVED",
     "download": {
-      "type": "source",
-      "file": null,
+      "type": "local",
+      "file": "/plans/f-242-spiker/F-242+Spiker.zip",
+      "filename": "F-242+Spiker.zip",
       "sourceUrl": "https://www.parkjets.com/free-plans/p/frxoquedh3vabsgl72bt69lpvukrr6",
-      "originalFilename": "F-242 Spiker.zip",
-      "format": "ZIP",
-      "status": "Plan file is released to signed-in Parkjets members only. No public download endpoint exists; the original product page is linked instead."
+      "status": "Archived and validated",
+      "bytes": 149997,
+      "sha256": "c9c838acd70862c5d0d1040d3b393c899a7512ce1d0ce38f16238d5948021255",
+      "fileType": "ZIP"
     },
     "license": {
       "status": "Third-party design — attribution to original designer",
@@ -6792,14 +6892,16 @@
       }
     ],
     "sourceUrl": "https://www.parkjets.com/free-plans/p/f-28-hammer",
-    "archiveStatus": "SOURCE_ONLY",
+    "archiveStatus": "ARCHIVED",
     "download": {
-      "type": "source",
-      "file": null,
+      "type": "local",
+      "file": "/plans/f-28-hammer/F-28.zip",
+      "filename": "F-28.zip",
       "sourceUrl": "https://www.parkjets.com/free-plans/p/f-28-hammer",
-      "originalFilename": "F-28.zip",
-      "format": "ZIP",
-      "status": "Plan file is released to signed-in Parkjets members only. No public download endpoint exists; the original product page is linked instead."
+      "status": "Archived and validated",
+      "bytes": 227865,
+      "sha256": "4d5245f758efb68ef52bce8e623d6d49897ad4834c05e9416d92e4cc3f37a88b",
+      "fileType": "ZIP"
     },
     "license": {
       "status": "Third-party design — attribution to original designer",
@@ -6927,14 +7029,16 @@
       }
     ],
     "sourceUrl": "https://www.parkjets.com/free-plans/p/f-302-tauri",
-    "archiveStatus": "SOURCE_ONLY",
+    "archiveStatus": "ARCHIVED",
     "download": {
-      "type": "source",
-      "file": null,
+      "type": "local",
+      "file": "/plans/f-302-tauri/f-302_v3_plan-2.pdf",
+      "filename": "f-302_v3_plan-2.pdf",
       "sourceUrl": "https://www.parkjets.com/free-plans/p/f-302-tauri",
-      "originalFilename": "f-302_v3_plan-2.pdf",
-      "format": "PDF",
-      "status": "Plan file is released to signed-in Parkjets members only. No public download endpoint exists; the original product page is linked instead."
+      "status": "Archived and validated",
+      "bytes": 14623,
+      "sha256": "abbacf82480cf5ebcca366d60692f612fb2d2245efcb953c2e127d17bc5fd2b8",
+      "fileType": "PDF"
     },
     "license": {
       "status": "Third-party design — attribution to original designer",
@@ -7105,14 +7209,16 @@
       }
     ],
     "sourceUrl": "https://www.parkjets.com/free-plans/p/f-35-lightening",
-    "archiveStatus": "SOURCE_ONLY",
+    "archiveStatus": "ARCHIVED",
     "download": {
-      "type": "source",
-      "file": null,
+      "type": "local",
+      "file": "/plans/f-35-lightening/Quick+Build+F-35.zip",
+      "filename": "Quick+Build+F-35.zip",
       "sourceUrl": "https://www.parkjets.com/free-plans/p/f-35-lightening",
-      "originalFilename": "Quick Build F-35.zip",
-      "format": "ZIP",
-      "status": "Plan file is released to signed-in Parkjets members only. No public download endpoint exists; the original product page is linked instead."
+      "status": "Archived and validated",
+      "bytes": 1725887,
+      "sha256": "1b254458a762333e6c41e0fb5ae9d6272bf482740751bbbabe1c185d11d6b0c3",
+      "fileType": "ZIP"
     },
     "license": {
       "status": "Third-party design — attribution to original designer",
@@ -7210,14 +7316,16 @@
       }
     ],
     "sourceUrl": "https://www.parkjets.com/free-plans/p/f-4-phantom-ii",
-    "archiveStatus": "SOURCE_ONLY",
+    "archiveStatus": "ARCHIVED",
     "download": {
-      "type": "source",
-      "file": null,
+      "type": "local",
+      "file": "/plans/f-4-phantom-ii/F-4-2.zip",
+      "filename": "F-4-2.zip",
       "sourceUrl": "https://www.parkjets.com/free-plans/p/f-4-phantom-ii",
-      "originalFilename": "F-4-2.zip",
-      "format": "ZIP",
-      "status": "Plan file is released to signed-in Parkjets members only. No public download endpoint exists; the original product page is linked instead."
+      "status": "Archived and validated",
+      "bytes": 402133,
+      "sha256": "4922cedbf19990e669396089cf0c04f5aaa2a4b04fdc7140ed88f9a0c0b7986b",
+      "fileType": "ZIP"
     },
     "license": {
       "status": "Third-party design — attribution to original designer",
@@ -7400,14 +7508,16 @@
       }
     ],
     "sourceUrl": "https://www.parkjets.com/free-plans/p/f-phantom-ii",
-    "archiveStatus": "SOURCE_ONLY",
+    "archiveStatus": "ARCHIVED",
     "download": {
-      "type": "source",
-      "file": null,
+      "type": "local",
+      "file": "/plans/f-phantom-ii/NAC+F-4+Phantom.zip",
+      "filename": "NAC+F-4+Phantom.zip",
       "sourceUrl": "https://www.parkjets.com/free-plans/p/f-phantom-ii",
-      "originalFilename": "NAC F-4 Phantom.zip",
-      "format": "ZIP",
-      "status": "Plan file is released to signed-in Parkjets members only. No public download endpoint exists; the original product page is linked instead."
+      "status": "Archived and validated",
+      "bytes": 3296848,
+      "sha256": "b5c64b8b191d9d5f1fa8a6b75f3b915d65cc8ab2fffa445e6b451452831fb857",
+      "fileType": "ZIP"
     },
     "license": {
       "status": "Third-party design — attribution to original designer",
@@ -7529,14 +7639,16 @@
       }
     ],
     "sourceUrl": "https://www.parkjets.com/free-plans/p/f-95-morningstar",
-    "archiveStatus": "SOURCE_ONLY",
+    "archiveStatus": "ARCHIVED",
     "download": {
-      "type": "source",
-      "file": null,
+      "type": "local",
+      "file": "/plans/f-95-morningstar/reformsubmissioncontactparkjets-1.zip",
+      "filename": "reformsubmissioncontactparkjets-1.zip",
       "sourceUrl": "https://www.parkjets.com/free-plans/p/f-95-morningstar",
-      "originalFilename": "reformsubmissioncontactparkjets-1.zip",
-      "format": "ZIP",
-      "status": "Plan file is released to signed-in Parkjets members only. No public download endpoint exists; the original product page is linked instead."
+      "status": "Archived and validated",
+      "bytes": 1368700,
+      "sha256": "e0205a2012db59d27289190435f000aaec0cfe6c10d0f9e5fde00e43ecfc2990",
+      "fileType": "ZIP"
     },
     "license": {
       "status": "Third-party design — attribution to original designer",
@@ -7636,14 +7748,16 @@
       }
     ],
     "sourceUrl": "https://www.parkjets.com/free-plans/p/fa-241-shrike",
-    "archiveStatus": "SOURCE_ONLY",
+    "archiveStatus": "ARCHIVED",
     "download": {
-      "type": "source",
-      "file": null,
+      "type": "local",
+      "file": "/plans/fa-241-shrike/FA-241+SHRIKE.zip",
+      "filename": "FA-241+SHRIKE.zip",
       "sourceUrl": "https://www.parkjets.com/free-plans/p/fa-241-shrike",
-      "originalFilename": "FA-241 SHRIKE.zip",
-      "format": "ZIP",
-      "status": "Plan file is released to signed-in Parkjets members only. No public download endpoint exists; the original product page is linked instead."
+      "status": "Archived and validated",
+      "bytes": 76300,
+      "sha256": "8979e6acaf72fa9290d7ecb3ffae4c491a148729a404b5d4a2cb3600262c7757",
+      "fileType": "ZIP"
     },
     "license": {
       "status": "Third-party design — attribution to original designer",
@@ -7747,14 +7861,16 @@
       }
     ],
     "sourceUrl": "https://www.parkjets.com/free-plans/p/f4d-skyray-1",
-    "archiveStatus": "SOURCE_ONLY",
+    "archiveStatus": "ARCHIVED",
     "download": {
-      "type": "source",
-      "file": null,
+      "type": "local",
+      "file": "/plans/f4d-skyray-1/CN+Skyray.zip",
+      "filename": "CN+Skyray.zip",
       "sourceUrl": "https://www.parkjets.com/free-plans/p/f4d-skyray-1",
-      "originalFilename": "CN Skyray.zip",
-      "format": "ZIP",
-      "status": "Plan file is released to signed-in Parkjets members only. No public download endpoint exists; the original product page is linked instead."
+      "status": "Archived and validated",
+      "bytes": 6607745,
+      "sha256": "1d6687adab14e0042871021cbb7f6d16bcc870218c70ed03ecfe045e9c59e61c",
+      "fileType": "ZIP"
     },
     "license": {
       "status": "Third-party design — attribution to original designer",
@@ -7900,14 +8016,16 @@
       }
     ],
     "sourceUrl": "https://www.parkjets.com/free-plans/p/f4d-skyray",
-    "archiveStatus": "SOURCE_ONLY",
+    "archiveStatus": "ARCHIVED",
     "download": {
-      "type": "source",
-      "file": null,
+      "type": "local",
+      "file": "/plans/f4d-skyray/NAC+F4D+Skyray.zip",
+      "filename": "NAC+F4D+Skyray.zip",
       "sourceUrl": "https://www.parkjets.com/free-plans/p/f4d-skyray",
-      "originalFilename": "NAC F4D Skyray.zip",
-      "format": "ZIP",
-      "status": "Plan file is released to signed-in Parkjets members only. No public download endpoint exists; the original product page is linked instead."
+      "status": "Archived and validated",
+      "bytes": 2757531,
+      "sha256": "95e48254476b93f8c60bbea4f031e7de1fd3a32abc4295f5140804a0e2d98332",
+      "fileType": "ZIP"
     },
     "license": {
       "status": "Third-party design — attribution to original designer",
@@ -8052,14 +8170,16 @@
       }
     ],
     "sourceUrl": "https://www.parkjets.com/free-plans/p/f4f-wildcat",
-    "archiveStatus": "SOURCE_ONLY",
+    "archiveStatus": "ARCHIVED",
     "download": {
-      "type": "source",
-      "file": null,
+      "type": "local",
+      "file": "/plans/f4f-wildcat/boxermad84_f4f_wildcat.zip",
+      "filename": "boxermad84_f4f_wildcat.zip",
       "sourceUrl": "https://www.parkjets.com/free-plans/p/f4f-wildcat",
-      "originalFilename": "boxermad84_f4f_wildcat.zip",
-      "format": "ZIP",
-      "status": "Plan file is released to signed-in Parkjets members only. No public download endpoint exists; the original product page is linked instead."
+      "status": "Archived and validated",
+      "bytes": 1384864,
+      "sha256": "03c1d23c8765509d7a897904ff32b1b61f725d484bb7c6b9f4e7f1e538465264",
+      "fileType": "ZIP"
     },
     "license": {
       "status": "Third-party design — attribution to original designer",
@@ -8181,14 +8301,16 @@
       }
     ],
     "sourceUrl": "https://www.parkjets.com/free-plans/p/fa-209-saber-tooth-tiger",
-    "archiveStatus": "SOURCE_ONLY",
+    "archiveStatus": "ARCHIVED",
     "download": {
-      "type": "source",
-      "file": null,
+      "type": "local",
+      "file": "/plans/fa-209-saber-tooth-tiger/Saberthoot+Tiger-2.zip",
+      "filename": "Saberthoot+Tiger-2.zip",
       "sourceUrl": "https://www.parkjets.com/free-plans/p/fa-209-saber-tooth-tiger",
-      "originalFilename": "Saberthoot Tiger-2.zip",
-      "format": "ZIP",
-      "status": "Plan file is released to signed-in Parkjets members only. No public download endpoint exists; the original product page is linked instead."
+      "status": "Archived and validated",
+      "bytes": 1553797,
+      "sha256": "fa75b646effc00c75749c562a0704cf2a1580b99e60acaad2d3865ab7ffdec50",
+      "fileType": "ZIP"
     },
     "license": {
       "status": "Third-party design — attribution to original designer",
@@ -8324,14 +8446,16 @@
       }
     ],
     "sourceUrl": "https://www.parkjets.com/free-plans/p/firefly-serenity",
-    "archiveStatus": "SOURCE_ONLY",
+    "archiveStatus": "ARCHIVED",
     "download": {
-      "type": "source",
-      "file": null,
+      "type": "local",
+      "file": "/plans/firefly-serenity/Firefly+Serenity.zip",
+      "filename": "Firefly+Serenity.zip",
       "sourceUrl": "https://www.parkjets.com/free-plans/p/firefly-serenity",
-      "originalFilename": "Firefly Serenity.zip",
-      "format": "ZIP",
-      "status": "Plan file is released to signed-in Parkjets members only. No public download endpoint exists; the original product page is linked instead."
+      "status": "Archived and validated",
+      "bytes": 201115,
+      "sha256": "d70e493265e30c1424863dd30e08a59c8427f31b0658450ad9e569e39a985ab9",
+      "fileType": "ZIP"
     },
     "license": {
       "status": "Third-party design — attribution to original designer",
@@ -8482,14 +8606,16 @@
       }
     ],
     "sourceUrl": "https://www.parkjets.com/free-plans/p/fokker-dr",
-    "archiveStatus": "SOURCE_ONLY",
+    "archiveStatus": "ARCHIVED",
     "download": {
-      "type": "source",
-      "file": null,
+      "type": "local",
+      "file": "/plans/fokker-dr/Fokker+DR1.zip",
+      "filename": "Fokker+DR1.zip",
       "sourceUrl": "https://www.parkjets.com/free-plans/p/fokker-dr",
-      "originalFilename": "Fokker DR1.zip",
-      "format": "ZIP",
-      "status": "Plan file is released to signed-in Parkjets members only. No public download endpoint exists; the original product page is linked instead."
+      "status": "Archived and validated",
+      "bytes": 421698,
+      "sha256": "ca6e649d977c59d76988dfa25204cfd3abff8f5cc1e350993dbfb2abbdd549c8",
+      "fileType": "ZIP"
     },
     "license": {
       "status": "Third-party design — attribution to original designer",
@@ -8587,14 +8713,16 @@
       }
     ],
     "sourceUrl": "https://www.parkjets.com/free-plans/p/hot-spot",
-    "archiveStatus": "SOURCE_ONLY",
+    "archiveStatus": "ARCHIVED",
     "download": {
-      "type": "source",
-      "file": null,
+      "type": "local",
+      "file": "/plans/hot-spot/Hot+Spot+park+jet+parts.pdf",
+      "filename": "Hot+Spot+park+jet+parts.pdf",
       "sourceUrl": "https://www.parkjets.com/free-plans/p/hot-spot",
-      "originalFilename": "Hot+Spot+park+jet+parts.pdf",
-      "format": "PDF",
-      "status": "Plan file is released to signed-in Parkjets members only. No public download endpoint exists; the original product page is linked instead."
+      "status": "Archived and validated",
+      "bytes": 14272,
+      "sha256": "b96c68ece7257f2136508c0fa5f5ccdd107c286c991c35c5439fd1fd2be2eaee",
+      "fileType": "PDF"
     },
     "license": {
       "status": "Third-party design — attribution to original designer",
@@ -8675,14 +8803,16 @@
       }
     ],
     "sourceUrl": "https://www.parkjets.com/free-plans/p/hunter",
-    "archiveStatus": "SOURCE_ONLY",
+    "archiveStatus": "ARCHIVED",
     "download": {
-      "type": "source",
-      "file": null,
+      "type": "local",
+      "file": "/plans/hunter/Hunter.zip",
+      "filename": "Hunter.zip",
       "sourceUrl": "https://www.parkjets.com/free-plans/p/hunter",
-      "originalFilename": "Hunter.zip",
-      "format": "ZIP",
-      "status": "Plan file is released to signed-in Parkjets members only. No public download endpoint exists; the original product page is linked instead."
+      "status": "Archived and validated",
+      "bytes": 208914,
+      "sha256": "791c306a90dfbbea30c1c80eb0244608c2bbc3b1d91a1a5d2f0d518f417671b4",
+      "fileType": "ZIP"
     },
     "license": {
       "status": "Third-party design — attribution to original designer",
@@ -8806,14 +8936,16 @@
       }
     ],
     "sourceUrl": "https://www.parkjets.com/free-plans/p/hydro-plane",
-    "archiveStatus": "SOURCE_ONLY",
+    "archiveStatus": "ARCHIVED",
     "download": {
-      "type": "source",
-      "file": null,
+      "type": "local",
+      "file": "/plans/hydro-plane/Hydro.zip",
+      "filename": "Hydro.zip",
       "sourceUrl": "https://www.parkjets.com/free-plans/p/hydro-plane",
-      "originalFilename": "Hydro.zip",
-      "format": "ZIP",
-      "status": "Plan file is released to signed-in Parkjets members only. No public download endpoint exists; the original product page is linked instead."
+      "status": "Archived and validated",
+      "bytes": 397509,
+      "sha256": "da382b01230f3753923b506996c55043dc110ac3bdc266b47ac5a3f0e70c2184",
+      "fileType": "ZIP"
     },
     "license": {
       "status": "Third-party design — attribution to original designer",
@@ -8985,14 +9117,16 @@
       }
     ],
     "sourceUrl": "https://www.parkjets.com/free-plans/p/v1gc42g4ujcvohyeleqy43dhpcgicb",
-    "archiveStatus": "SOURCE_ONLY",
+    "archiveStatus": "ARCHIVED",
     "download": {
-      "type": "source",
-      "file": null,
+      "type": "local",
+      "file": "/plans/j-31-falcon-hawk/J-31+Falcon+Hawk.zip",
+      "filename": "J-31+Falcon+Hawk.zip",
       "sourceUrl": "https://www.parkjets.com/free-plans/p/v1gc42g4ujcvohyeleqy43dhpcgicb",
-      "originalFilename": "J-31 Falcon Hawk.zip",
-      "format": "ZIP",
-      "status": "Plan file is released to signed-in Parkjets members only. No public download endpoint exists; the original product page is linked instead."
+      "status": "Archived and validated",
+      "bytes": 1456679,
+      "sha256": "2029a82ed8b8d74b1ef232fb157c717bba0d6da75486b69ca5e6eeec90ded597",
+      "fileType": "ZIP"
     },
     "license": {
       "status": "Third-party design — attribution to original designer",
@@ -9115,14 +9249,16 @@
       }
     ],
     "sourceUrl": "https://www.parkjets.com/free-plans/p/jas-39-gripen",
-    "archiveStatus": "SOURCE_ONLY",
+    "archiveStatus": "ARCHIVED",
     "download": {
-      "type": "source",
-      "file": null,
+      "type": "local",
+      "file": "/plans/jas-39-gripen/JAS-39.zip",
+      "filename": "JAS-39.zip",
       "sourceUrl": "https://www.parkjets.com/free-plans/p/jas-39-gripen",
-      "originalFilename": "JAS-39.zip",
-      "format": "ZIP",
-      "status": "Plan file is released to signed-in Parkjets members only. No public download endpoint exists; the original product page is linked instead."
+      "status": "Archived and validated",
+      "bytes": 3041007,
+      "sha256": "c517cb16a580bcbf479951f66415702a7dcf0fef55f0fd29fb7c5119868285e8",
+      "fileType": "ZIP"
     },
     "license": {
       "status": "Third-party design — attribution to original designer",
@@ -9236,14 +9372,16 @@
       }
     ],
     "sourceUrl": "https://www.parkjets.com/free-plans/p/landspeeder",
-    "archiveStatus": "SOURCE_ONLY",
+    "archiveStatus": "ARCHIVED",
     "download": {
-      "type": "source",
-      "file": null,
+      "type": "local",
+      "file": "/plans/landspeeder/Landspeeder.zip",
+      "filename": "Landspeeder.zip",
       "sourceUrl": "https://www.parkjets.com/free-plans/p/landspeeder",
-      "originalFilename": "Landspeeder.zip",
-      "format": "ZIP",
-      "status": "Plan file is released to signed-in Parkjets members only. No public download endpoint exists; the original product page is linked instead."
+      "status": "Archived and validated",
+      "bytes": 582763,
+      "sha256": "d2a5dea15964a813ed03f8f15442eddbeb0b819ffbac7e8a5ee702d099de36b6",
+      "fileType": "ZIP"
     },
     "license": {
       "status": "Third-party design — attribution to original designer",
@@ -9334,14 +9472,16 @@
       }
     ],
     "sourceUrl": "https://www.parkjets.com/free-plans/p/me-262",
-    "archiveStatus": "SOURCE_ONLY",
+    "archiveStatus": "ARCHIVED",
     "download": {
-      "type": "source",
-      "file": null,
+      "type": "local",
+      "file": "/plans/me-262/ME+262.zip",
+      "filename": "ME+262.zip",
       "sourceUrl": "https://www.parkjets.com/free-plans/p/me-262",
-      "originalFilename": "ME 262.zip",
-      "format": "ZIP",
-      "status": "Plan file is released to signed-in Parkjets members only. No public download endpoint exists; the original product page is linked instead."
+      "status": "Archived and validated",
+      "bytes": 732249,
+      "sha256": "41820710ab5f46dddba1cc4d2ab5a2fe980a4f79ab0d2e71daecbf65a0c713ec",
+      "fileType": "ZIP"
     },
     "license": {
       "status": "Third-party design — attribution to original designer",
@@ -9452,14 +9592,16 @@
       }
     ],
     "sourceUrl": "https://www.parkjets.com/free-plans/p/mermaid",
-    "archiveStatus": "SOURCE_ONLY",
+    "archiveStatus": "ARCHIVED",
     "download": {
-      "type": "source",
-      "file": null,
+      "type": "local",
+      "file": "/plans/mermaid/Mermaid.zip",
+      "filename": "Mermaid.zip",
       "sourceUrl": "https://www.parkjets.com/free-plans/p/mermaid",
-      "originalFilename": "Mermaid.zip",
-      "format": "ZIP",
-      "status": "Plan file is released to signed-in Parkjets members only. No public download endpoint exists; the original product page is linked instead."
+      "status": "Archived and validated",
+      "bytes": 2253585,
+      "sha256": "9acf4420e181b3d8472e4e2421dfad76c4d80da481f6dae04fec7675b43538ba",
+      "fileType": "ZIP"
     },
     "license": {
       "status": "Third-party design — attribution to original designer",
@@ -9555,14 +9697,16 @@
       }
     ],
     "sourceUrl": "https://www.parkjets.com/free-plans/p/mig-15",
-    "archiveStatus": "SOURCE_ONLY",
+    "archiveStatus": "ARCHIVED",
     "download": {
-      "type": "source",
-      "file": null,
+      "type": "local",
+      "file": "/plans/mig-15/Beanie+MIG+15.zip",
+      "filename": "Beanie+MIG+15.zip",
       "sourceUrl": "https://www.parkjets.com/free-plans/p/mig-15",
-      "originalFilename": "Beanie MIG 15.zip",
-      "format": "ZIP",
-      "status": "Plan file is released to signed-in Parkjets members only. No public download endpoint exists; the original product page is linked instead."
+      "status": "Archived and validated",
+      "bytes": 209697,
+      "sha256": "fb62d4ef1da13d631467fe38bf9bc259333f09389c9b5aaf46cc0fd5a52f607f",
+      "fileType": "ZIP"
     },
     "license": {
       "status": "Third-party design — attribution to original designer",
@@ -9660,14 +9804,16 @@
       }
     ],
     "sourceUrl": "https://www.parkjets.com/free-plans/p/mig-25-foxbat",
-    "archiveStatus": "SOURCE_ONLY",
+    "archiveStatus": "ARCHIVED",
     "download": {
-      "type": "source",
-      "file": null,
+      "type": "local",
+      "file": "/plans/mig-25-foxbat/Beanie+MIG+25.zip",
+      "filename": "Beanie+MIG+25.zip",
       "sourceUrl": "https://www.parkjets.com/free-plans/p/mig-25-foxbat",
-      "originalFilename": "Beanie MIG 25.zip",
-      "format": "ZIP",
-      "status": "Plan file is released to signed-in Parkjets members only. No public download endpoint exists; the original product page is linked instead."
+      "status": "Archived and validated",
+      "bytes": 279677,
+      "sha256": "9fca8a5a5aa29cc4a70e5ed7ff421dac360106503ffdfa8f4d35b63b97529ef3",
+      "fileType": "ZIP"
     },
     "license": {
       "status": "Third-party design — attribution to original designer",
@@ -9797,14 +9943,16 @@
       }
     ],
     "sourceUrl": "https://www.parkjets.com/free-plans/p/mig-29-fulcrum",
-    "archiveStatus": "SOURCE_ONLY",
+    "archiveStatus": "ARCHIVED",
     "download": {
-      "type": "source",
-      "file": null,
+      "type": "local",
+      "file": "/plans/mig-29-fulcrum/Tomhe+MIG+29.zip",
+      "filename": "Tomhe+MIG+29.zip",
       "sourceUrl": "https://www.parkjets.com/free-plans/p/mig-29-fulcrum",
-      "originalFilename": "Tomhe MIG 29.zip",
-      "format": "ZIP",
-      "status": "Plan file is released to signed-in Parkjets members only. No public download endpoint exists; the original product page is linked instead."
+      "status": "Archived and validated",
+      "bytes": 2609791,
+      "sha256": "72cf7ee4310f5d186b50beb65b222cfc3a51925e8ec2e4676da339c625eda2d5",
+      "fileType": "ZIP"
     },
     "license": {
       "status": "Third-party design — attribution to original designer",
@@ -9930,14 +10078,16 @@
       }
     ],
     "sourceUrl": "https://www.parkjets.com/free-plans/p/mig-31-firefox",
-    "archiveStatus": "SOURCE_ONLY",
+    "archiveStatus": "ARCHIVED",
     "download": {
-      "type": "source",
-      "file": null,
+      "type": "local",
+      "file": "/plans/mig-31-firefox/MIG+31+Firefox.zip",
+      "filename": "MIG+31+Firefox.zip",
       "sourceUrl": "https://www.parkjets.com/free-plans/p/mig-31-firefox",
-      "originalFilename": "MIG 31 Firefox.zip",
-      "format": "ZIP",
-      "status": "Plan file is released to signed-in Parkjets members only. No public download endpoint exists; the original product page is linked instead."
+      "status": "Archived and validated",
+      "bytes": 3163864,
+      "sha256": "5cc109a3b159445544667e2605f8c6afb3368c072c88c1b2b796f185df65388f",
+      "fileType": "ZIP"
     },
     "license": {
       "status": "Third-party design — attribution to original designer",
@@ -10017,14 +10167,16 @@
       }
     ],
     "sourceUrl": "https://www.parkjets.com/free-plans/p/mirage-2000",
-    "archiveStatus": "SOURCE_ONLY",
+    "archiveStatus": "ARCHIVED",
     "download": {
-      "type": "source",
-      "file": null,
+      "type": "local",
+      "file": "/plans/mirage-2000/Mirage+2000.zip",
+      "filename": "Mirage+2000.zip",
       "sourceUrl": "https://www.parkjets.com/free-plans/p/mirage-2000",
-      "originalFilename": "Mirage 2000.zip",
-      "format": "ZIP",
-      "status": "Plan file is released to signed-in Parkjets members only. No public download endpoint exists; the original product page is linked instead."
+      "status": "Archived and validated",
+      "bytes": 442784,
+      "sha256": "1c5099576498764de5ebb1d448ea75618947e7f63fde5cb9ab86820406182b7d",
+      "fileType": "ZIP"
     },
     "license": {
       "status": "Third-party design — attribution to original designer",
@@ -10165,14 +10317,16 @@
       }
     ],
     "sourceUrl": "https://www.parkjets.com/free-plans/p/mirage-f-1",
-    "archiveStatus": "SOURCE_ONLY",
+    "archiveStatus": "ARCHIVED",
     "download": {
-      "type": "source",
-      "file": null,
+      "type": "local",
+      "file": "/plans/mirage-f-1/Mirage+F1+QB.zip",
+      "filename": "Mirage+F1+QB.zip",
       "sourceUrl": "https://www.parkjets.com/free-plans/p/mirage-f-1",
-      "originalFilename": "Mirage F1 QB.zip",
-      "format": "ZIP",
-      "status": "Plan file is released to signed-in Parkjets members only. No public download endpoint exists; the original product page is linked instead."
+      "status": "Archived and validated",
+      "bytes": 130291,
+      "sha256": "30c36118b5fa79dc3621f93a2ceda47750ae038a48ae094ec9b4fb7b5bfa7052",
+      "fileType": "ZIP"
     },
     "license": {
       "status": "Third-party design — attribution to original designer",
@@ -10314,14 +10468,16 @@
       }
     ],
     "sourceUrl": "https://www.parkjets.com/free-plans/p/pak-fa",
-    "archiveStatus": "SOURCE_ONLY",
+    "archiveStatus": "ARCHIVED",
     "download": {
-      "type": "source",
-      "file": null,
+      "type": "local",
+      "file": "/plans/pak-fa/Sukhoi+PAK+FA+-+Easybuild+-+V1.05.pdf",
+      "filename": "Sukhoi+PAK+FA+-+Easybuild+-+V1.05.pdf",
       "sourceUrl": "https://www.parkjets.com/free-plans/p/pak-fa",
-      "originalFilename": "Sukhoi+PAK+FA+-+Easybuild+-+V1.05.pdf",
-      "format": "PDF",
-      "status": "Plan file is released to signed-in Parkjets members only. No public download endpoint exists; the original product page is linked instead."
+      "status": "Archived and validated",
+      "bytes": 2067198,
+      "sha256": "e6f072cb2d0ff79e6bcb83c0dc211bea99cc22ff9613c2cf7baacc62319b3570",
+      "fileType": "PDF"
     },
     "license": {
       "status": "Third-party design — attribution to original designer",
@@ -10415,14 +10571,16 @@
       }
     ],
     "sourceUrl": "https://www.parkjets.com/free-plans/p/rafale-m",
-    "archiveStatus": "SOURCE_ONLY",
+    "archiveStatus": "ARCHIVED",
     "download": {
-      "type": "source",
-      "file": null,
+      "type": "local",
+      "file": "/plans/rafale-m/GGRN+RAFALE.zip",
+      "filename": "GGRN+RAFALE.zip",
       "sourceUrl": "https://www.parkjets.com/free-plans/p/rafale-m",
-      "originalFilename": "GGRN RAFALE.zip",
-      "format": "ZIP",
-      "status": "Plan file is released to signed-in Parkjets members only. No public download endpoint exists; the original product page is linked instead."
+      "status": "Archived and validated",
+      "bytes": 318806,
+      "sha256": "ab3fb9c060f99e6fff1690958af06bf6ae33076fa9f6dfc28ebea40d98072d68",
+      "fileType": "ZIP"
     },
     "license": {
       "status": "Third-party design — attribution to original designer",
@@ -10548,14 +10706,16 @@
       }
     ],
     "sourceUrl": "https://www.parkjets.com/free-plans/p/sa-43-hammerhead",
-    "archiveStatus": "SOURCE_ONLY",
+    "archiveStatus": "ARCHIVED",
     "download": {
-      "type": "source",
-      "file": null,
+      "type": "local",
+      "file": "/plans/sa-43-hammerhead/SA-43+HAMMERHEAD.zip",
+      "filename": "SA-43+HAMMERHEAD.zip",
       "sourceUrl": "https://www.parkjets.com/free-plans/p/sa-43-hammerhead",
-      "originalFilename": "SA-43 HAMMERHEAD.zip",
-      "format": "ZIP",
-      "status": "Plan file is released to signed-in Parkjets members only. No public download endpoint exists; the original product page is linked instead."
+      "status": "Archived and validated",
+      "bytes": 310868,
+      "sha256": "0268dfee1f0b8aa697b6a015bce20e19c5df09876d9683c38e589bdd63433dad",
+      "fileType": "ZIP"
     },
     "license": {
       "status": "Third-party design — attribution to original designer",
@@ -10685,14 +10845,16 @@
       }
     ],
     "sourceUrl": "https://www.parkjets.com/free-plans/p/saf-14",
-    "archiveStatus": "SOURCE_ONLY",
+    "archiveStatus": "ARCHIVED",
     "download": {
-      "type": "source",
-      "file": null,
+      "type": "local",
+      "file": "/plans/saf-14/SAF-14.zip",
+      "filename": "SAF-14.zip",
       "sourceUrl": "https://www.parkjets.com/free-plans/p/saf-14",
-      "originalFilename": "SAF-14.zip",
-      "format": "ZIP",
-      "status": "Plan file is released to signed-in Parkjets members only. No public download endpoint exists; the original product page is linked instead."
+      "status": "Archived and validated",
+      "bytes": 1522948,
+      "sha256": "786eaad67fc996fd132f44bde0b8c1b4088bafdfdb385655cf7b7325adda5a87",
+      "fileType": "ZIP"
     },
     "license": {
       "status": "Third-party design — attribution to original designer",
@@ -10821,14 +10983,16 @@
       }
     ],
     "sourceUrl": "https://www.parkjets.com/free-plans/p/sonic",
-    "archiveStatus": "SOURCE_ONLY",
+    "archiveStatus": "ARCHIVED",
     "download": {
-      "type": "source",
-      "file": null,
+      "type": "local",
+      "file": "/plans/sonic/SONIC+BUILD.zip",
+      "filename": "SONIC+BUILD.zip",
       "sourceUrl": "https://www.parkjets.com/free-plans/p/sonic",
-      "originalFilename": "SONIC BUILD.zip",
-      "format": "ZIP",
-      "status": "Plan file is released to signed-in Parkjets members only. No public download endpoint exists; the original product page is linked instead."
+      "status": "Archived and validated",
+      "bytes": 8066650,
+      "sha256": "3834f3b30a98dc1abd9a0d2a05f74465f5d5a64061fe77bb4d0a61093f0f510b",
+      "fileType": "ZIP"
     },
     "license": {
       "status": "Third-party design — attribution to original designer",
@@ -11028,14 +11192,16 @@
       }
     ],
     "sourceUrl": "https://www.parkjets.com/free-plans/p/sr-71-blackbird",
-    "archiveStatus": "SOURCE_ONLY",
+    "archiveStatus": "ARCHIVED",
     "download": {
-      "type": "source",
-      "file": null,
+      "type": "local",
+      "file": "/plans/sr-71-blackbird/JtechSR-71.zip",
+      "filename": "JtechSR-71.zip",
       "sourceUrl": "https://www.parkjets.com/free-plans/p/sr-71-blackbird",
-      "originalFilename": "JtechSR-71.zip",
-      "format": "ZIP",
-      "status": "Plan file is released to signed-in Parkjets members only. No public download endpoint exists; the original product page is linked instead."
+      "status": "Archived and validated",
+      "bytes": 1497609,
+      "sha256": "1127f304d5ea4f1321b82f086e747848aa5340412eb3b3242c0fe8eff3407cef",
+      "fileType": "ZIP"
     },
     "license": {
       "status": "Third-party design — attribution to original designer",
@@ -11151,14 +11317,16 @@
       }
     ],
     "sourceUrl": "https://www.parkjets.com/free-plans/p/starfighter",
-    "archiveStatus": "SOURCE_ONLY",
+    "archiveStatus": "ARCHIVED",
     "download": {
-      "type": "source",
-      "file": null,
+      "type": "local",
+      "file": "/plans/starfighter/Starfighter.zip",
+      "filename": "Starfighter.zip",
       "sourceUrl": "https://www.parkjets.com/free-plans/p/starfighter",
-      "originalFilename": "Starfighter.zip",
-      "format": "ZIP",
-      "status": "Plan file is released to signed-in Parkjets members only. No public download endpoint exists; the original product page is linked instead."
+      "status": "Archived and validated",
+      "bytes": 686906,
+      "sha256": "3a4034f24620b8b3586826d4a9dad56087b9d0028f70f0c0cb5b92360082ae26",
+      "fileType": "ZIP"
     },
     "license": {
       "status": "Third-party design — attribution to original designer",
@@ -11277,14 +11445,16 @@
       }
     ],
     "sourceUrl": "https://www.parkjets.com/free-plans/p/su-22-fitter",
-    "archiveStatus": "SOURCE_ONLY",
+    "archiveStatus": "ARCHIVED",
     "download": {
-      "type": "source",
-      "file": null,
+      "type": "local",
+      "file": "/plans/su-22-fitter/su22m4fitter.zip",
+      "filename": "su22m4fitter.zip",
       "sourceUrl": "https://www.parkjets.com/free-plans/p/su-22-fitter",
-      "originalFilename": "su22m4fitter.zip",
-      "format": "ZIP",
-      "status": "Plan file is released to signed-in Parkjets members only. No public download endpoint exists; the original product page is linked instead."
+      "status": "Archived and validated",
+      "bytes": 84216,
+      "sha256": "12138783516e86e53b4e778d4d3812510f78ec6ed5d92f7f4a8a1087e46f47d9",
+      "fileType": "ZIP"
     },
     "license": {
       "status": "Third-party design — attribution to original designer",
@@ -11390,14 +11560,16 @@
       }
     ],
     "sourceUrl": "https://www.parkjets.com/free-plans/p/su-27",
-    "archiveStatus": "SOURCE_ONLY",
+    "archiveStatus": "ARCHIVED",
     "download": {
-      "type": "source",
-      "file": null,
+      "type": "local",
+      "file": "/plans/su-27/FF-Flanker-plans.zip",
+      "filename": "FF-Flanker-plans.zip",
       "sourceUrl": "https://www.parkjets.com/free-plans/p/su-27",
-      "originalFilename": "FF-Flanker-plans.zip",
-      "format": "ZIP",
-      "status": "Plan file is released to signed-in Parkjets members only. No public download endpoint exists; the original product page is linked instead."
+      "status": "Archived and validated",
+      "bytes": 2434137,
+      "sha256": "b08ac25602cd1be110cc8de16a21c51b78b57088745e9951673cfbd83c6fc7ff",
+      "fileType": "ZIP"
     },
     "license": {
       "status": "Third-party design — attribution to original designer",
@@ -11519,14 +11691,16 @@
       }
     ],
     "sourceUrl": "https://www.parkjets.com/free-plans/p/su-35-jr2",
-    "archiveStatus": "SOURCE_ONLY",
+    "archiveStatus": "ARCHIVED",
     "download": {
-      "type": "source",
-      "file": null,
+      "type": "local",
+      "file": "/plans/su-35-jr2/FRCFOAMIES+SU37+MK2.zip",
+      "filename": "FRCFOAMIES+SU37+MK2.zip",
       "sourceUrl": "https://www.parkjets.com/free-plans/p/su-35-jr2",
-      "originalFilename": "FRCFOAMIES SU37 MK2.zip",
-      "format": "ZIP",
-      "status": "Plan file is released to signed-in Parkjets members only. No public download endpoint exists; the original product page is linked instead."
+      "status": "Archived and validated",
+      "bytes": 2961117,
+      "sha256": "6b5c306be00a7074759631f6cd1938c71b0fe1ecbdee166d108d6bc3f8176c2e",
+      "fileType": "ZIP"
     },
     "license": {
       "status": "Third-party design — attribution to original designer",
@@ -11666,14 +11840,16 @@
       }
     ],
     "sourceUrl": "https://www.parkjets.com/free-plans/p/su-37",
-    "archiveStatus": "SOURCE_ONLY",
+    "archiveStatus": "ARCHIVED",
     "download": {
-      "type": "source",
-      "file": null,
+      "type": "local",
+      "file": "/plans/su-37/TomHe+SU-37.zip",
+      "filename": "TomHe+SU-37.zip",
       "sourceUrl": "https://www.parkjets.com/free-plans/p/su-37",
-      "originalFilename": "TomHe SU-37.zip",
-      "format": "ZIP",
-      "status": "Plan file is released to signed-in Parkjets members only. No public download endpoint exists; the original product page is linked instead."
+      "status": "Archived and validated",
+      "bytes": 307496,
+      "sha256": "fbd2f36de876b0e2608cf5c1c57100b50ea1d2a6f1d8d587a04c90a00e053830",
+      "fileType": "ZIP"
     },
     "license": {
       "status": "Third-party design — attribution to original designer",
@@ -11861,14 +12037,16 @@
       }
     ],
     "sourceUrl": "https://www.parkjets.com/free-plans/p/su-37-flanker",
-    "archiveStatus": "SOURCE_ONLY",
+    "archiveStatus": "ARCHIVED",
     "download": {
-      "type": "source",
-      "file": null,
+      "type": "local",
+      "file": "/plans/su-37-flanker/BOXERMAD84+SU37.zip",
+      "filename": "BOXERMAD84+SU37.zip",
       "sourceUrl": "https://www.parkjets.com/free-plans/p/su-37-flanker",
-      "originalFilename": "BOXERMAD84 SU37.zip",
-      "format": "ZIP",
-      "status": "Plan file is released to signed-in Parkjets members only. No public download endpoint exists; the original product page is linked instead."
+      "status": "Archived and validated",
+      "bytes": 4287606,
+      "sha256": "cbc8ea311c0ad755196e9f0d046bf54dafc48162890c1b85425f41996f9e52a9",
+      "fileType": "ZIP"
     },
     "license": {
       "status": "Third-party design — attribution to original designer",
@@ -12089,14 +12267,16 @@
       }
     ],
     "sourceUrl": "https://www.parkjets.com/free-plans/p/su-37-super-flanker",
-    "archiveStatus": "SOURCE_ONLY",
+    "archiveStatus": "ARCHIVED",
     "download": {
-      "type": "source",
-      "file": null,
+      "type": "local",
+      "file": "/plans/su-37-super-flanker/Shumate+SU-37.zip",
+      "filename": "Shumate+SU-37.zip",
       "sourceUrl": "https://www.parkjets.com/free-plans/p/su-37-super-flanker",
-      "originalFilename": "Shumate SU-37.zip",
-      "format": "ZIP",
-      "status": "Plan file is released to signed-in Parkjets members only. No public download endpoint exists; the original product page is linked instead."
+      "status": "Archived and validated",
+      "bytes": 5428140,
+      "sha256": "c3000aeeb4ca80dffd8b1d3922a873146b78a4014b475aec128d1f5c0af4ee5d",
+      "fileType": "ZIP"
     },
     "license": {
       "status": "Third-party design — attribution to original designer",
@@ -12229,14 +12409,16 @@
       }
     ],
     "sourceUrl": "https://www.parkjets.com/free-plans/p/su-47-berkut",
-    "archiveStatus": "SOURCE_ONLY",
+    "archiveStatus": "ARCHIVED",
     "download": {
-      "type": "source",
-      "file": null,
+      "type": "local",
+      "file": "/plans/su-47-berkut/Nico+SU-47.zip",
+      "filename": "Nico+SU-47.zip",
       "sourceUrl": "https://www.parkjets.com/free-plans/p/su-47-berkut",
-      "originalFilename": "Nico SU-47.zip",
-      "format": "ZIP",
-      "status": "Plan file is released to signed-in Parkjets members only. No public download endpoint exists; the original product page is linked instead."
+      "status": "Archived and validated",
+      "bytes": 650632,
+      "sha256": "bcf5f552af07868f1cd40bf2a337ec75166b80d8512debf22ff5da6d6679a610",
+      "fileType": "ZIP"
     },
     "license": {
       "status": "Third-party design — attribution to original designer",
@@ -12345,14 +12527,16 @@
       }
     ],
     "sourceUrl": "https://www.parkjets.com/free-plans/p/super-bandit",
-    "archiveStatus": "SOURCE_ONLY",
+    "archiveStatus": "ARCHIVED",
     "download": {
-      "type": "source",
-      "file": null,
+      "type": "local",
+      "file": "/plans/super-bandit/Shumate+Super+Bandit.zip",
+      "filename": "Shumate+Super+Bandit.zip",
       "sourceUrl": "https://www.parkjets.com/free-plans/p/super-bandit",
-      "originalFilename": "Shumate Super Bandit.zip",
-      "format": "ZIP",
-      "status": "Plan file is released to signed-in Parkjets members only. No public download endpoint exists; the original product page is linked instead."
+      "status": "Archived and validated",
+      "bytes": 618891,
+      "sha256": "814e9ec0f7b40857e7c16c09a1ebad85d7f3ca069385fc5632ad603634af8c82",
+      "fileType": "ZIP"
     },
     "license": {
       "status": "Third-party design — attribution to original designer",
@@ -12504,14 +12688,16 @@
       }
     ],
     "sourceUrl": "https://www.parkjets.com/free-plans/p/superslo28",
-    "archiveStatus": "SOURCE_ONLY",
+    "archiveStatus": "ARCHIVED",
     "download": {
-      "type": "source",
-      "file": null,
+      "type": "local",
+      "file": "/plans/superslo28/Superslo28.zip",
+      "filename": "Superslo28.zip",
       "sourceUrl": "https://www.parkjets.com/free-plans/p/superslo28",
-      "originalFilename": "Superslo28.zip",
-      "format": "ZIP",
-      "status": "Plan file is released to signed-in Parkjets members only. No public download endpoint exists; the original product page is linked instead."
+      "status": "Archived and validated",
+      "bytes": 603382,
+      "sha256": "e13215a429526409dc696695394132a1cc65e9be9fde193970d0137f5765bdb3",
+      "fileType": "ZIP"
     },
     "license": {
       "status": "Third-party design — attribution to original designer",
@@ -12627,14 +12813,16 @@
       }
     ],
     "sourceUrl": "https://www.parkjets.com/free-plans/p/t-28-trojan",
-    "archiveStatus": "SOURCE_ONLY",
+    "archiveStatus": "ARCHIVED",
     "download": {
-      "type": "source",
-      "file": null,
+      "type": "local",
+      "file": "/plans/t-28-trojan/T-28+Trojan.zip",
+      "filename": "T-28+Trojan.zip",
       "sourceUrl": "https://www.parkjets.com/free-plans/p/t-28-trojan",
-      "originalFilename": "T-28 Trojan.zip",
-      "format": "ZIP",
-      "status": "Plan file is released to signed-in Parkjets members only. No public download endpoint exists; the original product page is linked instead."
+      "status": "Archived and validated",
+      "bytes": 654689,
+      "sha256": "2eafca175887fc167cc30762361112f3f2c72d5dc284d70932ee003bc16724c5",
+      "fileType": "ZIP"
     },
     "license": {
       "status": "Third-party design — attribution to original designer",
@@ -12774,14 +12962,16 @@
       }
     ],
     "sourceUrl": "https://www.parkjets.com/free-plans/p/t-38-talon",
-    "archiveStatus": "SOURCE_ONLY",
+    "archiveStatus": "ARCHIVED",
     "download": {
-      "type": "source",
-      "file": null,
+      "type": "local",
+      "file": "/plans/t-38-talon/Shumate+t-38.zip",
+      "filename": "Shumate+t-38.zip",
       "sourceUrl": "https://www.parkjets.com/free-plans/p/t-38-talon",
-      "originalFilename": "Shumate t-38.zip",
-      "format": "ZIP",
-      "status": "Plan file is released to signed-in Parkjets members only. No public download endpoint exists; the original product page is linked instead."
+      "status": "Archived and validated",
+      "bytes": 3766994,
+      "sha256": "8d879045cccde4ccd6ef6ab4e8a9bb3064f5f3e4887ebf14e0e8d416d6aad7f9",
+      "fileType": "ZIP"
     },
     "license": {
       "status": "Third-party design — attribution to original designer",
@@ -12945,14 +13135,16 @@
       }
     ],
     "sourceUrl": "https://www.parkjets.com/free-plans/p/t-50-pak-fa",
-    "archiveStatus": "SOURCE_ONLY",
+    "archiveStatus": "ARCHIVED",
     "download": {
-      "type": "source",
-      "file": null,
+      "type": "local",
+      "file": "/plans/t-50-pak-fa/T-50+PAK-FA.zip",
+      "filename": "T-50+PAK-FA.zip",
       "sourceUrl": "https://www.parkjets.com/free-plans/p/t-50-pak-fa",
-      "originalFilename": "T-50 PAK-FA.zip",
-      "format": "ZIP",
-      "status": "Plan file is released to signed-in Parkjets members only. No public download endpoint exists; the original product page is linked instead."
+      "status": "Archived and validated",
+      "bytes": 952541,
+      "sha256": "82ba6c9b660fde0a50e51db51f08f1828d26b9d1cfd9607ceb49fdbe829c1487",
+      "fileType": "ZIP"
     },
     "license": {
       "status": "Third-party design — attribution to original designer",
@@ -13059,14 +13251,16 @@
       }
     ],
     "sourceUrl": "https://www.parkjets.com/free-plans/p/t-720-b",
-    "archiveStatus": "SOURCE_ONLY",
+    "archiveStatus": "ARCHIVED",
     "download": {
-      "type": "source",
-      "file": null,
+      "type": "local",
+      "file": "/plans/t-720-b/T-720.zip",
+      "filename": "T-720.zip",
       "sourceUrl": "https://www.parkjets.com/free-plans/p/t-720-b",
-      "originalFilename": "T-720.zip",
-      "format": "ZIP",
-      "status": "Plan file is released to signed-in Parkjets members only. No public download endpoint exists; the original product page is linked instead."
+      "status": "Archived and validated",
+      "bytes": 5160879,
+      "sha256": "c64ce170972ac6171ab0daa2c0de6b12da16d3124ab6f1f1c93bfb2569684de5",
+      "fileType": "ZIP"
     },
     "license": {
       "status": "Third-party design — attribution to original designer",
@@ -13153,14 +13347,16 @@
       }
     ],
     "sourceUrl": "https://www.parkjets.com/free-plans/p/ultimate-3d",
-    "archiveStatus": "SOURCE_ONLY",
+    "archiveStatus": "ARCHIVED",
     "download": {
-      "type": "source",
-      "file": null,
+      "type": "local",
+      "file": "/plans/ultimate-3d/Ultimate.zip",
+      "filename": "Ultimate.zip",
       "sourceUrl": "https://www.parkjets.com/free-plans/p/ultimate-3d",
-      "originalFilename": "Ultimate.zip",
-      "format": "ZIP",
-      "status": "Plan file is released to signed-in Parkjets members only. No public download endpoint exists; the original product page is linked instead."
+      "status": "Archived and validated",
+      "bytes": 386357,
+      "sha256": "6bcecbf0340c3b632aaff270ac96d10657cedd1ee431ab02c437aaed562394cd",
+      "fileType": "ZIP"
     },
     "license": {
       "status": "Third-party design — attribution to original designer",
@@ -13303,14 +13499,16 @@
       }
     ],
     "sourceUrl": "https://www.parkjets.com/free-plans/p/vantis",
-    "archiveStatus": "SOURCE_ONLY",
+    "archiveStatus": "ARCHIVED",
     "download": {
-      "type": "source",
-      "file": null,
+      "type": "local",
+      "file": "/plans/vantis/Vantis.zip",
+      "filename": "Vantis.zip",
       "sourceUrl": "https://www.parkjets.com/free-plans/p/vantis",
-      "originalFilename": "Vantis.zip",
-      "format": "ZIP",
-      "status": "Plan file is released to signed-in Parkjets members only. No public download endpoint exists; the original product page is linked instead."
+      "status": "Archived and validated",
+      "bytes": 5263769,
+      "sha256": "779c510e75edfeb5d110b2f3e1bd88c3d0eb4de0089a816593d132de87cec437",
+      "fileType": "ZIP"
     },
     "license": {
       "status": "Third-party design — attribution to original designer",
@@ -13424,14 +13622,16 @@
       }
     ],
     "sourceUrl": "https://www.parkjets.com/free-plans/p/velociraptor",
-    "archiveStatus": "SOURCE_ONLY",
+    "archiveStatus": "ARCHIVED",
     "download": {
-      "type": "source",
-      "file": null,
+      "type": "local",
+      "file": "/plans/velociraptor/VelociRaptor.zip",
+      "filename": "VelociRaptor.zip",
       "sourceUrl": "https://www.parkjets.com/free-plans/p/velociraptor",
-      "originalFilename": "VelociRaptor.zip",
-      "format": "ZIP",
-      "status": "Plan file is released to signed-in Parkjets members only. No public download endpoint exists; the original product page is linked instead."
+      "status": "Archived and validated",
+      "bytes": 1315576,
+      "sha256": "ebef0b705f175ca117205b443acfc45c426b4e5468aaa7fd0c5a542a3eea5c9d",
+      "fileType": "ZIP"
     },
     "license": {
       "status": "Third-party design — attribution to original designer",
@@ -13543,14 +13743,16 @@
       }
     ],
     "sourceUrl": "https://www.parkjets.com/free-plans/p/viper",
-    "archiveStatus": "SOURCE_ONLY",
+    "archiveStatus": "ARCHIVED",
     "download": {
-      "type": "source",
-      "file": null,
+      "type": "local",
+      "file": "/plans/viper/Viper.zip",
+      "filename": "Viper.zip",
       "sourceUrl": "https://www.parkjets.com/free-plans/p/viper",
-      "originalFilename": "Viper.zip",
-      "format": "ZIP",
-      "status": "Plan file is released to signed-in Parkjets members only. No public download endpoint exists; the original product page is linked instead."
+      "status": "Archived and validated",
+      "bytes": 319830,
+      "sha256": "ce0143c434d3d1ec495cf783b430c81b099d6757d0094f90241297b16e28fcf1",
+      "fileType": "ZIP"
     },
     "license": {
       "status": "Third-party design — attribution to original designer",
@@ -13674,14 +13876,16 @@
       }
     ],
     "sourceUrl": "https://www.parkjets.com/free-plans/p/voyager",
-    "archiveStatus": "SOURCE_ONLY",
+    "archiveStatus": "ARCHIVED",
     "download": {
-      "type": "source",
-      "file": null,
+      "type": "local",
+      "file": "/plans/voyager/Voyager.zip",
+      "filename": "Voyager.zip",
       "sourceUrl": "https://www.parkjets.com/free-plans/p/voyager",
-      "originalFilename": "Voyager.zip",
-      "format": "ZIP",
-      "status": "Plan file is released to signed-in Parkjets members only. No public download endpoint exists; the original product page is linked instead."
+      "status": "Archived and validated",
+      "bytes": 300290,
+      "sha256": "e5d8bef106b76dba1a496c41cec5e981c79235ed8de389d3a6bb1f5a2ddd75f6",
+      "fileType": "ZIP"
     },
     "license": {
       "status": "Third-party design — attribution to original designer",
@@ -13777,14 +13981,16 @@
       }
     ],
     "sourceUrl": "https://www.parkjets.com/free-plans/p/x-29",
-    "archiveStatus": "SOURCE_ONLY",
+    "archiveStatus": "ARCHIVED",
     "download": {
-      "type": "source",
-      "file": null,
+      "type": "local",
+      "file": "/plans/x-29/Shumate+X-29.zip",
+      "filename": "Shumate+X-29.zip",
       "sourceUrl": "https://www.parkjets.com/free-plans/p/x-29",
-      "originalFilename": "Shumate X-29.zip",
-      "format": "ZIP",
-      "status": "Plan file is released to signed-in Parkjets members only. No public download endpoint exists; the original product page is linked instead."
+      "status": "Archived and validated",
+      "bytes": 262356,
+      "sha256": "f4e817c5083301f17d163ce40f118cd6644762b1bdddbcb9d2f6860bf57dc00b",
+      "fileType": "ZIP"
     },
     "license": {
       "status": "Third-party design — attribution to original designer",
@@ -13876,14 +14082,16 @@
       }
     ],
     "sourceUrl": "https://www.parkjets.com/free-plans/p/x-31",
-    "archiveStatus": "SOURCE_ONLY",
+    "archiveStatus": "ARCHIVED",
     "download": {
-      "type": "source",
-      "file": null,
+      "type": "local",
+      "file": "/plans/x-31/X-31.zip",
+      "filename": "X-31.zip",
       "sourceUrl": "https://www.parkjets.com/free-plans/p/x-31",
-      "originalFilename": "X-31.zip",
-      "format": "ZIP",
-      "status": "Plan file is released to signed-in Parkjets members only. No public download endpoint exists; the original product page is linked instead."
+      "status": "Archived and validated",
+      "bytes": 4402574,
+      "sha256": "42271288bd3fcedfc65696e19125da1252c41c88a91b4142c1463b8dd0f95708",
+      "fileType": "ZIP"
     },
     "license": {
       "status": "Third-party design — attribution to original designer",
@@ -13981,14 +14189,16 @@
       }
     ],
     "sourceUrl": "https://www.parkjets.com/free-plans/p/x-41-wedge",
-    "archiveStatus": "SOURCE_ONLY",
+    "archiveStatus": "ARCHIVED",
     "download": {
-      "type": "source",
-      "file": null,
+      "type": "local",
+      "file": "/plans/x-41-wedge/X-41.zip",
+      "filename": "X-41.zip",
       "sourceUrl": "https://www.parkjets.com/free-plans/p/x-41-wedge",
-      "originalFilename": "X-41.zip",
-      "format": "ZIP",
-      "status": "Plan file is released to signed-in Parkjets members only. No public download endpoint exists; the original product page is linked instead."
+      "status": "Archived and validated",
+      "bytes": 542318,
+      "sha256": "2f3bb329c390ef6b1b41f5b07e645eefbe380bee3311d9a7ba5b6640c758cf69",
+      "fileType": "ZIP"
     },
     "license": {
       "status": "Third-party design — attribution to original designer",
@@ -14113,14 +14323,16 @@
       }
     ],
     "sourceUrl": "https://www.parkjets.com/free-plans/p/x-shuttle-parkjet",
-    "archiveStatus": "SOURCE_ONLY",
+    "archiveStatus": "ARCHIVED",
     "download": {
-      "type": "source",
-      "file": null,
+      "type": "local",
+      "file": "/plans/x-shuttle-parkjet/x-schuttle_v2-2.pdf",
+      "filename": "x-schuttle_v2-2.pdf",
       "sourceUrl": "https://www.parkjets.com/free-plans/p/x-shuttle-parkjet",
-      "originalFilename": "x-schuttle_v2-2.pdf",
-      "format": "PDF",
-      "status": "Plan file is released to signed-in Parkjets members only. No public download endpoint exists; the original product page is linked instead."
+      "status": "Archived and validated",
+      "bytes": 25583,
+      "sha256": "fc69598c568e93c439663567ddf609cdd399740801e5547ea90479c2731b324e",
+      "fileType": "PDF"
     },
     "license": {
       "status": "Third-party design — attribution to original designer",
@@ -14207,14 +14419,16 @@
       }
     ],
     "sourceUrl": "https://www.parkjets.com/free-plans/p/xb-70",
-    "archiveStatus": "SOURCE_ONLY",
+    "archiveStatus": "ARCHIVED",
     "download": {
-      "type": "source",
-      "file": null,
+      "type": "local",
+      "file": "/plans/xb-70/XB-70.zip",
+      "filename": "XB-70.zip",
       "sourceUrl": "https://www.parkjets.com/free-plans/p/xb-70",
-      "originalFilename": "XB-70.zip",
-      "format": "ZIP",
-      "status": "Plan file is released to signed-in Parkjets members only. No public download endpoint exists; the original product page is linked instead."
+      "status": "Archived and validated",
+      "bytes": 698563,
+      "sha256": "a12f88ec5b8f6c02fbd057cadc62372b7f92659d3ce909c5b2b2da9f10f4f25b",
+      "fileType": "ZIP"
     },
     "license": {
       "status": "Third-party design — attribution to original designer",
@@ -14326,14 +14540,16 @@
       }
     ],
     "sourceUrl": "https://www.parkjets.com/free-plans/p/yak-17-edf",
-    "archiveStatus": "SOURCE_ONLY",
+    "archiveStatus": "ARCHIVED",
     "download": {
-      "type": "source",
-      "file": null,
+      "type": "local",
+      "file": "/plans/yak-17-edf/yak17.zip",
+      "filename": "yak17.zip",
       "sourceUrl": "https://www.parkjets.com/free-plans/p/yak-17-edf",
-      "originalFilename": "yak17.zip",
-      "format": "ZIP",
-      "status": "Plan file is released to signed-in Parkjets members only. No public download endpoint exists; the original product page is linked instead."
+      "status": "Archived and validated",
+      "bytes": 87513,
+      "sha256": "277e5f61c8215945631acb3f0791697fc045903b6f024425c0c3fb54fd560bab",
+      "fileType": "ZIP"
     },
     "license": {
       "status": "Third-party design — attribution to original designer",
@@ -14503,14 +14719,16 @@
       }
     ],
     "sourceUrl": "https://www.parkjets.com/free-plans/p/yf-23-black-widow",
-    "archiveStatus": "SOURCE_ONLY",
+    "archiveStatus": "ARCHIVED",
     "download": {
-      "type": "source",
-      "file": null,
+      "type": "local",
+      "file": "/plans/yf-23-black-widow/FY-23.zip",
+      "filename": "FY-23.zip",
       "sourceUrl": "https://www.parkjets.com/free-plans/p/yf-23-black-widow",
-      "originalFilename": "FY-23.zip",
-      "format": "ZIP",
-      "status": "Plan file is released to signed-in Parkjets members only. No public download endpoint exists; the original product page is linked instead."
+      "status": "Archived and validated",
+      "bytes": 5453383,
+      "sha256": "5aa6259855ada78ae871c59619694ae82596e3d3eb0d06b33e043b4fe76abe6c",
+      "fileType": "ZIP"
     },
     "license": {
       "status": "Third-party design — attribution to original designer",

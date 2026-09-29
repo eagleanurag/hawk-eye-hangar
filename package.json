@@ -34,7 +34,8 @@
     "resume:install-task": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/install-parkjets-task.ps1",
     "ci:local": "npm run verify && npm run qa",
     "verify:deployment": "node scripts/verify-deployment.mjs",
-    "resume:uninstall-task": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/install-parkjets-task.ps1 -Uninstall"
+    "resume:uninstall-task": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/install-parkjets-task.ps1 -Uninstall",
+    "archive:local": "node scripts/archive-plans.mjs --local-only"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.4",

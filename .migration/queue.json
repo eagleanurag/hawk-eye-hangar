@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-29T12:57:13.377Z",
+  "generatedAt": "2026-09-29T20:15:52.090Z",
   "tasks": [
     {
       "id": "discover",
@@ -21,15 +21,21 @@
     },
     {
       "id": "plans",
-      "title": "Classify plan files and build the archive manifest",
+      "title": "Build the archive manifest and classify every aircraft",
       "done": true,
-      "evidence": "SOURCE_ONLY=109"
+      "evidence": "109/109 manifest entries, ARCHIVED=109"
+    },
+    {
+      "id": "plan-files",
+      "title": "Acquire the actual plan file for every aircraft via the normal site workflow",
+      "done": true,
+      "evidence": "planStatus: DOWNLOADED=109, SOURCE_ONLY=0, FAILED=0, PENDING=0 (100.0% of 109 actually archived)"
     },
     {
       "id": "site",
       "title": "Build the static site",
       "done": true,
-      "evidence": "114 HTML pages, 972 files in dist/"
+      "evidence": "114 HTML pages, 1081 files in dist/"
     },
     {
       "id": "quality-gates",
@@ -53,7 +59,7 @@
       "id": "commit",
       "title": "Commit all work to main",
       "done": true,
-      "evidence": "2 uncommitted change(s)"
+      "evidence": "25 uncommitted change(s)"
     },
     {
       "id": "deploy",

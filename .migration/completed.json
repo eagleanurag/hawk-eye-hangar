@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-29T12:44:58.647Z",
+  "generatedAt": "2026-09-29T20:13:47.066Z",
   "note": "Populated from repository evidence at recovery time, not asserted.",
   "tasks": [
     {
@@ -18,12 +18,6 @@
       "id": "media",
       "title": "Archive aircraft photographs locally",
       "evidence": "838 files across 109/109 aircraft (48.1 MB)",
-      "at": "2026-09-29T11:33:26.661Z"
-    },
-    {
-      "id": "plans",
-      "title": "Classify plan files and build the archive manifest",
-      "evidence": "SOURCE_ONLY=109",
       "at": "2026-09-29T11:33:26.661Z"
     },
     {
@@ -73,6 +67,18 @@
       "title": "Pass the browser QA matrix against the live URL",
       "evidence": "240/240 live checks at 8 viewports; 39/39 deployment checks; no Squarespace markup or third-party requests",
       "at": "2026-09-29T12:44:58.646Z"
+    },
+    {
+      "id": "plan-files",
+      "title": "Acquire the actual plan file for every aircraft via the normal site workflow",
+      "evidence": "planStatus: DOWNLOADED=0, SOURCE_ONLY=0, FAILED=0, PENDING=109 (0.0% of 109 actually archived)",
+      "at": "2026-09-29T20:13:14.119Z"
+    },
+    {
+      "id": "plans",
+      "title": "Build the archive manifest and classify every aircraft",
+      "evidence": "109/109 manifest entries, ARCHIVED=109",
+      "at": "2026-09-29T20:13:47.065Z"
     }
   ]
 }

@@ -122,6 +122,35 @@ function gatherEvidence() {
   const statusCounts = {};
   for (const a of aircraft) statusCounts[a.archiveStatus] = (statusCounts[a.archiveStatus] || 0) + 1;
 
+  /*
+   * Plan-file evidence, counted independently of the manifest.
+   *
+   * A plan file only counts as acquired when the bytes are actually on disk and
+   * the manifest recorded a digest for them. `archiveStatus` alone is not
+   * enough: SOURCE_ONLY is also the resting state for an aircraft nobody has
+   * tried to download yet, so it cannot be treated as a resolved outcome.
+   */
+  const planCounts = { DOWNLOADED: 0, SOURCE_ONLY: 0, FAILED: 0, PENDING: 0 };
+  for (const entry of manifest.entries || []) {
+    const ps = entry.planStatus;
+    if (ps === 'DOWNLOADED') {
+      // A DOWNLOADED claim only stands if the file is genuinely on disk.
+      const rel = String(entry.localFile || '').replace(/^public\//, '');
+      const onDisk = rel ? path.join(ROOT, 'public', rel) : null;
+      if (onDisk && fs.existsSync(onDisk) && fs.statSync(onDisk).size > 0 && entry.sha256) {
+        planCounts.DOWNLOADED += 1;
+      } else {
+        planCounts.PENDING += 1; // claimed, but unverifiable -> not resolved
+      }
+    } else if (ps === 'SOURCE_ONLY' || ps === 'FAILED') {
+      // Terminal, but only if the exact reason was recorded as required.
+      if (entry.reason || entry.notes) planCounts[ps] += 1;
+      else planCounts.PENDING += 1;
+    } else {
+      planCounts.PENDING += 1; // absent, or not yet decided
+    }
+  }
+
   const creditedDesigners = new Set(
     aircraft.map((a) => a.designerKey).filter((k) => k && k !== 'uncredited')
   ).size;
@@ -139,6 +168,11 @@ function gatherEvidence() {
     uncreditedDesigners,
     categories: new Set(aircraft.flatMap((a) => a.category)).size,
     archiveStatus: statusCounts,
+    planFilesDownloaded: planCounts.DOWNLOADED,
+    planFilesSourceOnly: planCounts.SOURCE_ONLY,
+    planFilesFailed: planCounts.FAILED,
+    planFilesPending: planCounts.PENDING,
+    planFilesResolved: planCounts.DOWNLOADED + planCounts.SOURCE_ONLY + planCounts.FAILED,
     manifestEntries: manifest.entries?.length ?? 0,
     mediaDirs,
     mediaFiles,
@@ -183,9 +217,32 @@ function buildQueue(ev) {
     },
     {
       id: 'plans',
-      title: 'Classify plan files and build the archive manifest',
-      done: ev.manifestEntries > 0,
-      evidence: `${Object.entries(ev.archiveStatus).map(([k, v]) => `${k}=${v}`).join(', ')}`,
+      title: 'Build the archive manifest and classify every aircraft',
+      done: ev.manifestEntries > 0 && ev.manifestEntries === ev.aircraftRecords,
+      evidence: `${ev.manifestEntries}/${ev.aircraftRecords} manifest entries, ${Object.entries(ev.archiveStatus).map(([k, v]) => `${k}=${v}`).join(', ')}`,
+    },
+    {
+      /*
+       * The gate the original queue was missing.
+       *
+       * `plans` above is satisfied by the *manifest* existing, which says nothing
+       * about whether a single plan file was actually retrieved. That is how a
+       * run where 0 of 109 plan files were downloaded was able to report
+       * "project complete".
+       *
+       * `plan-files` is the real archival gate: it is only done once every
+       * aircraft carries a terminal planStatus (DOWNLOADED / SOURCE_ONLY /
+       * FAILED) and no aircraft is still PENDING. A run that has not yet driven
+       * the legitimate authenticated cart->checkout->download flow leaves
+       * aircraft PENDING and therefore cannot pass.
+       */
+      id: 'plan-files',
+      title: 'Acquire the actual plan file for every aircraft via the normal site workflow',
+      done: ev.planFilesResolved > 0 && ev.planFilesResolved === ev.aircraftRecords && ev.planFilesPending === 0,
+      evidence:
+        `planStatus: DOWNLOADED=${ev.planFilesDownloaded}, SOURCE_ONLY=${ev.planFilesSourceOnly}, ` +
+        `FAILED=${ev.planFilesFailed}, PENDING=${ev.planFilesPending} ` +
+        `(${(ev.planFilesDownloaded / Math.max(1, ev.aircraftRecords) * 100).toFixed(1)}% of ${ev.aircraftRecords} actually archived)`,
     },
     {
       id: 'site',

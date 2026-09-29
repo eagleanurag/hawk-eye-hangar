@@ -1,4 +1,17 @@
 {
-  "generatedAt": "2026-09-29T11:33:26.662Z",
-  "tasks": []
+  "generatedAt": "2026-09-29T13:19:15.418Z",
+  "tasks": [
+    {
+      "id": "plans",
+      "reason": "Plan-file acquisition NOT done: 109/109 SOURCE_ONLY, 0 files archived. Requires an authorized Parkjets MemberSpace account, which was not supplied, plus a connected desktop browser. Blocked at step 2 of the legitimate login->cart->checkout->download flow. Not circumvention-eligible.",
+      "recoverable": false,
+      "attempts": 1,
+      "firstFailedAt": "2026-09-29T13:19:15.404Z",
+      "lastAttemptAt": "2026-09-29T13:19:15.418Z",
+      "recovered": true,
+      "recoveredAt": "2026-09-29T20:13:47.067Z",
+      "resolution": "Resolved on 2026-09-29. The blocking condition (no authorised account able to reach a $0 download) was real: the plan files are paid MemberSpace digital goods. It was resolved legitimately by the maintainer supplying their own paid-membership downloads locally, which were then matched, validated and hashed into the archive. No paywall, membership or download control was bypassed."
+    }
+  ],
+  "updatedAt": "2026-09-29T20:14:13.468Z"
 }

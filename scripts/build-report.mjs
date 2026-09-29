@@ -23,11 +23,31 @@ const uniq = (arr) => new Set(arr).size;
 const categories = {};
 for (const a of aircraft) for (const c of a.category) categories[c] = (categories[c] || 0) + 1;
 
-const designers = {};
+/*
+ * Designers are grouped by the normalised designerKey, the same way the site
+ * groups them, so the number in this report always matches the number on the
+ * designers page. Where the source spells one designer more than one way the
+ * variants are reported rather than silently merged.
+ */
+const designerGroups = new Map();
 for (const a of aircraft) {
-  if (!a.designer) continue;
-  designers[a.designer] = (designers[a.designer] || 0) + 1;
+  if (!a.designer || !a.designerKey || a.designerKey === 'uncredited') continue;
+  if (!designerGroups.has(a.designerKey)) designerGroups.set(a.designerKey, new Map());
+  const byName = designerGroups.get(a.designerKey);
+  byName.set(a.designer, (byName.get(a.designer) || 0) + 1);
 }
+const designers = [...designerGroups.entries()]
+  .map(([key, byName]) => {
+    const variants = [...byName.entries()].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
+    return {
+      name: variants[0][0],
+      designerKey: key,
+      count: variants.reduce((s, v) => s + v[1], 0),
+      spellings: variants.map(([n, c]) => ({ name: n, count: c })),
+    };
+  })
+  .sort((a, b) => b.count - a.count || a.name.localeCompare(b.name));
+const spellingVariants = designers.filter((d) => d.spellings.length > 1);
 
 const totalImageBytes = aircraft.reduce(
   (s, a) => s + a.images.reduce((t, i) => t + (i.cardBytes || 0) + (i.fullBytes || 0), 0),
@@ -69,8 +89,8 @@ const summary = {
     manualReview: status.MANUAL_REVIEW,
     requiringReview: count((a) => a.review.length > 0),
     categories: Object.keys(categories).length,
-    designers: Object.keys(designers).length,
-    uncreditedDesigners: count((a) => !a.designer),
+    designers: designers.length,
+    uncreditedDesigners: count((a) => !a.designer || a.designerKey === 'uncredited'),
     images: aircraft.reduce((s, a) => s + a.images.length, 0),
     imageFiles: aircraft.reduce((s, a) => s + a.images.length * 2, 0),
     imageBytes: totalImageBytes,
@@ -82,9 +102,10 @@ const summary = {
   },
   planFileTypesAtSource: originalTypes,
   categories,
-  designers: Object.entries(designers)
-    .map(([name, count]) => ({ name, count }))
-    .sort((a, b) => b.count - a.count || a.name.localeCompare(b.name)),
+  // `designers` is already an array of { name, designerKey, count, spellings },
+  // sorted by count. Spreading it through Object.entries (as when it was a plain
+  // name->count object) turned the array indexes into designer names.
+  designers,
   knownLimitations: {
     noStructuredSpecifications: aircraft
       .filter((a) => !Object.keys(a.specifications).length)

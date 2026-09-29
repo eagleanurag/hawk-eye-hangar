@@ -165,17 +165,33 @@ function tally<T extends string>(values: T[]): { value: T; count: number }[] {
 
 export const categories = tally(aircraft.flatMap((a) => a.category));
 
-/** Designers grouped by the case-insensitive key so "FuelsGuy" is one person. */
-export const designers = (() => {
-  const m = new Map<string, { value: string; count: number }>();
+/**
+ * Designers grouped by the case-insensitive key so "FuelsGuy" and "Fuelsguy"
+ * are one person. Where a designer is spelled more than one way in the source
+ * the most frequent spelling wins, then alphabetical order, so the displayed
+ * name is deterministic rather than dependent on catalogue order.
+ */
+export const designerSpellings = (() => {
+  const m = new Map<string, Map<string, number>>();
   for (const a of aircraft) {
-    if (a.designerKey === 'uncredited') continue;
-    const cur = m.get(a.designerKey);
-    if (cur) cur.count += 1;
-    else m.set(a.designerKey, { value: a.designer, count: 1 });
+    if (!a.designer || !a.designerKey || a.designerKey === 'uncredited') continue;
+    if (!m.has(a.designerKey)) m.set(a.designerKey, new Map());
+    const byName = m.get(a.designerKey)!;
+    byName.set(a.designer, (byName.get(a.designer) || 0) + 1);
   }
-  return [...m.values()].sort((a, b) => b.count - a.count || a.value.localeCompare(b.value));
+  return m;
 })();
+
+export const designers = [...designerSpellings.entries()]
+  .map(([key, byName]) => {
+    const variants = [...byName.entries()].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
+    return { key, value: variants[0][0], count: 0, spellings: variants.map(([n, c]) => ({ name: n, count: c })) };
+  })
+  .map((d) => {
+    d.count = d.spellings.reduce((s, v) => s + v.count, 0);
+    return d;
+  })
+  .sort((a, b) => b.count - a.count || a.value.localeCompare(b.value));
 
 export const uncreditedCount = aircraft.filter((a) => a.designerKey === 'uncredited').length;
 

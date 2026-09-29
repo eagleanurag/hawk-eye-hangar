@@ -207,7 +207,10 @@ function Get-ResumePrompt {
   $lines.Add('commits, discard uncommitted changes, or reset the working tree. The existing work')
   $lines.Add('is the source of truth.')
   $lines.Add('')
-  $lines.Add('Repository:  C:\Users\eagleanurag\Documents\parkjets')
+  # Resolved at run time so the script stays portable and no maintainer path is
+  # baked into the repository.
+  $repoPath = (Resolve-Path (Join-Path $PSScriptRoot '..')).Path
+  $lines.Add("Repository:  $repoPath")
   $lines.Add('Work in that directory. Read .migration/state.json first.')
   $lines.Add('')
   $lines.Add('WORKFLOW - repeat this cycle until every task is done:')

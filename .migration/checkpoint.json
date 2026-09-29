@@ -1,9 +1,9 @@
 {
-  "at": "2026-09-29T12:57:11.767Z",
+  "at": "2026-09-29T20:18:18.605Z",
   "reason": "project-complete",
-  "commit": "79baaf4697c5cfee0457e5e209d3fd0f6cf49e8b",
+  "commit": "b5482cfb7a281b2431d1e0daf40e7130c885c61c",
   "branch": "main",
-  "originHead": "1cde6bb95a925d922f769924641b7fcae9e7f3ba",
+  "originHead": "997fd69301e0feaa7592d58b05608c7a56c728a2",
   "dirtyFiles": 1,
   "inSync": false,
   "evidence": {
@@ -18,17 +18,22 @@
     "uncreditedDesigners": 2,
     "categories": 7,
     "archiveStatus": {
-      "SOURCE_ONLY": 109
+      "ARCHIVED": 109
     },
+    "planFilesDownloaded": 109,
+    "planFilesSourceOnly": 0,
+    "planFilesFailed": 0,
+    "planFilesPending": 0,
+    "planFilesResolved": 109,
     "manifestEntries": 109,
     "mediaDirs": 109,
     "mediaFiles": 838,
     "mediaBytes": 50413786,
     "distPages": 114,
-    "distFiles": 972,
-    "head": "79baaf4697c5cfee0457e5e209d3fd0f6cf49e8b",
+    "distFiles": 1081,
+    "head": "b5482cfb7a281b2431d1e0daf40e7130c885c61c",
     "branch": "main",
-    "originHead": "1cde6bb95a925d922f769924641b7fcae9e7f3ba",
+    "originHead": "997fd69301e0feaa7592d58b05608c7a56c728a2",
     "dirtyFiles": 1,
     "npmAuditClean": true
   }

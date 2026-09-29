@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-09-29T12:52:27.781Z",
+  "generatedAt": "2026-09-29T20:11:55.099Z",
   "payload": {
     "sharedJsBytes": 12339,
     "sharedCssBytes": 50502,
-    "htmlBytes": 2974933,
+    "htmlBytes": 2973249,
     "mediaBytes": 50413786,
     "mediaFiles": 838
   },
@@ -13,7 +13,7 @@
       "js": 3723,
       "css": 41714,
       "images": 47334,
-      "other": 152037,
+      "other": 151973,
       "count": 12
     },
     {
@@ -21,7 +21,7 @@
       "js": 9213,
       "css": 38959,
       "images": 897044,
-      "other": 423702,
+      "other": 422829,
       "count": 16
     },
     {
@@ -29,7 +29,7 @@
       "js": 6733,
       "css": 44949,
       "images": 47764,
-      "other": 132919,
+      "other": 132905,
       "count": 14
     },
     {

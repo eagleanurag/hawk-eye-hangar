@@ -1,6 +1,6 @@
 # Parkjets Archive — migration report
 
-_Generated 2026-09-29T12:56:47.810Z by `npm run report` from the actual archive artefacts.
+_Generated 2026-09-29T20:12:51.619Z by `npm run report` from the actual archive artefacts.
 Every number below is computed from `data/aircraft.json` and `data/archive-manifest.json`._
 
 ## 1. Source
@@ -26,14 +26,14 @@ in the published collection, which contains **109 items**.
 | Aircraft discovered | 109 | 100% |
 | Aircraft imported | 109 | 100% |
 | Import failures | 0 | |
-| **Plans archived locally** | **0** | |
-| **Source-only (member-gated)** | **109** | 100% |
+| **Plans archived locally** | **109** | |
+| **Source-only (member-gated)** | **0** | 0% |
 | Unavailable | 0 | |
 | Manual review | 0 | |
 | Records flagged for review | 20 | |
 | Aircraft with structured specifications | 90 | 83% |
 | Parsed specification values | 503 | |
-| Designers credited | 50 | |
+| Designers credited | 49 | |
 | Entries with no designer credit | 2 | |
 | Categories | 7 | |
 | Photographs archived | 419 | |
@@ -58,7 +58,7 @@ exposes, records the result, and then classifies the record:
 | `UNAVAILABLE` | The source entry publishes no file. |
 | `MANUAL_REVIEW` | A file is present but failed validation. |
 
-Current distribution: 0 archived, 109 source-only, 0 unavailable, 0 manual review.
+Current distribution: 109 archived, 0 source-only, 0 unavailable, 0 manual review.
 
 Declared plan file types at the source: `ZIP` ×105, `PDF` ×4.
 
@@ -88,12 +88,12 @@ buttons switch from "Open original source" to a real download automatically.
 - **Tomas Hellberg** — 5
 - **GGRN** — 4
 - **Domenico Sebastiani** — 3
+- **Fuelsguy** — 3
 - **Robert Viskil** — 3
 - **Ben Song (Beanie)** — 2
 - **Chris Carpenter** — 2
 - **DCobra** — 2
 - **Eduardo Flores** — 2
-- **Fuelsguy** — 2
 - **Hans-Joachim** — 2
 - **Pat Gagnon** — 2
 - **Sean Correia** — 2
@@ -108,7 +108,6 @@ buttons switch from "Open original source" to a real download automatically.
 - **David Martel** — 1
 - **Denis CyberD** — 1
 - **FoamyFactory (Tim Hart)** — 1
-- **FuelsGuy** — 1
 - **Hansie** — 1
 - **Jason Swisher** — 1
 - **Jim Wagoner** — 1
