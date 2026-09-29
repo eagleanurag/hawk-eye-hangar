@@ -1,10 +1,10 @@
 {
-  "at": "2026-09-29T12:27:44.967Z",
-  "reason": "recovery mechanism installed and verified",
-  "commit": "bea377bc567f3a49485badb05d967099736162b9",
+  "at": "2026-09-29T12:57:11.767Z",
+  "reason": "project-complete",
+  "commit": "79baaf4697c5cfee0457e5e209d3fd0f6cf49e8b",
   "branch": "main",
-  "originHead": "a6fe0a8eda2d8251faf553b25e244eea2ed88f53",
-  "dirtyFiles": 2,
+  "originHead": "1cde6bb95a925d922f769924641b7fcae9e7f3ba",
+  "dirtyFiles": 1,
   "inSync": false,
   "evidence": {
     "aircraftRecords": 109,
@@ -26,10 +26,10 @@
     "mediaBytes": 50413786,
     "distPages": 114,
     "distFiles": 972,
-    "head": "bea377bc567f3a49485badb05d967099736162b9",
+    "head": "79baaf4697c5cfee0457e5e209d3fd0f6cf49e8b",
     "branch": "main",
-    "originHead": "a6fe0a8eda2d8251faf553b25e244eea2ed88f53",
-    "dirtyFiles": 2,
+    "originHead": "1cde6bb95a925d922f769924641b7fcae9e7f3ba",
+    "dirtyFiles": 1,
     "npmAuditClean": true
   }
 }

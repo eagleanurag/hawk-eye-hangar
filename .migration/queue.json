@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-29T12:56:48.949Z",
+  "generatedAt": "2026-09-29T12:57:13.377Z",
   "tasks": [
     {
       "id": "discover",
@@ -53,7 +53,7 @@
       "id": "commit",
       "title": "Commit all work to main",
       "done": true,
-      "evidence": "9 uncommitted change(s)"
+      "evidence": "2 uncommitted change(s)"
     },
     {
       "id": "deploy",
