@@ -1,11 +1,11 @@
 {
-  "at": "2026-09-29T20:18:18.605Z",
+  "at": "2026-09-29T20:53:21.975Z",
   "reason": "project-complete",
-  "commit": "b5482cfb7a281b2431d1e0daf40e7130c885c61c",
+  "commit": "880bd7a0e7fbecd4f7f6ed098de3caf3fdf650a3",
   "branch": "main",
-  "originHead": "997fd69301e0feaa7592d58b05608c7a56c728a2",
+  "originHead": "880bd7a0e7fbecd4f7f6ed098de3caf3fdf650a3",
   "dirtyFiles": 1,
-  "inSync": false,
+  "inSync": true,
   "evidence": {
     "aircraftRecords": 109,
     "uniqueSlugs": 109,
@@ -31,9 +31,9 @@
     "mediaBytes": 50413786,
     "distPages": 114,
     "distFiles": 1081,
-    "head": "b5482cfb7a281b2431d1e0daf40e7130c885c61c",
+    "head": "880bd7a0e7fbecd4f7f6ed098de3caf3fdf650a3",
     "branch": "main",
-    "originHead": "997fd69301e0feaa7592d58b05608c7a56c728a2",
+    "originHead": "880bd7a0e7fbecd4f7f6ed098de3caf3fdf650a3",
     "dirtyFiles": 1,
     "npmAuditClean": true
   }
