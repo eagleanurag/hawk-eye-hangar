@@ -1,16 +1,23 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Parkjets Archive">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="EagleEye Hangar">
+  <title>EagleEye Hangar</title>
   <defs>
-    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#4fd6ff"/>
-      <stop offset="60%" stop-color="#16a6d8"/>
-      <stop offset="100%" stop-color="#0b5f86"/>
+    <linearGradient id="ee" x1="0" y1="0" x2="0.35" y2="1">
+      <stop offset="0%" stop-color="#9fe9ff"/>
+      <stop offset="55%" stop-color="#4fd6ff"/>
+      <stop offset="100%" stop-color="#1273a8"/>
     </linearGradient>
   </defs>
-  <rect width="64" height="64" rx="14" fill="#0b1220"/>
-  <rect x="0.75" y="0.75" width="62.5" height="62.5" rx="13.25" fill="none" stroke="url(#g)" stroke-opacity="0.55" stroke-width="1.5"/>
-  <g fill="url(#g)" stroke="#4fd6ff" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round">
-    <path d="M8 35.5 55 17l-11 15 11 9-47 5 8-7z"/>
-    <path d="M30 30 39 15l3 1.5-9 13z" stroke-width="1.2"/>
-    <path d="M30 30 39 45l3-1.5-9-13z" stroke-width="1.2"/>
-  </g>
+
+  <!-- hangar bezel -->
+  <rect width="64" height="64" rx="13" fill="#070b14"/>
+  <path d="M6 32 17 12h30l11 20-11 20H17Z" fill="none" stroke="url(#ee)" stroke-opacity=".45" stroke-width="2.4" stroke-linejoin="round"/>
+
+  <!-- eye lens -->
+  <path d="M11 32c6.2-8.4 13-12.6 21-12.6S46.8 23.6 53 32c-6.2 8.4-13 12.6-21 12.6S17.2 40.4 11 32Z" fill="url(#ee)"/>
+
+  <!-- aircraft delta as the pupil -->
+  <path d="M32 23.4 38.4 37 32 33.4 25.6 37Z" fill="#070b14"/>
+
+  <!-- instrument tick -->
+  <path d="M32 46.6v3.2" stroke="url(#ee)" stroke-width="2.2" stroke-linecap="round"/>
 </svg>

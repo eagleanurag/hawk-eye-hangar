@@ -1,7 +1,7 @@
 {
-  "name": "Parkjets Archive",
-  "tagline": "RC Aircraft Plans, Designs & Build Resources",
-  "description": "A preservation archive of the Parkjets RC parkjet and park flyer plan catalogue — 109 aircraft, designer credits, specifications, build threads and photography, independently hosted on GitHub Pages.",
+  "name": "EagleEye Hangar",
+  "tagline": "RC Aircraft Plans • Designs • Build Resources",
+  "description": "Explore RC aircraft plans, designs, specifications, designers, photos and build resources in the EagleEye Hangar aviation library — 109 aircraft, 49 designers, 419 photographs.",
   "url": "https://eagleanurag.github.io",
   "base": "/parkjet-aircraft-archive/",
   "repo": "https://github.com/eagleanurag/parkjet-aircraft-archive",
@@ -9,6 +9,9 @@
   "sourceCollection": "https://www.parkjets.com/free-plans",
   "contactEmail": "parkjets@gmail.com",
   "locale": "en-GB",
-  "themeColor": "#0b1220",
-  "brand": "Parkjets Archive"
+  "themeColor": "#070b14",
+  "brand": "EagleEye Hangar",
+  "eyebrow": "Digital Aviation Library",
+  "descriptors": "RC Aircraft Plans • Designs • Build Resources",
+  "formerBrand": "Parkjets Archive"
 }

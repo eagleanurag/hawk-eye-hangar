@@ -1,0 +1,537 @@
+---
+/**
+ * EagleEye Hangar — hero scroll story.
+ *
+ * Presentation only. The aircraft it depicts is described by a small, explicit
+ * `spec` prop rather than by loading the 109-record catalogue, so this component
+ * never pulls in the full dataset to animate one silhouette.
+ *
+ * Scroll behaviour lives in src/scripts/hero-scroll.js. The numbers rendered
+ * here come from the real dataset via the caller (see index.astro), so nothing
+ * about the archive is hard-coded in this file.
+ */
+import { BASE } from '../lib/catalog';
+
+interface Spec {
+  label: string;
+  value: string;
+}
+
+interface Props {
+  aircraftCount: number;
+  designerCount: number;
+  photoCount: number;
+  /** Names the design the hero silhouette depicts, for screen readers. */
+  heroName: string;
+  heroDesigner: string;
+  specs: Spec[];
+}
+
+const { aircraftCount, designerCount, photoCount, heroName, heroDesigner, specs } = Astro.props;
+const base = BASE;
+---
+
+<section class="hangar-hero" data-hero-story aria-labelledby="hero-title">
+  <!--
+    Ambient depth. Two static layers plus one very slow, transform-only drift on
+    a single oversized, isolated layer. No background-position animation, no
+    mask animation, nothing that repaints the viewport.
+  -->
+  <div class="hero-ambient" aria-hidden="true">
+    <span class="hero-ambient-glow"></span>
+    <span class="hero-ambient-grid"></span>
+    <span class="hero-ambient-scan"></span>
+  </div>
+
+  <div class="hangar-hero-inner">
+    <div class="hangar-hero-copy" data-hero-copy>
+      <p class="hangar-eyebrow">
+        <span class="hangar-eyebrow-dot" aria-hidden="true"></span>
+        Digital Aviation Library
+      </p>
+
+      <h1 id="hero-title" class="hangar-title">
+        <span class="hangar-title-main">EagleEye</span>
+        <span class="hangar-title-sub">Hangar</span>
+      </h1>
+
+      <p class="hangar-descriptors">RC Aircraft Plans • Designs • Build Resources</p>
+
+      <p class="hangar-lede">
+        Explore a curated digital collection of RC aircraft designs, plans, specifications,
+        designers and build resources.
+      </p>
+
+      <div class="hangar-actions">
+        <a class="btn btn--primary" href={base + 'catalog'} data-no-transition>
+          Explore {aircraftCount} Aircraft
+        </a>
+        <a class="btn btn--ghost" href={base + 'designers'} data-no-transition>
+          Meet the Designers
+        </a>
+      </div>
+
+      <dl class="hangar-ledger" aria-label="Library totals">
+        <div><dt>Aircraft</dt><dd>{aircraftCount}</dd></div>
+        <div><dt>Designers</dt><dd>{designerCount}</dd></div>
+        <div><dt>Photographs</dt><dd>{photoCount}</dd></div>
+      </dl>
+    </div>
+
+    <!--
+      The single hero visual, inlined rather than referenced with <img>.
+
+      Inlining is what lets the scroll story cross-fade the filled skin into the
+      engineering wireframe: the two are <g> groups inside one SVG, so this
+      stays a single asset with no second request and no second copy of the
+      artwork, while remaining addressable from CSS and JS.
+
+      aria-hidden: the same aircraft is described in text immediately below the
+      stage, so announcing the illustration would just be noise.
+    -->
+      <!--
+        The hero silhouette is an inline SVG, so it has no `alt` of its own.
+        This is the equivalent: one line naming the depicted design for anyone
+        who cannot see the illustration, without describing decoration.
+      -->
+      <p class="visually-hidden">
+        Illustration: a delta-wing RC parkjet shown in a technical three-quarter view.
+        Depicted design: {heroName}, by {heroDesigner}.
+      </p>
+
+      <div class="hangar-hero-stage" aria-hidden="true">
+      <figure class="hangar-plane" data-hero-plane>
+        <svg
+          class="hangar-plane-svg"
+          viewBox="0 0 1200 520"
+          width="1200"
+          height="520"
+          focusable="false"
+          role="presentation"
+        >
+          <defs>
+            <linearGradient id="eeSkin" x1="0" y1="0" x2="0.3" y2="1">
+              <stop offset="0%" stop-color="#dbe7fb" />
+              <stop offset="42%" stop-color="#a8bcd8" />
+              <stop offset="100%" stop-color="#6d84a6" />
+            </linearGradient>
+            <linearGradient id="eeSkinTop" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#eef4ff" />
+              <stop offset="100%" stop-color="#b9c9e2" />
+            </linearGradient>
+            <linearGradient id="eeGlass" x1="0" y1="0" x2="0.4" y2="1">
+              <stop offset="0%" stop-color="#2b4a6b" />
+              <stop offset="55%" stop-color="#12293f" />
+              <stop offset="100%" stop-color="#0a1826" />
+            </linearGradient>
+            <linearGradient id="eeAccent" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="#4fd6ff" />
+              <stop offset="100%" stop-color="#1a86bd" />
+            </linearGradient>
+          </defs>
+
+          <!-- filled skin: stage 1 -->
+          <g data-hero-skin>
+            <path d="M604 300 792 366 806 386 596 336Z" fill="url(#eeSkin)" opacity=".82" />
+            <path d="M596 300 408 366 394 386 604 336Z" fill="url(#eeSkin)" opacity=".82" />
+            <path d="M600 150 792 372 596 342 408 372Z" fill="url(#eeSkin)" />
+            <path d="M600 150 792 372 764 362 600 196Z" fill="url(#eeSkinTop)" opacity=".75" />
+            <path d="M600 118c26 16 40 44 40 78 0 62-16 128-40 190-24-62-40-128-40-190 0-34 14-62 40-78Z" fill="url(#eeSkin)" />
+            <path d="M600 96c18 14 28 34 28 58 0 8-28 8-28 0 0-24 10-44 28-58Z" fill="url(#eeSkinTop)" />
+            <circle cx="628" cy="140" r="5" fill="#0a1826" />
+            <path d="M600 140c20 12 30 34 28 62-2 26-14 48-28 62-14-14-26-36-28-62-2-28 8-50 28-62Z" fill="url(#eeGlass)" />
+            <path d="M588 156c-8 10-12 24-12 40" fill="none" stroke="#8fd4f2" stroke-opacity=".45" stroke-width="3" stroke-linecap="round" />
+            <path d="M600 292 640 236 618 300Z" fill="url(#eeSkin)" opacity=".9" />
+            <path d="M600 292 560 236 582 300Z" fill="url(#eeSkin)" opacity=".9" />
+            <path d="M566 214c-10 6-14 18-12 32l16-6c-2-12 0-20 4-26Z" fill="#0d1b2b" />
+            <path d="M634 214c10 6 14 18 12 32l-16-6c2-12 0-20-4-26Z" fill="#0d1b2b" />
+            <path d="M600 300v96" stroke="url(#eeAccent)" stroke-width="7" stroke-linecap="round" opacity=".9" />
+          </g>
+
+          <!-- engineering wireframe: stage 2 -->
+          <g data-hero-wire fill="none" stroke="#4fd6ff" stroke-width="2" stroke-linejoin="round" opacity="0">
+            <path d="M600 150 792 372 596 342 408 372Z" />
+            <path d="M600 118c26 16 40 44 40 78 0 62-16 128-40 190-24-62-40-128-40-190 0-34 14-62 40-78Z" />
+            <path d="M600 96c18 14 28 34 28 58" />
+            <path d="M600 140c20 12 30 34 28 62-2 26-14 48-28 62-14-14-26-36-28-62-2-28 8-50 28-62Z" />
+            <path d="M600 292 640 236M600 292 560 236" />
+            <path d="M566 214c-10 6-14 18-12 32M634 214c10 6 14 18 12 32" />
+            <path d="M408 372h384" stroke-opacity=".5" stroke-dasharray="7 7" />
+            <path d="M600 96v286" stroke-opacity=".35" stroke-dasharray="5 9" />
+            <path d="M470 300h260" stroke-opacity=".3" stroke-dasharray="4 10" />
+            <path d="M520 232h160" stroke-opacity=".3" stroke-dasharray="4 10" />
+            <g stroke-opacity=".22" stroke-width="1.4">
+              <path d="M470 330 520 262M500 346 548 250M530 352 576 244M670 352 624 244M700 346 652 250M730 330 680 262" />
+            </g>
+          </g>
+        </svg>
+      </figure>
+
+      <!--
+        Engineering annotations. Decoration only: the same four figures are
+        listed in the ledger below, so these are hidden from assistive tech
+        rather than announced twice.
+      -->
+      <ul class="hangar-notes" aria-hidden="true">
+        {specs.map((s, i) => (
+          <li class="hangar-note hangar-note--{i + 1}" data-hero-note>
+            <span class="hangar-note-label">{s.label}</span>
+            <span class="hangar-note-value">{s.value}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+
+  <p class="hangar-scrollcue" aria-hidden="true">
+    <span class="hangar-scrollcue-line"></span>
+    Scroll to inspect
+  </p>
+</section>
+
+<style>
+  /* ---------------------------------------------------------------------
+     Tunables consumed by hero-scroll.js. Media queries retune these instead
+     of duplicating the animation logic in JavaScript.
+     --------------------------------------------------------------------- */
+  .hangar-hero {
+    --hero-travel-x: 34vw;
+    --hero-travel-y: -6vh;
+    --hero-bank: 7deg;
+    --hero-scale-from: 1;
+    --hero-scale-to: 0.78;
+    --hero-fade-from: 0.4;
+    --hero-fade-to: 1;
+
+    position: relative;
+    isolation: isolate;
+    overflow: clip;
+    /* Two viewport heights of scroll runway for the three-stage story. */
+    min-height: 200vh;
+    padding-block: clamp(3rem, 1.5rem + 6vw, 6rem) clamp(6rem, 4rem + 8vw, 10rem);
+    background:
+      radial-gradient(120% 80% at 78% 8%, color-mix(in oklab, var(--cyan) 9%, transparent) 0%, transparent 58%),
+      radial-gradient(90% 60% at 6% 92%, color-mix(in oklab, #2b6ea8 12%, transparent) 0%, transparent 60%),
+      linear-gradient(180deg, #080d18 0%, #0a1220 55%, #070b14 100%);
+  }
+
+  .hangar-hero-inner {
+    position: relative;
+    z-index: 2;
+    width: var(--shell);
+    margin-inline: auto;
+    display: grid;
+    gap: clamp(1.5rem, 1rem + 3vw, 3.5rem);
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+    align-items: center;
+    min-height: 78vh;
+  }
+
+  /* ------------------------------ ambient ------------------------------ */
+  .hero-ambient {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    overflow: clip;
+  }
+  .hero-ambient > span {
+    position: absolute;
+    display: block;
+  }
+  .hero-ambient-glow {
+    inset: 0;
+    background: radial-gradient(70% 45% at 72% 22%, color-mix(in oklab, var(--cyan) 13%, transparent), transparent 70%);
+  }
+  /* Static hairline grid. Painted once, never animated. */
+  .hero-ambient-grid {
+    inset: 0;
+    background-image:
+      linear-gradient(var(--grid-line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+    background-size: 56px 56px;
+    mask-image: radial-gradient(85% 65% at 70% 25%, #000 0%, transparent 72%);
+  }
+  /*
+   * Atmospheric sheen — STATIC.
+   *
+   * This was previously an infinite 14s translate3d loop. It was the last
+   * continuous animation on the page, and isolating it in Firefox showed it
+   * still cost 36% of the scroll budget (54.3ms -> 34.5ms median frame time
+   * with it disabled). Chromium hid the cost; Firefox did not.
+   *
+   * A one-shot static sheen reads almost identically at these opacities, so it
+   * is now painted once and never animated. The hero's scroll story is the only
+   * motion in this component, and it only runs while the hero is on screen.
+   */
+  .hero-ambient-scan {
+    inset: 0;
+    background: linear-gradient(
+      180deg,
+      transparent 0%,
+      color-mix(in oklab, var(--cyan) 4%, transparent) 42%,
+      color-mix(in oklab, var(--cyan) 6%, transparent) 52%,
+      transparent 58%
+    );
+  }
+
+  /* -------------------------------- copy ------------------------------- */
+  /*
+   * `will-change: opacity` on the copy is load-bearing, not decoration.
+   * The scroll story animates this element's opacity. Chromium promotes it to a
+   * compositor layer implicitly; headless Firefox does not, and repainted the
+   * whole text block every frame instead. Promoting it explicitly measured
+   * 33.4ms -> 23.7ms median scroll frame time in Firefox, with no change in
+   * Chromium. Measured against a plain-text control page that scrolls at
+   * 16.7ms, this is what brings Firefox back to parity.
+   */
+  .hangar-hero-copy {
+    min-width: 0;
+    will-change: opacity;
+  }
+  .hangar-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--cyan);
+  }
+  .hangar-eyebrow-dot {
+    inline-size: 6px;
+    block-size: 6px;
+    border-radius: 50%;
+    background: var(--cyan);
+    box-shadow: 0 0 0 4px color-mix(in oklab, var(--cyan) 18%, transparent);
+  }
+
+  .hangar-title {
+    margin: 1.1rem 0 0;
+    font-family: var(--font-display);
+    font-weight: 700;
+    line-height: 0.92;
+    letter-spacing: -0.04em;
+    display: grid;
+  }
+  .hangar-title-main {
+    font-size: var(--step-5);
+    text-transform: uppercase;
+    background: linear-gradient(170deg, #ffffff 0%, #b9d8f2 46%, #6ea6cd 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .hangar-title-sub {
+    font-size: var(--step-5);
+    text-transform: uppercase;
+    color: transparent;
+    -webkit-text-stroke: 1.5px color-mix(in oklab, var(--cyan) 82%, transparent);
+    padding-block-start: 0.06em;
+  }
+
+  .hangar-descriptors {
+    margin: 1.15rem 0 0;
+    font-family: var(--font-mono);
+    font-size: clamp(0.78rem, 0.72rem + 0.3vw, 0.94rem);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+  }
+  .hangar-lede {
+    margin: 1.1rem 0 0;
+    max-width: 46ch;
+    color: var(--text-dim);
+    font-size: 1.02rem;
+  }
+  .hangar-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.7rem;
+    margin-top: 1.9rem;
+  }
+
+  .hangar-ledger {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2.2rem;
+    margin: 2.4rem 0 0;
+    padding-top: 1.4rem;
+    border-top: 1px solid var(--line-soft);
+  }
+  .hangar-ledger > div {
+    display: grid;
+    gap: 0.2rem;
+  }
+  .hangar-ledger dt {
+    font-family: var(--font-mono);
+    font-size: 0.64rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+  }
+  .hangar-ledger dd {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: var(--step-2);
+    font-weight: 600;
+    color: var(--text);
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* ------------------------------- stage ------------------------------- */
+  .hangar-hero-stage {
+    position: relative;
+    min-width: 0;
+  }
+  .hangar-plane {
+    margin: 0;
+    will-change: transform, opacity;
+  }
+  .hangar-plane-svg {
+    inline-size: 100%;
+    block-size: auto;
+    display: block;
+    filter: drop-shadow(0 40px 60px rgb(0 0 0 / 0.55));
+  }
+  /* Both groups are cross-faded by hero-scroll.js in stage 2. */
+  .hangar-plane-svg [data-hero-skin],
+  .hangar-plane-svg [data-hero-wire] {
+    will-change: opacity;
+  }
+
+  /* --------------------------- annotations ----------------------------- */
+  .hangar-notes {
+    position: absolute;
+    inset: 0;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    pointer-events: none;
+  }
+  .hangar-note {
+    position: absolute;
+    display: grid;
+    gap: 0.1rem;
+    padding: 0.45rem 0.7rem;
+    border: 1px solid color-mix(in oklab, var(--cyan) 34%, transparent);
+    border-radius: var(--radius-sm);
+    background: color-mix(in oklab, #0a1220 82%, transparent);
+    opacity: 0;
+    will-change: opacity, transform;
+  }
+  .hangar-note::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    inline-size: 46px;
+    block-size: 1px;
+    background: linear-gradient(90deg, transparent, color-mix(in oklab, var(--cyan) 60%, transparent));
+  }
+  .hangar-note--1 { top: 8%; left: 4%; }
+  .hangar-note--1::before { left: 100%; }
+  .hangar-note--2 { top: 34%; right: 2%; }
+  .hangar-note--2::before { right: 100%; transform: rotate(180deg); }
+  .hangar-note--3 { bottom: 26%; left: 2%; }
+  .hangar-note--3::before { left: 100%; }
+  .hangar-note--4 { bottom: 6%; right: 6%; }
+  .hangar-note--4::before { right: 100%; transform: rotate(180deg); }
+  .hangar-note-label {
+    font-family: var(--font-mono);
+    font-size: 0.58rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--cyan);
+  }
+  .hangar-note-value {
+    font-family: var(--font-display);
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text);
+    white-space: nowrap;
+  }
+
+  .hangar-scrollcue {
+    position: absolute;
+    left: 50%;
+    bottom: 2.2rem;
+    translate: -50% 0;
+    z-index: 2;
+    display: grid;
+    justify-items: center;
+    gap: 0.6rem;
+    margin: 0;
+    font-family: var(--font-mono);
+    font-size: 0.64rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+  }
+  .hangar-scrollcue-line {
+    inline-size: 1px;
+    block-size: 44px;
+    background: linear-gradient(180deg, transparent, color-mix(in oklab, var(--cyan) 70%, transparent));
+  }
+
+  /* ---------------------------- responsive ----------------------------- */
+  @media (max-width: 1080px) {
+    .hangar-hero {
+      --hero-travel-x: 16vw;
+      --hero-bank: 5deg;
+    }
+    .hangar-hero-inner {
+      grid-template-columns: minmax(0, 1fr);
+      min-height: auto;
+    }
+    .hangar-hero-stage {
+      order: -1;
+    }
+    .hangar-note--2 { top: 24%; }
+  }
+
+  /*
+   * Mobile gets a shorter, calmer path. The aircraft is smaller, travels less,
+   * banks less, and the annotations are dropped entirely so the content is
+   * never competing with decoration on a small screen.
+   */
+  @media (max-width: 880px) {
+    .hangar-hero {
+      --hero-travel-x: 0px;
+      --hero-travel-y: -3vh;
+      --hero-bank: 2.5deg;
+      --hero-scale-from: 0.96;
+      --hero-scale-to: 0.9;
+      min-height: 140vh;
+    }
+    .hangar-notes {
+      display: none;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .hangar-hero {
+      min-height: 120vh;
+      padding-block: 2.5rem 5rem;
+    }
+    .hangar-ledger {
+      gap: 1.5rem;
+    }
+    .hangar-actions .btn {
+      flex: 1 1 100%;
+    }
+    .hangar-scrollcue {
+      bottom: 1.4rem;
+    }
+  }
+
+  /* --------------------------- reduced motion -------------------------- */
+  @media (prefers-reduced-motion: reduce) {
+    .hangar-plane {
+      will-change: auto;
+    }
+    .hangar-note {
+      opacity: 1;
+    }
+  }
+</style>

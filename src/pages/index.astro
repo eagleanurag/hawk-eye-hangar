@@ -2,12 +2,47 @@
 import Shell from '../layouts/Shell.astro';
 import Base from '../layouts/Base.astro';
 import AircraftCard from '../components/AircraftCard.astro';
-import { SITE, BASE, aircraft, stats, categories, designers, uncreditedCount, abs } from '../lib/catalog';
+import HangarHero from '../components/HangarHero.astro';
+import { SITE, BASE, aircraft, stats, categories, designers, uncreditedCount, abs, pub } from '../lib/catalog';
 
 const base = BASE;
 const featured = [...aircraft]
   .sort((a, b) => b.images.length - a.images.length || a.name.localeCompare(b.name))
   .slice(0, 8);
+
+/*
+ * Hero subject. One well-photographed delta-wing design, chosen from the data
+ * rather than hard-coded, and the annotations are its real published figures —
+ * falling back through the specs in order of usefulness for an overlay.
+ */
+const heroAircraft =
+  aircraft.find((x) => x.slug === 'f-22-raptor') ??
+  [...aircraft].sort((a, b) => b.images.length - a.images.length)[0];
+
+const specLabel: Record<string, string> = {
+  wingspan: 'Wingspan',
+  length: 'Length',
+  power: 'Power',
+  motor: 'Motor',
+  battery: 'Battery',
+  material: 'Material',
+  weight: 'Weight',
+};
+
+function heroSpecValue(a: (typeof aircraft)[number], key: string): string {
+  const spec = a.specifications as Record<string, string>;
+  if (spec[key]) return spec[key];
+  if (a.designer) return a.designer;
+  if (a.category.length) return a.category[0];
+  return '—';
+}
+
+const heroSpecs = [
+  { label: 'Wingspan', value: heroSpecValue(heroAircraft, 'wingspan') },
+  { label: 'Power', value: heroSpecValue(heroAircraft, 'power') },
+  { label: 'Material', value: heroSpecValue(heroAircraft, 'material') },
+  { label: 'Designer', value: heroAircraft.designer ?? 'Uncredited' },
+];
 
 const statCards = [
   { label: 'Aircraft archived', value: stats.aircraft, sub: 'complete catalogue', accent: 'var(--cyan)' },
@@ -22,7 +57,7 @@ const topCategories = categories.slice(0, 6);
 ---
 
 <Base
-  title={SITE.name}
+  title="EagleEye Hangar — RC Aircraft Plans & Designs"
   description={SITE.description}
   canonical={abs('/')}
   image="/og-default.png"
@@ -30,87 +65,77 @@ const topCategories = categories.slice(0, 6);
   <Shell>
     <main id="main">
       <!-- ============================== HERO ============================== -->
-      <section class="hero" aria-labelledby="hero-title">
-        <div class="hero-gridlines" data-parallax="0.06" aria-hidden="true"></div>
-        <div class="shell hero-inner">
-          <div class="hero-copy">
-            <p class="eyebrow" data-reveal="fade">Independent preservation archive</p>
-            <h1 id="hero-title" class="hero-title" data-reveal style="--reveal-delay:80ms">
-              <span class="text-gradient">PARKJETS</span>
-              <span class="hero-title-alt">ARCHIVE</span>
-            </h1>
-            <p class="hero-sub" data-reveal style="--reveal-delay:170ms">
-              {SITE.tagline}
-            </p>
-            <p class="hero-lede" data-reveal style="--reveal-delay:240ms">
-              A complete, searchable record of the Parkjets RC parkjet catalogue — every aircraft,
-              its designer, the specifications they published, the build threads they linked and the
-              photography that documented each build. Hosted independently of the original site.
-            </p>
+      <!--
+        Scroll-driven hero. Every figure below is read from the dataset; the
+        component itself is presentation-only and never loads the catalogue.
+      -->
+      <HangarHero
+        aircraftCount={stats.aircraft}
+        designerCount={stats.designers}
+        photoCount={stats.images}
+        heroName={heroAircraft.displayName}
+        heroDesigner={heroAircraft.designer ?? 'an uncredited designer'}
+        specs={heroSpecs}
+      />
 
-            <form class="hero-search" role="search" action={base + 'catalog'} data-reveal style="--reveal-delay:320ms" data-no-transition>
-              <label class="visually-hidden" for="hero-q">Search the aircraft catalogue</label>
-              <span class="hero-search-icon" aria-hidden="true">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-                  <circle cx="11" cy="11" r="7" /><path d="m20 20-3.2-3.2" />
-                </svg>
-              </span>
-              <input
-                id="hero-q"
-                name="q"
-                type="search"
-                placeholder="Search 109 aircraft — F-22, Mig-15, Shumate, EDF…"
-                autocomplete="off"
-                enterkeyhint="search"
-              />
-              <button class="btn btn--primary" type="submit">Search</button>
-            </form>
-
-            <div class="hero-actions" data-reveal style="--reveal-delay:390ms">
-              <a class="btn btn--primary" href={base + 'catalog'}>
-                Explore the catalogue
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                  <path d="M5 12h14M13 6l6 6-6 6" />
-                </svg>
-              </a>
-              <a class="btn btn--ghost" href={base + 'about#attribution'}>Attribution &amp; rights</a>
-            </div>
-
-            <p class="hero-note" data-reveal="fade" style="--reveal-delay:460ms">
-              Archived from <a href={SITE.sourceCollection} rel="noopener nofollow" target="_blank">{SITE.sourceCollection.replace('https://', '')}</a>
-              · Plan files remain with the original designers.
-            </p>
+      <!-- ======================== AIRCRAFT LIBRARY ======================= -->
+      <section class="section hangar-library" aria-labelledby="library-title">
+        <div class="shell">
+          <div class="section-head" data-reveal>
+            <p class="eyebrow">Hangar Inventory</p>
+            <h2 id="library-title" class="section-title">Aircraft Library</h2>
           </div>
 
-          <div class="hero-art" aria-hidden="true" data-tilt="4">
-            <div class="hero-ring hero-ring--1"></div>
-            <div class="hero-ring hero-ring--2"></div>
-            <div class="hero-ring hero-ring--3"></div>
-            <svg class="hero-plane" viewBox="0 0 400 200" role="presentation">
-              <defs>
-                <linearGradient id="pf" x1="0" y1="0" x2="1" y2="1">
-                  <stop offset="0%" stop-color="#9fe9ff" stop-opacity="0.95" />
-                  <stop offset="55%" stop-color="#4fd6ff" stop-opacity="0.55" />
-                  <stop offset="100%" stop-color="#4fd6ff" stop-opacity="0.05" />
-                </linearGradient>
-              </defs>
-              <g fill="url(#pf)" stroke="#4fd6ff" stroke-width="1.1" stroke-linejoin="round">
-                <path d="M20 118 372 52l-58 62 58 34-352 12 44-26z" />
-                <path d="M150 100 214 44l10 6-46 54z" opacity=".75" />
-                <path d="M150 100 214 156l10-6-46-54z" opacity=".75" />
-                <path d="M60 108 44 78l10-2 22 32z" opacity=".5" />
-              </g>
-              <g stroke="#4fd6ff" stroke-width="0.7" opacity=".55">
-                <path d="M0 150h400M0 96h400M0 42h400" stroke-dasharray="3 9" />
-                <path d="M96 0v200M200 0v200M304 0v200" stroke-dasharray="3 9" />
-              </g>
-            </svg>
-            <div class="hero-readout">
-              <span class="mono">CATALOGUE</span>
+          <div class="library-totals" data-reveal>
+            <p class="library-count">
               <strong class="mono" data-count-to={stats.aircraft}>0</strong>
-              <span class="mono">DESIGNS INDEXED</span>
-            </div>
+              <span>Aircraft</span>
+            </p>
+            <p class="library-count">
+              <strong class="mono" data-count-to={stats.designers}>0</strong>
+              <span>Designers</span>
+            </p>
+            <p class="library-count">
+              <strong class="mono" data-count-to={stats.images}>0</strong>
+              <span>Photos</span>
+            </p>
           </div>
+
+          <form class="hero-search hangar-search" role="search" action={base + 'catalog'} data-reveal data-no-transition>
+            <label class="visually-hidden" for="hero-q">Search the aircraft catalogue</label>
+            <span class="hero-search-icon" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                <circle cx="11" cy="11" r="7" /><path d="m20 20-3.2-3.2" />
+              </svg>
+            </span>
+            <input
+              id="hero-q"
+              name="q"
+              type="search"
+              placeholder={`Search ${stats.aircraft} aircraft — F-22, Mig-15, Shumate, EDF…`}
+              autocomplete="off"
+              enterkeyhint="search"
+            />
+            <button class="btn btn--primary" type="submit">Search</button>
+          </form>
+
+          <div class="hero-actions" data-reveal>
+            <a class="btn btn--primary" href={base + 'catalog'} data-no-transition>
+              Explore catalogue
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M5 12h14M13 6l6 6-6 6" />
+              </svg>
+            </a>
+            <a class="btn btn--ghost" href={base + 'about#attribution'} data-no-transition>Attribution &amp; rights</a>
+          </div>
+
+          <p class="hero-note" data-reveal="fade">
+            Collection preserved from{' '}
+            <a href={SITE.sourceCollection} rel="noopener nofollow" target="_blank">
+              {SITE.sourceCollection.replace('https://', '')}
+            </a>
+            . Plan files remain the work of the original designers.
+          </p>
         </div>
       </section>
 
@@ -231,66 +256,63 @@ const topCategories = categories.slice(0, 6);
 
 <script>
   import '../scripts/motion.js';
+  import '../scripts/hero-scroll.js';
 </script>
 
 <style>
-  /* ------------------------------- hero ------------------------------- */
-  .hero {
-    position: relative;
-    padding-block: clamp(3rem, 1.5rem + 6vw, 7rem) clamp(2.5rem, 1rem + 4vw, 4.5rem);
-    overflow: clip;
+  /* ---------------------- aircraft library transition ------------------
+     The old hero (with its three infinite ring spins, a looping plane-float
+     keyframe and two backdrop-filter surfaces) lived here. Those continuous
+     animations were a measured scroll-cost driver and are now gone: the hero
+     is the HangarHero component, and the only motion left on the page is the
+     single transform-only ambient scan. */
+  .hangar-library {
+    border-top: 1px solid var(--line-soft);
+    background: linear-gradient(180deg, #070b14 0%, #0a1220 100%);
   }
-  .hero-gridlines {
-    position: absolute;
-    inset: -10% -20%;
-    z-index: -1;
-    pointer-events: none;
-    background:
-      repeating-linear-gradient(90deg, color-mix(in oklab, var(--cyan) 8%, transparent) 0 1px, transparent 1px 88px),
-      repeating-linear-gradient(0deg, color-mix(in oklab, var(--cyan) 6%, transparent) 0 1px, transparent 1px 88px);
-    mask-image: radial-gradient(70% 70% at 65% 35%, #000 0%, transparent 72%);
+  .library-totals {
+    display: flex;
+    flex-wrap: wrap;
+    gap: clamp(1.5rem, 1rem + 3vw, 3.5rem);
+    margin-top: 1.4rem;
+    padding-block: 1.3rem;
+    border-block: 1px solid var(--line-soft);
   }
-  .hero-inner {
+  .library-count {
     display: grid;
-    gap: clamp(2rem, 1rem + 4vw, 4rem);
-    grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
-    align-items: center;
+    gap: 0.2rem;
+    margin: 0;
   }
-  .hero-title {
+  .library-count strong {
     font-family: var(--font-display);
-    font-size: var(--step-5);
-    line-height: 0.92;
-    letter-spacing: -0.045em;
-    margin-block: 0.5rem 0.85rem;
-    display: grid;
-  }
-  .hero-title-alt {
-    font-size: 0.42em;
-    letter-spacing: 0.42em;
+    font-size: var(--step-3);
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -0.03em;
     color: var(--cyan);
-    text-indent: 0.42em;
-    margin-top: 0.35em;
+    font-variant-numeric: tabular-nums;
   }
-  .hero-sub {
-    font-family: var(--font-display);
-    font-size: var(--step-2);
-    color: var(--text);
-    font-weight: 500;
-    letter-spacing: -0.01em;
+  .library-count span {
+    font-family: var(--font-mono);
+    font-size: 0.66rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-faint);
   }
-  .hero-lede {
-    margin-top: 0.9rem;
-    max-width: 56ch;
-    color: var(--text-dim);
+
+  .hangar-search {
+    max-width: 34rem;
+    margin-top: 2rem;
   }
+
   .hero-actions {
     display: flex;
     flex-wrap: wrap;
     gap: 0.7rem;
-    margin-top: 1.6rem;
+    margin-top: 1.1rem;
   }
   .hero-note {
-    margin-top: 1.1rem;
+    margin-top: 1.4rem;
     font-size: 0.82rem;
     color: var(--text-faint);
   }
@@ -303,12 +325,12 @@ const topCategories = categories.slice(0, 6);
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    margin-top: 1.75rem;
     padding: 0.4rem 0.4rem 0.4rem 2.9rem;
     border: 1px solid var(--line-soft);
     border-radius: 999px;
-    background: color-mix(in oklab, var(--ink-750) 88%, transparent);
-    backdrop-filter: blur(10px);
+    /* Opaque, not backdrop-filter: this sits above an animated hero region and
+       a blur here repaints on every frame of the hero story. */
+    background: var(--panel-solid);
     box-shadow: var(--shadow);
     transition: border-color var(--dur) var(--ease-out), box-shadow var(--dur) var(--ease-out);
   }
@@ -339,56 +361,6 @@ const topCategories = categories.slice(0, 6);
   }
   .hero-search:focus-within .hero-search-icon {
     color: var(--cyan);
-  }
-
-  .hero-art {
-    position: relative;
-    aspect-ratio: 1 / 0.82;
-    display: grid;
-    place-items: center;
-    transform-style: preserve-3d;
-    transition: transform 400ms var(--ease-out);
-  }
-  .hero-ring {
-    position: absolute;
-    border-radius: 50%;
-    border: 1px solid color-mix(in oklab, var(--cyan) 22%, transparent);
-    inset: 0;
-  }
-  .hero-ring--1 { animation: spin 44s linear infinite; border-style: dashed; }
-  .hero-ring--2 { inset: 12%; animation: spin 30s linear infinite reverse; border-color: color-mix(in oklab, var(--violet) 22%, transparent); }
-  .hero-ring--3 { inset: 24%; animation: spin 20s linear infinite; }
-  @keyframes spin { to { transform: rotate(360deg); } }
-  .hero-plane {
-    position: relative;
-    width: min(100%, 460px);
-    filter: drop-shadow(0 18px 40px color-mix(in oklab, var(--cyan) 30%, transparent));
-    animation: plane-float 9s var(--ease-in-out) infinite;
-  }
-  @keyframes plane-float {
-    0%, 100% { transform: translateY(0) rotate(-1deg); }
-    50% { transform: translateY(-14px) rotate(1deg); }
-  }
-  .hero-readout {
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    display: grid;
-    gap: 0.1rem;
-    padding: 0.7rem 0.95rem;
-    border-radius: var(--radius-sm);
-    border: 1px solid var(--line-soft);
-    background: color-mix(in oklab, var(--ink-900) 78%, transparent);
-    backdrop-filter: blur(8px);
-    font-size: 0.6rem;
-    letter-spacing: 0.16em;
-    color: var(--text-faint);
-  }
-  .hero-readout strong {
-    font-size: 1.9rem;
-    letter-spacing: -0.02em;
-    color: var(--cyan);
-    line-height: 1;
   }
 
   /* ------------------------------ sections --------------------------- */

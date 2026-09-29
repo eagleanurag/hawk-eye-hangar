@@ -18,11 +18,41 @@ const sortOptions = [
   { value: 'images', label: 'Most photographed' },
   { value: 'newest', label: 'Recently added' },
 ];
+
+/*
+ * One search index for the whole catalogue, keyed by slug.
+ *
+ * The text is identical to what each card used to carry in a `data-search`
+ * attribute: names, designer, categories, summary, the raw specification sheet
+ * and the build requirements, plus the key/value specification pairs.
+ */
+const searchIndex: Record<string, string> = {};
+for (const a of aircraft) {
+  searchIndex[a.slug] = [
+    a.name,
+    a.displayName,
+    a.designer ?? '',
+    a.category.join(' '),
+    a.summary ?? '',
+    a.specificationsRaw ?? '',
+    a.buildRequirements ?? '',
+    Object.entries(a.specifications)
+      .map(([k, v]) => `${k} ${v}`)
+      .join(' '),
+  ]
+    .join(' ')
+    .toLowerCase()
+    .replace(/[^\p{L}\p{N}\s."'&/+-]/gu, ' ')
+    .replace(/[<>&]/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+const searchIndexJson = JSON.stringify(searchIndex).replace(/</g, '\\u003c');
 ---
 
 <Base
   title="Aircraft catalogue"
-  description={`Search all ${stats.aircraft} Parkjets parkjet and park flyer designs by name, designer, category or specification.`}
+  description={`Search all ${stats.aircraft} RC aircraft designs in the EagleEye Hangar library by name, designer, category or specification.`}
   canonical={abs('/catalog')}
   image="/og-default.png"
 >
@@ -138,6 +168,15 @@ const sortOptions = [
           {aircraft.map((a, i) => <AircraftCard aircraft={a} index={i} eager={i < 6} />)}
         </div>
 
+        {/*
+          One shared search index instead of a `data-search` attribute on each of
+          the 109 cards. Same searchable text, emitted once, and JSON-escaped
+          rather than HTML-attribute escaped. Read by catalog.js via
+          `card.dataset.slug`. `<` and `&` are dropped because they carry no
+          search value and would need escaping inside a script element.
+        */}
+        <script type="application/json" id="catalogue-index" set:html={searchIndexJson} is:inline />
+
         <div class="empty-state" data-empty hidden>
           <svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true">
             <circle cx="11" cy="11" r="7" /><path d="m20 20-3.2-3.2M8.5 11h5" />
@@ -178,8 +217,11 @@ const sortOptions = [
     top: var(--header-h);
     z-index: 40;
     padding-bottom: 0.9rem;
-    background: linear-gradient(180deg, color-mix(in oklab, var(--ink-850) 92%, transparent) 55%, transparent);
-    backdrop-filter: blur(6px);
+    /* Opaque, not `backdrop-filter: blur(6px)`. This is a sticky element that
+       follows the user down a 109-card list, so a live blur re-filters the page
+       behind it on every scroll frame. A solid fill over the dark theme reads
+       the same and costs nothing. */
+    background: linear-gradient(180deg, var(--ink-850) 55%, color-mix(in oklab, var(--ink-850) 88%, transparent));
   }
   .toolbar {
     padding: 0.85rem 1rem 1rem;

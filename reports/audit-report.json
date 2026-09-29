@@ -1,63 +1,63 @@
 {
-  "generatedAt": "2026-09-29T20:52:56.245Z",
+  "generatedAt": "2026-09-29T22:41:57.774Z",
   "payload": {
-    "sharedJsBytes": 12339,
-    "sharedCssBytes": 50502,
-    "htmlBytes": 2973249,
+    "sharedJsBytes": 14169,
+    "sharedCssBytes": 55605,
+    "htmlBytes": 3038597,
     "mediaBytes": 50413786,
     "mediaFiles": 838
   },
   "firstLoad": [
     {
       "page": "home",
-      "js": 3723,
-      "css": 41714,
-      "images": 47334,
-      "other": 151973,
-      "count": 12
+      "js": 5157,
+      "css": 46840,
+      "images": 12872,
+      "other": 154486,
+      "count": 10
     },
     {
       "page": "catalog",
-      "js": 9213,
-      "css": 38959,
-      "images": 897044,
-      "other": 422829,
-      "count": 16
+      "js": 8736,
+      "css": 38852,
+      "images": 766372,
+      "other": 408595,
+      "count": 15
     },
     {
       "page": "detail",
-      "js": 6733,
-      "css": 44949,
+      "js": 5858,
+      "css": 44865,
       "images": 47764,
-      "other": 132905,
+      "other": 133590,
       "count": 14
     },
     {
       "page": "designers",
-      "js": 3723,
-      "css": 34943,
+      "js": 2849,
+      "css": 34859,
       "images": 0,
-      "other": 159590,
+      "other": 160297,
       "count": 9
     },
     {
       "page": "about",
-      "js": 3723,
-      "css": 37450,
+      "js": 2849,
+      "css": 37366,
       "images": 0,
-      "other": 125109,
+      "other": 126102,
       "count": 9
     }
   ],
   "passes": [
-    "home: tap targets >= 24px (WCAG 2.5.8, 66 measured, 57 standalone)",
+    "home: tap targets >= 24px (WCAG 2.5.8, 68 measured, 57 standalone)",
     "catalog: tap targets >= 24px (WCAG 2.5.8, 185 measured, 182 standalone)",
     "detail: tap targets >= 24px (WCAG 2.5.8, 48 measured, 39 standalone)",
     "designers: tap targets >= 24px (WCAG 2.5.8, 169 measured, 166 standalone)",
     "about: tap targets >= 24px (WCAG 2.5.8, 28 measured, 23 standalone)"
   ],
   "notes": [
-    "home: target-size — 66 measured, 9 inline-exempt, 57/57 standalone pass; smallest standalone 69x31",
+    "home: target-size — 68 measured, 11 inline-exempt, 57/57 standalone pass; smallest standalone 69x31",
     "catalog: target-size — 185 measured, 3 inline-exempt, 182/182 standalone pass; smallest standalone 69x31",
     "detail: target-size — 48 measured, 9 inline-exempt, 39/39 standalone pass; smallest standalone 96x29",
     "designers: target-size — 169 measured, 3 inline-exempt, 166/166 standalone pass; smallest standalone 125x25",

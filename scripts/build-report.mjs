@@ -132,7 +132,7 @@ writeJSON(path.join(ROOT, 'reports', 'migration-report.json'), summary);
 const pct = (n) => `${((n / Math.max(1, summary.totals.discovered)) * 100).toFixed(0)}%`;
 const mb = (n) => `${(n / 1048576).toFixed(1)} MB`;
 
-const md = `# Parkjets Archive — migration report
+const md = `# EagleEye Hangar — migration report
 
 _Generated ${summary.generatedAt} by \`npm run report\` from the actual archive artefacts.
 Every number below is computed from \`data/aircraft.json\` and \`data/archive-manifest.json\`._
@@ -252,7 +252,7 @@ The importer never invents data.
 fs.writeFileSync(path.join(ROOT, 'reports', 'migration-report.md'), md, 'utf8');
 
 log('');
-log('  Parkjets Archive — migration report');
+log('  EagleEye Hangar — migration report');
 log('  ─────────────────────────────────────────────────');
 log(`  discovered           ${summary.totals.discovered}`);
 log(`  imported             ${summary.totals.imported}`);

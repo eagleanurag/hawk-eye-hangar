@@ -38,8 +38,9 @@ const fullTitle = title === SITE.name ? title : `${title} · ${SITE.name}`;
 
     <meta name="theme-color" content={SITE.themeColor} />
     <meta name="color-scheme" content="dark" />
-    <meta name="author" content="Parkjets" />
+    <meta name="author" content={SITE.name} />
     <meta name="generator" content={Astro.generator} />
+    <meta name="application-name" content={SITE.name} />
 
     <meta property="og:site_name" content={SITE.name} />
     <meta property="og:type" content={ogType} />

@@ -77,7 +77,7 @@ async function head(url, method = 'GET') {
 async function main() {
   const pagesUrl = (await resolvePagesUrl()).replace(/\/$/, '');
   log('');
-  log('  Parkjets Archive — final deployment validation');
+  log('  EagleEye Hangar — final deployment validation');
   log('  ─────────────────────────────────────────────────');
   log(`  repository : https://github.com/${repo}`);
   log(`  pages url  : ${pagesUrl}`);
@@ -290,7 +290,7 @@ function finish(results, pagesUrl, buildStatus, repo) {
   );
 
   const md = [
-    '# Parkjets Archive — deployment validation',
+    '# EagleEye Hangar — deployment validation',
     '',
     `_Generated ${new Date().toISOString()}._`,
     '',

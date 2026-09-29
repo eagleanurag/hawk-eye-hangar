@@ -119,7 +119,11 @@ for (const f of htmlFiles) {
 
 
   // ---- a11y -------------------------------------------------------------
-  for (const m of html.matchAll(/<img\b[^>]*>/g)) {
+  // Scan markup with HTML comments removed first. A comment is not a DOM node,
+  // so an <img> written inside one is documentation, not a missing-alt defect.
+  // Without this, prose like "referenced with <img>" is reported as an error.
+  const live = html.replace(/<!--[\s\S]*?-->/g, '');
+  for (const m of live.matchAll(/<img\b[^>]*>/g)) {
     const tag = m[0];
     if (!/\balt\s*=/.test(tag)) err(f, `<img> without alt: ${tag.slice(0, 90)}`);
     else if (/\balt\s*=\s*""\s*(?![^>]*role\s*=\s*"presentation")/.test(tag) && !/aria-hidden/.test(tag)) {
@@ -157,7 +161,7 @@ for (const want of ['/robots.txt', '/sitemap-index.xml', '/favicon.svg', '/og-de
 
 // ---------------------------------------------------------------------------
 console.log('');
-console.log('  Parkjets Archive — link & markup audit');
+console.log('  EagleEye Hangar — link & markup audit');
 console.log('  ─────────────────────────────────────────────────');
 console.log(`  html pages        ${htmlFiles.length}`);
 console.log(`  files in build    ${files.length}`);

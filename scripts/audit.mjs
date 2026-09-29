@@ -275,7 +275,7 @@ server.close();
 
 const kb = (n) => `${(n / 1024).toFixed(1)} KB`;
 console.log('');
-console.log('  Parkjets Archive — performance & accessibility audit');
+console.log('  EagleEye Hangar — performance & accessibility audit');
 console.log('  ─────────────────────────────────────────────────');
 console.log(`  shared JS          ${kb(astro.js)}  (${fs.readdirSync(path.join(DIST, '_astro')).filter((f) => f.endsWith('.js')).length} files)`);
 console.log(`  shared CSS         ${kb(astro.css)}  (${fs.readdirSync(path.join(DIST, '_astro')).filter((f) => f.endsWith('.css')).length} files)`);
@@ -305,7 +305,7 @@ if (problems.length) {
 
 /* ---------------------------- report ---------------------------- */
 const md = [];
-md.push('# Parkjets Archive — performance & accessibility audit', '');
+md.push('# EagleEye Hangar — performance & accessibility audit', '');
 md.push(`_Generated ${new Date().toISOString()} by \`npm run audit\`._`, '');
 md.push('## Payload', '');
 md.push('| | |', '|---|---|');

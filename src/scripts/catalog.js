@@ -1,5 +1,5 @@
 /**
- * Parkjets Archive — catalogue search, filtering and sorting.
+ * EagleEye Hangar — catalogue search, filtering and sorting.
  *
  * Progressive enhancement: every card is already server-rendered, so the
  * catalogue is fully browsable and indexable with JavaScript disabled. This
@@ -42,10 +42,50 @@ if (root) {
       .split(/[^\p{L}\p{N}+.]+/u)
       .filter(Boolean);
 
+  /*
+   * Search text now lives in one shared JSON index rather than a
+   * `data-search` attribute per card, which keeps ~60 KB of escaped prose out
+   * of the catalogue's HTML. Cards carry `data-slug` and look their text up
+   * here, once, at startup.
+   */
+  const searchIndex = (() => {
+    const map = new Map();
+    const el = document.getElementById('catalogue-index');
+    if (el && el.textContent) {
+      try {
+        const parsed = JSON.parse(el.textContent);
+        for (const k of Object.keys(parsed)) map.set(k, parsed[k]);
+      } catch {
+        /* malformed index: search degrades to the visible card text below */
+      }
+    }
+    return map;
+  })();
+
+  /** Fallback haystack built from attributes that are always present. */
+  function haystackFor(card) {
+    const fromIndex = searchIndex.get(card.dataset.slug);
+    if (fromIndex) return fromIndex;
+    return [
+      card.dataset.name,
+      card.dataset.display,
+      card.dataset.designer,
+      card.dataset.categories,
+      card.textContent,
+    ]
+      .filter(Boolean)
+      .join(' ')
+      .toLowerCase();
+  }
+
+  // Resolved once per card, not per keystroke.
+  const haystacks = new WeakMap();
+  for (const card of cards) haystacks.set(card, haystackFor(card));
+
   /** Every whitespace-separated term must appear somewhere in the haystack. */
   function matches(card, terms) {
     if (!terms.length) return true;
-    const hay = card.dataset.search || '';
+    const hay = haystacks.get(card) || '';
     for (const t of terms) {
       if (!hay.includes(t)) return false;
     }

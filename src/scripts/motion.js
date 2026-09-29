@@ -1,5 +1,5 @@
 /**
- * Parkjets Archive — motion runtime.
+ * EagleEye Hangar — motion runtime.
  *
  * Deliberately dependency-free (~3 KB, no framework, no GSAP). Everything is
  * CSS-driven; this file only adds the scroll observers, number counters and
@@ -91,37 +91,52 @@ function initParallax() {
   const layers = document.querySelectorAll('[data-parallax]');
   if (!layers.length || reduce()) return;
 
-  let ticking = false;
+  // Shares the document scroll listener above, so this adds no new listener and
+  // no separate rAF loop.
   const apply = () => {
-    ticking = false;
     const y = window.scrollY;
     for (const el of layers) {
       const depth = Number(el.dataset.parallax) || 0.12;
       el.style.transform = `translate3d(0, ${(y * depth).toFixed(2)}px, 0)`;
     }
   };
-  const onScroll = () => {
-    if (!ticking) {
-      ticking = true;
-      requestAnimationFrame(apply);
-    }
-  };
-  window.addEventListener('scroll', onScroll, { passive: true });
+  scrollSubscribers.add(apply);
   apply();
 }
 
 /* ------------------------------------------------------------------ */
 /* Header state + mobile navigation                                    */
 /* ------------------------------------------------------------------ */
+
+/*
+ * ONE scroll listener for the whole document, shared by the header state and
+ * the hero parallax. Previously each feature attached its own passive listener;
+ * they are consolidated here and dispatched from a single rAF so the browser
+ * does the work at most once per frame.
+ */
+const scrollSubscribers = new Set();
+let scrollQueued = false;
+function onDocumentScroll() {
+  if (scrollQueued) return;
+  scrollQueued = true;
+  requestAnimationFrame(() => {
+    scrollQueued = false;
+    for (const fn of scrollSubscribers) fn();
+  });
+}
+if ('IntersectionObserver' in window || true) {
+  window.addEventListener('scroll', onDocumentScroll, { passive: true });
+}
+
 function initHeader() {
   const header = document.querySelector('[data-header]');
   const toggle = document.querySelector('[data-nav-toggle]');
   const nav = document.querySelector('[data-nav]');
 
   if (header) {
-    const onScroll = () => header.setAttribute('data-scrolled', String(window.scrollY > 12));
-    onScroll();
-    window.addEventListener('scroll', onScroll, { passive: true });
+    const apply = () => header.setAttribute('data-scrolled', String(window.scrollY > 12));
+    scrollSubscribers.add(apply);
+    apply();
   }
 
   if (!toggle || !nav) return;
@@ -143,43 +158,26 @@ function initHeader() {
     }
   });
   mq.addEventListener('change', () => setOpen(false));
-  // Close if the viewport grows past the breakpoint while open.
-  addEventListener('resize', () => {
-    if (!mq.matches && toggle.getAttribute('aria-expanded') === 'true') setOpen(false);
-  });
 }
 
 /* ------------------------------------------------------------------ */
-/* Page transition curtain (outgoing navigation)                      */
+/* Page transition                                                     */
 /* ------------------------------------------------------------------ */
+/*
+ * The outgoing "curtain" transition was removed on purpose.
+ *
+ * It intercepted every same-origin link click and delayed navigation by 340ms,
+ * which showed up directly as perceived input latency: a visitor who clicked a
+ * catalogue card waited a third of a second before the page changed. The brief
+ * for this redesign is that clicks and scrolls feel immediate, so navigation is
+ * left to the browser. Native scroll restoration and the back button behave
+ * better without a scripted overlay in the path.
+ *
+ * The function is retained as an explicit no-op so any external caller that
+ * still references it does not break.
+ */
 function initPageTransitions() {
-  if (reduce()) return;
-  if (!import.meta.env?.PROD) return;
-  const curtain = document.createElement('div');
-  curtain.setAttribute('aria-hidden', 'true');
-  curtain.style.cssText =
-    'position:fixed;inset:0;z-index:150;pointer-events:none;background:linear-gradient(120deg,#05080f,#0b1220 55%,#05080f);transform:translateY(100%);transition:transform .42s cubic-bezier(.16,1,.3,1);';
-  document.body.append(curtain);
-
-  document.addEventListener('click', (e) => {
-    if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
-    const a = e.target.closest?.('a');
-    if (!a) return;
-    if (e.target.closest('[data-no-transition]')) return;
-    const href = a.getAttribute('href') || '';
-    if (!href || a.target === '_blank' || a.hasAttribute('download')) return;
-    if (href.startsWith('#') || href.startsWith('mailto:') || href.startsWith('tel:')) return;
-    if (a.origin !== location.origin) return;
-    e.preventDefault();
-    curtain.style.transform = 'translateY(0)';
-    setTimeout(() => {
-      location.href = href;
-    }, 340);
-  });
-
-  addEventListener('pageshow', () => {
-    curtain.style.transform = 'translateY(100%)';
-  });
+  return;
 }
 
 /* ------------------------------------------------------------------ */
@@ -189,10 +187,18 @@ function initTilt() {
   if (reduce()) return;
   for (const el of document.querySelectorAll('[data-tilt]')) {
     const max = Number(el.dataset.tilt) || 5;
+    // The rect was previously read on every pointermove, which forces a
+    // synchronous layout per event. It only changes on resize/scroll of the
+    // element, so it is measured once and refreshed on resize.
+    let rect = el.getBoundingClientRect();
+    const remeasure = () => {
+      rect = el.getBoundingClientRect();
+    };
+    addEventListener('resize', remeasure, { passive: true });
+
     el.addEventListener('pointermove', (e) => {
-      const r = el.getBoundingClientRect();
-      const px = (e.clientX - r.left) / r.width - 0.5;
-      const py = (e.clientY - r.top) / r.height - 0.5;
+      const px = (e.clientX - rect.left) / rect.width - 0.5;
+      const py = (e.clientY - rect.top) / rect.height - 0.5;
       el.style.transform = `perspective(900px) rotateY(${(px * max).toFixed(2)}deg) rotateX(${(-py * max).toFixed(2)}deg)`;
     });
     el.addEventListener('pointerleave', () => {

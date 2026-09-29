@@ -1,6 +1,6 @@
-# Parkjets Archive — browser QA report
+# EagleEye Hangar — browser QA report
 
-_Generated 2026-09-29T20:50:59.421Z by `npm run qa`._
+_Generated 2026-09-29T22:43:43.813Z by `npm run qa`._
 
 **Target:** local build (dist/)
 
@@ -39,11 +39,11 @@ _Generated 2026-09-29T20:50:59.421Z by `npm run qa`._
 | | Check | Detail |
 |---|---|---|
 | ✓ | home: no horizontal overflow |  |
-| ✓ | home: h1 present (PARKJETS ARCHIVE) |  |
+| ✓ | home: h1 present (EAGLEEYE HANGAR) |  |
 | ✓ | home: 8 featured cards |  |
 | ✓ | catalog: no horizontal overflow |  |
 | ✓ | catalog: 109 cards rendered |  |
-| ✓ | catalog: search "f-22" -> 109 |  |
+| ✓ | catalog: search "f-22" -> 36 |  |
 | ✓ | catalog: count "36 OF 109 AIRCRAFT MATCH" |  |
 | ✓ | catalog: empty state shown |  |
 | ✓ | catalog: no-result hides every card |  |
@@ -54,7 +54,7 @@ _Generated 2026-09-29T20:50:59.421Z by `npm run qa`._
 | ✓ | catalog: deep link -> 12 |  |
 | ✓ | catalog: unknown filter falls back to All |  |
 | ✓ | catalog: back button restores |  |
-| ✓ | detail: hero image paints on screen (237 distinct samples) |  |
+| ✓ | detail: hero image paints on screen (256 distinct samples) |  |
 | ✓ | detail: no horizontal overflow |  |
 | ✓ | detail: "F-22 Raptor" |  |
 | ✓ | detail: no broken images |  |
@@ -73,7 +73,7 @@ _Generated 2026-09-29T20:50:59.421Z by `npm run qa`._
 | | Check | Detail |
 |---|---|---|
 | ✓ | home: no horizontal overflow |  |
-| ✓ | home: h1 present (PARKJETS ARCHIVE) |  |
+| ✓ | home: h1 present (EAGLEEYE HANGAR) |  |
 | ✓ | home: 8 featured cards |  |
 | ✓ | catalog: no horizontal overflow |  |
 | ✓ | catalog: 109 cards rendered |  |
@@ -107,11 +107,11 @@ _Generated 2026-09-29T20:50:59.421Z by `npm run qa`._
 | | Check | Detail |
 |---|---|---|
 | ✓ | home: no horizontal overflow |  |
-| ✓ | home: h1 present (PARKJETS ARCHIVE) |  |
+| ✓ | home: h1 present (EAGLEEYE HANGAR) |  |
 | ✓ | home: 8 featured cards |  |
 | ✓ | catalog: no horizontal overflow |  |
 | ✓ | catalog: 109 cards rendered |  |
-| ✓ | catalog: search "f-22" -> 109 |  |
+| ✓ | catalog: search "f-22" -> 36 |  |
 | ✓ | catalog: count "36 OF 109 AIRCRAFT MATCH" |  |
 | ✓ | catalog: empty state shown |  |
 | ✓ | catalog: no-result hides every card |  |
@@ -141,7 +141,7 @@ _Generated 2026-09-29T20:50:59.421Z by `npm run qa`._
 | | Check | Detail |
 |---|---|---|
 | ✓ | home: no horizontal overflow |  |
-| ✓ | home: h1 present (PARKJETS ARCHIVE) |  |
+| ✓ | home: h1 present (EAGLEEYE HANGAR) |  |
 | ✓ | home: 8 featured cards |  |
 | ✓ | catalog: no horizontal overflow |  |
 | ✓ | catalog: 109 cards rendered |  |
@@ -156,7 +156,7 @@ _Generated 2026-09-29T20:50:59.421Z by `npm run qa`._
 | ✓ | catalog: deep link -> 12 |  |
 | ✓ | catalog: unknown filter falls back to All |  |
 | ✓ | catalog: back button restores |  |
-| ✓ | detail: hero image paints on screen (240 distinct samples) |  |
+| ✓ | detail: hero image paints on screen (256 distinct samples) |  |
 | ✓ | detail: no horizontal overflow |  |
 | ✓ | detail: "F-22 Raptor" |  |
 | ✓ | detail: no broken images |  |
@@ -175,7 +175,7 @@ _Generated 2026-09-29T20:50:59.421Z by `npm run qa`._
 | | Check | Detail |
 |---|---|---|
 | ✓ | home: no horizontal overflow |  |
-| ✓ | home: h1 present (PARKJETS ARCHIVE) |  |
+| ✓ | home: h1 present (EAGLEEYE HANGAR) |  |
 | ✓ | home: 8 featured cards |  |
 | ✓ | catalog: no horizontal overflow |  |
 | ✓ | catalog: 109 cards rendered |  |
@@ -211,7 +211,7 @@ _Generated 2026-09-29T20:50:59.421Z by `npm run qa`._
 | | Check | Detail |
 |---|---|---|
 | ✓ | home: no horizontal overflow |  |
-| ✓ | home: h1 present (PARKJETS ARCHIVE) |  |
+| ✓ | home: h1 present (EAGLEEYE HANGAR) |  |
 | ✓ | home: 8 featured cards |  |
 | ✓ | catalog: no horizontal overflow |  |
 | ✓ | catalog: 109 cards rendered |  |
@@ -247,7 +247,7 @@ _Generated 2026-09-29T20:50:59.421Z by `npm run qa`._
 | | Check | Detail |
 |---|---|---|
 | ✓ | home: no horizontal overflow |  |
-| ✓ | home: h1 present (PARKJETS ARCHIVE) |  |
+| ✓ | home: h1 present (EAGLEEYE HANGAR) |  |
 | ✓ | home: 8 featured cards |  |
 | ✓ | catalog: no horizontal overflow |  |
 | ✓ | catalog: 109 cards rendered |  |
@@ -283,7 +283,7 @@ _Generated 2026-09-29T20:50:59.421Z by `npm run qa`._
 | | Check | Detail |
 |---|---|---|
 | ✓ | home: no horizontal overflow |  |
-| ✓ | home: h1 present (PARKJETS ARCHIVE) |  |
+| ✓ | home: h1 present (EAGLEEYE HANGAR) |  |
 | ✓ | home: 8 featured cards |  |
 | ✓ | catalog: no horizontal overflow |  |
 | ✓ | catalog: 109 cards rendered |  |

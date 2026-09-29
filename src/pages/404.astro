@@ -7,19 +7,19 @@ const base = BASE;
 const suggestions = [...aircraft].sort((a, b) => a.name.localeCompare(b.name)).slice(0, 6);
 ---
 
-<Base title="Page not found" description="That page is not part of the Parkjets Archive." noindex>
+<Base title="Page not found" description="That page is not part of the EagleEye Hangar library." noindex>
   <Shell>
     <main id="main" class="nf">
       <p class="nf-code mono">404</p>
       <h1>Aircraft not found</h1>
       <p class="muted">
-        This address does not match anything in the archive. The catalogue may have been reorganised,
-        or the link may be mistyped.
+        This address does not match anything in the library. The catalogue may have been
+        reorganised, or the link may be mistyped.
       </p>
       <div class="cluster" style="--cluster-gap:.6rem;margin-top:1.5rem">
         <a class="btn btn--primary" href={base + 'catalog'}>Search the catalogue</a>
         <a class="btn btn--ghost" href={base}>Go home</a>
-        <a class="btn btn--ghost" href={SITE.sourceCollection} rel="noopener nofollow" target="_blank">Original Parkjets site</a>
+        <a class="btn btn--ghost" href={SITE.sourceCollection} rel="noopener nofollow" target="_blank">Original source site</a>
       </div>
 
       <h2 class="nf-sub">Try one of these</h2>

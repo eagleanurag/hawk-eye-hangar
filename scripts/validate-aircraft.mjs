@@ -195,7 +195,7 @@ const withSpecs = aircraft.filter((a) => Object.keys(a.specifications).length).l
 const designers = new Set(aircraft.map((a) => a.designerKey).filter((k) => k && k !== 'uncredited'));
 
 console.log('');
-console.log('  Parkjets Archive — data validation');
+console.log('  EagleEye Hangar — data validation');
 console.log('  ─────────────────────────────────────────────────');
 console.log(`  aircraft            ${aircraft.length}`);
 console.log(`  designers credited  ${designers.size}`);

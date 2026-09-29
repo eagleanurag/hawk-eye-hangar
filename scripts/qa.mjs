@@ -489,7 +489,7 @@ async function main() {
     byViewport.get(r.vp).push(r);
   }
   console.log('');
-  console.log('  Parkjets Archive — browser QA');
+  console.log('  EagleEye Hangar — browser QA');
   console.log('  ─────────────────────────────────────────────────');
   let totalFail = 0;
   for (const [vp, rs] of byViewport) {
@@ -524,7 +524,7 @@ function writeResults(target) {
   }
   const failed = results.filter((r) => !r.ok);
   const md = [];
-  md.push('# Parkjets Archive — browser QA report', '');
+  md.push('# EagleEye Hangar — browser QA report', '');
   md.push(`_Generated ${generatedAt} by \`npm run qa\`._`, '');
   md.push(`**Target:** ${target || 'local build (dist/)'}`, '');
   md.push(`**Result: ${results.length - failed.length}/${results.length} checks passed across ${VIEWPORTS.length} viewports.**`, '');

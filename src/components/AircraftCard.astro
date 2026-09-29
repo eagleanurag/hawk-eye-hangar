@@ -15,26 +15,30 @@ const img = a.images[0];
 const cats = a.category.join('|');
 const designerKey = a.designerKey;
 
-const searchBlob = [
-  a.name,
-  a.displayName,
-  a.designer,
-  a.category.join(' '),
-  a.summary,
-  a.specificationsRaw,
-  a.buildRequirements,
-  Object.entries(a.specifications).map(([k, v]) => `${k} ${v}`).join(' '),
-]
+/*
+ * Search index text is NOT emitted per card.
+ *
+ * It used to be a `data-search` attribute on every card, which meant ~60 KB of
+ * HTML-escaped prose duplicated into 109 elements (and a further 16 KB in an
+ * unused `data-specs` attribute). That is a large, mostly-invisible chunk of
+ * the catalogue's 314 KB page weight.
+ *
+ * It is now emitted once, as a single JSON block keyed by slug, and read by
+ * catalog.js. Nothing is lost: the same text is searchable, it is just not
+ * repeated per element and it no longer pays HTML-attribute escaping.
+ */
+const searchIndexSlug = a.slug;
+
+const specsText = Object.entries(a.specifications)
+  .map(([k, v]) => `${k} ${v}`)
   .join(' ')
-  .toLowerCase()
-  .replace(/[^\p{L}\p{N}\s."'&/+-]/gu, ' ')
-  .replace(/\s+/g, ' ')
-  .trim();
+  .toLowerCase();
 ---
 
 <article
   class="card"
   data-card
+  data-slug={searchIndexSlug}
   data-name={a.name}
   data-display={a.displayName}
   data-designer={a.designer}
@@ -42,11 +46,9 @@ const searchBlob = [
   data-categories={cats}
   data-category-slugs={a.category.map((c) => c.toLowerCase()).join('|')}
   data-status={a.archiveStatus}
-  data-specs={Object.entries(a.specifications).map(([k, v]) => `${k} ${v}`).join(' ').toLowerCase()}
   data-sort={a.name.toLowerCase()}
   data-images={a.images.length}
   data-added={a.source.addedOn ? Date.parse(a.source.addedOn) : 0}
-  data-search={searchBlob}
   data-reveal
   style={`--reveal-delay:${Math.min(index, 11) * 45}ms`}
 >
