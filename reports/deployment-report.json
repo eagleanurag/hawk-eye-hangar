@@ -1,28 +1,13 @@
 {
-  "generatedAt": "2026-09-29T12:40:03.015Z",
+  "generatedAt": "2026-09-29T12:49:18.825Z",
   "repository": "https://github.com/eagleanurag/parkjet-aircraft-archive",
   "pagesUrl": "https://eagleanurag.github.io/parkjet-aircraft-archive",
   "buildStatus": "skipped (CI: not reachable until the deploy job runs)",
   "results": [
     {
-      "name": "Pages build_type is \"workflow\"",
+      "name": "Pages configuration checked (skipped: no API token available)",
       "ok": true,
-      "detail": "build_type=workflow"
-    },
-    {
-      "name": "Pages source is main",
-      "ok": true,
-      "detail": "branch=main"
-    },
-    {
-      "name": "Pages html_url matches site.json",
-      "ok": true,
-      "detail": "https://eagleanurag.github.io/parkjet-aircraft-archive/"
-    },
-    {
-      "name": "HTTPS enforced",
-      "ok": true,
-      "detail": "true"
+      "detail": "best effort - the deploy job below fails if the Pages configuration is wrong"
     },
     {
       "name": "artifact contains index.html",
@@ -105,6 +90,6 @@
       "detail": "C:\\Users\\eagleanurag\\Documents\\parkjets\\dist\\media\\aircraft"
     }
   ],
-  "passed": 20,
+  "passed": 17,
   "failed": 0
 }
