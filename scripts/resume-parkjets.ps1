@@ -259,7 +259,9 @@ function Get-ResumePrompt {
 # -----------------------------------------------------------------------------
 function Install-RecoveryTask {
   $self = $PSCommandPath
-  $action = "powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -WindowStyle Hidden -File `"$self`""
+  # -Execute must be the executable ALONE; the command line goes in -Argument.
+  $exe = 'powershell.exe'
+  $arguments = "-NoProfile -NonInteractive -ExecutionPolicy Bypass -WindowStyle Hidden -File `"$self`""
   $existing = Get-ScheduledTask -TaskName $TaskName -ErrorAction SilentlyContinue
   $trigger = New-ScheduledTaskTrigger -AtLogOn -User $env:USERNAME
   # Catch a logon that happened while the machine was off, and a missed
@@ -279,7 +281,7 @@ function Install-RecoveryTask {
   }
   Register-ScheduledTask -TaskName $TaskName `
     -Description 'Resumes the Parkjets Archive migration after a crash or power loss. No-ops once the project is complete.' `
-    -Action (New-ScheduledTaskAction -Execute $action) `
+    -Action (New-ScheduledTaskAction -Execute $exe -Argument $arguments) `
     -Trigger @($trigger, $trigger2) `
     -Settings $settings | Out-Null
   Write-Log "installed scheduled task '$TaskName'" 'OK'

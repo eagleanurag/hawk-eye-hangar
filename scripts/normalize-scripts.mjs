@@ -16,7 +16,11 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const TARGETS = ['scripts/resume-parkjets.ps1', 'scripts/resume-parkjets.cmd'];
+const TARGETS = [
+  'scripts/resume-parkjets.ps1',
+  'scripts/resume-parkjets.cmd',
+  'scripts/install-parkjets-task.ps1',
+];
 const BOM = Buffer.from([0xef, 0xbb, 0xbf]);
 
 let changed = 0;
