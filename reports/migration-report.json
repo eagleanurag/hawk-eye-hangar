@@ -1,0 +1,366 @@
+{
+  "generatedAt": "2026-09-29T02:29:48.353Z",
+  "source": {
+    "site": "https://www.parkjets.com",
+    "collection": "/free-plans",
+    "platform": "Squarespace 7.1 commerce + MemberSpace membership"
+  },
+  "discovery": {
+    "sitemapUrls": 419,
+    "collectionItemCount": 118,
+    "fromCollection": 109,
+    "fromSitemap": 109,
+    "gapsInSitemap": 0,
+    "gapsInCollection": 0,
+    "duplicateSlugs": 0
+  },
+  "totals": {
+    "discovered": 109,
+    "imported": 109,
+    "importFailures": 0,
+    "archived": 0,
+    "sourceOnly": 109,
+    "unavailable": 0,
+    "manualReview": 0,
+    "requiringReview": 20,
+    "categories": 7,
+    "designers": 50,
+    "uncreditedDesigners": 2,
+    "images": 419,
+    "imageFiles": 838,
+    "imageBytes": 50413786,
+    "withSpecifications": 90,
+    "specificationFields": 503,
+    "buildThreads": 110,
+    "externalLinks": 134,
+    "planFiles": 0
+  },
+  "planFileTypesAtSource": {
+    "ZIP": 105,
+    "PDF": 4
+  },
+  "categories": {
+    "Foam": 107,
+    "Pusher": 91,
+    "Profile": 35,
+    "Fantasy": 24,
+    "Decals": 1,
+    "EDF": 8,
+    "3D": 4
+  },
+  "designers": [
+    {
+      "name": "Steve Shumate",
+      "count": 11
+    },
+    {
+      "name": "Dennis Schmalzel",
+      "count": 9
+    },
+    {
+      "name": "Jamie Rothwell",
+      "count": 7
+    },
+    {
+      "name": "Robertus",
+      "count": 6
+    },
+    {
+      "name": "Marcel du Plessis",
+      "count": 5
+    },
+    {
+      "name": "Nick Cara",
+      "count": 5
+    },
+    {
+      "name": "Tomas Hellberg",
+      "count": 5
+    },
+    {
+      "name": "GGRN",
+      "count": 4
+    },
+    {
+      "name": "Domenico Sebastiani",
+      "count": 3
+    },
+    {
+      "name": "Robert Viskil",
+      "count": 3
+    },
+    {
+      "name": "Ben Song (Beanie)",
+      "count": 2
+    },
+    {
+      "name": "Chris Carpenter",
+      "count": 2
+    },
+    {
+      "name": "DCobra",
+      "count": 2
+    },
+    {
+      "name": "Eduardo Flores",
+      "count": 2
+    },
+    {
+      "name": "Fuelsguy",
+      "count": 2
+    },
+    {
+      "name": "Hans-Joachim",
+      "count": 2
+    },
+    {
+      "name": "Pat Gagnon",
+      "count": 2
+    },
+    {
+      "name": "Sean Correia",
+      "count": 2
+    },
+    {
+      "name": "Steven Wong",
+      "count": 2
+    },
+    {
+      "name": "Adriel Baskoro",
+      "count": 1
+    },
+    {
+      "name": "BadDog and Woody",
+      "count": 1
+    },
+    {
+      "name": "Beanie",
+      "count": 1
+    },
+    {
+      "name": "Bigglesjets",
+      "count": 1
+    },
+    {
+      "name": "Bob Templeton",
+      "count": 1
+    },
+    {
+      "name": "Brent Hecht",
+      "count": 1
+    },
+    {
+      "name": "Brice Faucillon",
+      "count": 1
+    },
+    {
+      "name": "David Martel",
+      "count": 1
+    },
+    {
+      "name": "Denis CyberD",
+      "count": 1
+    },
+    {
+      "name": "FoamyFactory (Tim Hart)",
+      "count": 1
+    },
+    {
+      "name": "FuelsGuy",
+      "count": 1
+    },
+    {
+      "name": "Hansie",
+      "count": 1
+    },
+    {
+      "name": "Jason Swisher",
+      "count": 1
+    },
+    {
+      "name": "Jim Wagoner",
+      "count": 1
+    },
+    {
+      "name": "John Bright",
+      "count": 1
+    },
+    {
+      "name": "Matt Halton",
+      "count": 1
+    },
+    {
+      "name": "Matti Huaviala",
+      "count": 1
+    },
+    {
+      "name": "Maybz",
+      "count": 1
+    },
+    {
+      "name": "Mike DiMonte",
+      "count": 1
+    },
+    {
+      "name": "Mike Jackson",
+      "count": 1
+    },
+    {
+      "name": "Miroslav Matousu",
+      "count": 1
+    },
+    {
+      "name": "Mr. Boogie",
+      "count": 1
+    },
+    {
+      "name": "Mr. Flash",
+      "count": 1
+    },
+    {
+      "name": "Rane",
+      "count": 1
+    },
+    {
+      "name": "RC CAL",
+      "count": 1
+    },
+    {
+      "name": "RSteel",
+      "count": 1
+    },
+    {
+      "name": "Sabastian Gulde",
+      "count": 1
+    },
+    {
+      "name": "StarCad",
+      "count": 1
+    },
+    {
+      "name": "Steven Wong and Fuelsguy",
+      "count": 1
+    },
+    {
+      "name": "SuperHornet",
+      "count": 1
+    },
+    {
+      "name": "Thomas Nelson",
+      "count": 1
+    }
+  ],
+  "knownLimitations": {
+    "noStructuredSpecifications": [
+      {
+        "slug": "a-6-intruder",
+        "name": "A-6 Intruder",
+        "reason": "source published no structured specifications"
+      },
+      {
+        "slug": "avro-arrow",
+        "name": "Avro Arrow",
+        "reason": "source published no structured specifications"
+      },
+      {
+        "slug": "decal-pack",
+        "name": "Decal Pack for Parkjets",
+        "reason": "source published no structured specifications"
+      },
+      {
+        "slug": "decent-spaceship",
+        "name": "Decent Spaceship",
+        "reason": "source published no structured specifications"
+      },
+      {
+        "slug": "f-104-starfighter",
+        "name": "F-104 Starfighter",
+        "reason": "source published no structured specifications"
+      },
+      {
+        "slug": "f-106-delta-dart",
+        "name": "F-106 Delta Dart",
+        "reason": "source published no structured specifications"
+      },
+      {
+        "slug": "f-117-night-hawk",
+        "name": "F-117 Night Hawk",
+        "reason": "source published no structured specifications"
+      },
+      {
+        "slug": "f-14-tomcat-3",
+        "name": "F-14 Tomcat",
+        "reason": "source published no structured specifications"
+      },
+      {
+        "slug": "f-14-tomcat-2",
+        "name": "F-14 Tomcat MH",
+        "reason": "source published no structured specifications"
+      },
+      {
+        "slug": "f-16-falcon-1",
+        "name": "F-16 Falcon HJ",
+        "reason": "source published no structured specifications"
+      },
+      {
+        "slug": "f-18e-super-hornet-1",
+        "name": "F-18E Super Hornet — BadDog and Woody",
+        "reason": "source published no structured specifications"
+      },
+      {
+        "slug": "f-20-tigershark-1",
+        "name": "F-20 Tigershark DC",
+        "reason": "source published no structured specifications"
+      },
+      {
+        "slug": "f-28-hammer",
+        "name": "F-28 Hammer",
+        "reason": "source published no structured specifications"
+      },
+      {
+        "slug": "f-4-phantom-ii",
+        "name": "F-4 Phantom II",
+        "reason": "source published no structured specifications"
+      },
+      {
+        "slug": "f4d-skyray-1",
+        "name": "F4D Skyray — Brent Hecht",
+        "reason": "source published no structured specifications"
+      },
+      {
+        "slug": "hunter",
+        "name": "Hunter",
+        "reason": "source published no structured specifications"
+      },
+      {
+        "slug": "mirage-2000",
+        "name": "Mirage 2000",
+        "reason": "source published no structured specifications"
+      },
+      {
+        "slug": "super-bandit",
+        "name": "Super Bandit",
+        "reason": "source published no structured specifications"
+      },
+      {
+        "slug": "xb-70",
+        "name": "XB-70",
+        "reason": "source published no structured specifications"
+      }
+    ],
+    "noDesignerCredit": [
+      {
+        "slug": "decal-pack",
+        "name": "Decal Pack for Parkjets",
+        "reason": "source entry names no designer"
+      },
+      {
+        "slug": "hydro-plane",
+        "name": "Hydro-Plane",
+        "reason": "source entry names no designer"
+      }
+    ],
+    "noCategory": []
+  },
+  "failures": []
+}
