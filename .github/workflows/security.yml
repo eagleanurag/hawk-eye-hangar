@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json.schemastore.org/github-workflow.json",
+  "name": "Dependency review",
+  "on": { "pull_request": { "branches": ["main"] } },
+  "permissions": { "contents: read" },
+  "jobs": {
+    "audit": {
+      "name": "npm audit (high and critical only)",
+      "runs-on": "ubuntu-latest",
+      "steps": [
+        { "uses": "actions/checkout@v4" },
+        { "uses": "actions/setup-node@v4", "with": { "node-version": 22, "cache": "npm" } },
+        { "run": "npm ci" },
+        {
+          "name": Fail on high or critical advisories",
+          "run": "npm audit --audit-level=high --omit=dev"
+        }
+      ]
+    }
+  }
+}

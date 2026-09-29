@@ -1,0 +1,949 @@
+﻿---
+import Shell from '../../layouts/Shell.astro';
+import Base from '../../layouts/Base.astro';
+import {
+  SITE,
+  BASE,
+  pub,
+  abs,
+  SPEC_GROUPS,
+  SPEC_LABELS,
+  ARCHIVE_STATUS_META,
+  bySlug,
+  type Aircraft,
+} from '../../lib/catalog';
+
+export function getStaticPaths() {
+  return [...bySlug.values()].map((aircraft) => ({ params: { slug: aircraft.slug }, props: { aircraft } }));
+}
+
+interface Props {
+  aircraft: Aircraft;
+}
+const a = Astro.props.aircraft ?? bySlug.get(Astro.params.slug as string);
+if (!a) throw new Error(`Unknown aircraft slug: ${Astro.params.slug}`);
+const base = BASE;
+
+const status = ARCHIVE_STATUS_META[a.archiveStatus] ?? ARCHIVE_STATUS_META.UNAVAILABLE;
+const groups = SPEC_GROUPS.map((g) => ({
+  title: g.title,
+  rows: g.keys.filter((k) => a.specifications[k]).map((k) => ({ key: k, label: SPEC_LABELS[k] ?? k, value: a.specifications[k] })),
+})).filter((g) => g.rows.length);
+
+const related = [...bySlug.values()]
+  .filter((x) => x.slug !== a.slug)
+  .map((x) => {
+    let score = 0;
+    if (x.designerKey && x.designerKey === a.designerKey) score += 6;
+    score += x.category.filter((c) => a.category.includes(c)).length * 3;
+    const tok = a.name.toLowerCase().replace(/[^a-z0-9]/g, '');
+    const other = x.name.toLowerCase().replace(/[^a-z0-9]/g, '');
+    if (tok && (other.includes(tok.slice(0, 4)) || tok.includes(other.slice(0, 4)))) score += 2;
+    return { x, score };
+  })
+  .sort((p, q) => q.score - p.score || p.x.name.localeCompare(q.x.name))
+  .slice(0, 3)
+  .map((p) => p.x);
+
+const isLocal = a.download.type === 'local' && a.download.file;
+const d = a.download;
+
+const title = `${a.name} — ${a.designer ? a.designer + ' · ' : ''}RC Parkjet Plans`;
+const description =
+  a.summary ||
+  `${a.name}${a.designer ? ` by ${a.designer}` : ''} — archived Parkjets RC aircraft design with specifications, build notes, photography and source link.`;
+const ogImage = a.images[0]?.full ? abs(a.images[0].full) : abs('/og-default.png');
+
+
+const crumb = [
+  { label: 'Home', href: base },
+  { label: 'Catalogue', href: base + 'catalog' },
+  { label: a.name, href: `${base}aircraft/${a.slug}` },
+];
+
+function prettyDate(iso: string | null) {
+  if (!iso) return 'Unknown';
+  return new Date(iso).toLocaleDateString('en-GB', { year: 'numeric', month: 'long', day: 'numeric' });
+}
+function bytes(n?: number) {
+  if (!n) return 'Unknown size';
+  if (n < 1024) return `${n} B`;
+  if (n < 1048576) return `${(n / 1024).toFixed(1)} KB`;
+  return `${(n / 1048576).toFixed(2)} MB`;
+}
+---
+
+<Base title={title} description={description} canonical={abs(`/aircraft/${a.slug}`)} image={ogImage} ogType="article">
+  <Shell>
+    <main id="main" class="detail">
+      <div class="shell">
+      <nav class="crumbs" aria-label="Breadcrumb" data-reveal="fade">
+
+        <ol>
+          {crumb.map((c, i) => (
+            <li>
+              {i < crumb.length - 1 ? <a href={c.href} data-no-transition>{c.label}</a> : <span aria-current="page">{c.label}</span>}
+            </li>
+          ))}
+        </ol>
+      </nav>
+
+      <!-- ----------------------------- header ----------------------------- -->
+      <header class="dhead">
+        <div class="dhead-copy">
+          <div class="cluster" style="--cluster-gap:.4rem;margin-bottom:.9rem">
+            {a.category.map((c) => (
+              <a class="chip chip--cyan" href={`${base}catalog?category=${encodeURIComponent(c.toLowerCase())}`} data-no-transition>{c}</a>
+            ))}
+            <span class={`chip chip--${status.tone}`}>{status.short}</span>
+          </div>
+
+          <h1 class="dhead-title">{a.name}</h1>
+          {a.displayName !== a.name && <p class="dhead-alt">Listed as “{a.originalTitle}”</p>}
+
+          <div class="designer-block">
+            <span class="mono designer-label">Designed by</span>
+            {a.designer ? (
+              <a class="designer-name" href={`${base}catalog?designer=${encodeURIComponent(a.designer)}`} data-no-transition>{a.designer}</a>
+            ) : (
+              <span class="designer-name designer-name--none">Not credited in the source catalogue</span>
+            )}
+          </div>
+
+          <p class="dhead-lede">{a.summary || a.description || 'No description was published for this design.'}</p>
+
+          <div class="dhead-actions">
+            <a class="btn btn--primary" href="#plan">Get the plan</a>
+            <a class="btn btn--ghost" href={a.sourceUrl} rel="noopener nofollow" target="_blank">
+              Original Parkjets page
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5" />
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- --------------------------- gallery --------------------------- -->
+        <section class="gallery" aria-label={`${a.name} photographs`} data-gallery>
+          <div class="gallery-stage panel brackets" data-stage>
+            {a.images[0] ? (
+              <img
+                data-stage-img
+                src={pub(a.images[0].full ?? a.images[0].card ?? '')}
+                alt={a.images[0].alt}
+                width={a.images[0].width ?? undefined}
+                height={a.images[0].height ?? undefined}
+                fetchpriority="high"
+                decoding="async"
+              />
+            ) : (
+              <p class="gallery-empty">No image was archived for this aircraft.</p>
+            )}
+            {a.images.length > 1 && (
+              <>
+                <button class="gallery-nav gallery-nav--prev" type="button" data-gallery-prev aria-label="Previous image">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6" /></svg>
+                </button>
+                <button class="gallery-nav gallery-nav--next" type="button" data-gallery-next aria-label="Next image">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6" /></svg>
+                </button>
+                <p class="gallery-counter mono" aria-live="polite" data-gallery-counter>1 / {a.images.length}</p>
+              </>
+            )}
+            {a.images[0] && (
+              <button class="gallery-zoom" type="button" data-gallery-zoom aria-label="View image full screen">⤢</button>
+            )}
+          </div>
+
+          {a.images.length > 1 && (
+            <div class="gallery-strip" data-gallery-strip role="tablist" aria-label="Choose image">
+              {a.images.map((im, i) => (
+                <button
+                  class="gallery-thumb"
+                  type="button"
+                  role="tab"
+                  aria-selected={i === 0 ? 'true' : 'false'}
+                  data-gallery-thumb
+                  data-index={i}
+                  data-full={pub(im.full)}
+                  data-card={pub(im.card)}
+                  data-alt={im.alt}
+                >
+                  <img
+                    src={pub(im.card ?? im.full ?? '')}
+                    alt={im.alt}
+                    width="120"
+                    height="90"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </button>
+              ))}
+            </div>
+          )}
+        </section>
+      </header>
+
+      <div class="dgrid">
+        <!-- ---------------------------- main col --------------------------- -->
+        <div class="dcol">
+          <!-- specifications -->
+          <section class="dsec" aria-labelledby="spec-title" data-reveal>
+            <h2 id="spec-title" class="dsec-title">
+              <span class="mono">01</span> Specifications
+            </h2>
+
+            {groups.length ? (
+              <div class="spec-groups">
+                {groups.map((g) => (
+                  <div class="panel panel--pad">
+                    <h3 class="spec-group-title">{g.title}</h3>
+                    <dl class="spec-list">
+                      {g.rows.map((r) => (
+                        <div class="spec-row">
+                          <dt>{r.label}</dt>
+                          <dd>{r.value}</dd>
+                        </div>
+                      ))}
+                    </dl>
+                  </div>
+                ))}
+
+                {a.specificationsExtra.length > 0 && (
+                  <div class="panel panel--pad">
+                    <h3 class="spec-group-title">Additional published data</h3>
+                    <dl class="spec-list">
+                      {a.specificationsExtra.map((e) => (
+                        <div class="spec-row">
+                          <dt>{e.key}</dt>
+                          <dd>{e.value}</dd>
+                        </div>
+                      ))}
+                    </dl>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <div class="panel panel--pad">
+                <p class="muted">
+                  This design was published without structured specifications. The archive does not
+                  invent values — the designer's own words are reproduced verbatim below instead.
+                </p>
+              </div>
+            )}
+
+            {a.specificationsRaw && (
+              <details class="verbatim-block">
+                <summary>Designer's specification sheet, verbatim</summary>
+                <p class="verbatim">{a.specificationsRaw}</p>
+              </details>
+            )}
+          </section>
+
+          <!-- designer notes -->
+          {a.designerNotes && (
+            <section class="dsec" aria-labelledby="notes-title" data-reveal>
+              <h2 id="notes-title" class="dsec-title"><span class="mono">02</span> Designer's notes</h2>
+              <div class="prose prose--pre">
+                {a.designerNotes}
+              </div>
+            </section>
+          )}
+
+          <!-- build requirements -->
+          {a.buildRequirements && (
+            <section class="dsec" aria-labelledby="build-title" data-reveal>
+              <h2 id="build-title" class="dsec-title"><span class="mono">03</span> What you'll need to build it</h2>
+              <div class="prose prose--pre">{a.buildRequirements}</div>
+              {a.buildRequirementsLinks.length > 0 && (
+                <>
+                  <p class="link-note">
+                    These are the original Parkjets affiliate links, preserved as published. The
+                    archive earns nothing from them.
+                  </p>
+                  <ul class="link-list">
+                    {a.buildRequirementsLinks.map((l, i) => (
+                      <li>
+                        <a href={l.url} rel="noopener nofollow sponsored" target="_blank">{l.label || l.url}</a>
+                      </li>
+                    ))}
+                  </ul>
+                </>
+              )}
+            </section>
+          )}
+
+          {a.kitAvailability && (
+            <section class="dsec" aria-labelledby="kit-title" data-reveal>
+              <h2 id="kit-title" class="dsec-title"><span class="mono">04</span> Kits</h2>
+              <div class="prose prose--pre">{a.kitAvailability}</div>
+            </section>
+          )}
+
+          <!-- build threads -->
+          {a.buildThreads.length > 0 && (
+            <section class="dsec" aria-labelledby="thread-title" data-reveal>
+              <h2 id="thread-title" class="dsec-title"><span class="mono">05</span> Build threads</h2>
+              <ul class="link-list link-list--cards">
+                {a.buildThreads.map((t) => (
+                  <li>
+                    <a class="ext-card" href={t.url} rel="noopener nofollow" target="_blank">
+                      <span class="ext-host mono">{(t.url.match(/^https?:\/\/([^/]+)/) || [, 'link'])[1]}</span>
+                      <span class="ext-label">{t.label || 'Build thread'}</span>
+                      <span class="ext-go" aria-hidden="true">↗</span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
+
+          {a.externalLinks.length > 0 && (
+            <section class="dsec" aria-labelledby="links-title" data-reveal>
+              <h2 id="links-title" class="dsec-title"><span class="mono">06</span> Further reading</h2>
+              <ul class="link-list link-list--cards">
+                {a.externalLinks.map((l) => (
+                  <li>
+                    <a class="ext-card" href={l.url} rel="noopener nofollow" target="_blank">
+                      <span class="ext-host mono">{l.host}</span>
+                      <span class="ext-label">{l.label}</span>
+                      <span class="ext-go" aria-hidden="true">↗</span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
+        </div>
+
+        <!-- ---------------------------- side col --------------------------- -->
+        <aside class="dcol dcol--side">
+          <section class="panel panel--pad plan-card brackets" id="plan" data-reveal>
+            <h2 class="dsec-title dsec-title--sm">Plan file</h2>
+            <p class={`plan-status plan-status--${status.tone}`}>{status.label}</p>
+            <p class="muted plan-blurb">{status.blurb}</p>
+
+            {isLocal ? (
+              <>
+                <a class="btn btn--primary btn--block" href={pub(d.file)} download>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M12 3v12m0 0 4-4m-4 4-4-4M4 19h16" />
+                  </svg>
+                  Download {d.fileType || 'plan'}
+                </a>
+                {d.fileType === 'PDF' && (
+                  <a class="btn btn--ghost btn--block" href={pub(d.file)} target="_blank" rel="noopener" style="margin-top:.5rem">
+                    View PDF in browser
+                  </a>
+                )}
+                <dl class="file-meta">
+                  <div><dt>File</dt><dd class="mono">{d.filename}</dd></div>
+                  <div><dt>Type</dt><dd class="mono">{d.fileType}</dd></div>
+                  <div><dt>Size</dt><dd class="mono">{bytes(d.bytes)}</dd></div>
+                  <div><dt>SHA-256</dt><dd class="mono file-hash">{d.sha256}</dd></div>
+                </dl>
+              </>
+            ) : (
+              <>
+                <a class="btn btn--primary btn--block" href={a.sourceUrl} rel="noopener nofollow" target="_blank">
+                  Open original source
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5" />
+                  </svg>
+                </a>
+                <dl class="file-meta">
+                  {d.originalFilename && (
+                    <div><dt>Original filename</dt><dd class="mono">{d.originalFilename}</dd></div>
+                  )}
+                  {d.format && <div><dt>Format</dt><dd class="mono">{d.format}</dd></div>}
+                  <div><dt>Local copy</dt><dd>Not archived — member-gated original</dd></div>
+                </dl>
+              </>
+            )}
+          </section>
+
+          <section class="panel panel--pad" data-reveal>
+            <h2 class="dsec-title dsec-title--sm">Provenance</h2>
+            <dl class="file-meta">
+              <div><dt>Parkjets ID</dt><dd class="mono">{a.source.parkjetsId}</dd></div>
+              <div><dt>Published</dt><dd>{prettyDate(a.source.addedOn)}</dd></div>
+              <div><dt>Last updated</dt><dd>{prettyDate(a.source.updatedOn)}</dd></div>
+              <div><dt>Photographs</dt><dd>{a.images.length}</dd></div>
+              <div>
+                <dt>Original page</dt>
+                <dd><a class="link" href={a.sourceUrl} rel="noopener nofollow" target="_blank">parkjets.com ↗</a></dd>
+              </div>
+            </dl>
+          </section>
+
+          <section class="panel panel--pad" data-reveal>
+            <h2 class="dsec-title dsec-title--sm">Attribution &amp; rights</h2>
+            <p class="muted" style="font-size:.9rem">
+              {a.license.notes}
+            </p>
+            <p class="muted" style="font-size:.9rem;margin-top:.7rem">
+              Metadata, specifications and build notes on this page are reproduced from the
+              Parkjets catalogue entry
+              {a.designer ? ` written by ${a.designer}` : ''}, where that entry is the author's own
+              description of their work.
+            </p>
+            <p class="muted" style="font-size:.9rem;margin-top:.7rem">
+              Photography is credited to the contributors named in the original image descriptions
+              and to Parkjets for hosting. This archive stores low-resolution copies for reference
+              only.
+            </p>
+          </section>
+        </aside>
+      </div>
+
+      <!-- ----------------------------- related ----------------------------- -->
+      {related.length > 0 && (
+        <section class="related" aria-labelledby="rel-title" data-reveal>
+          <h2 id="rel-title" class="dsec-title"><span class="mono">↗</span> Related aircraft</h2>
+          <ul class="rel-grid">
+            {related.map((r) => (
+              <li>
+                <a class="rel-card" href={`${base}aircraft/${r.slug}`} data-no-transition>
+                  {r.images[0]?.card && (
+                    <img src={pub(r.images[0].card)} alt={r.images[0].alt} width="200" height="140" loading="lazy" decoding="async" />
+                  )}
+                  <span class="rel-body">
+                    <span class="rel-name">{r.displayName}</span>
+                    <span class="rel-designer">{r.designer || 'Designer not credited'}</span>
+                  </span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+      </div>
+    </main>
+  </Shell>
+</Base>
+
+
+<script>
+  import '../../scripts/gallery.js';
+  import '../../scripts/motion.js';
+</script>
+
+<style>
+  .detail {
+    padding-block: 1.25rem 2rem;
+  }
+  .crumbs ol {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    padding: 0;
+    margin: 0 0 1.1rem;
+    font-size: 0.8rem;
+    color: var(--text-faint);
+  }
+  .crumbs li + li::before {
+    content: '/';
+    margin-right: 0.4rem;
+    opacity: 0.5;
+  }
+  .crumbs a {
+    color: var(--text-dim);
+    text-decoration: none;
+  }
+  .crumbs a:hover {
+    color: var(--cyan);
+  }
+
+  .dhead {
+    display: grid;
+    gap: clamp(1.5rem, 1rem + 3vw, 3rem);
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+    align-items: start;
+    margin-bottom: clamp(1.75rem, 1.2rem + 2vw, 3rem);
+  }
+  .dhead-title {
+    font-size: var(--step-4);
+    letter-spacing: -0.038em;
+    line-height: 1.02;
+  }
+  .dhead-alt {
+    margin-top: 0.4rem;
+    font-size: 0.8rem;
+    color: var(--text-faint);
+    font-style: italic;
+  }
+  .designer-block {
+    display: grid;
+    gap: 0.1rem;
+    margin-top: 1.1rem;
+    padding-left: 0.9rem;
+    border-left: 2px solid color-mix(in oklab, var(--cyan) 45%, transparent);
+  }
+  .designer-label {
+    font-size: 0.64rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+  }
+  .designer-name {
+    font-family: var(--font-display);
+    font-size: var(--step-1);
+    font-weight: 600;
+    color: var(--cyan);
+    text-decoration: none;
+  }
+  .designer-name:hover {
+    text-decoration: underline;
+  }
+  .designer-name--none {
+    color: var(--text-faint);
+    font-size: var(--step-0);
+    font-weight: 400;
+    font-style: italic;
+  }
+  .dhead-lede {
+    margin-top: 1.1rem;
+    color: var(--text-dim);
+    max-width: 54ch;
+  }
+  .dhead-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-top: 1.5rem;
+  }
+
+  /* --------------------------- gallery --------------------------- */
+  .gallery {
+    display: grid;
+    gap: 0.6rem;
+  }
+  .gallery-stage {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 4 / 3;
+    background: linear-gradient(160deg, var(--ink-700), var(--ink-850));
+    touch-action: pan-y;
+  }
+  .gallery-stage img {
+    inline-size: 100%;
+    block-size: 100%;
+    object-fit: contain;
+    background: color-mix(in oklab, #000 35%, transparent);
+    opacity: 0;
+    transition: opacity 260ms var(--ease-out);
+  }
+  .gallery-stage img.is-loaded {
+    opacity: 1;
+  }
+  .gallery-stage:not(:has(img)) {
+    background: linear-gradient(160deg, var(--ink-700), var(--ink-850));
+  }
+
+  .gallery-stage.is-swiping img {
+    transition: none;
+  }
+  .gallery-empty {
+    display: grid;
+    place-items: center;
+    height: 100%;
+    color: var(--text-faint);
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+  }
+  .gallery-nav {
+    position: absolute;
+    top: 50%;
+    translate: 0 -50%;
+    display: grid;
+    place-items: center;
+    inline-size: 40px;
+    block-size: 40px;
+    border-radius: 50%;
+    color: var(--text);
+    background: color-mix(in oklab, var(--ink-900) 72%, transparent);
+    border: 1px solid var(--line-soft);
+    opacity: 0;
+    transition: opacity var(--dur) var(--ease-out), background var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out);
+  }
+  .gallery-stage:hover .gallery-nav,
+  .gallery-nav:focus-visible {
+    opacity: 1;
+  }
+  .gallery-nav:hover {
+    background: color-mix(in oklab, var(--cyan) 26%, var(--ink-900));
+    transform: scale(1.06);
+  }
+  .gallery-nav--prev { left: 0.6rem; }
+  .gallery-nav--next { right: 0.6rem; }
+  .gallery-counter {
+    position: absolute;
+    left: 0.7rem;
+    bottom: 0.7rem;
+    padding: 0.2rem 0.55rem;
+    border-radius: 999px;
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    color: var(--text-dim);
+    background: color-mix(in oklab, var(--ink-900) 78%, transparent);
+  }
+  .gallery-zoom {
+    position: absolute;
+    right: 0.7rem;
+    bottom: 0.7rem;
+    inline-size: 34px;
+    block-size: 34px;
+    border-radius: var(--radius-sm);
+    display: grid;
+    place-items: center;
+    color: var(--text-dim);
+    background: color-mix(in oklab, var(--ink-900) 78%, transparent);
+    border: 1px solid var(--line-soft);
+    font-size: 1rem;
+    transition: color var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out);
+  }
+  .gallery-zoom:hover {
+    color: var(--cyan);
+    border-color: color-mix(in oklab, var(--cyan) 50%, transparent);
+  }
+  .gallery-strip {
+    display: flex;
+    gap: 0.4rem;
+    overflow-x: auto;
+    padding-bottom: 0.35rem;
+    scrollbar-width: thin;
+  }
+  .gallery-thumb {
+    flex: none;
+    inline-size: 92px;
+    aspect-ratio: 4 / 3;
+    padding: 0;
+    border: 1px solid var(--line-soft);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    opacity: 0.55;
+    transition: opacity var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out);
+  }
+  .gallery-thumb img {
+    inline-size: 100%;
+    block-size: 100%;
+    object-fit: cover;
+  }
+  .gallery-thumb:hover {
+    opacity: 0.9;
+    transform: translateY(-2px);
+  }
+  .gallery-thumb[aria-selected='true'] {
+    opacity: 1;
+    border-color: var(--cyan);
+    box-shadow: 0 0 0 1px color-mix(in oklab, var(--cyan) 55%, transparent);
+  }
+
+  /* lightbox */
+  :global(.lightbox) {
+    position: fixed;
+    inset: 0;
+    z-index: 180;
+    display: grid;
+    place-items: center;
+    padding: clamp(1rem, 4vw, 3rem);
+    background: color-mix(in oklab, #02040a 96%, transparent);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--dur) var(--ease-out);
+  }
+  :global(.lightbox.is-open) {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  :global(.lightbox img) {
+    max-inline-size: 100%;
+    max-block-size: 100%;
+    object-fit: contain;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-lg);
+  }
+  :global(.lightbox-bar) {
+    position: absolute;
+    inset: auto 0 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    color: var(--text-dim);
+  }
+  :global(.lightbox-close) {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    inline-size: 44px;
+    block-size: 44px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    color: var(--text);
+    background: color-mix(in oklab, var(--ink-700) 80%, transparent);
+    border: 1px solid var(--line-soft);
+  }
+
+  /* ----------------------------- body ----------------------------- */
+  .dgrid {
+    display: grid;
+    gap: clamp(1.25rem, 1rem + 2vw, 2.5rem);
+    grid-template-columns: minmax(0, 1fr) minmax(0, 22rem);
+    align-items: start;
+  }
+  .dcol {
+    display: grid;
+    gap: clamp(1.5rem, 1.2rem + 1.5vw, 2.5rem);
+    min-width: 0;
+  }
+  .dcol--side {
+    position: sticky;
+    top: calc(var(--header-h) + 1rem);
+  }
+  .dsec-title {
+    display: flex;
+    align-items: baseline;
+    gap: 0.7rem;
+    font-size: var(--step-2);
+    margin-bottom: 1rem;
+  }
+  .dsec-title .mono {
+    font-size: 0.72rem;
+    letter-spacing: 0.16em;
+    color: var(--cyan);
+  }
+  .dsec-title--sm {
+    font-size: 1.05rem;
+    margin-bottom: 0.8rem;
+  }
+  .spec-groups {
+    display: grid;
+    gap: 0.9rem;
+  }
+  .spec-group-title {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+    margin-bottom: 0.55rem;
+  }
+  .verbatim-block {
+    margin-top: 0.9rem;
+    border: 1px solid var(--line-soft);
+    border-radius: var(--radius-sm);
+    background: color-mix(in oklab, var(--ink-900) 35%, transparent);
+  }
+  .verbatim-block summary {
+    cursor: pointer;
+    padding: 0.7rem 0.95rem;
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+  }
+  .verbatim-block summary:hover {
+    color: var(--cyan);
+  }
+  .verbatim-block .verbatim {
+    margin: 0;
+    border: 0;
+    border-top: 1px solid var(--line-soft);
+    border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+  }
+  .link-note {
+    margin-top: 0.8rem;
+    font-size: 0.78rem;
+    color: var(--text-faint);
+  }
+  .link-list {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    margin-top: 0.7rem;
+  }
+  .link-list a {
+    display: inline-flex;
+    padding: 0.35rem 0.75rem;
+    border: 1px solid var(--line-soft);
+    border-radius: 999px;
+    font-size: 0.8rem;
+    color: var(--text-dim);
+    text-decoration: none;
+    transition: color var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out);
+  }
+  .link-list a:hover {
+    color: var(--cyan);
+    border-color: color-mix(in oklab, var(--cyan) 50%, transparent);
+  }
+  .link-list--cards {
+    display: grid;
+    gap: 0.5rem;
+  }
+  .ext-card {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 0.1rem 0.75rem;
+    padding: 0.7rem 0.9rem;
+    border: 1px solid var(--line-soft);
+    border-radius: var(--radius-sm);
+    background: color-mix(in oklab, var(--ink-700) 45%, transparent);
+    text-decoration: none;
+    transition: border-color var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out);
+  }
+  .ext-card:hover {
+    border-color: color-mix(in oklab, var(--cyan) 45%, transparent);
+    transform: translateX(3px);
+  }
+  .ext-host {
+    grid-column: 1;
+    font-size: 0.64rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+  }
+  .ext-label {
+    grid-column: 1;
+    color: var(--text);
+    font-size: 0.92rem;
+  }
+  .ext-go {
+    grid-row: 1 / span 2;
+    grid-column: 2;
+    align-self: center;
+    color: var(--text-faint);
+  }
+
+  .plan-card {
+    scroll-margin-top: calc(var(--header-h) + 1rem);
+  }
+  .plan-status {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 1.02rem;
+    margin-bottom: 0.4rem;
+  }
+  .plan-status--ok { color: var(--green); }
+  .plan-status--warn { color: var(--amber); }
+  .plan-status--muted { color: var(--text-faint); }
+  .plan-status--alert { color: var(--rose); }
+  .plan-blurb {
+    font-size: 0.86rem;
+    margin-bottom: 1rem;
+  }
+  .file-meta {
+    margin-top: 1rem;
+    display: grid;
+    gap: 0.05rem;
+  }
+  .file-meta > div {
+    display: grid;
+    grid-template-columns: 8.5rem 1fr;
+    gap: 0.6rem;
+    padding: 0.42rem 0;
+    border-bottom: 1px solid color-mix(in oklab, var(--line-soft) 60%, transparent);
+    font-size: 0.84rem;
+  }
+  .file-meta > div:last-child {
+    border-bottom: 0;
+  }
+  .file-meta dt {
+    font-family: var(--font-mono);
+    font-size: 0.66rem;
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+    padding-top: 0.18rem;
+  }
+  .file-meta dd {
+    margin: 0;
+    color: var(--text);
+    overflow-wrap: anywhere;
+  }
+  .file-hash {
+    font-size: 0.66rem;
+    line-height: 1.5;
+    color: var(--text-dim);
+  }
+  .link {
+    color: var(--cyan);
+  }
+
+  .related {
+    margin-top: clamp(2rem, 1.5rem + 2.5vw, 3.5rem);
+    padding-top: clamp(1.5rem, 1rem + 2vw, 2.5rem);
+    border-top: 1px solid var(--line-soft);
+  }
+  .rel-grid {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: 0.75rem;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 220px), 1fr));
+  }
+  .rel-card {
+    display: grid;
+    border: 1px solid var(--line-soft);
+    border-radius: var(--radius);
+    overflow: hidden;
+    background: var(--panel);
+    text-decoration: none;
+    transition: transform var(--dur) var(--ease-out), border-color var(--dur) var(--ease-out);
+  }
+  .rel-card:hover {
+    transform: translateY(-4px);
+    border-color: color-mix(in oklab, var(--cyan) 45%, transparent);
+  }
+  .rel-card img {
+    inline-size: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+  }
+  .rel-body {
+    display: grid;
+    gap: 0.15rem;
+    padding: 0.7rem 0.85rem 0.85rem;
+  }
+  .rel-name {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 0.95rem;
+  }
+  .rel-designer {
+    font-size: 0.78rem;
+    color: var(--text-faint);
+  }
+
+  @media (max-width: 1040px) {
+    .dgrid {
+      grid-template-columns: 1fr;
+    }
+    .dcol--side {
+      position: static;
+    }
+  }
+  @media (max-width: 880px) {
+    .dhead {
+      grid-template-columns: 1fr;
+    }
+    .gallery {
+      order: -1;
+    }
+  }
+  @media (max-width: 520px) {
+    .file-meta > div {
+      grid-template-columns: 1fr;
+      gap: 0.1rem;
+    }
+    .dhead-actions .btn {
+      flex: 1 1 100%;
+    }
+  }
+</style>

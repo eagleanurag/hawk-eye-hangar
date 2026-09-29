@@ -1,0 +1,413 @@
+﻿---
+import Shell from '../layouts/Shell.astro';
+import Base from '../layouts/Base.astro';
+import AircraftCard from '../components/AircraftCard.astro';
+import { SITE, BASE, aircraft, categories, designers, stats, abs } from '../lib/catalog';
+
+const base = BASE;
+const statuses = [
+  { value: 'ARCHIVED', label: 'Plan archived here' },
+  { value: 'SOURCE_ONLY', label: 'Source link only' },
+  { value: 'UNAVAILABLE', label: 'No plan published' },
+  { value: 'MANUAL_REVIEW', label: 'Needs review' },
+].filter((s) => aircraft.some((a) => a.archiveStatus === s.value));
+
+const sortOptions = [
+  { value: 'name', label: 'Name (A–Z)' },
+  { value: 'designer', label: 'Designer (A–Z)' },
+  { value: 'images', label: 'Most photographed' },
+  { value: 'newest', label: 'Recently added' },
+];
+---
+
+<Base
+  title="Aircraft catalogue"
+  description={`Search all ${stats.aircraft} Parkjets parkjet and park flyer designs by name, designer, category or specification.`}
+  canonical={abs('/catalog')}
+  image="/og-default.png"
+>
+  <Shell>
+    <main id="main" class="catalog" data-catalog>
+      <!-- ------------------------------ header ------------------------------ -->
+      <header class="page-head">
+        <div class="shell">
+          <p class="eyebrow" data-reveal="fade">Catalogue</p>
+          <h1 data-reveal style="--reveal-delay:60ms">Aircraft index</h1>
+          <p class="page-lede" data-reveal style="--reveal-delay:120ms">
+            Every design published in the Parkjets plan collection. Search by name, designer,
+            category, material or any specification the designer published — all filtering happens
+            in your browser, instantly.
+          </p>
+        </div>
+      </header>
+
+      <!-- ------------------------------ toolbar ----------------------------- -->
+      <div class="toolbar-wrap">
+        <div class="shell">
+          <div class="toolbar panel brackets" data-reveal>
+            <div class="toolbar-row toolbar-row--search">
+              <div class="searchbox">
+                <label class="visually-hidden" for="q">Search aircraft</label>
+                <span class="searchbox-icon" aria-hidden="true">
+                  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                    <circle cx="11" cy="11" r="7" /><path d="m20 20-3.2-3.2" />
+                  </svg>
+                </span>
+                <input
+                  id="q"
+                  type="search"
+                  placeholder="Search name, designer, category, material, specs…"
+                  autocomplete="off"
+                  enterkeyhint="search"
+                  spellcheck="false"
+                  aria-describedby="result-count"
+                  data-search-input
+                />
+                <button class="searchbox-clear" type="button" data-search-clear hidden aria-label="Clear search">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                    <path d="M18 6 6 18M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
+
+              <div class="toolbar-select">
+                <label for="sort">Sort</label>
+                <select id="sort" data-sort-select>
+                  {sortOptions.map((o) => <option value={o.value}>{o.label}</option>)}
+                </select>
+              </div>
+            </div>
+
+            <div class="toolbar-row toolbar-row--filters">
+              <fieldset class="filter-group" data-filter-group="category">
+                <legend>Category</legend>
+                <div class="filter-pills">
+                  <button class="pill is-active" type="button" data-filter-value="all" aria-pressed="true">All</button>
+                  {categories.map((c) => (
+                    <button class="pill" type="button" data-filter-value={c.value.toLowerCase()} aria-pressed="false">
+                      {c.value}<span class="mono">{c.count}</span>
+                    </button>
+                  ))}
+                </div>
+              </fieldset>
+
+              <fieldset class="filter-group" data-filter-group="status">
+                <legend>Plan availability</legend>
+                <div class="filter-pills">
+                  <button class="pill is-active" type="button" data-filter-value="all" aria-pressed="true">Any</button>
+                  {statuses.map((s) => (
+                    <button class="pill" type="button" data-filter-value={s.value} aria-pressed="false">
+                      {s.label}
+                      <span class="mono">{aircraft.filter((a) => a.archiveStatus === s.value).length}</span>
+                    </button>
+                  ))}
+                </div>
+              </fieldset>
+
+              <fieldset class="filter-group filter-group--designer" data-filter-group="designer">
+                <legend>Designer</legend>
+                <div class="filter-pills filter-pills--scroll" data-designer-pills>
+                  <button class="pill is-active" type="button" data-filter-value="all" aria-pressed="true">All</button>
+                  {designers.map((d) => (
+                    <button class="pill" type="button" data-filter-value={d.value} aria-pressed="false">
+                      {d.value}<span class="mono">{d.count}</span>
+                    </button>
+                  ))}
+                </div>
+              </fieldset>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ------------------------------ results ----------------------------- -->
+      <section class="shell results" aria-labelledby="results-title">
+        <h2 id="results-title" class="visually-hidden">Search results</h2>
+
+        <div class="results-bar">
+          <p id="result-count" role="status" aria-live="polite" data-result-count>
+            Showing all {stats.aircraft} aircraft
+          </p>
+          <div class="cluster" style="--cluster-gap:.5rem">
+            <div class="active-filters cluster" data-active-filters hidden></div>
+            <button class="btn btn--ghost btn--sm" type="button" data-reset-all hidden>Reset all</button>
+          </div>
+        </div>
+
+        <div class="grid-cards" data-grid>
+          {aircraft.map((a, i) => <AircraftCard aircraft={a} index={i} eager={i < 6} />)}
+        </div>
+
+        <div class="empty-state" data-empty hidden>
+          <svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true">
+            <circle cx="11" cy="11" r="7" /><path d="m20 20-3.2-3.2M8.5 11h5" />
+          </svg>
+          <h3>No aircraft match that search</h3>
+          <p data-empty-detail>Try a shorter search term, or clear the filters to see all designs.</p>
+          <button class="btn btn--primary btn--sm" type="button" data-reset-all>Clear search and filters</button>
+        </div>
+      </section>
+    </main>
+  </Shell>
+</Base>
+
+<script>
+  import '../scripts/catalog.js';
+  import '../scripts/motion.js';
+</script>
+
+<style>
+  .catalog {
+    padding-bottom: 2rem;
+  }
+  .page-head {
+    padding-block: clamp(2rem, 1.2rem + 3vw, 3.5rem) 1.5rem;
+  }
+  .page-head h1 {
+    font-size: var(--step-4);
+    letter-spacing: -0.035em;
+    margin-block: 0.35rem 0.6rem;
+  }
+  .page-lede {
+    max-width: 64ch;
+    color: var(--text-dim);
+  }
+
+  .toolbar-wrap {
+    position: sticky;
+    top: var(--header-h);
+    z-index: 40;
+    padding-bottom: 0.9rem;
+    background: linear-gradient(180deg, color-mix(in oklab, var(--ink-850) 92%, transparent) 55%, transparent);
+    backdrop-filter: blur(6px);
+  }
+  .toolbar {
+    padding: 0.85rem 1rem 1rem;
+    display: grid;
+    gap: 0.85rem;
+    box-shadow: var(--shadow);
+  }
+  .toolbar-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.7rem;
+    align-items: center;
+  }
+  .toolbar-row--search {
+    gap: 0.7rem;
+  }
+
+  .searchbox {
+    position: relative;
+    display: flex;
+    align-items: center;
+    flex: 1 1 320px;
+    min-width: 0;
+    padding: 0.15rem 0.15rem 0.15rem 2.5rem;
+    border: 1px solid var(--line-soft);
+    border-radius: 999px;
+    background: color-mix(in oklab, var(--ink-900) 55%, transparent);
+    transition: border-color var(--dur) var(--ease-out), box-shadow var(--dur) var(--ease-out);
+  }
+  .searchbox:focus-within {
+    border-color: color-mix(in oklab, var(--cyan) 60%, transparent);
+    box-shadow: 0 0 0 3px color-mix(in oklab, var(--cyan) 15%, transparent);
+  }
+  .searchbox-icon {
+    position: absolute;
+    left: 0.85rem;
+    color: var(--text-faint);
+    display: grid;
+    place-items: center;
+    pointer-events: none;
+  }
+  .searchbox:focus-within .searchbox-icon {
+    color: var(--cyan);
+  }
+  .searchbox input {
+    inline-size: 100%;
+    min-width: 0;
+    background: none;
+    border: 0;
+    padding: 0.6rem 0.4rem;
+    font-size: 0.95rem;
+  }
+  .searchbox input:focus {
+    outline: none;
+  }
+  .searchbox input::-webkit-search-cancel-button {
+    display: none;
+  }
+  .searchbox-clear {
+    display: grid;
+    place-items: center;
+    inline-size: 30px;
+    block-size: 30px;
+    flex: none;
+    border-radius: 50%;
+    color: var(--text-faint);
+    background: color-mix(in oklab, var(--ink-600) 70%, transparent);
+  }
+  .searchbox-clear:hover {
+    color: var(--text);
+    background: var(--ink-500);
+  }
+
+  .toolbar-select {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex: 0 1 auto;
+  }
+  .toolbar-select label {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+  }
+  .toolbar-select select {
+    appearance: none;
+    padding: 0.55rem 2rem 0.55rem 0.85rem;
+    border: 1px solid var(--line-soft);
+    border-radius: 999px;
+    background:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none' stroke='%23a9b8d4' stroke-width='1.8' stroke-linecap='round'%3E%3Cpath d='m1 1 5 5 5-5'/%3E%3C/svg%3E")
+        no-repeat right 0.8rem center,
+      color-mix(in oklab, var(--ink-900) 55%, transparent);
+    font-size: 0.88rem;
+    cursor: pointer;
+  }
+
+  .toolbar-row--filters {
+    display: grid;
+    gap: 0.7rem;
+  }
+  .filter-group {
+    border: 0;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: baseline;
+    gap: 0.7rem;
+    min-width: 0;
+  }
+  .filter-group legend {
+    float: left;
+    padding: 0;
+    margin-inline-end: 0.7rem;
+    font-family: var(--font-mono);
+    font-size: 0.66rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+    line-height: 2.1;
+  }
+  .filter-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    min-width: 0;
+  }
+  .filter-pills--scroll {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding-bottom: 0.35rem;
+    scrollbar-width: thin;
+    scroll-snap-type: x proximity;
+  }
+  .filter-pills--scroll .pill {
+    flex: none;
+    scroll-snap-align: start;
+  }
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.34rem 0.7rem;
+    border: 1px solid var(--line-soft);
+    border-radius: 999px;
+    background: color-mix(in oklab, var(--ink-700) 55%, transparent);
+    font-size: 0.8rem;
+    color: var(--text-dim);
+    white-space: nowrap;
+    transition: background var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out),
+      color var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out);
+  }
+  .pill span {
+    font-size: 0.66rem;
+    color: var(--text-faint);
+  }
+  .pill:hover {
+    color: var(--text);
+    border-color: color-mix(in oklab, var(--cyan) 40%, transparent);
+    transform: translateY(-1px);
+  }
+  .pill.is-active {
+    background: color-mix(in oklab, var(--cyan) 18%, transparent);
+    border-color: color-mix(in oklab, var(--cyan) 60%, transparent);
+    color: #fff;
+  }
+  .pill.is-active span {
+    color: color-mix(in oklab, var(--cyan) 80%, white);
+  }
+
+  .results {
+    padding-top: 0.4rem;
+  }
+  .results-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem 1rem;
+    align-items: center;
+    justify-content: space-between;
+    padding-block: 0.35rem 1.1rem;
+    border-bottom: 1px solid var(--line-soft);
+    margin-bottom: 1.35rem;
+  }
+  #result-count {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+  }
+  .active-filters .chip {
+    cursor: pointer;
+  }
+  .active-filters .chip:hover {
+    border-color: var(--rose);
+    color: var(--rose);
+  }
+
+  .empty-state {
+    display: grid;
+    justify-items: center;
+    gap: 0.7rem;
+    padding: clamp(2.5rem, 6vw, 5rem) 1rem;
+    text-align: center;
+    color: var(--text-faint);
+  }
+  .empty-state h3 {
+    font-size: var(--step-2);
+    color: var(--text);
+  }
+  .empty-state p {
+    max-width: 46ch;
+  }
+
+  @media (max-width: 720px) {
+    .toolbar-wrap {
+      position: static;
+      background: none;
+      backdrop-filter: none;
+    }
+    .filter-group {
+      display: grid;
+      gap: 0.35rem;
+    }
+    .filter-group legend {
+      line-height: 1.4;
+    }
+  }
+</style>

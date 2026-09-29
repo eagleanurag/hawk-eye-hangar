@@ -1,0 +1,119 @@
+---
+import { SITE, ARCHIVE_STATUS_META, cardSpecs, pub, type Aircraft } from '../lib/catalog';
+
+interface Props {
+  aircraft: Aircraft;
+  index?: number;
+  eager?: boolean;
+}
+const { aircraft: a, index = 0, eager = false } = Astro.props;
+const base = SITE.base.endsWith('/') ? SITE.base : SITE.base + '/';
+const href = `${base}aircraft/${a.slug}`;
+const status = ARCHIVE_STATUS_META[a.archiveStatus] ?? ARCHIVE_STATUS_META.UNAVAILABLE;
+const specs = cardSpecs(a);
+const img = a.images[0];
+const cats = a.category.join('|');
+const designerKey = a.designerKey;
+
+const searchBlob = [
+  a.name,
+  a.displayName,
+  a.designer,
+  a.category.join(' '),
+  a.summary,
+  a.specificationsRaw,
+  a.buildRequirements,
+  Object.entries(a.specifications).map(([k, v]) => `${k} ${v}`).join(' '),
+]
+  .join(' ')
+  .toLowerCase()
+  .replace(/[^\p{L}\p{N}\s."'&/+-]/gu, ' ')
+  .replace(/\s+/g, ' ')
+  .trim();
+---
+
+<article
+  class="card"
+  data-card
+  data-name={a.name}
+  data-display={a.displayName}
+  data-designer={a.designer}
+  data-designer-key={designerKey}
+  data-categories={cats}
+  data-category-slugs={a.category.map((c) => c.toLowerCase()).join('|')}
+  data-status={a.archiveStatus}
+  data-specs={Object.entries(a.specifications).map(([k, v]) => `${k} ${v}`).join(' ').toLowerCase()}
+  data-sort={a.name.toLowerCase()}
+  data-images={a.images.length}
+  data-added={a.source.addedOn ? Date.parse(a.source.addedOn) : 0}
+  data-search={searchBlob}
+  data-reveal
+  style={`--reveal-delay:${Math.min(index, 11) * 45}ms`}
+>
+  <div class="card-media">
+    {img?.card ? (
+      <img
+        src={pub(img.card)}
+        srcset={`${pub(img.card)} 400w, ${pub(img.full ?? img.card)} 1200w`}
+        sizes="(max-width: 640px) 92vw, (max-width: 1100px) 44vw, 300px"
+        alt={img.alt}
+        width={img.width ?? undefined}
+        height={img.height ?? undefined}
+        loading={eager ? 'eager' : 'lazy'}
+        decoding="async"
+        fetchpriority={eager ? 'high' : 'auto'}
+      />
+    ) : (
+      <div class="card-media-empty" aria-hidden="true">No image archived</div>
+    )}
+    <div class="card-badges">
+      {a.category.slice(0, 2).map((c) => <span class="chip chip--cyan">{c}</span>)}
+    </div>
+  </div>
+
+  <div class="card-body">
+    <h3 class="card-title">
+      <a class="card-stretch" href={href}>{a.displayName}</a>
+    </h3>
+    <p class="card-designer">
+      {a.designer ? (
+        <>Designed by <span class="mono">{a.designer}</span></>
+      ) : (
+        <span class="faint">Designer not credited in source</span>
+      )}
+    </p>
+
+    {specs.length > 0 && (
+      <p class="card-specs">
+        {specs.map((k) => (
+          <span>{k.replace(/([A-Z])/g, ' $1').trim()}: {a.specifications[k]}</span>
+        ))}
+      </p>
+    )}
+
+    <span class={`chip chip--${status.tone} card-status`}>{status.short}</span>
+
+    <span class="card-cta">
+      View aircraft
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M5 12h14M13 6l6 6-6 6" />
+      </svg>
+    </span>
+  </div>
+</article>
+
+<style>
+  .card-status {
+    align-self: flex-start;
+  }
+  .card-media-empty {
+    display: grid;
+    place-items: center;
+    height: 100%;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+  }
+</style>

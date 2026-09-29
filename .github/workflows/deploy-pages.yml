@@ -1,0 +1,94 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+# Least privilege: the job only needs to read the repo and write Pages.
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Never run two deployments at once — a half-finished publish would be worse
+# than a queued one.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    name: Validate, test and build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v4
+        with:
+          # Full history is not needed, but submodules/lfs are irrelevant here.
+          fetch-depth: 1
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Fail if the lockfile is out of date
+        run: npm ci --ignore-scripts --dry-run
+
+      # ---- Phase 26: the build is refused if any of these fail -------------
+      - name: Validate the archive data
+        run: npm run validate
+
+      - name: Unit tests
+        run: npm test
+
+      - name: Build the site
+        run: npm run build
+        env:
+          SITE_URL: https://eagleanurag.github.io
+          BASE_PATH: /parkjet-aircraft-archive/
+
+      - name: Audit links, assets and markup
+        run: npm run check-links
+
+      - name: Refresh the migration report
+        run: npm run report
+
+      - name: Upload the Pages artifact
+        if: github.event_name != 'pull_request'
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+      - name: Summarise the build
+        run: |
+          {
+            echo "### Build summary"
+            echo ""
+            echo "| | |"
+            echo "|---|---|"
+            echo "| HTML pages | $(find dist -name '*.html' | wc -l) |"
+            echo "| Total size  | $(du -sh dist | cut -f1) |"
+            echo "| Images      | $(find dist/media -type f 2>/dev/null | wc -l) |"
+            echo "| Plan files  | $(find dist/plans -type f 2>/dev/null | wc -l) |"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+  deploy:
+    name: Deploy
+    needs: build
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

@@ -1,0 +1,13 @@
+# Normalise line endings so the repository is identical on every platform.
+# Checked-in text is stored with LF; the working copy gets CRLF on Windows.
+* text=auto eol=lf
+
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.webp binary
+*.gif binary
+*.ico binary
+*.zip binary
+*.pdf binary
+*.dxf binary

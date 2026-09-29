@@ -1,0 +1,2185 @@
+{
+  "generatedAt": "2026-09-29T00:19:42.013Z",
+  "origin": "https://www.parkjets.com",
+  "collectionPath": "/free-plans",
+  "collectionTitle": "Parkjet Plans",
+  "collectionItemCount": 118,
+  "totalSitemapUrls": 419,
+  "aircraftFromCollection": 109,
+  "aircraftFromSitemap": 109,
+  "categories": [
+    {
+      "id": "69c21c62cfd0a23cbe50e4ee",
+      "name": "3D",
+      "slug": "3d",
+      "sourceUrl": "https://www.parkjets.com/free-plans/3d"
+    },
+    {
+      "id": "69c21c62cfd0a23cbe50e4f0",
+      "name": "Decals",
+      "slug": "decals",
+      "sourceUrl": "https://www.parkjets.com/free-plans/decals"
+    },
+    {
+      "id": "69c21c62cfd0a23cbe50e4f2",
+      "name": "EDF",
+      "slug": "edf",
+      "sourceUrl": "https://www.parkjets.com/free-plans/edf"
+    },
+    {
+      "id": "69c21c62cfd0a23cbe50e4f4",
+      "name": "Fantasy",
+      "slug": "fantasy",
+      "sourceUrl": "https://www.parkjets.com/free-plans/fantasy"
+    },
+    {
+      "id": "69c21c62cfd0a23cbe50e4f6",
+      "name": "Foam",
+      "slug": "foam",
+      "sourceUrl": "https://www.parkjets.com/free-plans/foam"
+    },
+    {
+      "id": "69c21c62cfd0a23cbe50e4f8",
+      "name": "Free Preview",
+      "slug": "free-preview",
+      "sourceUrl": "https://www.parkjets.com/free-plans/free-preview"
+    },
+    {
+      "id": "69c21c62cfd0a23cbe50e4fa",
+      "name": "Profile",
+      "slug": "profile",
+      "sourceUrl": "https://www.parkjets.com/free-plans/profile"
+    },
+    {
+      "id": "69c21c62cfd0a23cbe50e4fc",
+      "name": "Pusher",
+      "slug": "pusher",
+      "sourceUrl": "https://www.parkjets.com/free-plans/pusher"
+    }
+  ],
+  "designersFromCollectionTags": [
+    "Decals",
+    "Jamie Rothwell",
+    "Marcel du Plessis",
+    "Robertus",
+    "Steve Shumate",
+    "Tomas Hellberg"
+  ],
+  "categoryPages": [
+    {
+      "url": "https://www.parkjets.com/free-plans/3d",
+      "count": 4
+    },
+    {
+      "url": "https://www.parkjets.com/free-plans/decals",
+      "count": 1
+    },
+    {
+      "url": "https://www.parkjets.com/free-plans/edf",
+      "count": 8
+    },
+    {
+      "url": "https://www.parkjets.com/free-plans/fantasy",
+      "count": 24
+    },
+    {
+      "url": "https://www.parkjets.com/free-plans/foam",
+      "count": 107
+    },
+    {
+      "url": "https://www.parkjets.com/free-plans/free-preview",
+      "count": 0
+    },
+    {
+      "url": "https://www.parkjets.com/free-plans/profile",
+      "count": 35
+    },
+    {
+      "url": "https://www.parkjets.com/free-plans/pusher",
+      "count": 91
+    }
+  ],
+  "inSitemapNotInCollection": [],
+  "inCollectionNotInSitemap": [],
+  "duplicateSlugs": [],
+  "items": [
+    {
+      "id": "5692b48aa2bab8b5b8e6dada",
+      "slug": "f-22-raptor",
+      "title": "F-22 Raptor Parkjet Plans — Free PDF Download",
+      "fullUrl": "/free-plans/p/f-22-raptor",
+      "sourceUrl": "https://www.parkjets.com/free-plans/p/f-22-raptor",
+      "categories": [
+        "Foam",
+        "Pusher"
+      ],
+      "designerTags": [
+        "Steve Shumate"
+      ],
+      "digitalGood": {
+        "filename": "Shumate F-22.zip",
+        "sourceType": "ZIP",
+        "urlId": "85admbk0ppfq4ht7az28fj23jn3ena"
+      },
+      "priceCents": 0
+    },
+    {
+      "id": "5692d8010ab377deeed74d1a",
+      "slug": "su-37-super-flanker",
+      "title": "SU-37 Super Flanker Parkjet Plans — Free PDF Download",
+      "fullUrl": "/free-plans/p/su-37-super-flanker",
+      "sourceUrl": "https://www.parkjets.com/free-plans/p/su-37-super-flanker",
+      "categories": [
+        "Foam",
+        "Pusher"
+      ],
+      "designerTags": [
+        "Steve Shumate"
+      ],
+      "digitalGood": {
+        "filename": "Shumate SU-37.zip",
+        "sourceType": "ZIP",
+        "urlId": "9qjqefxaz4t3s2diemghwp47lgnsux"
+      },
+      "priceCents": 0
+    },
+    {
+      "id": "5692c636df40f361d6f70b45",
+      "slug": "mig-29-fulcrum",
+      "title": "MIG 29 Fulcrum Parkjet Plans — Free PDF Download",
+      "fullUrl": "/free-plans/p/mig-29-fulcrum",
+      "sourceUrl": "https://www.parkjets.com/free-plans/p/mig-29-fulcrum",
+      "categories": [
+        "Foam",
+        "Profile"
+      ],
+      "designerTags": [],
+      "digitalGood": {
+        "filename": "Tomhe MIG 29.zip",
+        "sourceType": "ZIP",
+        "urlId": "04f8vc1ete2if6ilhvqtgj6xwoprp9"
+      },
+      "priceCents": 0
+    },
+    {
+      "id": "5692c2c369a91a37898bd86f",
+      "slug": "f-16-falcon",
+      "title": "F-16 Falcon Parkjet Plans — Free PDF Download",
+      "fullUrl": "/free-plans/p/f-16-falcon",
+      "sourceUrl": "https://www.parkjets.com/free-plans/p/f-16-falcon",
+      "categories": [
+        "Foam",
+        "Pusher",
+        "Profile"
+      ],
+      "designerTags": [],
+      "digitalGood": {
+        "filename": "NAC F-16.zip",
+        "sourceType": "ZIP",
+        "urlId": "49d9k675cvg8f4cqxlb25zwmvukw79"
+      },
+      "priceCents": 0
+    },
+    {
+      "id": "5692d70e0ab377deeed7433f",
+      "slug": "f-18e-super-hornet-1",
+      "title": "F-18E Super Hornet Parkjet Plans — Free PDF Download",
+      "fullUrl": "/free-plans/p/f-18e-super-hornet-1",
+      "sourceUrl": "https://www.parkjets.com/free-plans/p/f-18e-super-hornet-1",
+      "categories": [
+        "Foam",
+        "Pusher"
+      ],
+      "designerTags": [],
+      "digitalGood": {
+        "filename": "Super Hornet-2.zip",
+        "sourceType": "ZIP",
+        "urlId": "8ahe4q2env78ialq8dqc2qi8roucp0"
+      },
+      "priceCents": 0
+    },
+    {
+      "id": "5691ef51a976af0bfc522868",
+      "slug": "firefly-serenity",
+      "title": "Firefly Serenity Parkjet Plans — Free PDF Download",
+      "fullUrl": "/free-plans/p/firefly-serenity",
+      "sourceUrl": "https://www.parkjets.com/free-plans/p/firefly-serenity",
+      "categories": [
+        "Fantasy",
+        "Foam",
+        "Pusher",
+        "Profile"
+      ],
+      "designerTags": [],
+      "digitalGood": {
+        "filename": "Firefly Serenity.zip",
+        "sourceType": "ZIP",
+        "urlId": "q2hbcjgtzl54p8j5vgeo8aott5ygqb"
+      },
+      "priceCents": 0
+    },
+    {
+      "id": "5692e60cdf40f361d6f86268",
+      "slug": "t-38-talon",
+      "title": "T-38 Talon Parkjet Plans — Free PDF Download",
+      "fullUrl": "/free-plans/p/t-38-talon",
+      "sourceUrl": "https://www.parkjets.com/free-plans/p/t-38-talon",
+      "categories": [
+        "Foam",
+        "Pusher"
+      ],
+      "designerTags": [
+        "Steve Shumate"
+      ],
+      "digitalGood": {
+        "filename": "Shumate t-38.zip",
+        "sourceType": "ZIP",
+        "urlId": "sknh85ke8bul49lr7an43oxku06ybw"
+      },
+      "priceCents": 0
+    },
+    {
+      "id": "5764bc11ebbd1a42a89ee70b",
+      "slug": "sonic",
+      "title": "Sonic Parkjet Plans — Free PDF Download",
+      "fullUrl": "/free-plans/p/sonic",
+      "sourceUrl": "https://www.parkjets.com/free-plans/p/sonic",
+      "categories": [
+        "Foam",
+        "Pusher"
+      ],
+      "designerTags": [],
+      "digitalGood": {
+        "filename": "SONIC BUILD.zip",
+        "sourceType": "ZIP",
+        "urlId": "47so1wsbda21racuhd5jtwevqtmlit"
+      },
+      "priceCents": 0
+    },
+    {
+      "id": "5692e3051c1210fdda3aae29",
+      "slug": "f4d-skyray-1",
+      "title": "F4D Skyray Parkjet Plans — Free PDF Download",
+      "fullUrl": "/free-plans/p/f4d-skyray-1",
+      "sourceUrl": "https://www.parkjets.com/free-plans/p/f4d-skyray-1",
+      "categories": [
+        "EDF",
+        "Foam",
+        "Pusher"
+      ],
+      "designerTags": [],
+      "digitalGood": {
+        "filename": "CN Skyray.zip",
+        "sourceType": "ZIP",
+        "urlId": "tkqcudxxahxa9vfzsnxr2bdgrol0n4"
+      },
+      "priceCents": 0
+    },
+    {
+      "id": "5692c7c7df40f361d6f71aaa",
+      "slug": "f-18e-super-hornet",
+      "title": "F-18E Super Hornet Parkjet Plans — Free PDF Download",
+      "fullUrl": "/free-plans/p/f-18e-super-hornet",
+      "sourceUrl": "https://www.parkjets.com/free-plans/p/f-18e-super-hornet",
+      "categories": [
+        "Foam",
+        "Pusher",
+        "Profile"
+      ],
+      "designerTags": [
+        "Tomas Hellberg"
+      ],
+      "digitalGood": {
+        "filename": "Tomhe F-18E.zip",
+        "sourceType": "ZIP",
+        "urlId": "wx3z9815n6nq55yoyg6brvuitskxu4"
+      },
+      "priceCents": 0
+    },
+    {
+      "id": "5692b38bc21b8644c8bc05eb",
+      "slug": "tw9dvaufkozwogojgllovt9zpnd438",
+      "title": "Eurofighter Parkjet Plans — Free PDF Download",
+      "fullUrl": "/free-plans/p/tw9dvaufkozwogojgllovt9zpnd438",
+      "sourceUrl": "https://www.parkjets.com/free-plans/p/tw9dvaufkozwogojgllovt9zpnd438",
+      "categories": [
+        "Foam",
+        "Pusher",
+        "Profile"
+      ],
+      "designerTags": [
+        "Tomas Hellberg"
+      ],
+      "digitalGood": {
+        "filename": "Tomhe-Eurofighter.zip",
+        "sourceType": "ZIP",
+        "urlId": "4rdl877ulrwz9i1m04my9b8p85vsgp"
+      },
+      "priceCents": 0
+    },
+    {
+      "id": "5692f338c647ad3203c174ad",
+      "slug": "f-14-tomcat-3",
+      "title": "F-14 Tomcat Parkjet Plans — Free PDF Download",
+      "fullUrl": "/free-plans/p/f-14-tomcat-3",
+      "sourceUrl": "https://www.parkjets.com/free-plans/p/f-14-tomcat-3",
+      "categories": [
+        "Foam",
+        "Pusher"
+      ],
+      "designerTags": [
+        "Steve Shumate"
+      ],
+      "digitalGood": {
+        "filename": "Shumate F-14.zip",
+        "sourceType": "ZIP",
+        "urlId": "tfsa2czptchc4vp0pdad6esxc7snhi"
+      },
+      "priceCents": 0
+    },
+    {
+      "id": "5692f01369a91a37898da1e5",
+      "slug": "f-4-phantom-ii",
+      "title": "F-4 Phantom II Parkjet Plans — Free PDF Download",
+      "fullUrl": "/free-plans/p/f-4-phantom-ii",
+      "sourceUrl": "https://www.parkjets.com/free-plans/p/f-4-phantom-ii",
+      "categories": [
+        "Foam",
+        "Pusher"
+      ],
+      "designerTags": [],
+      "digitalGood": {
+        "filename": "F-4-2.zip",
+        "sourceType": "ZIP",
+        "urlId": "618c9n0rv05unbelc45plb3tf39sqh"
+      },
+      "priceCents": 0
+    },
+    {
+      "id": "5692cb3625981daa98fa08e6",
+      "slug": "f-22-raptor-1",
+      "title": "F-22 Raptor Parkjet Plans — Free PDF Download",
+      "fullUrl": "/free-plans/p/f-22-raptor-1",
+      "sourceUrl": "https://www.parkjets.com/free-plans/p/f-22-raptor-1",
+      "categories": [
+        "Foam",
+        "Pusher",
+        "Profile"
+      ],
+      "designerTags": [
+        "Tomas Hellberg"
+      ],
+      "digitalGood": {
+        "filename": "Tomhe F-22.zip",
+        "sourceType": "ZIP",
+        "urlId": "0co0bl8rfzjbapxt6yut6mmf0vd0ap"
+      },
+      "priceCents": 0
+    },
+    {
+      "id": "58960f41b3db2bc447f77067",
+      "slug": "decal-pack",
+      "title": "Decal Pack for Parkjets — Free PDF Download",
+      "fullUrl": "/free-plans/p/decal-pack",
+      "sourceUrl": "https://www.parkjets.com/free-plans/p/decal-pack",
+      "categories": [
+        "Decals"
+      ],
+      "designerTags": [
+        "Decals"
+      ],
+      "digitalGood": {
+        "filename": "Decals.zip",
+        "sourceType": "ZIP",
+        "urlId": "qfhyrvk5shqw7jffj7rlm1l8npb97d"
+      },
+      "priceCents": 0
+    },
+    {
+      "id": "5691a491a128e6b30ea8f364",
+      "slug": "v1gc42g4ujcvohyeleqy43dhpcgicb",
+      "title": "J-31 Falcon Hawk Parkjet Plans — Free PDF Download",
+      "fullUrl": "/free-plans/p/v1gc42g4ujcvohyeleqy43dhpcgicb",
+      "sourceUrl": "https://www.parkjets.com/free-plans/p/v1gc42g4ujcvohyeleqy43dhpcgicb",
+      "categories": [
+        "Foam",
+        "Pusher",
+        "Profile"
+      ],
+      "designerTags": [],
+      "digitalGood": {
+        "filename": "J-31 Falcon Hawk.zip",
+        "sourceType": "ZIP",
+        "urlId": "ijuibjjzefe0x6s7m63i6z8q64j22g"
+      },
+      "priceCents": 0
+    },
+    {
+      "id": "5691a5db7086d724272973f0",
+      "slug": "yak-17-edf",
+      "title": "YAK-17 EDF Parkjet Plans — Free PDF Download",
+      "fullUrl": "/free-plans/p/yak-17-edf",
+      "sourceUrl": "https://www.parkjets.com/free-plans/p/yak-17-edf",
+      "categories": [
+        "EDF",
+        "Foam"
+      ],
+      "designerTags": [],
+      "digitalGood": {
+        "filename": "yak17.zip",
+        "sourceType": "ZIP",
+        "urlId": "ce1zaynnhmcmvcdmfve0cai9fvjhwk"
+      },
+      "priceCents": 0
+    },
+    {
+      "id": "5691937740667a56fc87a037",
+      "slug": "f-15-mk2",
+      "title": "F-15 MK2 Parkjet Plans — Free PDF Download",
+      "fullUrl": "/free-plans/p/f-15-mk2",
+      "sourceUrl": "https://www.parkjets.com/free-plans/p/f-15-mk2",
+      "categories": [
+        "Foam",
+        "Pusher"
+      ],
+      "designerTags": [
+        "Jamie Rothwell"
+      ],
+      "digitalGood": {
+        "filename": "FRCFOAMIES F15-MK2.zip",
+        "sourceType": "ZIP",
+        "urlId": "mi3jk86oniqfqwhtwhzoq5mbe6iixh"
+      },
+      "priceCents": 0
+    },
+    {
+      "id": "5691a78c0e4c1197d242b2d5",
+      "slug": "chiggy",
+      "title": "Chiggy Parkjet Plans — Free PDF Download",
+      "fullUrl": "/free-plans/p/chiggy",
+      "sourceUrl": "https://www.parkjets.com/free-plans/p/chiggy",
+      "categories": [
+        "Fantasy",
+        "Foam"
+      ],
+      "designerTags": [
+        "Robertus"
+      ],
+      "digitalGood": {
+        "filename": "chiggy.zip",
+        "sourceType": "ZIP",
+        "urlId": "9ihvs6npa91lsuszkzg2ovm2g7yq3r"
+      },
+      "priceCents": 0
+    },
+    {
+      "id": "5692b9dc25981daa98f94f42",
+      "slug": "f-35-lightening",
+      "title": "F-35 Lightening Parkjet Plans — Free PDF Download",
+      "fullUrl": "/free-plans/p/f-35-lightening",
+      "sourceUrl": "https://www.parkjets.com/free-plans/p/f-35-lightening",
+      "categories": [
+        "Foam",
+        "Profile"
+      ],
+      "designerTags": [],
+      "digitalGood": {
+        "filename": "Quick Build F-35.zip",
+        "sourceType": "ZIP",
+        "urlId": "t6yxl8jhzh330d1uefgybcx3j3dyol"
+      },
+      "priceCents": 0
+    },
+    {
+      "id": "5691d001a2bab8b5b8e24e06",
+      "slug": "fa-209-saber-tooth-tiger",
+      "title": "FA-209 Saber Tooth Tiger Parkjet Plans — Free PDF Download",
+      "fullUrl": "/free-plans/p/fa-209-saber-tooth-tiger",
+      "sourceUrl": "https://www.parkjets.com/free-plans/p/fa-209-saber-tooth-tiger",
+      "categories": [
+        "Foam",
+        "Pusher"
+      ],
+      "designerTags": [],
+      "digitalGood": {
+        "filename": "Saberthoot Tiger-2.zip",
+        "sourceType": "ZIP",
+        "urlId": "l18av9lccrvhoqn7ft92gnlmws3ez9"
+      },
+      "priceCents": 0
+    },
+    {
+      "id": "5691d22d69492ec8d7407f6f",
+      "slug": "t-720-b",
+      "title": "T-720 Broadhead Parkjet Plans — Free PDF Download",
+      "fullUrl": "/free-plans/p/t-720-b",
+      "sourceUrl": "https://www.parkjets.com/free-plans/p/t-720-b",
+      "categories": [
+        "Foam",
+        "Pusher"
+      ],
+      "designerTags": [],
+      "digitalGood": {
+        "filename": "T-720.zip",
+        "sourceType": "ZIP",
+        "urlId": "9qq2m24jlp0cs77t5ork6ktnszvop9"
+      },
+      "priceCents": 0
+    },
+    {
+      "id": "5691d401d8af10b210eb68d6",
+      "slug": "f-302-tauri",
+      "title": "F-302 Tau'ri Parkjet Plans — Free PDF Download",
+      "fullUrl": "/free-plans/p/f-302-tauri",
+      "sourceUrl": "https://www.parkjets.com/free-plans/p/f-302-tauri",
+      "categories": [
+        "Fantasy",
+        "Foam",
+        "Pusher"
+      ],
+      "designerTags": [
+        "Robertus"
+      ],
+      "digitalGood": {
+        "filename": "f-302_v3_plan-2.pdf",
+        "sourceType": "PDF",
+        "urlId": "mht9dokl8zx14u8zov3b1z56fdsewk"
+      },
+      "priceCents": 0
+    },
+    {
+      "id": "5691d50725981daa98f4adaf",
+      "slug": "su-22-fitter",
+      "title": "SU-22 Fitter Parkjet Plans — Free PDF Download",
+      "fullUrl": "/free-plans/p/su-22-fitter",
+      "sourceUrl": "https://www.parkjets.com/free-plans/p/su-22-fitter",
+      "categories": [
+        "Foam",
+        "Pusher"
+      ],
+      "designerTags": [
+        "Robertus"
+      ],
+      "digitalGood": {
+        "filename": "su22m4fitter.zip",
+        "sourceType": "ZIP",
+        "urlId": "rkiendsldsii984lbycjxzdp0cp0n6"
+      },
+      "priceCents": 0
+    },
+    {
+      "id": "5691d67ae0327c8c422b3c98",
+      "slug": "sa-43-hammerhead",
+      "title": "SA-43 Hammerhead Parkjet Plans — Free PDF Download",
+      "fullUrl": "/free-plans/p/sa-43-hammerhead",
+      "sourceUrl": "https://www.parkjets.com/free-plans/p/sa-43-hammerhead",
+      "categories": [
+        "Fantasy",
+        "Foam",
+        "Pusher"
+      ],
+      "designerTags": [
+        "Robertus"
+      ],
+      "digitalGood": {
+        "filename": "SA-43 HAMMERHEAD.zip",
+        "sourceType": "ZIP",
+        "urlId": "d89tx2nh4186vis8frbh2oj1vrs9su"
+      },
+      "priceCents": 0
+    },
+    {
+      "id": "5691d77cbfe873d7393f2dbb",
+      "slug": "x-shuttle-parkjet",
+      "title": "X-Shuttle Parkjet Parkjet Plans — Free PDF Download",
+      "fullUrl": "/free-plans/p/x-shuttle-parkjet",
+      "sourceUrl": "https://www.parkjets.com/free-plans/p/x-shuttle-parkjet",
+      "categories": [
+        "Fantasy",
+        "Foam",
+        "Pusher"
+      ],
+      "designerTags": [
+        "Robertus"
+      ],
+      "digitalGood": {
+        "filename": "x-schuttle_v2-2.pdf",
+        "sourceType": "PDF",
+        "urlId": "ytqb6vuw09ll63sslj9xf6cuj2gj1o"
+      },
+      "priceCents": 0
+    },
+    {
+      "id": "5691d99fd82d5eff6cbe5ae4",
+      "slug": "hot-spot",
+      "title": "Hot Spot Parkjet Plans — Free PDF Download",
+      "fullUrl": "/free-plans/p/hot-spot",
+      "sourceUrl": "https://www.parkjets.com/free-plans/p/hot-spot",
+      "categories": [
+        "Foam",
+        "Pusher"
+      ],
+      "designerTags": [],
+      "digitalGood": {
+        "filename": "Hot+Spot+park+jet+parts.pdf",
+        "sourceType": "PDF",
+        "urlId": "y0ogq4y7foclxmqntv2964fxkm9p0l"
+      },
+      "priceCents": 0
+    },
+    {
+      "id": "5691da31e0327c8c422b5833",
+      "slug": "mirage-f-1",
+      "title": "Mirage F-1 Parkjet Plans — Free PDF Download",
+      "fullUrl": "/free-plans/p/mirage-f-1",
+      "sourceUrl": "https://www.parkjets.com/free-plans/p/mirage-f-1",
+      "categories": [
+        "Foam",
+        "Pusher",
+        "Profile"
+      ],
+      "designerTags": [],
+      "digitalGood": {
+        "filename": "Mirage F1 QB.zip",
+        "sourceType": "ZIP",
+        "urlId": "a3w4mln5r421lr23kzfstxt8uhlcgt"
+      },
+      "priceCents": 0
+    },
+    {
+      "id": "5691da57e0327c8c422b5a84",
+      "slug": "saf-14",
+      "title": "SAF-14 Parkjet Plans — Free PDF Download",
+      "fullUrl": "/free-plans/p/saf-14",
+      "sourceUrl": "https://www.parkjets.com/free-plans/p/saf-14",
+      "categories": [
+        "Fantasy",
+        "EDF",
+        "Foam"
+      ],
+      "designerTags": [],
+      "digitalGood": {
+        "filename": "SAF-14.zip",
+        "sourceType": "ZIP",
+        "urlId": "chpowi82uh5797qupwxlfdbqdwvxqi"
+      },
+      "priceCents": 0
+    },
+    {
+      "id": "5691db64bfe873d7393f4608",
+      "slug": "frxoquedh3vabsgl72bt69lpvukrr6",
+      "title": "F-242 Spiker Parkjet Plans — Free PDF Download",
+      "fullUrl": "/free-plans/p/frxoquedh3vabsgl72bt69lpvukrr6",
+      "sourceUrl": "https://www.parkjets.com/free-plans/p/frxoquedh3vabsgl72bt69lpvukrr6",
+      "categories": [
+        "Fantasy",
+        "Foam",
+        "Pusher"
+      ],
+      "designerTags": [],
+      "digitalGood": {
+        "filename": "F-242 Spiker.zip",
+        "sourceType": "ZIP",
+        "urlId": "6hs58jta471tyjjk66jnqm0f2ineuw"
+      },
+      "priceCents": 0
+    },
+    {
+      "id": "5691dcf25a566828b96570a0",
+      "slug": "su-35-jr2",
+      "title": "SU-35 JR2 Parkjet Plans — Free PDF Download",
+      "fullUrl": "/free-plans/p/su-35-jr2",
+      "sourceUrl": "https://www.parkjets.com/free-plans/p/su-35-jr2",
+      "categories": [
+        "Foam",
+        "Pusher"
+      ],
+      "designerTags": [
+        "Jamie Rothwell"
+      ],
+      "digitalGood": {
+        "filename": "FRCFOAMIES SU37 MK2.zip",
+        "sourceType": "ZIP",
+        "urlId": "7c07mb4rjmhd2ajqj44kd7weateci9"
+      },
+      "priceCents": 0
+    },
+    {
+      "id": "5691deace0327c8c422b7461",
+      "slug": "mermaid",
+      "title": "Mermaid Parkjet Plans — Free PDF Download",
+      "fullUrl": "/free-plans/p/mermaid",
+      "sourceUrl": "https://www.parkjets.com/free-plans/p/mermaid",
+      "categories": [
+        "Foam",
+        "Pusher"
+      ],
+      "designerTags": [
+        "Marcel du Plessis"
+      ],
+      "digitalGood": {
+        "filename": "Mermaid.zip",
+        "sourceType": "ZIP",
+        "urlId": "2ks3e8rr6418kpcj9s6gnyjvtt17kl"
+      },
+      "priceCents": 0
+    },
+    {
+      "id": "5691df84a976af0bfc51d2ed",
+      "slug": "t-28-trojan",
+      "title": "T-28 Trojan Parkjet Plans — Free PDF Download",
+      "fullUrl": "/free-plans/p/t-28-trojan",
+      "sourceUrl": "https://www.parkjets.com/free-plans/p/t-28-trojan",
+      "categories": [
+        "3D",
+        "Foam",
+        "Profile"
+      ],
+      "designerTags": [],
+      "digitalGood": {
+        "filename": "T-28 Trojan.zip",
+        "sourceType": "ZIP",
+        "urlId": "fiew7300tegmmakdsu1ok4k3qq61um"
+      },
+      "priceCents": 0
+    },
+    {
+      "id": "5691ede6df40f361d6f2793d",
+      "slug": "superslo28",
+      "title": "SuperSlo28 Parkjet Plans — Free PDF Download",
+      "fullUrl": "/free-plans/p/superslo28",
+      "sourceUrl": "https://www.parkjets.com/free-plans/p/superslo28",
+      "categories": [
+        "3D",
+        "Foam",
+        "Profile"
+      ],
+      "designerTags": [],
+      "digitalGood": {
+        "filename": "Superslo28.zip",
+        "sourceType": "ZIP",
+        "urlId": "hf40m5raiuem9wof3s17wghezg8e6s"
+      },
+      "priceCents": 0
+    },
+    {
+      "id": "5691eeb825981daa98f53f6d",
+      "slug": "cutlass",
+      "title": "Cutlass Parkjet Plans — Free PDF Download",
+      "fullUrl": "/free-plans/p/cutlass",
+      "sourceUrl": "https://www.parkjets.com/free-plans/p/cutlass",
+      "categories": [
+        "Foam",
+        "Pusher"
+      ],
+      "designerTags": [],
+      "digitalGood": {
+        "filename": "Cutlass.zip",
+        "sourceType": "ZIP",
+        "urlId": "omo03ckofpowm96sk6fwey4ydmpths"
+      },
+      "priceCents": 0
+    },
+    {
+      "id": "5691f00fa976af0bfc522b52",
+      "slug": "b-58-hustler",
+      "title": "B-58 Hustler Parkjet Plans — Free PDF Download",
+      "fullUrl": "/free-plans/p/b-58-hustler",
+      "sourceUrl": "https://www.parkjets.com/free-plans/p/b-58-hustler",
+      "categories": [
+        "Foam",
+        "Pusher",
+        "Profile"
+      ],
+      "designerTags": [],
+      "digitalGood": {
+        "filename": "B-58 Hustler.zip",
+        "sourceType": "ZIP",
+        "urlId": "eqh4jdxit89mp5k7ldkxdrtjoriqo6"
+      },
+      "priceCents": 0
+    },
+    {
+      "id": "5691f0ba2399a318016aa531",
+      "slug": "f-95-morningstar",
+      "title": "F-95 Morningstar Parkjet Plans — Free PDF Download",
+      "fullUrl": "/free-plans/p/f-95-morningstar",
+      "sourceUrl": "https://www.parkjets.com/free-plans/p/f-95-morningstar",
+      "categories": [
+        "Fantasy",
+        "Foam",
+        "Pusher",
+        "Profile"
+      ],
+      "designerTags": [],
+      "digitalGood": {
+        "filename": "reformsubmissioncontactparkjets-1.zip",
+        "sourceType": "ZIP",
+        "urlId": "zjdbx0u6aovq2jvlsgtzoxetmp1yte"
+      },
+      "priceCents": 0
+    },
+    {
+      "id": "5691f1aea12f449cd651781f",
+      "slug": "t-50-pak-fa",
+      "title": "T-50 PAK-FA Parkjet Plans — Free PDF Download",
+      "fullUrl": "/free-plans/p/t-50-pak-fa",
+      "sourceUrl": "https://www.parkjets.com/free-plans/p/t-50-pak-fa",
+      "categories": [
+        "Foam",
+        "Pusher",
+        "Profile"
+      ],
+      "designerTags": [],
+      "digitalGood": {
+        "filename": "T-50 PAK-FA.zip",
+        "sourceType": "ZIP",
+        "urlId": "1sp5a751d2yyv3nx3sa9e6qp3scpi6"
+      },
+      "priceCents": 0
+    },
+    {
+      "id": "5691f288d82d5eff6cbef04e",
+      "slug": "fa-241-shrike",
+      "title": "F/A-241 Shrike Parkjet Plans — Free PDF Download",
+      "fullUrl": "/free-plans/p/fa-241-shrike",
+      "sourceUrl": "https://www.parkjets.com/free-plans/p/fa-241-shrike",
+      "categories": [
+        "Fantasy",
+        "Foam",
+        "Pusher"
+      ],
+      "designerTags": [],
+      "digitalGood": {
+        "filename": "FA-241 SHRIKE.zip",
+        "sourceType": "ZIP",
+        "urlId": "mzjuv8xlpfnb2hz9n4k7c136herhos"
+      },
+      "priceCents": 0
+    },
+    {
+      "id": "5691f3a657eb8d9880b027e2",
+      "slug": "starfighter",
+      "title": "Starfighter Parkjet Plans — Free PDF Download",
+      "fullUrl": "/free-plans/p/starfighter",
+      "sourceUrl": "https://www.parkjets.com/free-plans/p/starfighter",
+      "categories": [
+        "Fantasy",
+        "Foam",
+        "Pusher",
+        "Profile"
+      ],
+      "designerTags": [],
+      "digitalGood": {
+        "filename": "Starfighter.zip",
+        "sourceType": "ZIP",
+        "urlId": "bmadbs4wxbszdkkv090556pxmb16t3"
+      },
+      "priceCents": 0
+    },
+    {
+      "id": "5691f448cbced6b74bc71268",
+      "slug": "cylon-raider",
+      "title": "Cylon Raider Parkjet Plans — Free PDF Download",
+      "fullUrl": "/free-plans/p/cylon-raider",
+      "sourceUrl": "https://www.parkjets.com/free-plans/p/cylon-raider",
+      "categories": [
+        "Fantasy",
+        "Foam",
+        "Pusher",
+        "Profile"
+      ],
+      "designerTags": [],
+      "digitalGood": {
+        "filename": "Cylon Raider.zip",
+        "sourceType": "ZIP",
+        "urlId": "dbnloj4mkhtstzn6cy9ofipbxvbxf8"
+      },
+      "priceCents": 0
+    },
+    {
+      "id": "5691f55657eb8d9880b030e3",
+      "slug": "cargo-twin",
+      "title": "Cargo Twin Parkjet Plans — Free PDF Download",
+      "fullUrl": "/free-plans/p/cargo-twin",
+      "sourceUrl": "https://www.parkjets.com/free-plans/p/cargo-twin",
+      "categories": [
+        "Foam"
+      ],
+      "designerTags": [
+        "Jamie Rothwell"
+      ],
+      "digitalGood": {
+        "filename": "BOXERMAD84 CARGO TWIN.zip",
+        "sourceType": "ZIP",
+        "urlId": "3tp8bq6xycygozt4hy2mbpxihsocg5"
+      },
+      "priceCents": 0
+    },
+    {
+      "id": "5691f641e0327c8c422bef93",
+      "slug": "su-37-flanker",
+      "title": "SU-37 Flanker JR2 Parkjet Plans — Free PDF Download",
+      "fullUrl": "/free-plans/p/su-37-flanker",
+      "sourceUrl": "https://www.parkjets.com/free-plans/p/su-37-flanker",
+      "categories": [
+        "Foam",
+        "Pusher"
+      ],
+      "designerTags": [
+        "Jamie Rothwell"
+      ],
+      "digitalGood": {
+        "filename": "BOXERMAD84 SU37.zip",
+        "sourceType": "ZIP",
+        "urlId": "r80s861jvf149mbzoce1bdadpgtquf"
+      },
+      "priceCents": 0
+    },
+    {
+      "id": "5691f78340667a56fc8a4d17",
+      "slug": "eurofighter",
+      "title": "Eurofighter EDF JR2",
+      "fullUrl": "/free-plans/p/eurofighter",
+      "sourceUrl": "https://www.parkjets.com/free-plans/p/eurofighter",
+      "categories": [
+        "EDF",
+        "Foam"
+      ],
+      "designerTags": [
+        "Jamie Rothwell"
+      ],
+      "digitalGood": {
+        "filename": "Eurofighter JR.zip",
+        "sourceType": "ZIP",
+        "urlId": "m15k1jnogqqttlvnkqi42bqkttvq9o"
+      },
+      "priceCents": 0
+    },
+    {
+      "id": "5691fa321115e0dc6335713e",
+      "slug": "f4f-wildcat",
+      "title": "F4F Wildcat Parkjet Plans — Free PDF Download",
+      "fullUrl": "/free-plans/p/f4f-wildcat",
+      "sourceUrl": "https://www.parkjets.com/free-plans/p/f4f-wildcat",
+      "categories": [
+        "Foam"
+      ],
+      "designerTags": [
+        "Jamie Rothwell"
+      ],
+      "digitalGood": {
+        "filename": "boxermad84_f4f_wildcat.zip",
+        "sourceType": "ZIP",
+        "urlId": "ihumpy6qpvol4mbm7cggfizv1i0smg"
+      },
+      "priceCents": 0
+    },
+    {
+      "id": "5691fae31115e0dc6335745c",
+      "slug": "mig-31-firefox",
+      "title": "MIG 31 Firefox Parkjet Plans — Free PDF Download",
+      "fullUrl": "/free-plans/p/mig-31-firefox",
+      "sourceUrl": "https://www.parkjets.com/free-plans/p/mig-31-firefox",
+      "categories": [
+        "Fantasy",
+        "Foam",
+        "Pusher",
+        "Profile"
+      ],
+      "designerTags": [],
+      "digitalGood": {
+        "filename": "MIG 31 Firefox.zip",
+        "sourceType": "ZIP",
+        "urlId": "vkihkyoq9j2926g0pmn39ksnz0bpxm"
+      },
+      "priceCents": 0
+    },
+    {
+      "id": "5691fc2f0e4c1197d244dc14",
+      "slug": "f-15-eagle",
+      "title": "F-15 Eagle Parkjet Plans — Free PDF Download",
+      "fullUrl": "/free-plans/p/f-15-eagle",
+      "sourceUrl": "https://www.parkjets.com/free-plans/p/f-15-eagle",
+      "categories": [
+        "Foam",
+        "Pusher"
+      ],
+      "designerTags": [
+        "Jamie Rothwell"
+      ],
+      "digitalGood": {
+        "filename": "f15plans.zip",
+        "sourceType": "ZIP",
+        "urlId": "gqlkj313w5lde1lci2aqzzeqlvf8ml"
+      },
+      "priceCents": 0
+    },
+    {
+      "id": "5691fe88a128e6b30eab25fa",
+      "slug": "drongo",
+      "title": "Drongo Parkjet Plans — Free PDF Download",
+      "fullUrl": "/free-plans/p/drongo",
+      "sourceUrl": "https://www.parkjets.com/free-plans/p/drongo",
+      "categories": [
+        "Fantasy",
+        "Foam",
+        "Pusher"
+      ],
+      "designerTags": [
+        "Marcel du Plessis"
+      ],
+      "digitalGood": {
+        "filename": "Drongo.zip",
+        "sourceType": "ZIP",
+        "urlId": "khvl42q5iw2gj3muqaj2w2hcm0xoy7"
+      },
+      "priceCents": 0
+    },
+    {
+      "id": "5692a9529cadb61a0a154153",
+      "slug": "f-14-tomcat",
+      "title": "F-14 Tomcat MDC Parkjet Plans — Free PDF Download",
+      "fullUrl": "/free-plans/p/f-14-tomcat",
+      "sourceUrl": "https://www.parkjets.com/free-plans/p/f-14-tomcat",
+      "categories": [
+        "Foam",
+        "Pusher",
+        "Profile"
+      ],
+      "designerTags": [],
+      "digitalGood": {
+        "filename": "MDC F-14.zip",
+        "sourceType": "ZIP",
+        "urlId": "9u73kt29vlb5udnvi0mwzinhehtw4k"
+      },
+      "priceCents": 0
+    },
+    {
+      "id": "5692af07a976af0bfc55c59d",
+      "slug": "eads-barracuda",
+      "title": "EADS Barracuda Parkjet Plans — Free PDF Download",
+      "fullUrl": "/free-plans/p/eads-barracuda",
+      "sourceUrl": "https://www.parkjets.com/free-plans/p/eads-barracuda",
+      "categories": [
+        "EDF",
+        "Foam"
+      ],
+      "designerTags": [],
+      "digitalGood": {
+        "filename": "EADS Barracuda EDF2.zip",
+        "sourceType": "ZIP",
+        "urlId": "fp55j6mr2fi4pi1eei1pmyktvbs2ab"
+      },
+      "priceCents": 0
+    },
+    {
+      "id": "5692b5ac40667a56fc8dfa4f",
+      "slug": "su-47-berkut",
+      "title": "SU-47 Berkut Parkjet Plans — Free PDF Download",
+      "fullUrl": "/free-plans/p/su-47-berkut",
+      "sourceUrl": "https://www.parkjets.com/free-plans/p/su-47-berkut",
+      "categories": [
+        "Foam",
+        "Pusher",
+        "Profile"
+      ],
+      "designerTags": [],
+      "digitalGood": {
+        "filename": "Nico SU-47.zip",
+        "sourceType": "ZIP",
+        "urlId": "5g08s2o6r3nu3h8cjnzip4zei6ipjf"
+      },
+      "priceCents": 0
+    },
+    {
+      "id": "5692b668b204d50df79cd956",
+      "slug": "concorde-sst",
+      "title": "Concorde SST Parkjet Plans — Free PDF Download",
+      "fullUrl": "/free-plans/p/concorde-sst",
+      "sourceUrl": "https://www.parkjets.com/free-plans/p/concorde-sst",
+      "categories": [
+        "Foam",
+        "Pusher",
+        "Profile"
+      ],
+      "designerTags": [],
+      "digitalGood": {
+        "filename": "Nico Concord SST.zip",
+        "sourceType": "ZIP",
+        "urlId": "gw1d2g8oo4ssqsrx4virlphkbwcu7m"
+      },
+      "priceCents": 0
+    },
+    {
+      "id": "5692b719b204d50df79ce0e1",
+      "slug": "dassault-rafale",
+      "title": "DASSAULT RAFALE Parkjet Plans — Free PDF Download",
+      "fullUrl": "/free-plans/p/dassault-rafale",
+      "sourceUrl": "https://www.parkjets.com/free-plans/p/dassault-rafale",
+      "categories": [
+        "Foam",
+        "Pusher",
+        "Profile"
+      ],
+      "designerTags": [],
+      "digitalGood": {
+        "filename": "Dassault Rafale.zip",
+        "sourceType": "ZIP",
+        "urlId": "2r2pmor8kssmytfz5tsiqbdhxumjnl"
+      },
+      "priceCents": 0
+    },
+    {
+      "id": "5692b868bfe873d73943b324",
+      "slug": "voyager",
+      "title": "Voyager Parkjet Plans — Free PDF Download",
+      "fullUrl": "/free-plans/p/voyager",
+      "sourceUrl": "https://www.parkjets.com/free-plans/p/voyager",
+      "categories": [
+        "Fantasy",
+        "Foam",
+        "Pusher",
+        "Profile"
+      ],
+      "designerTags": [],
+      "digitalGood": {
+        "filename": "Voyager.zip",
+        "sourceType": "ZIP",
+        "urlId": "86ru5avpw4a61rfxnshdomc44kxfv9"
+      },
+      "priceCents": 0
+    },
+    {
+      "id": "5692b91b7086d724272f595b",
+      "slug": "av8-harrier",
+      "title": "AV8 Harrier Parkjet Plans — Free PDF Download",
+      "fullUrl": "/free-plans/p/av8-harrier",
+      "sourceUrl": "https://www.parkjets.com/free-plans/p/av8-harrier",
+      "categories": [
+        "Foam",
+        "Pusher",
+        "Profile"
+      ],
+      "designerTags": [],
+      "digitalGood": {
+        "filename": "AV8 Harrier.zip",
+        "sourceType": "ZIP",
+        "urlId": "wpu95mqedfo2n2kmhc4efcf9j16n3u"
+      },
+      "priceCents": 0
+    },
+    {
+      "id": "5692bab50ab377deeed6208b",
+      "slug": "yf-23-black-widow",
+      "title": "YF-23 Black Widow NC Parkjet Plans — Free PDF Download",
+      "fullUrl": "/free-plans/p/yf-23-black-widow",
+      "sourceUrl": "https://www.parkjets.com/free-plans/p/yf-23-black-widow",
+      "categories": [
+        "Foam",
+        "Pusher",
+        "Profile"
+      ],
+      "designerTags": [],
+      "digitalGood": {
+        "filename": "FY-23.zip",
+        "sourceType": "ZIP",
+        "urlId": "abtmw1q12wjm6e4kepuylood2lmjkk"
+      },
+      "priceCents": 0
+    },
+    {
+      "id": "5692bbb7d8af10b210f0541a",
+      "slug": "f-14-tomcat-1",
+      "title": "F-14 Tomcat JS Parkjet Plans — Free PDF Download",
+      "fullUrl": "/free-plans/p/f-14-tomcat-1",
+      "sourceUrl": "https://www.parkjets.com/free-plans/p/f-14-tomcat-1",
+      "categories": [
+        "Foam",
+        "Pusher",
+        "Profile"
+      ],
+      "designerTags": [],
+      "digitalGood": {
+        "filename": "F-14JS.zip",
+        "sourceType": "ZIP",
+        "urlId": "i7jkije0ztamrn8c5dxdkcyuri7hom"
+      },
+      "priceCents": 0
+    },
+    {
+      "id": "5692bd521c1210fdda393570",
+      "slug": "viper",
+      "title": "Viper Parkjet Plans — Free PDF Download",
+      "fullUrl": "/free-plans/p/viper",
+      "sourceUrl": "https://www.parkjets.com/free-plans/p/viper",
+      "categories": [
+        "Fantasy",
+        "Foam",
+        "Pusher",
+        "Profile"
+      ],
+      "designerTags": [],
+      "digitalGood": {
+        "filename": "Viper.zip",
+        "sourceType": "ZIP",
+        "urlId": "hqc4ukdf5c3vmf3o793stp8f6po1rt"
+      },
+      "priceCents": 0
+    },
+    {
+      "id": "5692bdefd8af10b210f06b00",
+      "slug": "ultimate-3d",
+      "title": "Ultimate 3D Parkjet Plans — Free PDF Download",
+      "fullUrl": "/free-plans/p/ultimate-3d",
+      "sourceUrl": "https://www.parkjets.com/free-plans/p/ultimate-3d",
+      "categories": [
+        "3D",
+        "Foam"
+      ],
+      "designerTags": [],
+      "digitalGood": {
+        "filename": "Ultimate.zip",
+        "sourceType": "ZIP",
+        "urlId": "s6653w0tzz6mlp1j4g63josnioe1gi"
+      },
+      "priceCents": 0
+    },
+    {
+      "id": "5692becb5a566828b96a0969",
+      "slug": "hydro-plane",
+      "title": "Hydro-Plane Parkjet Plans — Free PDF Download",
+      "fullUrl": "/free-plans/p/hydro-plane",
+      "sourceUrl": "https://www.parkjets.com/free-plans/p/hydro-plane",
+      "categories": [
+        "3D",
+        "Fantasy",
+        "Foam"
+      ],
+      "designerTags": [],
+      "digitalGood": {
+        "filename": "Hydro.zip",
+        "sourceType": "ZIP",
+        "urlId": "4c39f1i1upgqtzdxykroymmbgxyv8k"
+      },
+      "priceCents": 0
+    },
+    {
+      "id": "5692bfa94bf1182ee601d27b",
+      "slug": "enterprise-d",
+      "title": "Enterprise D Parkjet Plans — Free PDF Download",
+      "fullUrl": "/free-plans/p/enterprise-d",
+      "sourceUrl": "https://www.parkjets.com/free-plans/p/enterprise-d",
+      "categories": [
+        "Fantasy",
+        "Foam",
+        "Pusher",
+        "Profile"
+      ],
+      "designerTags": [],
+      "digitalGood": {
+        "filename": "Enterprise D.zip",
+        "sourceType": "ZIP",
+        "urlId": "efavbaufrjyp1gcx658t6vzwvu9m6e"
+      },
+      "priceCents": 0
+    },
+    {
+      "id": "5692c0e957eb8d9880b46fbd",
+      "slug": "landspeeder",
+      "title": "Landspeeder Parkjet Plans — Free PDF Download",
+      "fullUrl": "/free-plans/p/landspeeder",
+      "sourceUrl": "https://www.parkjets.com/free-plans/p/landspeeder",
+      "categories": [
+        "Fantasy",
+        "Foam",
+        "Pusher",
+        "Profile"
+      ],
+      "designerTags": [],
+      "digitalGood": {
+        "filename": "Landspeeder.zip",
+        "sourceType": "ZIP",
+        "urlId": "ghnghn29zdp3j70finrxm6z18yx0fj"
+      },
+      "priceCents": 0
+    },
+    {
+      "id": "5692c182841aba578bfa8206",
+      "slug": "pak-fa",
+      "title": "PAK-FA Parkjet Plans — Free PDF Download",
+      "fullUrl": "/free-plans/p/pak-fa",
+      "sourceUrl": "https://www.parkjets.com/free-plans/p/pak-fa",
+      "categories": [
+        "Foam",
+        "Pusher",
+        "Profile"
+      ],
+      "designerTags": [],
+      "digitalGood": {
+        "filename": "Sukhoi+PAK+FA+-+Easybuild+-+V1.05.pdf",
+        "sourceType": "PDF",
+        "urlId": "id7ahxqsryga9kaepy9ebi29p391r4"
+      },
+      "priceCents": 0
+    },
+    {
+      "id": "5692c4259cadb61a0a1652db",
+      "slug": "f4d-skyray",
+      "title": "F4D Skyray Parkjet Plans — Free PDF Download",
+      "fullUrl": "/free-plans/p/f4d-skyray",
+      "sourceUrl": "https://www.parkjets.com/free-plans/p/f4d-skyray",
+      "categories": [
+        "Foam",
+        "Pusher",
+        "Profile"
+      ],
+      "designerTags": [],
+      "digitalGood": {
+        "filename": "NAC F4D Skyray.zip",
+        "sourceType": "ZIP",
+        "urlId": "4y4fmmh74zj91f57tdit4be7mr73g2"
+      },
+      "priceCents": 0
+    },
+    {
+      "id": "5692c5659cadb61a0a165e90",
+      "slug": "f-phantom-ii",
+      "title": "F-4 Phantom II NC Parkjet Plans — Free PDF Download",
+      "fullUrl": "/free-plans/p/f-phantom-ii",
+      "sourceUrl": "https://www.parkjets.com/free-plans/p/f-phantom-ii",
+      "categories": [
+        "Foam",
+        "Pusher",
+        "Profile"
+      ],
+      "designerTags": [],
+      "digitalGood": {
+        "filename": "NAC F-4 Phantom.zip",
+        "sourceType": "ZIP",
+        "urlId": "32b9nwgjzk3fgrm2a4jajpoafjcftz"
+      },
+      "priceCents": 0
+    },
+    {
+      "id": "5692c8b1d82d5eff6cc38a45",
+      "slug": "sr-71-blackbird",
+      "title": "SR-71 Blackbird Parkjet Plans — Free PDF Download",
+      "fullUrl": "/free-plans/p/sr-71-blackbird",
+      "sourceUrl": "https://www.parkjets.com/free-plans/p/sr-71-blackbird",
+      "categories": [
+        "Foam",
+        "Pusher",
+        "Profile"
+      ],
+      "designerTags": [],
+      "digitalGood": {
+        "filename": "JtechSR-71.zip",
+        "sourceType": "ZIP",
+        "urlId": "pvtxijv32i0xvol23jitn5wlp5j88h"
+      },
+      "priceCents": 0
+    },
+    {
+      "id": "5692ca85841aba578bfad764",
+      "slug": "vantis",
+      "title": "Vantis Parkjet Plans — Free PDF Download",
+      "fullUrl": "/free-plans/p/vantis",
+      "sourceUrl": "https://www.parkjets.com/free-plans/p/vantis",
+      "categories": [
+        "Fantasy",
+        "Foam",
+        "Pusher"
+      ],
+      "designerTags": [],
+      "digitalGood": {
+        "filename": "Vantis.zip",
+        "sourceType": "ZIP",
+        "urlId": "fpqh497ud07w6hiy4es2q3yaxegcmn"
+      },
+      "priceCents": 0
+    },
+    {
+      "id": "5692cc1f69a91a37898c37bb",
+      "slug": "su-37",
+      "title": "SU-37 Parkjet Plans — Free PDF Download",
+      "fullUrl": "/free-plans/p/su-37",
+      "sourceUrl": "https://www.parkjets.com/free-plans/p/su-37",
+      "categories": [
+        "Foam",
+        "Pusher",
+        "Profile"
+      ],
+      "designerTags": [
+        "Tomas Hellberg"
+      ],
+      "digitalGood": {
+        "filename": "TomHe SU-37.zip",
+        "sourceType": "ZIP",
+        "urlId": "2vo5j1t6hye0ui4sssjl504eysknu7"
+      },
+      "priceCents": 0
+    },
+    {
+      "id": "5692ccbeb204d50df79db92f",
+      "slug": "boeing-sonic-cruiser",
+      "title": "Boeing Sonic Cruiser Parkjet Plans — Free PDF Download",
+      "fullUrl": "/free-plans/p/boeing-sonic-cruiser",
+      "sourceUrl": "https://www.parkjets.com/free-plans/p/boeing-sonic-cruiser",
+      "categories": [
+        "Fantasy",
+        "Foam",
+        "Profile"
+      ],
+      "designerTags": [
+        "Steve Shumate"
+      ],
+      "digitalGood": {
+        "filename": "Boeing Sonic Cruiser.zip",
+        "sourceType": "ZIP",
+        "urlId": "2wxkq8d6cd51m3dyng9tlk7kfqoc7t"
+      },
+      "priceCents": 0
+    },
+    {
+      "id": "5692cd2fd82d5eff6cc3b490",
+      "slug": "fokker-dr",
+      "title": "Fokker DR Parkjet Plans — Free PDF Download",
+      "fullUrl": "/free-plans/p/fokker-dr",
+      "sourceUrl": "https://www.parkjets.com/free-plans/p/fokker-dr",
+      "categories": [
+        "Foam"
+      ],
+      "designerTags": [
+        "Steve Shumate"
+      ],
+      "digitalGood": {
+        "filename": "Fokker DR1.zip",
+        "sourceType": "ZIP",
+        "urlId": "gzxfqk4repgza310r0mizqn5estcpu"
+      },
+      "priceCents": 0
+    },
+    {
+      "id": "5692ce8bc21b8644c8bd171b",
+      "slug": "bd-5",
+      "title": "BD-5 Parkjet Plans — Free PDF Download",
+      "fullUrl": "/free-plans/p/bd-5",
+      "sourceUrl": "https://www.parkjets.com/free-plans/p/bd-5",
+      "categories": [
+        "Foam",
+        "Pusher"
+      ],
+      "designerTags": [
+        "Marcel du Plessis"
+      ],
+      "digitalGood": {
+        "filename": "BD-5.zip",
+        "sourceType": "ZIP",
+        "urlId": "n0iayjgblils310c8po9831naoajkm"
+      },
+      "priceCents": 0
+    },
+    {
+      "id": "5692cfd4bfe873d73944a9f2",
+      "slug": "convair-xf2y-seadart",
+      "title": "Convair XF2Y Seadart Parkjet Plans — Free PDF Download",
+      "fullUrl": "/free-plans/p/convair-xf2y-seadart",
+      "sourceUrl": "https://www.parkjets.com/free-plans/p/convair-xf2y-seadart",
+      "categories": [
+        "Foam",
+        "Pusher"
+      ],
+      "designerTags": [
+        "Marcel du Plessis"
+      ],
+      "digitalGood": {
+        "filename": "SeaDartV2.zip",
+        "sourceType": "ZIP",
+        "urlId": "ysojsb0pg0fl35tw5hti0a4tbtvveq"
+      },
+      "priceCents": 0
+    },
+    {
+      "id": "5692d27340667a56fc8f2e46",
+      "slug": "su-27",
+      "title": "SU-27 Parkjet Plans — Free PDF Download",
+      "fullUrl": "/free-plans/p/su-27",
+      "sourceUrl": "https://www.parkjets.com/free-plans/p/su-27",
+      "categories": [
+        "Foam",
+        "Pusher"
+      ],
+      "designerTags": [],
+      "digitalGood": {
+        "filename": "FF-Flanker-plans.zip",
+        "sourceType": "ZIP",
+        "urlId": "tgfp06t67izsioz7raganiwa0b83jg"
+      },
+      "priceCents": 0
+    },
+    {
+      "id": "5692d30ad82d5eff6cc3efd4",
+      "slug": "xb-70",
+      "title": "XB-70 Parkjet Plans — Free PDF Download",
+      "fullUrl": "/free-plans/p/xb-70",
+      "sourceUrl": "https://www.parkjets.com/free-plans/p/xb-70",
+      "categories": [
+        "Foam",
+        "Pusher"
+      ],
+      "designerTags": [],
+      "digitalGood": {
+        "filename": "XB-70.zip",
+        "sourceType": "ZIP",
+        "urlId": "0o56uvs0wafkkvvdwkrbs17l6i1eqe"
+      },
+      "priceCents": 0
+    },
+    {
+      "id": "5692d6730ab377deeed73d46",
+      "slug": "x-29",
+      "title": "X-29 Parkjet Plans — Free PDF Download",
+      "fullUrl": "/free-plans/p/x-29",
+      "sourceUrl": "https://www.parkjets.com/free-plans/p/x-29",
+      "categories": [
+        "Foam",
+        "Pusher"
+      ],
+      "designerTags": [
+        "Steve Shumate"
+      ],
+      "digitalGood": {
+        "filename": "Shumate X-29.zip",
+        "sourceType": "ZIP",
+        "urlId": "uwucoj3qd5lfa0ginujgfuke7h4tyk"
+      },
+      "priceCents": 0
+    },
+    {
+      "id": "5692d9210ab377deeed758eb",
+      "slug": "mirage-2000",
+      "title": "Mirage 2000 Parkjet Plans — Free PDF Download",
+      "fullUrl": "/free-plans/p/mirage-2000",
+      "sourceUrl": "https://www.parkjets.com/free-plans/p/mirage-2000",
+      "categories": [
+        "Foam",
+        "Pusher"
+      ],
+      "designerTags": [],
+      "digitalGood": {
+        "filename": "Mirage 2000.zip",
+        "sourceType": "ZIP",
+        "urlId": "aw2ca0ac9nqg3e47z4kuhb6dsyxwk2"
+      },
+      "priceCents": 0
+    },
+    {
+      "id": "5692d9700ab377deeed75c27",
+      "slug": "mig-25-foxbat",
+      "title": "MIG 25 Foxbat Parkjet Plans — Free PDF Download",
+      "fullUrl": "/free-plans/p/mig-25-foxbat",
+      "sourceUrl": "https://www.parkjets.com/free-plans/p/mig-25-foxbat",
+      "categories": [
+        "Foam",
+        "Pusher"
+      ],
+      "designerTags": [],
+      "digitalGood": {
+        "filename": "Beanie MIG 25.zip",
+        "sourceType": "ZIP",
+        "urlId": "lzb0teb0ez0loetlynm1ettfui9e9d"
+      },
+      "priceCents": 0
+    },
+    {
+      "id": "5692da3725981daa98faa76d",
+      "slug": "me-262",
+      "title": "ME 262 Parkjet Plans — Free PDF Download",
+      "fullUrl": "/free-plans/p/me-262",
+      "sourceUrl": "https://www.parkjets.com/free-plans/p/me-262",
+      "categories": [
+        "EDF",
+        "Foam"
+      ],
+      "designerTags": [],
+      "digitalGood": {
+        "filename": "ME 262.zip",
+        "sourceType": "ZIP",
+        "urlId": "fjgcima39zmk92jilflwpjlbuv4zd6"
+      },
+      "priceCents": 0
+    },
+    {
+      "id": "5692da9825981daa98faab24",
+      "slug": "f-16-falcon-1",
+      "title": "F-16 Falcon HJ Parkjet Plans — Free PDF Download",
+      "fullUrl": "/free-plans/p/f-16-falcon-1",
+      "sourceUrl": "https://www.parkjets.com/free-plans/p/f-16-falcon-1",
+      "categories": [
+        "Foam",
+        "Pusher"
+      ],
+      "designerTags": [],
+      "digitalGood": {
+        "filename": "JH F-16.zip",
+        "sourceType": "ZIP",
+        "urlId": "lla3ht6ufp3did6xiyf2mjsnh1iimx"
+      },
+      "priceCents": 0
+    },
+    {
+      "id": "5692db6c1115e0dc633ade11",
+      "slug": "a-4-skyhawk",
+      "title": "A-4 Skyhawk Parkjet Plans — Free PDF Download",
+      "fullUrl": "/free-plans/p/a-4-skyhawk",
+      "sourceUrl": "https://www.parkjets.com/free-plans/p/a-4-skyhawk",
+      "categories": [
+        "Foam",
+        "Pusher"
+      ],
+      "designerTags": [],
+      "digitalGood": {
+        "filename": "GGRN A-4.zip",
+        "sourceType": "ZIP",
+        "urlId": "m2sxqdqqgstfzltxvbd8wuc869myd5"
+      },
+      "priceCents": 0
+    },
+    {
+      "id": "5692dbea7086d7242730c27b",
+      "slug": "f-28-hammer",
+      "title": "F-28 Hammer Parkjet Plans — Free PDF Download",
+      "fullUrl": "/free-plans/p/f-28-hammer",
+      "sourceUrl": "https://www.parkjets.com/free-plans/p/f-28-hammer",
+      "categories": [
+        "Fantasy",
+        "Foam",
+        "Pusher"
+      ],
+      "designerTags": [],
+      "digitalGood": {
+        "filename": "F-28.zip",
+        "sourceType": "ZIP",
+        "urlId": "jargp1kgcjr5ridqahznk7h2f74fc1"
+      },
+      "priceCents": 0
+    },
+    {
+      "id": "5692dca07086d7242730c9c8",
+      "slug": "f-20-tigershark",
+      "title": "F-20 Tigershark Parkjet Plans — Free PDF Download",
+      "fullUrl": "/free-plans/p/f-20-tigershark",
+      "sourceUrl": "https://www.parkjets.com/free-plans/p/f-20-tigershark",
+      "categories": [
+        "Foam",
+        "Pusher"
+      ],
+      "designerTags": [],
+      "digitalGood": {
+        "filename": "F-20 Templates-complete.zip",
+        "sourceType": "ZIP",
+        "urlId": "cgwhxx2s3mudesb7y78mlmys9lvash"
+      },
+      "priceCents": 0
+    },
+    {
+      "id": "5692df4057eb8d9880b5a5b4",
+      "slug": "f-20-tigershark-1",
+      "title": "F-20 Tigershark DC Parkjet Plans — Free PDF Download",
+      "fullUrl": "/free-plans/p/f-20-tigershark-1",
+      "sourceUrl": "https://www.parkjets.com/free-plans/p/f-20-tigershark-1",
+      "categories": [
+        "Foam",
+        "Pusher"
+      ],
+      "designerTags": [],
+      "digitalGood": {
+        "filename": "DCobra F-20.zip",
+        "sourceType": "ZIP",
+        "urlId": "a35peodwsks43twh000r561wm6c0qo"
+      },
+      "priceCents": 0
+    },
+    {
+      "id": "5692dfad57eb8d9880b5a9fc",
+      "slug": "f-18a-hornet",
+      "title": "F-18A Hornet MB Parkjet Plans — Free PDF Download",
+      "fullUrl": "/free-plans/p/f-18a-hornet",
+      "sourceUrl": "https://www.parkjets.com/free-plans/p/f-18a-hornet",
+      "categories": [
+        "Foam",
+        "Pusher"
+      ],
+      "designerTags": [],
+      "digitalGood": {
+        "filename": "Boogie F-18.zip",
+        "sourceType": "ZIP",
+        "urlId": "b5vwclrl9qi2ma66k7stg5s1n2iufq"
+      },
+      "priceCents": 0
+    },
+    {
+      "id": "5692e0199cadb61a0a17723c",
+      "slug": "f-14-tomcat-2",
+      "title": "F-14 Tomcat MH Parkjet Plans — Free PDF Download",
+      "fullUrl": "/free-plans/p/f-14-tomcat-2",
+      "sourceUrl": "https://www.parkjets.com/free-plans/p/f-14-tomcat-2",
+      "categories": [
+        "EDF",
+        "Pusher"
+      ],
+      "designerTags": [],
+      "digitalGood": {
+        "filename": "MHF-14.zip",
+        "sourceType": "ZIP",
+        "urlId": "71snfc0fotqqt6zvtlfk82xc31w51s"
+      },
+      "priceCents": 0
+    },
+    {
+      "id": "5692e099cbced6b74bcc831f",
+      "slug": "f-105",
+      "title": "F-105 Thunder Chief Parkjet Plans — Free PDF Download",
+      "fullUrl": "/free-plans/p/f-105",
+      "sourceUrl": "https://www.parkjets.com/free-plans/p/f-105",
+      "categories": [
+        "Foam",
+        "Pusher"
+      ],
+      "designerTags": [],
+      "digitalGood": {
+        "filename": "F-105D.zip",
+        "sourceType": "ZIP",
+        "urlId": "jxr71c84n1xwocsqdc7cwiusz29uft"
+      },
+      "priceCents": 0
+    },
+    {
+      "id": "5692e18f2399a31801707b6d",
+      "slug": "f-117-night-hawk",
+      "title": "F-117 Night Hawk Parkjet Plans — Free PDF Download",
+      "fullUrl": "/free-plans/p/f-117-night-hawk",
+      "sourceUrl": "https://www.parkjets.com/free-plans/p/f-117-night-hawk",
+      "categories": [
+        "Foam",
+        "Pusher"
+      ],
+      "designerTags": [],
+      "digitalGood": {
+        "filename": "F-117.zip",
+        "sourceType": "ZIP",
+        "urlId": "jc1g9x1a0giadby4jib919hfs6ysja"
+      },
+      "priceCents": 0
+    },
+    {
+      "id": "5692e1f4d82d5eff6cc490d5",
+      "slug": "etendard",
+      "title": "Etendard Parkjet Plans — Free PDF Download",
+      "fullUrl": "/free-plans/p/etendard",
+      "sourceUrl": "https://www.parkjets.com/free-plans/p/etendard",
+      "categories": [
+        "Foam",
+        "Pusher"
+      ],
+      "designerTags": [],
+      "digitalGood": {
+        "filename": "Super Extendard.zip",
+        "sourceType": "ZIP",
+        "urlId": "xfvvck0x7iook9yb8h51d0gnuhfzq7"
+      },
+      "priceCents": 0
+    },
+    {
+      "id": "5692e27d1c1210fdda3aa8ee",
+      "slug": "cozy",
+      "title": "Cozy Parkjet Plans — Free PDF Download",
+      "fullUrl": "/free-plans/p/cozy",
+      "sourceUrl": "https://www.parkjets.com/free-plans/p/cozy",
+      "categories": [
+        "Foam",
+        "Pusher"
+      ],
+      "designerTags": [],
+      "digitalGood": {
+        "filename": "Cozy.zip",
+        "sourceType": "ZIP",
+        "urlId": "ems40mvrjbrewvtoqah25qk4a4ebfp"
+      },
+      "priceCents": 0
+    },
+    {
+      "id": "5692e3c569a91a37898d2a41",
+      "slug": "x-41-wedge",
+      "title": "X-41 Wedge Parkjet Plans — Free PDF Download",
+      "fullUrl": "/free-plans/p/x-41-wedge",
+      "sourceUrl": "https://www.parkjets.com/free-plans/p/x-41-wedge",
+      "categories": [
+        "Fantasy",
+        "Foam",
+        "Pusher"
+      ],
+      "designerTags": [],
+      "digitalGood": {
+        "filename": "X-41.zip",
+        "sourceType": "ZIP",
+        "urlId": "5l56i13bspa4uycdhra6jbpmvrfj5o"
+      },
+      "priceCents": 0
+    },
+    {
+      "id": "5692e4a07086d724273119d4",
+      "slug": "x-31",
+      "title": "X-31 Parkjet Plans — Free PDF Download",
+      "fullUrl": "/free-plans/p/x-31",
+      "sourceUrl": "https://www.parkjets.com/free-plans/p/x-31",
+      "categories": [
+        "EDF",
+        "Foam"
+      ],
+      "designerTags": [
+        "Steve Shumate"
+      ],
+      "digitalGood": {
+        "filename": "X-31.zip",
+        "sourceType": "ZIP",
+        "urlId": "ipxhjp95owhgw3wmnlg8x1kooqo867"
+      },
+      "priceCents": 0
+    },
+    {
+      "id": "5692e5562399a3180170a812",
+      "slug": "velociraptor",
+      "title": "Velociraptor Parkjet Plans — Free PDF Download",
+      "fullUrl": "/free-plans/p/velociraptor",
+      "sourceUrl": "https://www.parkjets.com/free-plans/p/velociraptor",
+      "categories": [
+        "Foam",
+        "Pusher"
+      ],
+      "designerTags": [],
+      "digitalGood": {
+        "filename": "VelociRaptor.zip",
+        "sourceType": "ZIP",
+        "urlId": "mcs52r6jnhal6mw44v5mhafi5ly413"
+      },
+      "priceCents": 0
+    },
+    {
+      "id": "5692e6c4a12f449cd6574a11",
+      "slug": "cat",
+      "title": "Cat Parkjet Plans — Free PDF Download",
+      "fullUrl": "/free-plans/p/cat",
+      "sourceUrl": "https://www.parkjets.com/free-plans/p/cat",
+      "categories": [
+        "Foam",
+        "Pusher"
+      ],
+      "designerTags": [],
+      "digitalGood": {
+        "filename": "Cat Project.zip",
+        "sourceType": "ZIP",
+        "urlId": "r0vermu2zs7htu9k476ox53om5pew7"
+      },
+      "priceCents": 0
+    },
+    {
+      "id": "5692e7521115e0dc633b6147",
+      "slug": "rafale-m",
+      "title": "Rafale M Parkjet Plans — Free PDF Download",
+      "fullUrl": "/free-plans/p/rafale-m",
+      "sourceUrl": "https://www.parkjets.com/free-plans/p/rafale-m",
+      "categories": [
+        "Foam",
+        "Pusher"
+      ],
+      "designerTags": [],
+      "digitalGood": {
+        "filename": "GGRN RAFALE.zip",
+        "sourceType": "ZIP",
+        "urlId": "6lm60odpmz2ecp873yavplro8ge06h"
+      },
+      "priceCents": 0
+    },
+    {
+      "id": "5692e7c569a91a37898d53c0",
+      "slug": "f-106-delta-dart",
+      "title": "F-106 Delta Dart Parkjet Plans — Free PDF Download",
+      "fullUrl": "/free-plans/p/f-106-delta-dart",
+      "sourceUrl": "https://www.parkjets.com/free-plans/p/f-106-delta-dart",
+      "categories": [
+        "Foam",
+        "Pusher",
+        "Profile"
+      ],
+      "designerTags": [],
+      "digitalGood": {
+        "filename": "F-106.zip",
+        "sourceType": "ZIP",
+        "urlId": "4uytqvumt9w25xjvq038orpf6g36d2"
+      },
+      "priceCents": 0
+    },
+    {
+      "id": "5692e83125981daa98fb36a0",
+      "slug": "f-104-starfighter",
+      "title": "F-104 StarfighterParkjet Plans — Free PDF Download",
+      "fullUrl": "/free-plans/p/f-104-starfighter",
+      "sourceUrl": "https://www.parkjets.com/free-plans/p/f-104-starfighter",
+      "categories": [
+        "Foam",
+        "Pusher"
+      ],
+      "designerTags": [],
+      "digitalGood": {
+        "filename": "F-104.zip",
+        "sourceType": "ZIP",
+        "urlId": "qq04raoockfvv6rf3xlatzbno3hqcw"
+      },
+      "priceCents": 0
+    },
+    {
+      "id": "5692e89b69a91a37898d5c2b",
+      "slug": "f-100-super-sabre",
+      "title": "F-100 Super Sabre Parkjet Plans — Free PDF Download",
+      "fullUrl": "/free-plans/p/f-100-super-sabre",
+      "sourceUrl": "https://www.parkjets.com/free-plans/p/f-100-super-sabre",
+      "categories": [
+        "Foam",
+        "Pusher"
+      ],
+      "designerTags": [],
+      "digitalGood": {
+        "filename": "F-100.zip",
+        "sourceType": "ZIP",
+        "urlId": "zb31qfov36kox5hnocoqvjehc95i7k"
+      },
+      "priceCents": 0
+    },
+    {
+      "id": "5692e8f0841aba578bfc1293",
+      "slug": "eurofighter-2000",
+      "title": "Eurofighter 2000 BG Parkjet Plans — Free PDF Download",
+      "fullUrl": "/free-plans/p/eurofighter-2000",
+      "sourceUrl": "https://www.parkjets.com/free-plans/p/eurofighter-2000",
+      "categories": [
+        "Foam",
+        "Pusher"
+      ],
+      "designerTags": [],
+      "digitalGood": {
+        "filename": "EF2000 Alan.zip",
+        "sourceType": "ZIP",
+        "urlId": "nbtmimlue3jn8m2qolqeucvp9biqto"
+      },
+      "priceCents": 0
+    },
+    {
+      "id": "5692e94aa128e6b30eb0e9a0",
+      "slug": "decent-spaceship",
+      "title": "Decent Spaceship Parkjet Plans — Free PDF Download",
+      "fullUrl": "/free-plans/p/decent-spaceship",
+      "sourceUrl": "https://www.parkjets.com/free-plans/p/decent-spaceship",
+      "categories": [
+        "Fantasy",
+        "Foam",
+        "Pusher"
+      ],
+      "designerTags": [],
+      "digitalGood": {
+        "filename": "Decent Ship.zip",
+        "sourceType": "ZIP",
+        "urlId": "ypt65smgbd5x5uaqwahbb8z1ixeihr"
+      },
+      "priceCents": 0
+    },
+    {
+      "id": "5692e9bd1115e0dc633b7870",
+      "slug": "super-bandit",
+      "title": "Super Bandit Parkjet Plans — Free PDF Download",
+      "fullUrl": "/free-plans/p/super-bandit",
+      "sourceUrl": "https://www.parkjets.com/free-plans/p/super-bandit",
+      "categories": [
+        "Foam",
+        "Pusher"
+      ],
+      "designerTags": [
+        "Steve Shumate"
+      ],
+      "digitalGood": {
+        "filename": "Shumate Super Bandit.zip",
+        "sourceType": "ZIP",
+        "urlId": "5syflrec859hgq5z63sxb5we72jdq4"
+      },
+      "priceCents": 0
+    },
+    {
+      "id": "5692ea26c647ad3203c1160e",
+      "slug": "b-52-buff",
+      "title": "B-52 Buff Parkjet Plans — Free PDF Download",
+      "fullUrl": "/free-plans/p/b-52-buff",
+      "sourceUrl": "https://www.parkjets.com/free-plans/p/b-52-buff",
+      "categories": [
+        "Foam",
+        "Pusher"
+      ],
+      "designerTags": [],
+      "digitalGood": {
+        "filename": "B-52.zip",
+        "sourceType": "ZIP",
+        "urlId": "pe6dwaj1sjoa7kakcrrjyjzy3uiiyx"
+      },
+      "priceCents": 0
+    },
+    {
+      "id": "5692ea97dc5cb46e49db7f0c",
+      "slug": "a-6-intruder",
+      "title": "A-6 Intruder Parkjet Plans — Free PDF Download",
+      "fullUrl": "/free-plans/p/a-6-intruder",
+      "sourceUrl": "https://www.parkjets.com/free-plans/p/a-6-intruder",
+      "categories": [
+        "Foam",
+        "Pusher"
+      ],
+      "designerTags": [],
+      "digitalGood": {
+        "filename": "Fuelsguy A-6.zip",
+        "sourceType": "ZIP",
+        "urlId": "b0b8paun76fashj8rc2o44by24w5vb"
+      },
+      "priceCents": 0
+    },
+    {
+      "id": "5692eaea7086d72427315501",
+      "slug": "avro-arrow",
+      "title": "Avro Arrow Parkjet Plans — Free PDF Download",
+      "fullUrl": "/free-plans/p/avro-arrow",
+      "sourceUrl": "https://www.parkjets.com/free-plans/p/avro-arrow",
+      "categories": [
+        "Foam",
+        "Pusher"
+      ],
+      "designerTags": [],
+      "digitalGood": {
+        "filename": "Avro Arrow.zip",
+        "sourceType": "ZIP",
+        "urlId": "6hgl3v20lbdvh7xlwmrvm5aw3ni2pd"
+      },
+      "priceCents": 0
+    },
+    {
+      "id": "5692ebf7b204d50df79efa49",
+      "slug": "mig-15",
+      "title": "MIG 15 BS Parkjet Plans — Free PDF Download",
+      "fullUrl": "/free-plans/p/mig-15",
+      "sourceUrl": "https://www.parkjets.com/free-plans/p/mig-15",
+      "categories": [
+        "Foam",
+        "Pusher"
+      ],
+      "designerTags": [],
+      "digitalGood": {
+        "filename": "Beanie MIG 15.zip",
+        "sourceType": "ZIP",
+        "urlId": "s4655f63ecnpz39xc9slocqr3emxgo"
+      },
+      "priceCents": 0
+    },
+    {
+      "id": "5692ec6f7086d724273162ff",
+      "slug": "f-18c-hornet",
+      "title": "F-18C Hornet Parkjet Plans — Free PDF Download",
+      "fullUrl": "/free-plans/p/f-18c-hornet",
+      "sourceUrl": "https://www.parkjets.com/free-plans/p/f-18c-hornet",
+      "categories": [
+        "Foam",
+        "Pusher"
+      ],
+      "designerTags": [
+        "Steve Shumate"
+      ],
+      "digitalGood": {
+        "filename": "Shumate F-18.zip",
+        "sourceType": "ZIP",
+        "urlId": "ou2csw0o3ftc9gqaks1bjgigc80y2u"
+      },
+      "priceCents": 0
+    },
+    {
+      "id": "5692eed0df40f361d6f8bad0",
+      "slug": "jas-39-gripen",
+      "title": "JAS 39 Gripen Parkjet Plans — Free PDF Download",
+      "fullUrl": "/free-plans/p/jas-39-gripen",
+      "sourceUrl": "https://www.parkjets.com/free-plans/p/jas-39-gripen",
+      "categories": [
+        "Foam",
+        "Pusher"
+      ],
+      "designerTags": [
+        "Steve Shumate"
+      ],
+      "digitalGood": {
+        "filename": "JAS-39.zip",
+        "sourceType": "ZIP",
+        "urlId": "8m8o2mcll2saogyahnmq2x0tjonbvs"
+      },
+      "priceCents": 0
+    },
+    {
+      "id": "5692ef4bbfe873d73945e882",
+      "slug": "hunter",
+      "title": "Hunter Parkjet Plans — Free PDF Download",
+      "fullUrl": "/free-plans/p/hunter",
+      "sourceUrl": "https://www.parkjets.com/free-plans/p/hunter",
+      "categories": [
+        "Foam",
+        "Pusher"
+      ],
+      "designerTags": [],
+      "digitalGood": {
+        "filename": "Hunter.zip",
+        "sourceType": "ZIP",
+        "urlId": "tehpx9or5cgx8kgs70n63mrnerso2z"
+      },
+      "priceCents": 0
+    },
+    {
+      "id": "5692f0b6c647ad3203c157fe",
+      "slug": "f-19-sea-wasp",
+      "title": "F-19 Sea Wasp Parkjet Plans — Free PDF Download",
+      "fullUrl": "/free-plans/p/f-19-sea-wasp",
+      "sourceUrl": "https://www.parkjets.com/free-plans/p/f-19-sea-wasp",
+      "categories": [
+        "Fantasy",
+        "Foam",
+        "Pusher"
+      ],
+      "designerTags": [],
+      "digitalGood": {
+        "filename": "F-19.zip",
+        "sourceType": "ZIP",
+        "urlId": "08wzl8f0qcg8j7wq89gnti6ct20t18"
+      },
+      "priceCents": 0
+    },
+    {
+      "id": "5692f180c647ad3203c16503",
+      "slug": "f-16xl",
+      "title": "F-16XL Parkjet Plans — Free PDF Download",
+      "fullUrl": "/free-plans/p/f-16xl",
+      "sourceUrl": "https://www.parkjets.com/free-plans/p/f-16xl",
+      "categories": [
+        "Foam",
+        "Pusher"
+      ],
+      "designerTags": [],
+      "digitalGood": {
+        "filename": "F-16XL.zip",
+        "sourceType": "ZIP",
+        "urlId": "nx6q37v4976zyxctb1myqjgbtapn8a"
+      },
+      "priceCents": 0
+    }
+  ]
+}

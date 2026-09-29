@@ -1,0 +1,451 @@
+﻿---
+import Shell from '../layouts/Shell.astro';
+import Base from '../layouts/Base.astro';
+import { SITE, BASE, stats, categories, abs } from '../lib/catalog';
+
+const base = BASE;
+---
+
+<Base
+  title="About, attribution & how the archive was built"
+  description="How the Parkjets Archive was built, what it contains, how aircraft designs and photography are credited, and how to add a new aircraft."
+  canonical={abs('/about')}
+  image="/og-default.png"
+>
+  <Shell>
+    <main id="main" class="page">
+      <header class="page-head">
+        <p class="eyebrow" data-reveal="fade">Project</p>
+        <h1 data-reveal style="--reveal-delay:60ms">About this archive</h1>
+        <p class="lede" data-reveal style="--reveal-delay:120ms">
+          Parkjets Archive is an independent, non-commercial preservation of the RC parkjet and
+          park flyer plan catalogue originally published at
+          <a href={SITE.sourceSite} rel="noopener nofollow" target="_blank">{SITE.sourceSite.replace('https://', '')}</a>.
+          It exists so that the catalogue, its designer credits and its build knowledge survive a
+          change of hosting.
+        </p>
+      </header>
+
+      <div class="layout">
+        <article class="prose-col">
+          <!-- ------------------------- contents ------------------------- -->
+          <section id="contents" class="dsec" data-reveal>
+            <h2 class="dsec-title"><span class="mono">§</span> On this page</h2>
+            <ul class="contents">
+              <li><a href="#what">What this archive contains</a></li>
+              <li><a href="#attribution">Attribution &amp; rights</a></li>
+              <li><a href="#plans">Why plan files are links, not downloads</a></li>
+              <li><a href="#method">How the migration was done</a></li>
+              <li><a href="#quality">Data quality &amp; what is missing</a></li>
+              <li><a href="#adding">Adding a new aircraft</a></li>
+              <li><a href="#technical">Technical notes</a></li>
+              <li><a href="#privacy">Privacy</a></li>
+            </ul>
+          </section>
+
+          <!-- --------------------------- what --------------------------- -->
+          <section id="what" class="dsec" data-reveal>
+            <h2 class="dsec-title"><span class="mono">01</span> What this archive contains</h2>
+            <p>
+              Every published entry in the Parkjets plan collection was imported:{' '}
+              <strong class="mono">{stats.aircraft}</strong> aircraft in total. For each one the
+              archive preserves:
+            </p>
+            <ul class="ticks">
+              <li>The catalogue name, the designer's credit and the source categories.</li>
+              <li>Every specification the designer published, kept in their own words, alongside a machine-readable subset.</li>
+              <li>The designer's notes, recommended build items and any links they published.</li>
+              <li>Build-thread and reference links to the original sources.</li>
+              <li>All <span class="mono">{stats.images}</span> gallery photographs, re-hosted locally at two resolutions.</li>
+              <li>A permanent link to the original Parkjets product page.</li>
+            </ul>
+            <p>
+              The catalogue taxonomy is taken verbatim from the source:{' '}
+              {categories.map((c) => c.value).join(', ')}.
+            </p>
+          </section>
+
+          <!-- ----------------------- attribution ------------------------ -->
+          <section id="attribution" class="dsec" data-reveal>
+            <h2 class="dsec-title"><span class="mono">02</span> Attribution &amp; rights</h2>
+            <div class="callout">
+              <p><strong>Project code</strong> and <strong>archived content</strong> are licensed differently.</p>
+            </div>
+            <h3>Project code — MIT</h3>
+            <p>
+              The website, build tooling, validation scripts and documentation in this repository
+              are released under the MIT licence. See <code>LICENSE</code>.
+            </p>
+            <h3>Archived content — not ours to license</h3>
+            <p>
+              The aircraft designs, plan files, specifications, notes and photographs are{' '}
+              <strong>not</strong> covered by the repository licence. They remain the intellectual
+              property of the individual designers and photographers who created them, and of
+              Parkjets. This project asserts no redistribution right over them; it preserves them
+              for reference and always credits the author on every page.
+            </p>
+            <p>
+              Parkjets and the individual designers are free to ask for any archived item to be
+              removed; see the contact details below.
+            </p>
+            <h3>Photography</h3>
+            <p>
+              Aircraft photographs are credited to the contributors named in the original image
+              descriptions and to Parkjets for hosting. Copies stored here are reduced-resolution
+              and exist for identification and reference.
+            </p>
+          </section>
+
+          <!-- --------------------------- plans -------------------------- -->
+          <section id="plans" class="dsec" data-reveal>
+            <h2 class="dsec-title"><span class="mono">03</span> Why plan files are links, not downloads</h2>
+            <p>
+              Parkjets published its plan files as member-only digital goods. They were released
+              only to accounts signed in to the Parkjets membership, and there is no public,
+              unauthenticated download address for them. That access control is a deliberate
+              commercial decision by the site owner and this project respects it.
+            </p>
+            <p>
+              Rather than present download buttons that would not work, every aircraft page shows
+              one of two honest states, driven by a real check of what is stored in the repository:
+            </p>
+            <ul class="ticks">
+              <li><span class="chip chip--ok">Archived</span> — a validated copy of the file lives in this repository and downloads directly from this site.</li>
+              <li><span class="chip chip--warn">Source only</span> — the entry, imagery and the original filename are archived; the file itself is fetched from the original product page.</li>
+            </ul>
+            <p>
+              If the site owner later releases any plan files for redistribution, dropping them into{' '}
+              <code>public/plans/&lt;slug&gt;/</code> is all that is required — the next build will
+              validate them and the button changes itself.
+            </p>
+          </section>
+
+          <!-- -------------------------- method -------------------------- -->
+          <section id="method" class="dsec" data-reveal>
+            <h2 class="dsec-title"><span class="mono">04</span> How the migration was done</h2>
+            <p>
+              The catalogue was read from the public, machine-readable representation the source
+              site already publishes for its own product grid, cross-checked against the site's{' '}
+              <code>sitemap.xml</code> and against every category page. The three sources agree
+              exactly, which is how we know nothing is missing or duplicated.
+            </p>
+            <p>The pipeline lives in <code>scripts/</code> and is reproducible:</p>
+            <ol class="steps">
+              <li><code class="mono">npm run discover</code> — inventory the collection, categories and URLs.</li>
+              <li><code class="mono">npm run import</code> — build <code class="mono">data/aircraft.json</code>.</li>
+              <li><code class="mono">npm run assets</code> — download and validate every photograph.</li>
+              <li><code class="mono">npm run archive</code> — locate, validate and checksum any plan files; write the archive manifest.</li>
+              <li><code class="mono">npm run validate</code> — refuse to build if anything is inconsistent.</li>
+            </ol>
+            <div class="callout">
+              <p>
+                The importer never invents data. A specification is only recorded when the designer
+                literally wrote it. Where the source is silent, the page says so, and where the
+                designer's own wording is ambiguous it is reproduced verbatim rather than
+                reinterpreted.
+              </p>
+            </div>
+          </section>
+
+          <!-- -------------------------- quality ------------------------- -->
+          <section id="quality" class="dsec" data-reveal>
+            <h2 class="dsec-title"><span class="mono">05</span> Data quality &amp; what is missing</h2>
+            <p>
+              This is a preservation of a hand-written catalogue, so the record is uneven by nature.
+              Known limitations, all of them inherited from the source rather than introduced here:
+            </p>
+            <ul class="ticks ticks--warn">
+              <li>
+                <span class="mono">{stats.aircraft - stats.specifications}</span> of{' '}
+                <span class="mono">{stats.aircraft}</span> designs were published without
+                structured specifications. Those pages show the designer's text verbatim instead.
+              </li>
+              <li>Some entries were never credited to a designer. The archive records the absence rather than guessing.</li>
+              <li>Several distinct designs share a name because they are different builds of the same airframe by different modellers. Those are kept as separate entries and disambiguated by designer.</li>
+              <li>Plan files are member-gated at the source and are therefore not mirrored here.</li>
+            </ul>
+            <p>
+              A machine-readable migration report is published at{' '}
+              <a href={SITE.repo + '/blob/main/reports/migration-report.md'} rel="noopener" target="_blank">
+                reports/migration-report.md
+              </a>{' '}
+              in the repository.
+            </p>
+          </section>
+
+          <!-- -------------------------- adding -------------------------- -->
+          <section id="adding" class="dsec" data-reveal>
+            <h2 class="dsec-title"><span class="mono">06</span> Adding a new aircraft</h2>
+            <p>No code changes are required. Four steps:</p>
+            <ol class="steps">
+              <li>
+                Add one object to <code>data/aircraft.json</code> with the fields shown in the
+                file's existing entries (<code>slug</code>, <code>name</code>, <code>designer</code>,{' '}
+                <code>category</code>, <code>specifications</code>, <code>sourceUrl</code>, …).
+              </li>
+              <li>
+                Drop photographs into <code>public/media/aircraft/&lt;slug&gt;/</code> as{' '}
+                <code>01-400.webp</code> / <code>01-1200.webp</code> and reference them in the
+                entry's <code>images</code> array.
+              </li>
+              <li>
+                If a plan file may be redistributed, place it in{' '}
+                <code>public/plans/&lt;slug&gt;/</code> keeping its original filename.
+              </li>
+              <li>
+                Run <code class="mono">npm run validate &amp;&amp; npm run build</code>, then commit
+                and push. GitHub Actions rebuilds the site and the new aircraft appears
+                automatically, in the catalogue, in search, in the filters and in the sitemap.
+              </li>
+            </ol>
+            <p class="muted">
+              The validator will fail the build if the slug is duplicated, an image is missing, a
+              local download is broken, or an internal link points nowhere.
+            </p>
+          </section>
+
+          <!-- ------------------------ technical ------------------------- -->
+          <section id="technical" class="dsec" data-reveal>
+            <h2 class="dsec-title"><span class="mono">07</span> Technical notes</h2>
+            <ul class="ticks">
+              <li>Fully static output. No server, no database, no Squarespace code of any kind.</li>
+              <li>Search and filtering run entirely in the browser over the pre-rendered catalogue, so the site is usable with JavaScript disabled.</li>
+              <li>No analytics, no trackers, no cookies, no third-party scripts beyond a webfont stylesheet.</li>
+              <li>Animations are CSS plus a small dependency-free observer script, and every one of them is disabled under <code class="mono">prefers-reduced-motion</code>.</li>
+              <li>Every archived file is checksummed; the audit trail is <code class="mono">data/archive-manifest.json</code>.</li>
+            </ul>
+          </section>
+
+          <!-- -------------------------- privacy -------------------------- -->
+          <section id="privacy" class="dsec" data-reveal>
+            <h2 class="dsec-title"><span class="mono">08</span> Privacy</h2>
+            <p>
+              This site sets no cookies, runs no analytics and loads no advertising. The only
+              external request it can make is for the webfont, served by Google Fonts, when your
+              browser does not already have it cached.
+            </p>
+          </section>
+        </article>
+
+        <aside class="side">
+          <section class="panel panel--pad" data-reveal>
+            <h2 class="side-title">Source &amp; contact</h2>
+            <dl class="kv">
+              <div><dt>Original site</dt><dd><a class="link" href={SITE.sourceSite} rel="noopener nofollow" target="_blank">{SITE.sourceSite.replace('https://', '')} ↗</a></dd></div>
+              <div><dt>Plan collection</dt><dd><a class="link" href={SITE.sourceCollection} rel="noopener nofollow" target="_blank">/free-plans ↗</a></dd></div>
+              <div><dt>Repository</dt><dd><a class="link" href={SITE.repo} rel="noopener" target="_blank">github.com ↗</a></dd></div>
+              <div><dt>Contact</dt><dd><a class="link" href={'mailto:' + SITE.contactEmail}>{SITE.contactEmail}</a></dd></div>
+            </dl>
+          </section>
+
+          <section class="panel panel--pad" data-reveal>
+            <h2 class="side-title">Archive at a glance</h2>
+            <dl class="kv">
+              <div><dt>Aircraft</dt><dd class="mono">{stats.aircraft}</dd></div>
+              <div><dt>Designers credited</dt><dd class="mono">{stats.designers}</dd></div>
+              <div><dt>Categories</dt><dd class="mono">{stats.categories}</dd></div>
+              <div><dt>Photographs</dt><dd class="mono">{stats.images}</dd></div>
+              <div><dt>With specifications</dt><dd class="mono">{stats.specifications}</dd></div>
+              <div><dt>Build threads linked</dt><dd class="mono">{stats.buildThreads}</dd></div>
+              <div><dt>Plans archived</dt><dd class="mono">{stats.archived}</dd></div>
+              <div><dt>Source-only</dt><dd class="mono">{stats.sourceOnly}</dd></div>
+            </dl>
+          </section>
+        </aside>
+      </div>
+    </main>
+  </Shell>
+</Base>
+
+<script>
+  import '../scripts/motion.js';
+</script>
+
+<style>
+  .page {
+    padding-block: clamp(2rem, 1.2rem + 3vw, 3.5rem) 1rem;
+  }
+  .page-head h1 {
+    font-size: var(--step-4);
+    letter-spacing: -0.035em;
+    margin-block: 0.35rem 0.6rem;
+  }
+  .lede {
+    max-width: 70ch;
+    color: var(--text-dim);
+  }
+  .layout {
+    display: grid;
+    gap: clamp(1.5rem, 1rem + 2.5vw, 3rem);
+    grid-template-columns: minmax(0, 1fr) minmax(0, 20rem);
+    align-items: start;
+    margin-top: 2rem;
+  }
+  .prose-col {
+    display: grid;
+    gap: clamp(1.75rem, 1.4rem + 1.5vw, 2.75rem);
+    min-width: 0;
+  }
+  .dsec-title {
+    display: flex;
+    align-items: baseline;
+    gap: 0.7rem;
+    font-size: var(--step-2);
+    margin-bottom: 0.9rem;
+  }
+  .dsec-title .mono {
+    font-size: 0.72rem;
+    letter-spacing: 0.16em;
+    color: var(--cyan);
+  }
+  .prose-col p {
+    color: var(--text-dim);
+    margin-bottom: 0.85rem;
+  }
+  .prose-col h3 {
+    font-size: var(--step-1);
+    margin: 1.4rem 0 0.5rem;
+  }
+  .prose-col code {
+    font-family: var(--font-mono);
+    font-size: 0.85em;
+    padding: 0.1em 0.4em;
+    border-radius: var(--radius-xs);
+    background: color-mix(in oklab, var(--cyan) 10%, transparent);
+    color: var(--cyan);
+    overflow-wrap: anywhere;
+  }
+  .contents {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: 0.35rem;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 230px), 1fr));
+  }
+  .contents a {
+    display: block;
+    padding: 0.45rem 0.7rem;
+    border: 1px solid var(--line-soft);
+    border-radius: var(--radius-sm);
+    font-size: 0.88rem;
+    color: var(--text-dim);
+    text-decoration: none;
+    transition: color var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out);
+  }
+  .contents a:hover {
+    color: var(--cyan);
+    transform: translateX(3px);
+  }
+  .ticks {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+  .ticks li {
+    position: relative;
+    padding-left: 1.5rem;
+    color: var(--text-dim);
+  }
+  .ticks li::before {
+    content: '▸';
+    position: absolute;
+    left: 0;
+    color: var(--cyan);
+  }
+  .ticks--warn li::before {
+    content: '△';
+    color: var(--amber);
+  }
+  .steps {
+    counter-reset: step;
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: 0.6rem;
+    margin-bottom: 1rem;
+  }
+  .steps li {
+    counter-increment: step;
+    position: relative;
+    padding: 0.7rem 0.9rem 0.7rem 2.6rem;
+    border: 1px solid var(--line-soft);
+    border-radius: var(--radius-sm);
+    background: color-mix(in oklab, var(--ink-700) 40%, transparent);
+    color: var(--text-dim);
+  }
+  .steps li::before {
+    content: counter(step, decimal-leading-zero);
+    position: absolute;
+    left: 0.9rem;
+    top: 0.7rem;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--cyan);
+  }
+  .callout {
+    padding: 0.9rem 1.05rem;
+    border-left: 2px solid var(--cyan);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    background: color-mix(in oklab, var(--cyan) 8%, transparent);
+    margin-bottom: 1rem;
+  }
+  .callout p {
+    margin: 0;
+    color: var(--text);
+  }
+  .side {
+    position: sticky;
+    top: calc(var(--header-h) + 1rem);
+    display: grid;
+    gap: 0.9rem;
+  }
+  .side-title {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+    margin-bottom: 0.7rem;
+  }
+  .kv {
+    display: grid;
+    gap: 0.05rem;
+  }
+  .kv > div {
+    display: grid;
+    grid-template-columns: 9.5rem 1fr;
+    gap: 0.5rem;
+    padding: 0.4rem 0;
+    border-bottom: 1px solid color-mix(in oklab, var(--line-soft) 60%, transparent);
+    font-size: 0.86rem;
+  }
+  .kv > div:last-child {
+    border-bottom: 0;
+  }
+  .kv dt {
+    color: var(--text-faint);
+    font-family: var(--font-mono);
+    font-size: 0.64rem;
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
+    padding-top: 0.15rem;
+  }
+  .kv dd {
+    margin: 0;
+    overflow-wrap: anywhere;
+  }
+  .link {
+    color: var(--cyan);
+  }
+  @media (max-width: 980px) {
+    .layout {
+      grid-template-columns: 1fr;
+    }
+    .side {
+      position: static;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+    }
+  }
+</style>

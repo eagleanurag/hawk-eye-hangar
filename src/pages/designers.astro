@@ -1,0 +1,167 @@
+﻿---
+import Shell from '../layouts/Shell.astro';
+import Base from '../layouts/Base.astro';
+import { SITE, BASE, designers, aircraft, abs } from '../lib/catalog';
+
+const base = BASE;
+const withDesigner = (key: string) =>
+  aircraft
+    .filter((a) => a.designerKey === key)
+    .sort((x, y) => y.images.length - x.images.length || x.name.localeCompare(y.name));
+---
+
+<Base
+  title="Designers"
+  description={`The ${designers.length} independent modellers whose RC parkjet designs are preserved in the Parkjets Archive, with every aircraft each one designed.`}
+  canonical={abs('/designers')}
+  image="/og-default.png"
+>
+  <Shell>
+    <main id="main" class="page">
+      <header class="page-head">
+        <p class="eyebrow" data-reveal="fade">Attribution</p>
+        <h1 data-reveal style="--reveal-delay:60ms">The designers</h1>
+        <p class="lede" data-reveal style="--reveal-delay:120ms">
+          Every design in this archive was drawn and documented by an independent modeller. The
+          credit below is reproduced from the original Parkjets catalogue entry for each aircraft.
+          Nothing here is the work of this project.
+        </p>
+      </header>
+
+      <ul class="designer-list">
+        {designers.map((d, i) => {
+          const works = withDesigner(d.value.toLowerCase());
+          return (
+            <li class="designer-block panel panel--pad" data-reveal style={`--reveal-delay:${Math.min(i, 8) * 40}ms`}>
+              <div class="designer-id">
+                <h2 class="designer-name">
+                  <a href={`${base}catalog?designer=${encodeURIComponent(d.value)}`} data-no-transition>{d.value}</a>
+                </h2>
+                <p class="mono designer-meta">
+                  {d.count} design{d.count === 1 ? '' : 's'} · {works.reduce((s, w) => s + w.images.length, 0)} photographs
+                </p>
+                <ul class="work-list">
+                  {works.map((w) => (
+                    <li>
+                      <a href={`${base}aircraft/${w.slug}`} data-no-transition>
+                        {w.displayName}
+                        <span class="mono work-cat">{w.category.join(' · ') || 'uncategorised'}</span>
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </li>
+          );
+        })}
+      </ul>
+
+      <section class="uncredited panel panel--pad" data-reveal>
+        <h2>Designs with no credit in the source</h2>
+        <p class="muted">
+          {aircraft.filter((a) => a.designerKey === 'uncredited').length} catalogue entries do not
+          name a designer. The archive records that absence rather than guessing.
+        </p>
+        <ul class="work-list work-list--flat">
+          {aircraft.filter((a) => a.designerKey === 'uncredited').map((a) => (
+            <li><a href={`${base}aircraft/${a.slug}`} data-no-transition>{a.displayName}</a></li>
+          ))}
+        </ul>
+      </section>
+    </main>
+  </Shell>
+</Base>
+
+<script>
+  import '../scripts/motion.js';
+</script>
+
+<style>
+  .page {
+    padding-block: clamp(2rem, 1.2rem + 3vw, 3.5rem) 1rem;
+  }
+  .page-head h1 {
+    font-size: var(--step-4);
+    letter-spacing: -0.035em;
+    margin-block: 0.35rem 0.6rem;
+  }
+  .lede {
+    max-width: 68ch;
+    color: var(--text-dim);
+  }
+  .designer-list {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: 0.85rem;
+    margin-top: 1.75rem;
+  }
+  .designer-block {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
+    gap: 1rem 2rem;
+  }
+  .designer-name {
+    font-size: var(--step-1);
+    font-family: var(--font-display);
+  }
+  .designer-name a {
+    text-decoration: none;
+  }
+  .designer-name a:hover {
+    color: var(--cyan);
+  }
+  .designer-meta {
+    font-size: 0.68rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+    margin-top: 0.3rem;
+  }
+  .work-list {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: 0.5rem;
+  }
+  .work-list a {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    padding: 0.32rem 0.7rem;
+    border: 1px solid var(--line-soft);
+    border-radius: 999px;
+    font-size: 0.84rem;
+    color: var(--text-dim);
+    text-decoration: none;
+    transition: color var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out);
+  }
+  .work-list a:hover {
+    color: var(--cyan);
+    border-color: color-mix(in oklab, var(--cyan) 50%, transparent);
+    transform: translateY(-2px);
+  }
+  .work-cat {
+    font-size: 0.62rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+  }
+  .uncredited {
+    margin-top: 2rem;
+  }
+  .uncredited h2 {
+    font-size: var(--step-1);
+    margin-bottom: 0.5rem;
+  }
+  .work-list--flat {
+    margin-top: 0.9rem;
+  }
+  @media (max-width: 760px) {
+    .designer-block {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

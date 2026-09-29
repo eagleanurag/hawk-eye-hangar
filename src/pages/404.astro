@@ -1,0 +1,74 @@
+﻿---
+import Shell from '../layouts/Shell.astro';
+import Base from '../layouts/Base.astro';
+import { SITE, BASE, aircraft, abs } from '../lib/catalog';
+
+const base = BASE;
+const suggestions = [...aircraft].sort((a, b) => a.name.localeCompare(b.name)).slice(0, 6);
+---
+
+<Base title="Page not found" description="That page is not part of the Parkjets Archive." noindex>
+  <Shell>
+    <main id="main" class="nf">
+      <p class="nf-code mono">404</p>
+      <h1>Aircraft not found</h1>
+      <p class="muted">
+        This address does not match anything in the archive. The catalogue may have been reorganised,
+        or the link may be mistyped.
+      </p>
+      <div class="cluster" style="--cluster-gap:.6rem;margin-top:1.5rem">
+        <a class="btn btn--primary" href={base + 'catalog'}>Search the catalogue</a>
+        <a class="btn btn--ghost" href={base}>Go home</a>
+        <a class="btn btn--ghost" href={SITE.sourceCollection} rel="noopener nofollow" target="_blank">Original Parkjets site</a>
+      </div>
+
+      <h2 class="nf-sub">Try one of these</h2>
+      <ul class="nf-list">
+        {suggestions.map((a) => (
+          <li><a href={`${base}aircraft/${a.slug}`} data-no-transition>{a.displayName}</a></li>
+        ))}
+      </ul>
+    </main>
+  </Shell>
+</Base>
+
+<style>
+  .nf {
+    padding-block: clamp(3rem, 2rem + 6vw, 7rem);
+    max-width: 62ch;
+  }
+  .nf-code {
+    font-size: 0.8rem;
+    letter-spacing: 0.4em;
+    color: var(--cyan);
+  }
+  .nf h1 {
+    font-size: var(--step-4);
+    margin-block: 0.5rem 0.75rem;
+  }
+  .nf-sub {
+    margin-top: 2.5rem;
+    font-size: var(--step-1);
+  }
+  .nf-list {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    margin-top: 0.9rem;
+  }
+  .nf-list a {
+    display: inline-block;
+    padding: 0.4rem 0.8rem;
+    border: 1px solid var(--line-soft);
+    border-radius: 999px;
+    font-size: 0.88rem;
+    color: var(--text-dim);
+    text-decoration: none;
+  }
+  .nf-list a:hover {
+    color: var(--cyan);
+    border-color: color-mix(in oklab, var(--cyan) 50%, transparent);
+  }
+</style>
