@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-09-29T13:05:46.979Z",
-  "target": "https://eagleanurag.github.io/parkjet-aircraft-archive",
+  "generatedAt": "2026-09-29T20:50:59.421Z",
+  "target": "local build (dist/)",
   "viewports": [
     {
       "name": "desktop-1920",
@@ -114,7 +114,7 @@
     },
     {
       "vp": "desktop-1920",
-      "check": "catalog: plan filter Source link only -> 109",
+      "check": "catalog: plan filter Plan archived here -> 109",
       "ok": true
     },
     {
@@ -159,7 +159,7 @@
     },
     {
       "vp": "desktop-1920",
-      "check": "detail: source link OK (Open original source)",
+      "check": "detail: local download OK (Download ZIP)",
       "ok": true
     },
     {
@@ -259,7 +259,7 @@
     },
     {
       "vp": "desktop-1440",
-      "check": "catalog: plan filter Source link only -> 109",
+      "check": "catalog: plan filter Plan archived here -> 109",
       "ok": true
     },
     {
@@ -279,7 +279,7 @@
     },
     {
       "vp": "desktop-1440",
-      "check": "detail: hero image paints on screen (237 distinct samples)",
+      "check": "detail: hero image paints on screen (256 distinct samples)",
       "ok": true
     },
     {
@@ -304,7 +304,7 @@
     },
     {
       "vp": "desktop-1440",
-      "check": "detail: source link OK (Open original source)",
+      "check": "detail: local download OK (Download ZIP)",
       "ok": true
     },
     {
@@ -369,7 +369,7 @@
     },
     {
       "vp": "desktop-1366",
-      "check": "catalog: search \"f-22\" -> 36",
+      "check": "catalog: search \"f-22\" -> 109",
       "ok": true
     },
     {
@@ -404,7 +404,7 @@
     },
     {
       "vp": "desktop-1366",
-      "check": "catalog: plan filter Source link only -> 109",
+      "check": "catalog: plan filter Plan archived here -> 109",
       "ok": true
     },
     {
@@ -449,7 +449,7 @@
     },
     {
       "vp": "desktop-1366",
-      "check": "detail: source link OK (Open original source)",
+      "check": "detail: local download OK (Download ZIP)",
       "ok": true
     },
     {
@@ -514,7 +514,7 @@
     },
     {
       "vp": "tablet-1024",
-      "check": "catalog: search \"f-22\" -> 109",
+      "check": "catalog: search \"f-22\" -> 36",
       "ok": true
     },
     {
@@ -549,7 +549,7 @@
     },
     {
       "vp": "tablet-1024",
-      "check": "catalog: plan filter Source link only -> 109",
+      "check": "catalog: plan filter Plan archived here -> 109",
       "ok": true
     },
     {
@@ -594,7 +594,7 @@
     },
     {
       "vp": "tablet-1024",
-      "check": "detail: source link OK (Open original source)",
+      "check": "detail: local download OK (Download ZIP)",
       "ok": true
     },
     {
@@ -694,7 +694,7 @@
     },
     {
       "vp": "tablet-768",
-      "check": "catalog: plan filter Source link only -> 109",
+      "check": "catalog: plan filter Plan archived here -> 109",
       "ok": true
     },
     {
@@ -749,7 +749,7 @@
     },
     {
       "vp": "tablet-768",
-      "check": "detail: source link OK (Open original source)",
+      "check": "detail: local download OK (Download ZIP)",
       "ok": true
     },
     {
@@ -849,7 +849,7 @@
     },
     {
       "vp": "mobile-430",
-      "check": "catalog: plan filter Source link only -> 109",
+      "check": "catalog: plan filter Plan archived here -> 109",
       "ok": true
     },
     {
@@ -904,7 +904,7 @@
     },
     {
       "vp": "mobile-430",
-      "check": "detail: source link OK (Open original source)",
+      "check": "detail: local download OK (Download ZIP)",
       "ok": true
     },
     {
@@ -1004,7 +1004,7 @@
     },
     {
       "vp": "mobile-390",
-      "check": "catalog: plan filter Source link only -> 109",
+      "check": "catalog: plan filter Plan archived here -> 109",
       "ok": true
     },
     {
@@ -1059,7 +1059,7 @@
     },
     {
       "vp": "mobile-390",
-      "check": "detail: source link OK (Open original source)",
+      "check": "detail: local download OK (Download ZIP)",
       "ok": true
     },
     {
@@ -1159,7 +1159,7 @@
     },
     {
       "vp": "mobile-375",
-      "check": "catalog: plan filter Source link only -> 109",
+      "check": "catalog: plan filter Plan archived here -> 109",
       "ok": true
     },
     {
@@ -1214,7 +1214,7 @@
     },
     {
       "vp": "mobile-375",
-      "check": "detail: source link OK (Open original source)",
+      "check": "detail: local download OK (Download ZIP)",
       "ok": true
     },
     {

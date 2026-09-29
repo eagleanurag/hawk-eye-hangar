@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-29T13:06:09.838Z",
+  "generatedAt": "2026-09-29T20:51:28.392Z",
   "repository": "https://github.com/eagleanurag/parkjet-aircraft-archive",
   "pagesUrl": "https://eagleanurag.github.io/parkjet-aircraft-archive",
   "buildStatus": "built",
@@ -7,12 +7,12 @@
     {
       "name": "GET /",
       "ok": true,
-      "detail": "HTTP 200, 50061 bytes, text/html; charset=utf-8"
+      "detail": "HTTP 200, 49997 bytes, text/html; charset=utf-8"
     },
     {
       "name": "GET /catalog",
       "ok": true,
-      "detail": "HTTP 200, 321726 bytes, text/html; charset=utf-8"
+      "detail": "HTTP 200, 320853 bytes, text/html; charset=utf-8"
     },
     {
       "name": "GET /designers",
@@ -57,37 +57,32 @@
     {
       "name": "aircraft page /aircraft/f-22-raptor",
       "ok": true,
-      "detail": "HTTP 200, 30943 bytes"
+      "detail": "HTTP 200, 30929 bytes"
     },
     {
       "name": "aircraft page /aircraft/mig-15",
       "ok": true,
-      "detail": "HTTP 200, 21204 bytes"
+      "detail": "HTTP 200, 21192 bytes"
     },
     {
       "name": "aircraft page /aircraft/su-37-super-flanker",
       "ok": true,
-      "detail": "HTTP 200, 32219 bytes"
+      "detail": "HTTP 200, 32206 bytes"
     },
     {
       "name": "aircraft page /aircraft/a-4-skyhawk",
       "ok": true,
-      "detail": "HTTP 200, 22617 bytes"
-    },
-    {
-      "name": "aircraft page /aircraft/decal-pack",
-      "ok": true,
-      "detail": "HTTP 200, 26635 bytes"
+      "detail": "HTTP 200, 22599 bytes"
     },
     {
       "name": "aircraft page /aircraft/cargo-twin",
       "ok": true,
-      "detail": "HTTP 200, 24339 bytes"
+      "detail": "HTTP 200, 24334 bytes"
     },
     {
       "name": "aircraft page /aircraft/a-6-intruder",
       "ok": true,
-      "detail": "HTTP 200, 17379 bytes"
+      "detail": "HTTP 200, 17366 bytes"
     },
     {
       "name": "media j-31-falcon-hawk/07-1200.webp",
@@ -177,7 +172,7 @@
     {
       "name": "deep link /catalog?q=…&category=…",
       "ok": true,
-      "detail": "HTTP 200, 321726 bytes"
+      "detail": "HTTP 200, 320853 bytes"
     },
     {
       "name": "deep link with odd encoding",
@@ -200,6 +195,6 @@
       "detail": "clean"
     }
   ],
-  "passed": 39,
+  "passed": 38,
   "failed": 0
 }

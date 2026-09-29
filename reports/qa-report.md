@@ -1,8 +1,8 @@
 # Parkjets Archive — browser QA report
 
-_Generated 2026-09-29T13:05:46.979Z by `npm run qa`._
+_Generated 2026-09-29T20:50:59.421Z by `npm run qa`._
 
-**Target:** https://eagleanurag.github.io/parkjet-aircraft-archive
+**Target:** local build (dist/)
 
 **Result: 240/240 checks passed across 8 viewports.**
 
@@ -50,7 +50,7 @@ _Generated 2026-09-29T13:05:46.979Z by `npm run qa`._
 | ✓ | catalog: clear restores all |  |
 | ✓ | catalog: filter Foam -> 107 |  |
 | ✓ | catalog: designer Steve Shumate -> 11 |  |
-| ✓ | catalog: plan filter Source link only -> 109 |  |
+| ✓ | catalog: plan filter Plan archived here -> 109 |  |
 | ✓ | catalog: deep link -> 12 |  |
 | ✓ | catalog: unknown filter falls back to All |  |
 | ✓ | catalog: back button restores |  |
@@ -59,7 +59,7 @@ _Generated 2026-09-29T13:05:46.979Z by `npm run qa`._
 | ✓ | detail: "F-22 Raptor" |  |
 | ✓ | detail: no broken images |  |
 | ✓ | detail: gallery thumbnails render |  |
-| ✓ | detail: source link OK (Open original source) |  |
+| ✓ | detail: local download OK (Download ZIP) |  |
 | ✓ | gallery: 8 thumbnails |  |
 | ✓ | gallery: thumbnail changes image |  |
 | ✓ | gallery: counter 3 / 8 |  |
@@ -84,16 +84,16 @@ _Generated 2026-09-29T13:05:46.979Z by `npm run qa`._
 | ✓ | catalog: clear restores all |  |
 | ✓ | catalog: filter Foam -> 107 |  |
 | ✓ | catalog: designer Steve Shumate -> 11 |  |
-| ✓ | catalog: plan filter Source link only -> 109 |  |
+| ✓ | catalog: plan filter Plan archived here -> 109 |  |
 | ✓ | catalog: deep link -> 12 |  |
 | ✓ | catalog: unknown filter falls back to All |  |
 | ✓ | catalog: back button restores |  |
-| ✓ | detail: hero image paints on screen (237 distinct samples) |  |
+| ✓ | detail: hero image paints on screen (256 distinct samples) |  |
 | ✓ | detail: no horizontal overflow |  |
 | ✓ | detail: "F-22 Raptor" |  |
 | ✓ | detail: no broken images |  |
 | ✓ | detail: gallery thumbnails render |  |
-| ✓ | detail: source link OK (Open original source) |  |
+| ✓ | detail: local download OK (Download ZIP) |  |
 | ✓ | gallery: 8 thumbnails |  |
 | ✓ | gallery: thumbnail changes image |  |
 | ✓ | gallery: counter 3 / 8 |  |
@@ -111,14 +111,14 @@ _Generated 2026-09-29T13:05:46.979Z by `npm run qa`._
 | ✓ | home: 8 featured cards |  |
 | ✓ | catalog: no horizontal overflow |  |
 | ✓ | catalog: 109 cards rendered |  |
-| ✓ | catalog: search "f-22" -> 36 |  |
+| ✓ | catalog: search "f-22" -> 109 |  |
 | ✓ | catalog: count "36 OF 109 AIRCRAFT MATCH" |  |
 | ✓ | catalog: empty state shown |  |
 | ✓ | catalog: no-result hides every card |  |
 | ✓ | catalog: clear restores all |  |
 | ✓ | catalog: filter Foam -> 107 |  |
 | ✓ | catalog: designer Steve Shumate -> 11 |  |
-| ✓ | catalog: plan filter Source link only -> 109 |  |
+| ✓ | catalog: plan filter Plan archived here -> 109 |  |
 | ✓ | catalog: deep link -> 12 |  |
 | ✓ | catalog: unknown filter falls back to All |  |
 | ✓ | catalog: back button restores |  |
@@ -127,7 +127,7 @@ _Generated 2026-09-29T13:05:46.979Z by `npm run qa`._
 | ✓ | detail: "F-22 Raptor" |  |
 | ✓ | detail: no broken images |  |
 | ✓ | detail: gallery thumbnails render |  |
-| ✓ | detail: source link OK (Open original source) |  |
+| ✓ | detail: local download OK (Download ZIP) |  |
 | ✓ | gallery: 8 thumbnails |  |
 | ✓ | gallery: thumbnail changes image |  |
 | ✓ | gallery: counter 3 / 8 |  |
@@ -145,14 +145,14 @@ _Generated 2026-09-29T13:05:46.979Z by `npm run qa`._
 | ✓ | home: 8 featured cards |  |
 | ✓ | catalog: no horizontal overflow |  |
 | ✓ | catalog: 109 cards rendered |  |
-| ✓ | catalog: search "f-22" -> 109 |  |
+| ✓ | catalog: search "f-22" -> 36 |  |
 | ✓ | catalog: count "36 OF 109 AIRCRAFT MATCH" |  |
 | ✓ | catalog: empty state shown |  |
 | ✓ | catalog: no-result hides every card |  |
 | ✓ | catalog: clear restores all |  |
 | ✓ | catalog: filter Foam -> 107 |  |
 | ✓ | catalog: designer Steve Shumate -> 11 |  |
-| ✓ | catalog: plan filter Source link only -> 109 |  |
+| ✓ | catalog: plan filter Plan archived here -> 109 |  |
 | ✓ | catalog: deep link -> 12 |  |
 | ✓ | catalog: unknown filter falls back to All |  |
 | ✓ | catalog: back button restores |  |
@@ -161,7 +161,7 @@ _Generated 2026-09-29T13:05:46.979Z by `npm run qa`._
 | ✓ | detail: "F-22 Raptor" |  |
 | ✓ | detail: no broken images |  |
 | ✓ | detail: gallery thumbnails render |  |
-| ✓ | detail: source link OK (Open original source) |  |
+| ✓ | detail: local download OK (Download ZIP) |  |
 | ✓ | gallery: 8 thumbnails |  |
 | ✓ | gallery: thumbnail changes image |  |
 | ✓ | gallery: counter 3 / 8 |  |
@@ -186,7 +186,7 @@ _Generated 2026-09-29T13:05:46.979Z by `npm run qa`._
 | ✓ | catalog: clear restores all |  |
 | ✓ | catalog: filter Foam -> 107 |  |
 | ✓ | catalog: designer Steve Shumate -> 11 |  |
-| ✓ | catalog: plan filter Source link only -> 109 |  |
+| ✓ | catalog: plan filter Plan archived here -> 109 |  |
 | ✓ | catalog: deep link -> 12 |  |
 | ✓ | catalog: unknown filter falls back to All |  |
 | ✓ | catalog: back button restores |  |
@@ -197,7 +197,7 @@ _Generated 2026-09-29T13:05:46.979Z by `npm run qa`._
 | ✓ | detail: "F-22 Raptor" |  |
 | ✓ | detail: no broken images |  |
 | ✓ | detail: gallery thumbnails render |  |
-| ✓ | detail: source link OK (Open original source) |  |
+| ✓ | detail: local download OK (Download ZIP) |  |
 | ✓ | gallery: 8 thumbnails |  |
 | ✓ | gallery: thumbnail changes image |  |
 | ✓ | gallery: counter 3 / 8 |  |
@@ -222,7 +222,7 @@ _Generated 2026-09-29T13:05:46.979Z by `npm run qa`._
 | ✓ | catalog: clear restores all |  |
 | ✓ | catalog: filter Foam -> 107 |  |
 | ✓ | catalog: designer Steve Shumate -> 11 |  |
-| ✓ | catalog: plan filter Source link only -> 109 |  |
+| ✓ | catalog: plan filter Plan archived here -> 109 |  |
 | ✓ | catalog: deep link -> 12 |  |
 | ✓ | catalog: unknown filter falls back to All |  |
 | ✓ | catalog: back button restores |  |
@@ -233,7 +233,7 @@ _Generated 2026-09-29T13:05:46.979Z by `npm run qa`._
 | ✓ | detail: "F-22 Raptor" |  |
 | ✓ | detail: no broken images |  |
 | ✓ | detail: gallery thumbnails render |  |
-| ✓ | detail: source link OK (Open original source) |  |
+| ✓ | detail: local download OK (Download ZIP) |  |
 | ✓ | gallery: 8 thumbnails |  |
 | ✓ | gallery: thumbnail changes image |  |
 | ✓ | gallery: counter 3 / 8 |  |
@@ -258,7 +258,7 @@ _Generated 2026-09-29T13:05:46.979Z by `npm run qa`._
 | ✓ | catalog: clear restores all |  |
 | ✓ | catalog: filter Foam -> 107 |  |
 | ✓ | catalog: designer Steve Shumate -> 11 |  |
-| ✓ | catalog: plan filter Source link only -> 109 |  |
+| ✓ | catalog: plan filter Plan archived here -> 109 |  |
 | ✓ | catalog: deep link -> 12 |  |
 | ✓ | catalog: unknown filter falls back to All |  |
 | ✓ | catalog: back button restores |  |
@@ -269,7 +269,7 @@ _Generated 2026-09-29T13:05:46.979Z by `npm run qa`._
 | ✓ | detail: "F-22 Raptor" |  |
 | ✓ | detail: no broken images |  |
 | ✓ | detail: gallery thumbnails render |  |
-| ✓ | detail: source link OK (Open original source) |  |
+| ✓ | detail: local download OK (Download ZIP) |  |
 | ✓ | gallery: 8 thumbnails |  |
 | ✓ | gallery: thumbnail changes image |  |
 | ✓ | gallery: counter 3 / 8 |  |
@@ -294,7 +294,7 @@ _Generated 2026-09-29T13:05:46.979Z by `npm run qa`._
 | ✓ | catalog: clear restores all |  |
 | ✓ | catalog: filter Foam -> 107 |  |
 | ✓ | catalog: designer Steve Shumate -> 11 |  |
-| ✓ | catalog: plan filter Source link only -> 109 |  |
+| ✓ | catalog: plan filter Plan archived here -> 109 |  |
 | ✓ | catalog: deep link -> 12 |  |
 | ✓ | catalog: unknown filter falls back to All |  |
 | ✓ | catalog: back button restores |  |
@@ -305,7 +305,7 @@ _Generated 2026-09-29T13:05:46.979Z by `npm run qa`._
 | ✓ | detail: "F-22 Raptor" |  |
 | ✓ | detail: no broken images |  |
 | ✓ | detail: gallery thumbnails render |  |
-| ✓ | detail: source link OK (Open original source) |  |
+| ✓ | detail: local download OK (Download ZIP) |  |
 | ✓ | gallery: 8 thumbnails |  |
 | ✓ | gallery: thumbnail changes image |  |
 | ✓ | gallery: counter 3 / 8 |  |
