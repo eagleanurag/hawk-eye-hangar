@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-29T11:41:32.960Z",
+  "generatedAt": "2026-09-29T12:10:30.071Z",
   "note": "Populated from repository evidence at recovery time, not asserted.",
   "tasks": [
     {
@@ -43,6 +43,18 @@
       "title": "Pass the browser QA matrix locally",
       "evidence": "232/232 browser checks across 8 viewports (1920/1440/1366/1024/768/430/390/375)",
       "at": "2026-09-29T11:41:32.944Z"
+    },
+    {
+      "id": "audit",
+      "title": "Pass the performance & accessibility audit",
+      "evidence": "payload + a11y audit clean: 496 targets measured, all standalone >=24px, 0 problems",
+      "at": "2026-09-29T12:09:52.828Z"
+    },
+    {
+      "id": "commit",
+      "title": "Commit all work to main",
+      "evidence": "066b4fc — all recovery work committed, working tree clean",
+      "at": "2026-09-29T12:10:30.070Z"
     }
   ]
 }

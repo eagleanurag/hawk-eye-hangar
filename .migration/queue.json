@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-29T11:33:26.660Z",
+  "generatedAt": "2026-09-29T12:17:34.319Z",
   "tasks": [
     {
       "id": "discover",
@@ -46,14 +46,14 @@
     {
       "id": "audit",
       "title": "Pass the performance & accessibility audit",
-      "done": false,
+      "done": true,
       "evidence": "scripts/audit.mjs"
     },
     {
       "id": "commit",
       "title": "Commit all work to main",
-      "done": false,
-      "evidence": "10 uncommitted change(s)"
+      "done": true,
+      "evidence": "9 uncommitted change(s)"
     },
     {
       "id": "deploy",
@@ -70,7 +70,7 @@
     {
       "id": "recovery",
       "title": "Install the power-loss recovery mechanism and scheduled task",
-      "done": false,
+      "done": true,
       "evidence": "scripts/resume-parkjets.ps1 + scheduled task"
     }
   ]

@@ -205,10 +205,13 @@ No code changes required. Four steps:
 | `npm run validate` | Data integrity gate — **must pass before deploy** |
 | `npm test` | 29 unit/integrity tests |
 | `npm run check-links` | Post-build audit of links, assets, alt text and ARIA wiring |
+| `npm run audit` | Payload measurement + accessibility audit |
 | `npm run report` | Regenerate `reports/migration-report.{json,md}` |
 | `npm run qa` | Headless-browser test matrix across 8 viewports |
-| `npm run verify` | validate + test + build, the full local gate |
+| `npm run qa -- --url <pages url>` | The same matrix against the deployed site |
+| `npm run verify` | validate + test + build + check-links + audit |
 | `npm run migrate` | Re-run the whole import pipeline against the live site |
+| `npm run resume` | Crash / power-loss recovery (see below) |
 
 The `npm run migrate` chain is a **one-shot migration tool**. The deployed site never calls
 it and never depends on parkjets.com being online.
@@ -244,10 +247,83 @@ phones home to nobody.
 
 * [`reports/migration-report.md`](reports/migration-report.md) — what was found, what was
   imported, what could not be archived and why
-* [`reports/qa-report.json`](reports/qa-report.json) — per-viewport browser test results
+* [`reports/qa-report.md`](reports/qa-report.md) — the browser test matrix, per viewport and
+  per check
+* [`reports/audit-report.md`](reports/audit-report.md) — payload measurements and the
+  accessibility checks
 * [`reports/image-extraction.json`](reports/image-extraction.json) — image download log
 * [`data/archive-manifest.json`](data/archive-manifest.json) — per-aircraft checksum and
   validation audit trail
+
+---
+
+## Crash and power-loss recovery
+
+The migration is driven by a durable state file rather than by memory, so a power cut, a
+crashed terminal or a reboot can never lose track of what is done.
+
+```
+.migration/
+├── state.json       status, phase, last commit, evidence snapshot
+├── queue.json       every task and whether it is done
+├── completed.json   completed tasks, with the evidence that proves each one
+├── failed.json      failures, with attempt counts and retry guidance
+├── checkpoint.json  last checkpoint (commit, dirty-file count, in-sync flag)
+└── logs/            append-only human-readable log
+```
+
+Nothing in that state is asserted; every flag is derived from the repository itself by
+`scripts/migration-state.mjs`.
+
+```bash
+npm run state            # full status, with live evidence
+npm run state:next       # the single next task
+npm run state:evidence   # the raw evidence as JSON
+```
+
+### Resuming by hand
+
+```powershell
+npm run resume:status     # show the decision, launch nothing
+npm run resume:dry-run    # show the exact command AND whether a real run would launch
+npm run resume            # actually resume
+```
+
+or double-click **`scripts\resume-parkjets.cmd`**.
+
+### Resuming automatically
+
+Install the Windows scheduled task once:
+
+```powershell
+npm run resume:install-task
+```
+
+This registers **`ParkjetsArchiveRecovery`**, which runs at every logon (with a one-minute
+delay) and once a day. `-StartWhenAvailable` means a logon that happened while the machine
+was off is not missed, and `-MultipleInstances IgnoreNew` means overlapping triggers cannot
+stack. To remove it:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts\resume-parkjets.ps1 -UninstallTask
+```
+
+### What the resume script will never do
+
+| Guard | Behaviour |
+|---|---|
+| Project complete | Reads `status: "completed"` **and** cross-checks that the queue and failure list are empty, then exits 0 without launching. A stale or hand-edited state file cannot cause a relaunch loop. |
+| Already running | Two independent guards: a lock file holding a live PID, and a process scan for any running `opencode`. If either trips, it exits 0 without launching. |
+| Crashed previous run | A lock file whose PID no longer exists is detected, logged and cleared, so a crash does not wedge the project permanently. |
+| Your work | Only ever runs `git status` for the record. It never resets, cleans, checks out or otherwise touches the working tree. |
+| Failed task | Recorded in `failed.json` with its reason and attempt count. Recoverable failures are retried first on the next run. |
+
+Each run appends to `.migration/logs/resume-YYYY-MM.log`.
+
+> **Windows PowerShell 5.1 note.** `scripts\resume-parkjets.ps1` is deliberately ASCII-only
+> and carries a UTF-8 BOM, because 5.1 mis-decodes a BOM-less UTF-8 file and turns an
+> em dash into a syntax error. `npm run icons` is unrelated, but
+> `node scripts/normalize-scripts.mjs` re-asserts this and is run before every commit.
 
 ## Licence
 

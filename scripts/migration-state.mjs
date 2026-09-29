@@ -122,6 +122,11 @@ function gatherEvidence() {
   const statusCounts = {};
   for (const a of aircraft) statusCounts[a.archiveStatus] = (statusCounts[a.archiveStatus] || 0) + 1;
 
+  const creditedDesigners = new Set(
+    aircraft.map((a) => a.designerKey).filter((k) => k && k !== 'uncredited')
+  ).size;
+  const uncreditedDesigners = aircraft.filter((a) => !a.designer || a.designerKey === 'uncredited').length;
+
   return {
     aircraftRecords: aircraft.length,
     uniqueSlugs: new Set(aircraft.map((a) => a.slug)).size,
@@ -130,7 +135,8 @@ function gatherEvidence() {
     withSpecifications: aircraft.filter((a) => Object.keys(a.specifications).length).length,
     withImages: aircraft.filter((a) => a.images.length).length,
     imageReferences: aircraft.reduce((s, a) => s + a.images.length, 0),
-    designers: new Set(aircraft.map((a) => a.designerKey).filter((k) => k && k !== 'uncredited')).size,
+    designers: creditedDesigners,
+    uncreditedDesigners,
     categories: new Set(aircraft.flatMap((a) => a.category)).size,
     archiveStatus: statusCounts,
     manifestEntries: manifest.entries?.length ?? 0,
@@ -411,22 +417,34 @@ function complete(commit) {
 }
 
 function show() {
-  const { state, queue } = load();
-  const ev = state.evidence || gatherEvidence();
+  const { state } = load();
+  // Always show live evidence, never the snapshot taken at init time.
+  const ev = gatherEvidence();
+  const queue = refreshQueue().queue;
+  state.evidence = ev;
+  state.lastKnownCommit = ev.head;
+  state.branch = ev.branch;
+  if (state.status !== 'completed') {
+    state.resumeRequired = !(state.status === 'completed');
+  }
+  saveState(state);
+
   console.log('');
   console.log('  Parkjets migration state');
   console.log('  ─────────────────────────────────────────────');
   console.log(`  status          ${state.status} (phase: ${state.phase})`);
-  console.log(`  commit          ${String(state.lastKnownCommit).slice(0, 7)} on ${state.branch}`);
+  console.log(`  commit          ${String(ev.head).slice(0, 7)} on ${ev.branch}  (origin ${String(ev.originHead).slice(0, 7)}${ev.head === ev.originHead ? ', in sync' : ', DIVERGED'})`);
   console.log(`  pages           ${state.pagesUrl}`);
-  console.log(`  aircraft        ${ev.aircraftRecords}`);
-  console.log(`  photographs     ${ev.mediaFiles} files / ${(ev.mediaBytes / 1048576).toFixed(1)} MB`);
+  console.log(`  aircraft        ${ev.aircraftRecords}  (${ev.uniqueSlugs} unique slugs, ${ev.uniqueSourceUrls} unique source URLs)`);
+  console.log(`  photographs     ${ev.mediaFiles} files / ${(ev.mediaBytes / 1048576).toFixed(1)} MB across ${ev.mediaDirs} aircraft`);
   console.log(`  archive status  ${Object.entries(ev.archiveStatus || {}).map(([k, v]) => `${k}=${v}`).join('  ')}`);
+  console.log(`  designers       ${ev.designers} credited, ${ev.uncreditedDesigners} entry(s) with no credit`);
+  console.log(`  categories      ${ev.categories}`);
   console.log(`  dist pages      ${ev.distPages}`);
   console.log(`  dirty files     ${ev.dirtyFiles}`);
   console.log(`  last checkpoint ${state.lastCheckpoint || '(none)'} — ${state.lastCheckpointReason || ''}`);
   console.log('');
-  for (const t of queue.tasks || []) {
+  for (const t of queue || []) {
     console.log(`  ${t.done ? '✓' : '·'} ${t.id.padEnd(14)} ${t.title}`);
     if (!t.done) console.log(`      pending — ${t.evidence}`);
   }

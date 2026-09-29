@@ -1,8 +1,11 @@
 {
-  "at": "2026-09-29T11:33:26.663Z",
-  "reason": "power-loss-recovery",
-  "commit": "a6fe0a8eda2d8251faf553b25e244eea2ed88f53",
-  "dirtyFiles": 10,
+  "at": "2026-09-29T12:09:52.707Z",
+  "reason": "recovery: defects fixed, all local gates green",
+  "commit": "066b4fcf00d83ab5202879c083fa2190f08c609d",
+  "branch": "main",
+  "originHead": "a6fe0a8eda2d8251faf553b25e244eea2ed88f53",
+  "dirtyFiles": 0,
+  "inSync": false,
   "evidence": {
     "aircraftRecords": 109,
     "uniqueSlugs": 109,
@@ -22,10 +25,10 @@
     "mediaBytes": 50413786,
     "distPages": 114,
     "distFiles": 972,
-    "head": "a6fe0a8eda2d8251faf553b25e244eea2ed88f53",
+    "head": "066b4fcf00d83ab5202879c083fa2190f08c609d",
     "branch": "main",
     "originHead": "a6fe0a8eda2d8251faf553b25e244eea2ed88f53",
-    "dirtyFiles": 10,
+    "dirtyFiles": 0,
     "npmAuditClean": true
   }
 }

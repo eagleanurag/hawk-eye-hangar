@@ -12,6 +12,15 @@ work/
 # Regenerate with `npm run qa -- --shots`.
 reports/screenshots/
 
+# ---- migration runtime -----------------------------------------------------
+# The recovery lock and the raw agent transcript are machine-local. The state,
+# queue, completed/failed records, checkpoints and human-readable logs ARE
+# committed: they are the audit trail.
+.migration/resume.lock
+.migration/logs/opencode-stdout.log
+.migration/logs/opencode-stderr.log
+.migration/logs/resume-prompt.txt
+
 # ---- secrets ---------------------------------------------------------------
 .env
 .env.*

@@ -11,6 +11,9 @@ import path from 'node:path';
 import { ROOT, log } from './lib.mjs';
 
 const SKIP_DIRS = new Set(['node_modules', 'dist', '.git', '.astro', 'work', 'reports']);
+// Windows script files need their UTF-8 BOM for PowerShell 5.1 to parse them.
+// They are handled by scripts/normalize-scripts.mjs instead.
+const BOM_EXEMPT = /\.(ps1|psm1|cmd|bat)$/i;
 const BINARY = new Set([
   '.png', '.jpg', '.jpeg', '.webp', '.gif', '.ico', '.zip', '.pdf', '.dxf',
   '.woff', '.woff2', '.ttf', '.otf', '.mp4', '.webm',
@@ -29,6 +32,7 @@ function walk(dir) {
     }
     const p = path.join(dir, e.name);
     if (BINARY.has(path.extname(e.name).toLowerCase())) continue;
+    if (BOM_EXEMPT.test(e.name)) continue;
     const buf = fs.readFileSync(p);
     scanned += 1;
     if (buf.length >= 3 && buf[0] === 0xef && buf[1] === 0xbb && buf[2] === 0xbf) {

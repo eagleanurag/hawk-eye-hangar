@@ -23,7 +23,16 @@
     "preview": "astro preview",
     "dev": "astro dev",
     "test": "node --test tests/*.test.mjs",
-    "verify": "npm run validate && npm run test && npm run build"
+    "verify": "npm run validate && npm run test && npm run build && npm run check-links && npm run audit",
+    "audit": "node scripts/audit.mjs",
+    "state": "node scripts/migration-state.mjs show",
+    "state:next": "node scripts/migration-state.mjs next",
+    "state:evidence": "node scripts/migration-state.mjs evidence",
+    "resume": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/resume-parkjets.ps1",
+    "resume:status": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/resume-parkjets.ps1 -Status",
+    "resume:dry-run": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/resume-parkjets.ps1 -DryRun",
+    "resume:install-task": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/resume-parkjets.ps1 -InstallTask",
+    "ci:local": "npm run verify && npm run qa"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.4",
