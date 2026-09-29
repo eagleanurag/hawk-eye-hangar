@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-29T20:51:28.392Z",
+  "generatedAt": "2026-09-29T22:58:25.228Z",
   "repository": "https://github.com/eagleanurag/parkjet-aircraft-archive",
   "pagesUrl": "https://eagleanurag.github.io/parkjet-aircraft-archive",
   "buildStatus": "built",
@@ -7,22 +7,22 @@
     {
       "name": "GET /",
       "ok": true,
-      "detail": "HTTP 200, 49997 bytes, text/html; charset=utf-8"
+      "detail": "HTTP 200, 52510 bytes, text/html; charset=utf-8"
     },
     {
       "name": "GET /catalog",
       "ok": true,
-      "detail": "HTTP 200, 320853 bytes, text/html; charset=utf-8"
+      "detail": "HTTP 200, 306619 bytes, text/html; charset=utf-8"
     },
     {
       "name": "GET /designers",
       "ok": true,
-      "detail": "HTTP 200, 57614 bytes, text/html; charset=utf-8"
+      "detail": "HTTP 200, 58321 bytes, text/html; charset=utf-8"
     },
     {
       "name": "GET /about",
       "ok": true,
-      "detail": "HTTP 200, 23133 bytes, text/html; charset=utf-8"
+      "detail": "HTTP 200, 24126 bytes, text/html; charset=utf-8"
     },
     {
       "name": "GET /robots.txt",
@@ -42,7 +42,7 @@
     {
       "name": "GET /favicon.svg",
       "ok": true,
-      "detail": "HTTP 200, 825 bytes, image/svg+xml"
+      "detail": "HTTP 200, 964 bytes, image/svg+xml"
     },
     {
       "name": "GET /og-default.png",
@@ -57,32 +57,32 @@
     {
       "name": "aircraft page /aircraft/f-22-raptor",
       "ok": true,
-      "detail": "HTTP 200, 30929 bytes"
+      "detail": "HTTP 200, 31614 bytes"
     },
     {
       "name": "aircraft page /aircraft/mig-15",
       "ok": true,
-      "detail": "HTTP 200, 21192 bytes"
+      "detail": "HTTP 200, 21877 bytes"
     },
     {
       "name": "aircraft page /aircraft/su-37-super-flanker",
       "ok": true,
-      "detail": "HTTP 200, 32206 bytes"
+      "detail": "HTTP 200, 32891 bytes"
     },
     {
       "name": "aircraft page /aircraft/a-4-skyhawk",
       "ok": true,
-      "detail": "HTTP 200, 22599 bytes"
+      "detail": "HTTP 200, 23284 bytes"
     },
     {
       "name": "aircraft page /aircraft/cargo-twin",
       "ok": true,
-      "detail": "HTTP 200, 24334 bytes"
+      "detail": "HTTP 200, 25019 bytes"
     },
     {
       "name": "aircraft page /aircraft/a-6-intruder",
       "ok": true,
-      "detail": "HTTP 200, 17366 bytes"
+      "detail": "HTTP 200, 18051 bytes"
     },
     {
       "name": "media j-31-falcon-hawk/07-1200.webp",
@@ -172,7 +172,7 @@
     {
       "name": "deep link /catalog?q=…&category=…",
       "ok": true,
-      "detail": "HTTP 200, 320853 bytes"
+      "detail": "HTTP 200, 306619 bytes"
     },
     {
       "name": "deep link with odd encoding",

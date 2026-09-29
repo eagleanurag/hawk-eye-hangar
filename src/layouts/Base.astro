@@ -23,7 +23,15 @@ const {
 const path = Astro.url.pathname;
 const canonicalUrl = canonical ?? abs(path);
 const ogImage = image.startsWith('http') ? image : abs(image);
-const fullTitle = title === SITE.name ? title : `${title} · ${SITE.name}`;
+/*
+ * Append the brand suffix only when the supplied title does not already carry
+ * it. Without this the homepage rendered as
+ * "EagleEye Hangar - RC Aircraft Plans & Designs - EagleEye Hangar".
+ */
+const fullTitle =
+  title === SITE.name || title.toLowerCase().includes(SITE.name.toLowerCase())
+    ? title
+    : `${title} · ${SITE.name}`;
 ---
 
 <!doctype html>
