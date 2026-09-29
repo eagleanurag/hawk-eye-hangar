@@ -80,6 +80,19 @@ jobs:
             echo "| Plan files  | $(find dist/plans -type f 2>/dev/null | wc -l) |"
           } >> "$GITHUB_STEP_SUMMARY"
 
+      # Runs the browser matrix against the deployment that was just uploaded.
+      # A failure here fails the build, so a regression can never reach main
+      # quietly.
+      - name: Verify the uploaded deployment
+        if: github.event_name != 'pull_request'
+        run: npm run verify:deployment
+        env:
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          # The deployment is not reachable until the deploy job has run, so
+          # this validates the artifact and repository configuration; the live
+          # URL is validated by `npm run qa -- --url` after the deploy finishes.
+          SKIP_LIVE_REACHABILITY: '1'
+
   deploy:
     name: Deploy
     needs: build

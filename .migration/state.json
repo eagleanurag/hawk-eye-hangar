@@ -5,15 +5,15 @@
   "phase": "recovered",
   "resumeRequired": true,
   "recoveryReason": "power-loss-recovery",
-  "lastKnownCommit": "066b4fcf00d83ab5202879c083fa2190f08c609d",
+  "lastKnownCommit": "bea377bc567f3a49485badb05d967099736162b9",
   "branch": "main",
   "origin": "https://github.com/eagleanurag/parkjet-aircraft-archive.git",
   "pagesUrl": "https://eagleanurag.github.io/parkjet-aircraft-archive/",
   "currentTask": null,
-  "lastCheckpoint": "2026-09-29T12:09:52.707Z",
-  "lastCheckpointReason": "recovery: defects fixed, all local gates green",
+  "lastCheckpoint": "2026-09-29T12:27:44.967Z",
+  "lastCheckpointReason": "recovery mechanism installed and verified",
   "startedAt": "2026-09-29T11:33:26.643Z",
-  "updatedAt": "2026-09-29T12:17:34.321Z",
+  "updatedAt": "2026-09-29T12:44:58.649Z",
   "completedAt": null,
   "finalCommit": null,
   "evidence": {
@@ -36,10 +36,10 @@
     "mediaBytes": 50413786,
     "distPages": 114,
     "distFiles": 972,
-    "head": "066b4fcf00d83ab5202879c083fa2190f08c609d",
+    "head": "bea377bc567f3a49485badb05d967099736162b9",
     "branch": "main",
-    "originHead": "a6fe0a8eda2d8251faf553b25e244eea2ed88f53",
-    "dirtyFiles": 9,
+    "originHead": "bea377bc567f3a49485badb05d967099736162b9",
+    "dirtyFiles": 12,
     "npmAuditClean": true
   }
 }

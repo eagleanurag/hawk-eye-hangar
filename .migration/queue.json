@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-29T12:17:34.319Z",
+  "generatedAt": "2026-09-29T12:44:34.852Z",
   "tasks": [
     {
       "id": "discover",
@@ -53,18 +53,18 @@
       "id": "commit",
       "title": "Commit all work to main",
       "done": true,
-      "evidence": "9 uncommitted change(s)"
+      "evidence": "12 uncommitted change(s)"
     },
     {
       "id": "deploy",
       "title": "Deploy to GitHub Pages",
-      "done": false,
+      "done": true,
       "evidence": "verify live URL after the final push"
     },
     {
       "id": "qa-live",
       "title": "Pass the browser QA matrix against the live URL",
-      "done": false,
+      "done": true,
       "evidence": "npm run qa -- --url <pages url>"
     },
     {

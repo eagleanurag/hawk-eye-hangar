@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-29T12:10:30.071Z",
+  "generatedAt": "2026-09-29T12:44:58.647Z",
   "note": "Populated from repository evidence at recovery time, not asserted.",
   "tasks": [
     {
@@ -55,6 +55,24 @@
       "title": "Commit all work to main",
       "evidence": "066b4fc — all recovery work committed, working tree clean",
       "at": "2026-09-29T12:10:30.070Z"
+    },
+    {
+      "id": "recovery",
+      "title": "Install the power-loss recovery mechanism and scheduled task",
+      "evidence": "ParkjetsArchiveRecovery installed (logon+daily, StartWhenAvailable, IgnoreNew); task runs, LastTaskResult 0; all 4 duplicate/complete guards verified",
+      "at": "2026-09-29T12:27:44.532Z"
+    },
+    {
+      "id": "deploy",
+      "title": "Deploy to GitHub Pages",
+      "evidence": "pushed bea377b; workflow run 36568295524 succeeded; Pages status=built",
+      "at": "2026-09-29T12:44:58.485Z"
+    },
+    {
+      "id": "qa-live",
+      "title": "Pass the browser QA matrix against the live URL",
+      "evidence": "240/240 live checks at 8 viewports; 39/39 deployment checks; no Squarespace markup or third-party requests",
+      "at": "2026-09-29T12:44:58.646Z"
     }
   ]
 }

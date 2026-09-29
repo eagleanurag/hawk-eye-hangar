@@ -1,10 +1,10 @@
 {
-  "at": "2026-09-29T12:09:52.707Z",
-  "reason": "recovery: defects fixed, all local gates green",
-  "commit": "066b4fcf00d83ab5202879c083fa2190f08c609d",
+  "at": "2026-09-29T12:27:44.967Z",
+  "reason": "recovery mechanism installed and verified",
+  "commit": "bea377bc567f3a49485badb05d967099736162b9",
   "branch": "main",
   "originHead": "a6fe0a8eda2d8251faf553b25e244eea2ed88f53",
-  "dirtyFiles": 0,
+  "dirtyFiles": 2,
   "inSync": false,
   "evidence": {
     "aircraftRecords": 109,
@@ -15,6 +15,7 @@
     "withImages": 109,
     "imageReferences": 419,
     "designers": 49,
+    "uncreditedDesigners": 2,
     "categories": 7,
     "archiveStatus": {
       "SOURCE_ONLY": 109
@@ -25,10 +26,10 @@
     "mediaBytes": 50413786,
     "distPages": 114,
     "distFiles": 972,
-    "head": "066b4fcf00d83ab5202879c083fa2190f08c609d",
+    "head": "bea377bc567f3a49485badb05d967099736162b9",
     "branch": "main",
     "originHead": "a6fe0a8eda2d8251faf553b25e244eea2ed88f53",
-    "dirtyFiles": 0,
+    "dirtyFiles": 2,
     "npmAuditClean": true
   }
 }

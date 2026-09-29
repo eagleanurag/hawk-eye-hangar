@@ -1,0 +1,110 @@
+{
+  "generatedAt": "2026-09-29T12:40:03.015Z",
+  "repository": "https://github.com/eagleanurag/parkjet-aircraft-archive",
+  "pagesUrl": "https://eagleanurag.github.io/parkjet-aircraft-archive",
+  "buildStatus": "skipped (CI: not reachable until the deploy job runs)",
+  "results": [
+    {
+      "name": "Pages build_type is \"workflow\"",
+      "ok": true,
+      "detail": "build_type=workflow"
+    },
+    {
+      "name": "Pages source is main",
+      "ok": true,
+      "detail": "branch=main"
+    },
+    {
+      "name": "Pages html_url matches site.json",
+      "ok": true,
+      "detail": "https://eagleanurag.github.io/parkjet-aircraft-archive/"
+    },
+    {
+      "name": "HTTPS enforced",
+      "ok": true,
+      "detail": "true"
+    },
+    {
+      "name": "artifact contains index.html",
+      "ok": true,
+      "detail": "50061 bytes"
+    },
+    {
+      "name": "artifact contains 404.html",
+      "ok": true,
+      "detail": "8702 bytes"
+    },
+    {
+      "name": "artifact contains catalog/index.html",
+      "ok": true,
+      "detail": "321726 bytes"
+    },
+    {
+      "name": "artifact contains designers/index.html",
+      "ok": true,
+      "detail": "57614 bytes"
+    },
+    {
+      "name": "artifact contains about/index.html",
+      "ok": true,
+      "detail": "23133 bytes"
+    },
+    {
+      "name": "artifact contains robots.txt",
+      "ok": true,
+      "detail": "305 bytes"
+    },
+    {
+      "name": "artifact contains sitemap-index.xml",
+      "ok": true,
+      "detail": "217 bytes"
+    },
+    {
+      "name": "artifact contains sitemap-0.xml",
+      "ok": true,
+      "detail": "17704 bytes"
+    },
+    {
+      "name": "artifact contains favicon.svg",
+      "ok": true,
+      "detail": "825 bytes"
+    },
+    {
+      "name": "artifact contains favicon.ico",
+      "ok": true,
+      "detail": "1653 bytes"
+    },
+    {
+      "name": "artifact contains og-default.png",
+      "ok": true,
+      "detail": "114886 bytes"
+    },
+    {
+      "name": "artifact contains apple-touch-icon.png",
+      "ok": true,
+      "detail": "2632 bytes"
+    },
+    {
+      "name": "artifact contains site.webmanifest",
+      "ok": true,
+      "detail": "487 bytes"
+    },
+    {
+      "name": "artifact contains a page for every aircraft",
+      "ok": true,
+      "detail": "109/109"
+    },
+    {
+      "name": "artifact contains every referenced image",
+      "ok": true,
+      "detail": "838 references checked"
+    },
+    {
+      "name": "media root exists",
+      "ok": true,
+      "detail": "C:\\Users\\eagleanurag\\Documents\\parkjets\\dist\\media\\aircraft"
+    }
+  ],
+  "passed": 20,
+  "failed": 0
+}

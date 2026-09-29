@@ -317,6 +317,9 @@ function begin(taskId) {
   console.log(`→ working: ${taskId}`);
 }
 
+/** A task is retried at most this many times before it needs a human. */
+export const MAX_ATTEMPTS = 3;
+
 function done(taskId, evidence) {
   const { state } = load();
   const completed = readJson(FILES.completed, { tasks: [] });
@@ -333,6 +336,19 @@ function done(taskId, evidence) {
   writeJson(FILES.completed, completed);
   if (t) t.done = true;
   writeJson(FILES.queue, { ...queue, tasks: queue.tasks });
+
+  // A later success supersedes any earlier failure for the same task.
+  const failed = readJson(FILES.failed, { tasks: [] });
+  if (failed.tasks?.some((f) => f.id === taskId)) {
+    for (const f of failed.tasks) {
+      if (f.id === taskId) {
+        f.recovered = true;
+        f.recoveredAt = now();
+      }
+    }
+    writeJson(FILES.failed, failed);
+  }
+
   state.currentTask = null;
   saveState(state);
   log(`done: ${taskId}${evidence ? ` — ${evidence}` : ''}`);
@@ -462,8 +478,24 @@ function show() {
 function nextTask() {
   const { queue } = load();
   const failed = readJson(FILES.failed, { tasks: [] });
-  const retry = failed.tasks.filter((f) => f.recovered !== false && f.recoverable !== false);
-  if (retry.length) return { id: retry[0].id, title: `retry after failure: ${retry[0].reason}`, retry: true };
+
+  /*
+   * Round-robin over unresolved, recoverable failures before moving on to the
+   * ordinary queue, so a transient network error is retried rather than
+   * abandoned. MAX_ATTEMPTS stops a permanently broken task from looping
+   * forever - it is left unresolved for a human instead.
+   */
+  const retryable = (failed.tasks || [])
+    .filter((f) => f.recovered === false && f.recoverable !== false && (f.attempts || 0) < MAX_ATTEMPTS)
+    .sort((a, b) => (a.attempts || 0) - (b.attempts || 0) || String(a.lastAttemptAt).localeCompare(String(b.lastAttemptAt)));
+  if (retryable.length) {
+    return {
+      id: retryable[0].id,
+      title: `retry (attempt ${(retryable[0].attempts || 0) + 1}/${MAX_ATTEMPTS}) after: ${retryable[0].lastError || retryable[0].reason}`,
+      retry: true,
+    };
+  }
+
   const pending = (queue.tasks || []).filter((t) => !t.done);
   if (!pending.length) return null;
   return { id: pending[0].id, title: pending[0].title, retry: false };
