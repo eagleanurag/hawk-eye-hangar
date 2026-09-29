@@ -1,6 +1,6 @@
 # Parkjets Archive — migration report
 
-_Generated 2026-09-29T02:29:48.353Z by `npm run report` from the actual archive artefacts.
+_Generated 2026-09-29T12:56:47.810Z by `npm run report` from the actual archive artefacts.
 Every number below is computed from `data/aircraft.json` and `data/archive-manifest.json`._
 
 ## 1. Source

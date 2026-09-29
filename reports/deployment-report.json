@@ -1,95 +1,205 @@
 {
-  "generatedAt": "2026-09-29T12:49:18.825Z",
+  "generatedAt": "2026-09-29T12:51:19.466Z",
   "repository": "https://github.com/eagleanurag/parkjet-aircraft-archive",
   "pagesUrl": "https://eagleanurag.github.io/parkjet-aircraft-archive",
-  "buildStatus": "skipped (CI: not reachable until the deploy job runs)",
+  "buildStatus": "built",
   "results": [
     {
-      "name": "Pages configuration checked (skipped: no API token available)",
+      "name": "GET /",
       "ok": true,
-      "detail": "best effort - the deploy job below fails if the Pages configuration is wrong"
+      "detail": "HTTP 200, 50061 bytes, text/html; charset=utf-8"
     },
     {
-      "name": "artifact contains index.html",
+      "name": "GET /catalog",
       "ok": true,
-      "detail": "50061 bytes"
+      "detail": "HTTP 200, 321726 bytes, text/html; charset=utf-8"
     },
     {
-      "name": "artifact contains 404.html",
+      "name": "GET /designers",
       "ok": true,
-      "detail": "8702 bytes"
+      "detail": "HTTP 200, 57614 bytes, text/html; charset=utf-8"
     },
     {
-      "name": "artifact contains catalog/index.html",
+      "name": "GET /about",
       "ok": true,
-      "detail": "321726 bytes"
+      "detail": "HTTP 200, 23133 bytes, text/html; charset=utf-8"
     },
     {
-      "name": "artifact contains designers/index.html",
+      "name": "GET /robots.txt",
       "ok": true,
-      "detail": "57614 bytes"
+      "detail": "HTTP 200, 305 bytes, text/plain; charset=utf-8"
     },
     {
-      "name": "artifact contains about/index.html",
+      "name": "GET /sitemap-index.xml",
       "ok": true,
-      "detail": "23133 bytes"
+      "detail": "HTTP 200, 217 bytes, application/xml"
     },
     {
-      "name": "artifact contains robots.txt",
+      "name": "GET /sitemap-0.xml",
       "ok": true,
-      "detail": "305 bytes"
+      "detail": "HTTP 200, 17704 bytes, application/xml"
     },
     {
-      "name": "artifact contains sitemap-index.xml",
+      "name": "GET /favicon.svg",
       "ok": true,
-      "detail": "217 bytes"
+      "detail": "HTTP 200, 825 bytes, image/svg+xml"
     },
     {
-      "name": "artifact contains sitemap-0.xml",
+      "name": "GET /og-default.png",
       "ok": true,
-      "detail": "17704 bytes"
+      "detail": "HTTP 200, 114886 bytes, image/png"
     },
     {
-      "name": "artifact contains favicon.svg",
+      "name": "GET /site.webmanifest",
       "ok": true,
-      "detail": "825 bytes"
+      "detail": "HTTP 200, 487 bytes, application/manifest+json; charset=utf-8"
     },
     {
-      "name": "artifact contains favicon.ico",
+      "name": "aircraft page /aircraft/f-22-raptor",
       "ok": true,
-      "detail": "1653 bytes"
+      "detail": "HTTP 200, 30943 bytes"
     },
     {
-      "name": "artifact contains og-default.png",
+      "name": "aircraft page /aircraft/mig-15",
       "ok": true,
-      "detail": "114886 bytes"
+      "detail": "HTTP 200, 21204 bytes"
     },
     {
-      "name": "artifact contains apple-touch-icon.png",
+      "name": "aircraft page /aircraft/su-37-super-flanker",
       "ok": true,
-      "detail": "2632 bytes"
+      "detail": "HTTP 200, 32219 bytes"
     },
     {
-      "name": "artifact contains site.webmanifest",
+      "name": "aircraft page /aircraft/a-4-skyhawk",
       "ok": true,
-      "detail": "487 bytes"
+      "detail": "HTTP 200, 22617 bytes"
     },
     {
-      "name": "artifact contains a page for every aircraft",
+      "name": "aircraft page /aircraft/decal-pack",
       "ok": true,
-      "detail": "109/109"
+      "detail": "HTTP 200, 26635 bytes"
     },
     {
-      "name": "artifact contains every referenced image",
+      "name": "aircraft page /aircraft/cargo-twin",
       "ok": true,
-      "detail": "838 references checked"
+      "detail": "HTTP 200, 24339 bytes"
     },
     {
-      "name": "media root exists",
+      "name": "aircraft page /aircraft/a-6-intruder",
       "ok": true,
-      "detail": "C:\\Users\\eagleanurag\\Documents\\parkjets\\dist\\media\\aircraft"
+      "detail": "HTTP 200, 17379 bytes"
+    },
+    {
+      "name": "media j-31-falcon-hawk/07-1200.webp",
+      "ok": true,
+      "detail": "HTTP 200, 643 KB on disk"
+    },
+    {
+      "name": "media sonic/01-1200.webp",
+      "ok": true,
+      "detail": "HTTP 200, 522 KB on disk"
+    },
+    {
+      "name": "media f-15-mk2/01-1200.webp",
+      "ok": true,
+      "detail": "HTTP 200, 493 KB on disk"
+    },
+    {
+      "name": "media f-18e-super-hornet/04-1200.webp",
+      "ok": true,
+      "detail": "HTTP 200, 457 KB on disk"
+    },
+    {
+      "name": "media cozy/02-400.webp",
+      "ok": true,
+      "detail": "HTTP 200, 2 KB on disk"
+    },
+    {
+      "name": "media cozy/02-400.webp",
+      "ok": true,
+      "detail": "HTTP 200, 2 KB on disk"
+    },
+    {
+      "name": "media cozy/02-400.webp",
+      "ok": true,
+      "detail": "HTTP 200, 2 KB on disk"
+    },
+    {
+      "name": "media j-31-falcon-hawk/07-1200.webp",
+      "ok": true,
+      "detail": "HTTP 200, 643 KB on disk"
+    },
+    {
+      "name": "media t-720-b/03-1200.webp",
+      "ok": true,
+      "detail": "HTTP 200, 127 KB on disk"
+    },
+    {
+      "name": "media f-14-tomcat/08-400.webp",
+      "ok": true,
+      "detail": "HTTP 200, 67 KB on disk"
+    },
+    {
+      "name": "media firefly-serenity/04-400.webp",
+      "ok": true,
+      "detail": "HTTP 200, 50 KB on disk"
+    },
+    {
+      "name": "media drongo/02-400.webp",
+      "ok": true,
+      "detail": "HTTP 200, 39 KB on disk"
+    },
+    {
+      "name": "media f-4-phantom-ii/03-400.webp",
+      "ok": true,
+      "detail": "HTTP 200, 27 KB on disk"
+    },
+    {
+      "name": "media t-50-pak-fa/04-400.webp",
+      "ok": true,
+      "detail": "HTTP 200, 19 KB on disk"
+    },
+    {
+      "name": "media f-18c-hornet/01-400.webp",
+      "ok": true,
+      "detail": "HTTP 200, 13 KB on disk"
+    },
+    {
+      "name": "media f-14-tomcat-3/02-1200.webp",
+      "ok": true,
+      "detail": "HTTP 200, 6 KB on disk"
+    },
+    {
+      "name": "404 for an unknown aircraft",
+      "ok": true,
+      "detail": "HTTP 404"
+    },
+    {
+      "name": "deep link /catalog?q=…&category=…",
+      "ok": true,
+      "detail": "HTTP 200, 321726 bytes"
+    },
+    {
+      "name": "deep link with odd encoding",
+      "ok": true,
+      "detail": "HTTP 200"
+    },
+    {
+      "name": "all sampled images served locally",
+      "ok": true,
+      "detail": "102 image references checked, 0 pointing off-site"
+    },
+    {
+      "name": "no Squarespace / analytics / ad requests on an aircraft page",
+      "ok": true,
+      "detail": "4 external request(s), all webfonts"
+    },
+    {
+      "name": "no Squarespace markup in the served page",
+      "ok": true,
+      "detail": "clean"
     }
   ],
-  "passed": 17,
+  "passed": 39,
   "failed": 0
 }

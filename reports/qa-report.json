@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-09-29T12:35:21.171Z",
-  "target": "https://eagleanurag.github.io/parkjet-aircraft-archive",
+  "generatedAt": "2026-09-29T12:56:06.148Z",
+  "target": "local build (dist/)",
   "viewports": [
     {
       "name": "desktop-1920",
@@ -279,7 +279,7 @@
     },
     {
       "vp": "desktop-1440",
-      "check": "detail: hero image paints on screen (237 distinct samples)",
+      "check": "detail: hero image paints on screen (256 distinct samples)",
       "ok": true
     },
     {

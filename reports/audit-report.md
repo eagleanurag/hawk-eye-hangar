@@ -1,6 +1,6 @@
 # Parkjets Archive — performance & accessibility audit
 
-_Generated 2026-09-29T11:52:03.906Z by `npm run audit`._
+_Generated 2026-09-29T12:52:27.780Z by `npm run audit`._
 
 ## Payload
 
