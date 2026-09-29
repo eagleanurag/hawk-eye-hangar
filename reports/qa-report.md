@@ -1,8 +1,8 @@
 # EagleEye Hangar — browser QA report
 
-_Generated 2026-09-29T23:02:34.423Z by `npm run qa`._
+_Generated 2026-09-29T23:07:11.462Z by `npm run qa`._
 
-**Target:** local build (dist/)
+**Target:** https://eagleanurag.github.io/parkjet-aircraft-archive
 
 **Result: 240/240 checks passed across 8 viewports.**
 
