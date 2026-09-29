@@ -1,0 +1,48 @@
+{
+  "generatedAt": "2026-09-29T11:41:32.960Z",
+  "note": "Populated from repository evidence at recovery time, not asserted.",
+  "tasks": [
+    {
+      "id": "discover",
+      "title": "Discover the Parkjets catalogue",
+      "evidence": "109 aircraft records, 109 manifest entries",
+      "at": "2026-09-29T11:33:26.661Z"
+    },
+    {
+      "id": "import",
+      "title": "Import aircraft metadata into data/aircraft.json",
+      "evidence": "109/109 unique slugs, 109 unique source URLs",
+      "at": "2026-09-29T11:33:26.661Z"
+    },
+    {
+      "id": "media",
+      "title": "Archive aircraft photographs locally",
+      "evidence": "838 files across 109/109 aircraft (48.1 MB)",
+      "at": "2026-09-29T11:33:26.661Z"
+    },
+    {
+      "id": "plans",
+      "title": "Classify plan files and build the archive manifest",
+      "evidence": "SOURCE_ONLY=109",
+      "at": "2026-09-29T11:33:26.661Z"
+    },
+    {
+      "id": "site",
+      "title": "Build the static site",
+      "evidence": "114 HTML pages, 972 files in dist/",
+      "at": "2026-09-29T11:33:26.661Z"
+    },
+    {
+      "id": "quality-gates",
+      "title": "Pass validate / test / check-links",
+      "evidence": "validate ✓, 29/29 tests ✓, check-links ✓ (114 pages, 4473 internal links, 0 errors)",
+      "at": "2026-09-29T11:36:36.792Z"
+    },
+    {
+      "id": "qa-local",
+      "title": "Pass the browser QA matrix locally",
+      "evidence": "232/232 browser checks across 8 viewports (1920/1440/1366/1024/768/430/390/375)",
+      "at": "2026-09-29T11:41:32.944Z"
+    }
+  ]
+}

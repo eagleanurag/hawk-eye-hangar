@@ -38,19 +38,20 @@ const withDesigner = (key: string) =>
                   <a href={`${base}catalog?designer=${encodeURIComponent(d.value)}`} data-no-transition>{d.value}</a>
                 </h2>
                 <p class="mono designer-meta">
-                  {d.count} design{d.count === 1 ? '' : 's'} · {works.reduce((s, w) => s + w.images.length, 0)} photographs
+                  {d.count} design{d.count === 1 ? '' : 's'}<br />
+                  {works.reduce((s, w) => s + w.images.length, 0)} photographs
                 </p>
-                <ul class="work-list">
-                  {works.map((w) => (
-                    <li>
-                      <a href={`${base}aircraft/${w.slug}`} data-no-transition>
-                        {w.displayName}
-                        <span class="mono work-cat">{w.category.join(' · ') || 'uncategorised'}</span>
-                      </a>
-                    </li>
-                  ))}
-                </ul>
               </div>
+              <ul class="work-list">
+                {works.map((w) => (
+                  <li>
+                    <a href={`${base}aircraft/${w.slug}`} data-no-transition>
+                      {w.displayName}
+                      <span class="mono work-cat">{w.category.join(' · ') || 'uncategorised'}</span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
             </li>
           );
         })}
@@ -98,8 +99,9 @@ const withDesigner = (key: string) =>
   }
   .designer-block {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
-    gap: 1rem 2rem;
+    grid-template-columns: minmax(11rem, 16rem) minmax(0, 1fr);
+    gap: 1.25rem 2rem;
+    align-items: start;
   }
   .designer-name {
     font-size: var(--step-1);
@@ -107,16 +109,20 @@ const withDesigner = (key: string) =>
   }
   .designer-name a {
     text-decoration: none;
+    /* WCAG 2.5.8 — standalone link, needs a 24px minimum target. */
+    display: inline-block;
+    padding-block: 0.16rem;
   }
   .designer-name a:hover {
     color: var(--cyan);
   }
   .designer-meta {
-    font-size: 0.68rem;
-    letter-spacing: 0.14em;
+    font-size: 0.66rem;
+    line-height: 1.7;
+    letter-spacing: 0.13em;
     text-transform: uppercase;
     color: var(--text-faint);
-    margin-top: 0.3rem;
+    margin-top: 0.35rem;
   }
   .work-list {
     list-style: none;
@@ -124,7 +130,6 @@ const withDesigner = (key: string) =>
     display: flex;
     flex-wrap: wrap;
     gap: 0.4rem;
-    margin-top: 0.5rem;
   }
   .work-list a {
     display: inline-flex;
@@ -162,6 +167,7 @@ const withDesigner = (key: string) =>
   @media (max-width: 760px) {
     .designer-block {
       grid-template-columns: 1fr;
+      gap: 0.85rem;
     }
   }
 </style>

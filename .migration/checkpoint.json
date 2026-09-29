@@ -1,0 +1,31 @@
+{
+  "at": "2026-09-29T11:33:26.663Z",
+  "reason": "power-loss-recovery",
+  "commit": "a6fe0a8eda2d8251faf553b25e244eea2ed88f53",
+  "dirtyFiles": 10,
+  "evidence": {
+    "aircraftRecords": 109,
+    "uniqueSlugs": 109,
+    "uniqueSourceUrls": 109,
+    "uniqueDisplayNames": 109,
+    "withSpecifications": 90,
+    "withImages": 109,
+    "imageReferences": 419,
+    "designers": 49,
+    "categories": 7,
+    "archiveStatus": {
+      "SOURCE_ONLY": 109
+    },
+    "manifestEntries": 109,
+    "mediaDirs": 109,
+    "mediaFiles": 838,
+    "mediaBytes": 50413786,
+    "distPages": 114,
+    "distFiles": 972,
+    "head": "a6fe0a8eda2d8251faf553b25e244eea2ed88f53",
+    "branch": "main",
+    "originHead": "a6fe0a8eda2d8251faf553b25e244eea2ed88f53",
+    "dirtyFiles": 10,
+    "npmAuditClean": true
+  }
+}

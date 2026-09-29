@@ -127,6 +127,11 @@
     font-weight: 600;
     line-height: 1.12;
   }
+  /* Component `display` rules must never defeat the hidden attribute — the
+     catalogue filters by setting it. */
+  [hidden] {
+    display: none !important;
+  }
   p {
     text-wrap: pretty;
   }
@@ -642,7 +647,7 @@
   .card-body {
     display: flex;
     flex-direction: column;
-    gap: 0.55rem;
+    gap: 0.4rem;
     padding: 0.95rem 1.05rem 1.15rem;
     flex: 1;
   }
@@ -659,21 +664,35 @@
   .card-specs {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.3rem 0.5rem;
-    margin-top: auto;
+    gap: 0.2rem 0.5rem;
     font-family: var(--font-mono);
-    font-size: 0.7rem;
-    letter-spacing: 0.05em;
+    font-size: 0.68rem;
+    letter-spacing: 0.04em;
     color: var(--text-faint);
     text-transform: uppercase;
+  }
+  .card-specs--none {
+    font-style: italic;
+    text-transform: none;
+    letter-spacing: 0;
+  }
+  /* Status + action always sit on the card's baseline row, whatever the
+     number of specifications, so a grid of cards reads evenly. */
+  .card-foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.6rem;
+    margin-top: auto;
+    padding-top: 0.55rem;
+    border-top: 1px solid color-mix(in oklab, var(--line-soft) 60%, transparent);
   }
   .card-cta {
     display: inline-flex;
     align-items: center;
-    gap: 0.4rem;
-    margin-top: 0.15rem;
+    gap: 0.35rem;
     font-family: var(--font-mono);
-    font-size: 0.72rem;
+    font-size: 0.7rem;
     letter-spacing: 0.14em;
     text-transform: uppercase;
     color: var(--cyan);
@@ -684,9 +703,15 @@
   .card:hover .card-cta svg {
     transform: translateX(4px);
   }
-  .card-stretch {
+  .card-link {
+    color: inherit;
+    text-decoration: none;
+  }
+  .card-link::after {
+    content: '';
     position: absolute;
     inset: 0;
+    z-index: 1;
   }
 
   /* ---------- spec table ---------- */
@@ -779,6 +804,10 @@
     color: var(--text-dim);
     text-decoration: none;
     font-size: 0.9rem;
+    /* WCAG 2.5.8 — these are standalone list links, not links inside a
+       sentence, so each needs a 24px minimum target. */
+    display: inline-block;
+    padding-block: 0.24rem;
   }
   .footer-grid a:hover {
     color: var(--cyan);

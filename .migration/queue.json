@@ -1,0 +1,77 @@
+{
+  "generatedAt": "2026-09-29T11:33:26.660Z",
+  "tasks": [
+    {
+      "id": "discover",
+      "title": "Discover the Parkjets catalogue",
+      "done": true,
+      "evidence": "109 aircraft records, 109 manifest entries"
+    },
+    {
+      "id": "import",
+      "title": "Import aircraft metadata into data/aircraft.json",
+      "done": true,
+      "evidence": "109/109 unique slugs, 109 unique source URLs"
+    },
+    {
+      "id": "media",
+      "title": "Archive aircraft photographs locally",
+      "done": true,
+      "evidence": "838 files across 109/109 aircraft (48.1 MB)"
+    },
+    {
+      "id": "plans",
+      "title": "Classify plan files and build the archive manifest",
+      "done": true,
+      "evidence": "SOURCE_ONLY=109"
+    },
+    {
+      "id": "site",
+      "title": "Build the static site",
+      "done": true,
+      "evidence": "114 HTML pages, 972 files in dist/"
+    },
+    {
+      "id": "quality-gates",
+      "title": "Pass validate / test / check-links",
+      "done": true,
+      "evidence": "must be re-run after the final change"
+    },
+    {
+      "id": "qa-local",
+      "title": "Pass the browser QA matrix locally",
+      "done": true,
+      "evidence": "must be re-run after the final change"
+    },
+    {
+      "id": "audit",
+      "title": "Pass the performance & accessibility audit",
+      "done": false,
+      "evidence": "scripts/audit.mjs"
+    },
+    {
+      "id": "commit",
+      "title": "Commit all work to main",
+      "done": false,
+      "evidence": "10 uncommitted change(s)"
+    },
+    {
+      "id": "deploy",
+      "title": "Deploy to GitHub Pages",
+      "done": false,
+      "evidence": "verify live URL after the final push"
+    },
+    {
+      "id": "qa-live",
+      "title": "Pass the browser QA matrix against the live URL",
+      "done": false,
+      "evidence": "npm run qa -- --url <pages url>"
+    },
+    {
+      "id": "recovery",
+      "title": "Install the power-loss recovery mechanism and scheduled task",
+      "done": false,
+      "evidence": "scripts/resume-parkjets.ps1 + scheduled task"
+    }
+  ]
+}

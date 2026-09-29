@@ -415,11 +415,12 @@ const base = BASE;
   }
   .kv > div {
     display: grid;
-    grid-template-columns: 9.5rem 1fr;
-    gap: 0.5rem;
-    padding: 0.4rem 0;
+    grid-template-columns: 7.5rem minmax(0, 1fr);
+    gap: 0.6rem;
+    padding: 0.45rem 0;
     border-bottom: 1px solid color-mix(in oklab, var(--line-soft) 60%, transparent);
-    font-size: 0.86rem;
+    font-size: 0.84rem;
+    align-items: baseline;
   }
   .kv > div:last-child {
     border-bottom: 0;
@@ -427,17 +428,25 @@ const base = BASE;
   .kv dt {
     color: var(--text-faint);
     font-family: var(--font-mono);
-    font-size: 0.64rem;
-    letter-spacing: 0.11em;
+    font-size: 0.62rem;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
-    padding-top: 0.15rem;
+    padding-top: 0.16rem;
   }
   .kv dd {
     margin: 0;
+    min-width: 0;
     overflow-wrap: anywhere;
+  }
+  .kv dd.mono {
+    font-size: 0.82rem;
+    color: var(--text);
   }
   .link {
     color: var(--cyan);
+    /* WCAG 2.5.8 — these links are the whole content of their <dd>. */
+    display: inline-block;
+    padding-block: 0.24rem;
   }
   @media (max-width: 980px) {
     .layout {

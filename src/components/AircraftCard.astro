@@ -73,7 +73,7 @@ const searchBlob = [
 
   <div class="card-body">
     <h3 class="card-title">
-      <a class="card-stretch" href={href}>{a.displayName}</a>
+      <a class="card-link" href={href}>{a.displayName}</a>
     </h3>
     <p class="card-designer">
       {a.designer ? (
@@ -83,28 +83,31 @@ const searchBlob = [
       )}
     </p>
 
-    {specs.length > 0 && (
+    {specs.length > 0 ? (
       <p class="card-specs">
         {specs.map((k) => (
           <span>{k.replace(/([A-Z])/g, ' $1').trim()}: {a.specifications[k]}</span>
         ))}
       </p>
+    ) : (
+      <p class="card-specs card-specs--none">No published specifications</p>
     )}
 
-    <span class={`chip chip--${status.tone} card-status`}>{status.short}</span>
-
-    <span class="card-cta">
-      View aircraft
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <path d="M5 12h14M13 6l6 6-6 6" />
-      </svg>
-    </span>
+    <p class="card-foot">
+      <span class={`chip chip--${status.tone} card-status`}>{status.short}</span>
+      <span class="card-cta">
+        View
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M5 12h14M13 6l6 6-6 6" />
+        </svg>
+      </span>
+    </p>
   </div>
 </article>
 
 <style>
   .card-status {
-    align-self: flex-start;
+    flex: none;
   }
   .card-media-empty {
     display: grid;
@@ -115,5 +118,18 @@ const searchBlob = [
     letter-spacing: 0.12em;
     text-transform: uppercase;
     color: var(--text-faint);
+  }
+  /*
+   * The whole card is the click target, but the link TEXT must stay in normal
+   * flow — an absolutely positioned anchor would collapse the heading to zero
+   * height and paint the title over the badges. The pseudo-element on
+   * .card-link (in global.css) gives the large hit area instead.
+   */
+  .card-link:focus-visible {
+    outline: none;
+  }
+  .card:has(.card-link:focus-visible) {
+    outline: 2px solid var(--cyan);
+    outline-offset: 3px;
   }
 </style>

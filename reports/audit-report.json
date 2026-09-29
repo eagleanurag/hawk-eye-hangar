@@ -1,0 +1,67 @@
+{
+  "generatedAt": "2026-09-29T11:52:03.907Z",
+  "payload": {
+    "sharedJsBytes": 12339,
+    "sharedCssBytes": 50502,
+    "htmlBytes": 2974933,
+    "mediaBytes": 50413786,
+    "mediaFiles": 838
+  },
+  "firstLoad": [
+    {
+      "page": "home",
+      "js": 3723,
+      "css": 41714,
+      "images": 47334,
+      "other": 152037,
+      "count": 12
+    },
+    {
+      "page": "catalog",
+      "js": 9213,
+      "css": 38959,
+      "images": 897044,
+      "other": 423702,
+      "count": 16
+    },
+    {
+      "page": "detail",
+      "js": 6733,
+      "css": 44949,
+      "images": 47764,
+      "other": 132919,
+      "count": 14
+    },
+    {
+      "page": "designers",
+      "js": 3723,
+      "css": 34943,
+      "images": 0,
+      "other": 159590,
+      "count": 9
+    },
+    {
+      "page": "about",
+      "js": 3723,
+      "css": 37450,
+      "images": 0,
+      "other": 125109,
+      "count": 9
+    }
+  ],
+  "passes": [
+    "home: tap targets >= 24px (WCAG 2.5.8, 66 measured, 57 standalone)",
+    "catalog: tap targets >= 24px (WCAG 2.5.8, 185 measured, 182 standalone)",
+    "detail: tap targets >= 24px (WCAG 2.5.8, 48 measured, 39 standalone)",
+    "designers: tap targets >= 24px (WCAG 2.5.8, 169 measured, 166 standalone)",
+    "about: tap targets >= 24px (WCAG 2.5.8, 28 measured, 23 standalone)"
+  ],
+  "notes": [
+    "home: target-size — 66 measured, 9 inline-exempt, 57/57 standalone pass; smallest standalone 69x31",
+    "catalog: target-size — 185 measured, 3 inline-exempt, 182/182 standalone pass; smallest standalone 69x31",
+    "detail: target-size — 48 measured, 9 inline-exempt, 39/39 standalone pass; smallest standalone 96x29",
+    "designers: target-size — 169 measured, 3 inline-exempt, 166/166 standalone pass; smallest standalone 125x25",
+    "about: target-size — 28 measured, 5 inline-exempt, 23/23 standalone pass; smallest standalone 132x29"
+  ],
+  "problems": []
+}

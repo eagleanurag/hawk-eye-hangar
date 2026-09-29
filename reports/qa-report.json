@@ -1,0 +1,1256 @@
+{
+  "generatedAt": "2026-09-29T12:09:12.956Z",
+  "target": "local build (dist/)",
+  "viewports": [
+    {
+      "name": "desktop-1920",
+      "width": 1920,
+      "height": 1080,
+      "kind": "desktop"
+    },
+    {
+      "name": "desktop-1440",
+      "width": 1440,
+      "height": 900,
+      "kind": "desktop"
+    },
+    {
+      "name": "desktop-1366",
+      "width": 1366,
+      "height": 768,
+      "kind": "desktop"
+    },
+    {
+      "name": "tablet-1024",
+      "width": 1024,
+      "height": 1366,
+      "kind": "tablet"
+    },
+    {
+      "name": "tablet-768",
+      "width": 768,
+      "height": 1024,
+      "kind": "tablet"
+    },
+    {
+      "name": "mobile-430",
+      "width": 430,
+      "height": 932,
+      "kind": "mobile"
+    },
+    {
+      "name": "mobile-390",
+      "width": 390,
+      "height": 844,
+      "kind": "mobile"
+    },
+    {
+      "name": "mobile-375",
+      "width": 375,
+      "height": 812,
+      "kind": "mobile"
+    }
+  ],
+  "results": [
+    {
+      "vp": "desktop-1920",
+      "check": "home: no horizontal overflow",
+      "ok": true
+    },
+    {
+      "vp": "desktop-1920",
+      "check": "home: h1 present (PARKJETS ARCHIVE)",
+      "ok": true
+    },
+    {
+      "vp": "desktop-1920",
+      "check": "home: 8 featured cards",
+      "ok": true
+    },
+    {
+      "vp": "desktop-1920",
+      "check": "catalog: no horizontal overflow",
+      "ok": true
+    },
+    {
+      "vp": "desktop-1920",
+      "check": "catalog: 109 cards rendered",
+      "ok": true
+    },
+    {
+      "vp": "desktop-1920",
+      "check": "catalog: search \"f-22\" -> 109",
+      "ok": true
+    },
+    {
+      "vp": "desktop-1920",
+      "check": "catalog: count \"36 OF 109 AIRCRAFT MATCH\"",
+      "ok": true
+    },
+    {
+      "vp": "desktop-1920",
+      "check": "catalog: empty state shown",
+      "ok": true
+    },
+    {
+      "vp": "desktop-1920",
+      "check": "catalog: no-result hides every card",
+      "ok": true
+    },
+    {
+      "vp": "desktop-1920",
+      "check": "catalog: clear restores all",
+      "ok": true
+    },
+    {
+      "vp": "desktop-1920",
+      "check": "catalog: filter Foam -> 107",
+      "ok": true
+    },
+    {
+      "vp": "desktop-1920",
+      "check": "catalog: designer Steve Shumate -> 11",
+      "ok": true
+    },
+    {
+      "vp": "desktop-1920",
+      "check": "catalog: plan filter Source link only -> 109",
+      "ok": true
+    },
+    {
+      "vp": "desktop-1920",
+      "check": "catalog: deep link -> 12",
+      "ok": true
+    },
+    {
+      "vp": "desktop-1920",
+      "check": "catalog: unknown filter falls back to All",
+      "ok": true
+    },
+    {
+      "vp": "desktop-1920",
+      "check": "catalog: back button restores",
+      "ok": true
+    },
+    {
+      "vp": "desktop-1920",
+      "check": "detail: hero image paints on screen (256 distinct samples)",
+      "ok": true
+    },
+    {
+      "vp": "desktop-1920",
+      "check": "detail: no horizontal overflow",
+      "ok": true
+    },
+    {
+      "vp": "desktop-1920",
+      "check": "detail: \"F-22 Raptor\"",
+      "ok": true
+    },
+    {
+      "vp": "desktop-1920",
+      "check": "detail: no broken images",
+      "ok": true
+    },
+    {
+      "vp": "desktop-1920",
+      "check": "detail: gallery thumbnails render",
+      "ok": true
+    },
+    {
+      "vp": "desktop-1920",
+      "check": "detail: source link OK (Open original source)",
+      "ok": true
+    },
+    {
+      "vp": "desktop-1920",
+      "check": "gallery: 8 thumbnails",
+      "ok": true
+    },
+    {
+      "vp": "desktop-1920",
+      "check": "gallery: thumbnail changes image",
+      "ok": true
+    },
+    {
+      "vp": "desktop-1920",
+      "check": "gallery: counter 3 / 8",
+      "ok": true
+    },
+    {
+      "vp": "desktop-1920",
+      "check": "gallery: stage image paints (variance 34)",
+      "ok": true
+    },
+    {
+      "vp": "desktop-1920",
+      "check": "404 page served",
+      "ok": true
+    },
+    {
+      "vp": "desktop-1920",
+      "check": "no console errors",
+      "ok": true
+    },
+    {
+      "vp": "desktop-1920",
+      "check": "no failed requests",
+      "ok": true
+    },
+    {
+      "vp": "desktop-1440",
+      "check": "home: no horizontal overflow",
+      "ok": true
+    },
+    {
+      "vp": "desktop-1440",
+      "check": "home: h1 present (PARKJETS ARCHIVE)",
+      "ok": true
+    },
+    {
+      "vp": "desktop-1440",
+      "check": "home: 8 featured cards",
+      "ok": true
+    },
+    {
+      "vp": "desktop-1440",
+      "check": "catalog: no horizontal overflow",
+      "ok": true
+    },
+    {
+      "vp": "desktop-1440",
+      "check": "catalog: 109 cards rendered",
+      "ok": true
+    },
+    {
+      "vp": "desktop-1440",
+      "check": "catalog: search \"f-22\" -> 36",
+      "ok": true
+    },
+    {
+      "vp": "desktop-1440",
+      "check": "catalog: count \"36 OF 109 AIRCRAFT MATCH\"",
+      "ok": true
+    },
+    {
+      "vp": "desktop-1440",
+      "check": "catalog: empty state shown",
+      "ok": true
+    },
+    {
+      "vp": "desktop-1440",
+      "check": "catalog: no-result hides every card",
+      "ok": true
+    },
+    {
+      "vp": "desktop-1440",
+      "check": "catalog: clear restores all",
+      "ok": true
+    },
+    {
+      "vp": "desktop-1440",
+      "check": "catalog: filter Foam -> 107",
+      "ok": true
+    },
+    {
+      "vp": "desktop-1440",
+      "check": "catalog: designer Steve Shumate -> 11",
+      "ok": true
+    },
+    {
+      "vp": "desktop-1440",
+      "check": "catalog: plan filter Source link only -> 109",
+      "ok": true
+    },
+    {
+      "vp": "desktop-1440",
+      "check": "catalog: deep link -> 12",
+      "ok": true
+    },
+    {
+      "vp": "desktop-1440",
+      "check": "catalog: unknown filter falls back to All",
+      "ok": true
+    },
+    {
+      "vp": "desktop-1440",
+      "check": "catalog: back button restores",
+      "ok": true
+    },
+    {
+      "vp": "desktop-1440",
+      "check": "detail: hero image paints on screen (237 distinct samples)",
+      "ok": true
+    },
+    {
+      "vp": "desktop-1440",
+      "check": "detail: no horizontal overflow",
+      "ok": true
+    },
+    {
+      "vp": "desktop-1440",
+      "check": "detail: \"F-22 Raptor\"",
+      "ok": true
+    },
+    {
+      "vp": "desktop-1440",
+      "check": "detail: no broken images",
+      "ok": true
+    },
+    {
+      "vp": "desktop-1440",
+      "check": "detail: gallery thumbnails render",
+      "ok": true
+    },
+    {
+      "vp": "desktop-1440",
+      "check": "detail: source link OK (Open original source)",
+      "ok": true
+    },
+    {
+      "vp": "desktop-1440",
+      "check": "gallery: 8 thumbnails",
+      "ok": true
+    },
+    {
+      "vp": "desktop-1440",
+      "check": "gallery: thumbnail changes image",
+      "ok": true
+    },
+    {
+      "vp": "desktop-1440",
+      "check": "gallery: counter 3 / 8",
+      "ok": true
+    },
+    {
+      "vp": "desktop-1440",
+      "check": "gallery: stage image paints (variance 34)",
+      "ok": true
+    },
+    {
+      "vp": "desktop-1440",
+      "check": "404 page served",
+      "ok": true
+    },
+    {
+      "vp": "desktop-1440",
+      "check": "no console errors",
+      "ok": true
+    },
+    {
+      "vp": "desktop-1440",
+      "check": "no failed requests",
+      "ok": true
+    },
+    {
+      "vp": "desktop-1366",
+      "check": "home: no horizontal overflow",
+      "ok": true
+    },
+    {
+      "vp": "desktop-1366",
+      "check": "home: h1 present (PARKJETS ARCHIVE)",
+      "ok": true
+    },
+    {
+      "vp": "desktop-1366",
+      "check": "home: 8 featured cards",
+      "ok": true
+    },
+    {
+      "vp": "desktop-1366",
+      "check": "catalog: no horizontal overflow",
+      "ok": true
+    },
+    {
+      "vp": "desktop-1366",
+      "check": "catalog: 109 cards rendered",
+      "ok": true
+    },
+    {
+      "vp": "desktop-1366",
+      "check": "catalog: search \"f-22\" -> 36",
+      "ok": true
+    },
+    {
+      "vp": "desktop-1366",
+      "check": "catalog: count \"36 OF 109 AIRCRAFT MATCH\"",
+      "ok": true
+    },
+    {
+      "vp": "desktop-1366",
+      "check": "catalog: empty state shown",
+      "ok": true
+    },
+    {
+      "vp": "desktop-1366",
+      "check": "catalog: no-result hides every card",
+      "ok": true
+    },
+    {
+      "vp": "desktop-1366",
+      "check": "catalog: clear restores all",
+      "ok": true
+    },
+    {
+      "vp": "desktop-1366",
+      "check": "catalog: filter Foam -> 107",
+      "ok": true
+    },
+    {
+      "vp": "desktop-1366",
+      "check": "catalog: designer Steve Shumate -> 11",
+      "ok": true
+    },
+    {
+      "vp": "desktop-1366",
+      "check": "catalog: plan filter Source link only -> 109",
+      "ok": true
+    },
+    {
+      "vp": "desktop-1366",
+      "check": "catalog: deep link -> 12",
+      "ok": true
+    },
+    {
+      "vp": "desktop-1366",
+      "check": "catalog: unknown filter falls back to All",
+      "ok": true
+    },
+    {
+      "vp": "desktop-1366",
+      "check": "catalog: back button restores",
+      "ok": true
+    },
+    {
+      "vp": "desktop-1366",
+      "check": "detail: hero image paints on screen (256 distinct samples)",
+      "ok": true
+    },
+    {
+      "vp": "desktop-1366",
+      "check": "detail: no horizontal overflow",
+      "ok": true
+    },
+    {
+      "vp": "desktop-1366",
+      "check": "detail: \"F-22 Raptor\"",
+      "ok": true
+    },
+    {
+      "vp": "desktop-1366",
+      "check": "detail: no broken images",
+      "ok": true
+    },
+    {
+      "vp": "desktop-1366",
+      "check": "detail: gallery thumbnails render",
+      "ok": true
+    },
+    {
+      "vp": "desktop-1366",
+      "check": "detail: source link OK (Open original source)",
+      "ok": true
+    },
+    {
+      "vp": "desktop-1366",
+      "check": "gallery: 8 thumbnails",
+      "ok": true
+    },
+    {
+      "vp": "desktop-1366",
+      "check": "gallery: thumbnail changes image",
+      "ok": true
+    },
+    {
+      "vp": "desktop-1366",
+      "check": "gallery: counter 3 / 8",
+      "ok": true
+    },
+    {
+      "vp": "desktop-1366",
+      "check": "gallery: stage image paints (variance 34)",
+      "ok": true
+    },
+    {
+      "vp": "desktop-1366",
+      "check": "404 page served",
+      "ok": true
+    },
+    {
+      "vp": "desktop-1366",
+      "check": "no console errors",
+      "ok": true
+    },
+    {
+      "vp": "desktop-1366",
+      "check": "no failed requests",
+      "ok": true
+    },
+    {
+      "vp": "tablet-1024",
+      "check": "home: no horizontal overflow",
+      "ok": true
+    },
+    {
+      "vp": "tablet-1024",
+      "check": "home: h1 present (PARKJETS ARCHIVE)",
+      "ok": true
+    },
+    {
+      "vp": "tablet-1024",
+      "check": "home: 8 featured cards",
+      "ok": true
+    },
+    {
+      "vp": "tablet-1024",
+      "check": "catalog: no horizontal overflow",
+      "ok": true
+    },
+    {
+      "vp": "tablet-1024",
+      "check": "catalog: 109 cards rendered",
+      "ok": true
+    },
+    {
+      "vp": "tablet-1024",
+      "check": "catalog: search \"f-22\" -> 36",
+      "ok": true
+    },
+    {
+      "vp": "tablet-1024",
+      "check": "catalog: count \"36 OF 109 AIRCRAFT MATCH\"",
+      "ok": true
+    },
+    {
+      "vp": "tablet-1024",
+      "check": "catalog: empty state shown",
+      "ok": true
+    },
+    {
+      "vp": "tablet-1024",
+      "check": "catalog: no-result hides every card",
+      "ok": true
+    },
+    {
+      "vp": "tablet-1024",
+      "check": "catalog: clear restores all",
+      "ok": true
+    },
+    {
+      "vp": "tablet-1024",
+      "check": "catalog: filter Foam -> 107",
+      "ok": true
+    },
+    {
+      "vp": "tablet-1024",
+      "check": "catalog: designer Steve Shumate -> 11",
+      "ok": true
+    },
+    {
+      "vp": "tablet-1024",
+      "check": "catalog: plan filter Source link only -> 109",
+      "ok": true
+    },
+    {
+      "vp": "tablet-1024",
+      "check": "catalog: deep link -> 12",
+      "ok": true
+    },
+    {
+      "vp": "tablet-1024",
+      "check": "catalog: unknown filter falls back to All",
+      "ok": true
+    },
+    {
+      "vp": "tablet-1024",
+      "check": "catalog: back button restores",
+      "ok": true
+    },
+    {
+      "vp": "tablet-1024",
+      "check": "detail: hero image paints on screen (240 distinct samples)",
+      "ok": true
+    },
+    {
+      "vp": "tablet-1024",
+      "check": "detail: no horizontal overflow",
+      "ok": true
+    },
+    {
+      "vp": "tablet-1024",
+      "check": "detail: \"F-22 Raptor\"",
+      "ok": true
+    },
+    {
+      "vp": "tablet-1024",
+      "check": "detail: no broken images",
+      "ok": true
+    },
+    {
+      "vp": "tablet-1024",
+      "check": "detail: gallery thumbnails render",
+      "ok": true
+    },
+    {
+      "vp": "tablet-1024",
+      "check": "detail: source link OK (Open original source)",
+      "ok": true
+    },
+    {
+      "vp": "tablet-1024",
+      "check": "gallery: 8 thumbnails",
+      "ok": true
+    },
+    {
+      "vp": "tablet-1024",
+      "check": "gallery: thumbnail changes image",
+      "ok": true
+    },
+    {
+      "vp": "tablet-1024",
+      "check": "gallery: counter 3 / 8",
+      "ok": true
+    },
+    {
+      "vp": "tablet-1024",
+      "check": "gallery: stage image paints (variance 34)",
+      "ok": true
+    },
+    {
+      "vp": "tablet-1024",
+      "check": "404 page served",
+      "ok": true
+    },
+    {
+      "vp": "tablet-1024",
+      "check": "no console errors",
+      "ok": true
+    },
+    {
+      "vp": "tablet-1024",
+      "check": "no failed requests",
+      "ok": true
+    },
+    {
+      "vp": "tablet-768",
+      "check": "home: no horizontal overflow",
+      "ok": true
+    },
+    {
+      "vp": "tablet-768",
+      "check": "home: h1 present (PARKJETS ARCHIVE)",
+      "ok": true
+    },
+    {
+      "vp": "tablet-768",
+      "check": "home: 8 featured cards",
+      "ok": true
+    },
+    {
+      "vp": "tablet-768",
+      "check": "catalog: no horizontal overflow",
+      "ok": true
+    },
+    {
+      "vp": "tablet-768",
+      "check": "catalog: 109 cards rendered",
+      "ok": true
+    },
+    {
+      "vp": "tablet-768",
+      "check": "catalog: search \"f-22\" -> 36",
+      "ok": true
+    },
+    {
+      "vp": "tablet-768",
+      "check": "catalog: count \"36 OF 109 AIRCRAFT MATCH\"",
+      "ok": true
+    },
+    {
+      "vp": "tablet-768",
+      "check": "catalog: empty state shown",
+      "ok": true
+    },
+    {
+      "vp": "tablet-768",
+      "check": "catalog: no-result hides every card",
+      "ok": true
+    },
+    {
+      "vp": "tablet-768",
+      "check": "catalog: clear restores all",
+      "ok": true
+    },
+    {
+      "vp": "tablet-768",
+      "check": "catalog: filter Foam -> 107",
+      "ok": true
+    },
+    {
+      "vp": "tablet-768",
+      "check": "catalog: designer Steve Shumate -> 11",
+      "ok": true
+    },
+    {
+      "vp": "tablet-768",
+      "check": "catalog: plan filter Source link only -> 109",
+      "ok": true
+    },
+    {
+      "vp": "tablet-768",
+      "check": "catalog: deep link -> 12",
+      "ok": true
+    },
+    {
+      "vp": "tablet-768",
+      "check": "catalog: unknown filter falls back to All",
+      "ok": true
+    },
+    {
+      "vp": "tablet-768",
+      "check": "catalog: back button restores",
+      "ok": true
+    },
+    {
+      "vp": "tablet-768",
+      "check": "nav: hamburger visible",
+      "ok": true
+    },
+    {
+      "vp": "tablet-768",
+      "check": "nav: opens on tap",
+      "ok": true
+    },
+    {
+      "vp": "tablet-768",
+      "check": "detail: hero image paints on screen (256 distinct samples)",
+      "ok": true
+    },
+    {
+      "vp": "tablet-768",
+      "check": "detail: no horizontal overflow",
+      "ok": true
+    },
+    {
+      "vp": "tablet-768",
+      "check": "detail: \"F-22 Raptor\"",
+      "ok": true
+    },
+    {
+      "vp": "tablet-768",
+      "check": "detail: no broken images",
+      "ok": true
+    },
+    {
+      "vp": "tablet-768",
+      "check": "detail: gallery thumbnails render",
+      "ok": true
+    },
+    {
+      "vp": "tablet-768",
+      "check": "detail: source link OK (Open original source)",
+      "ok": true
+    },
+    {
+      "vp": "tablet-768",
+      "check": "gallery: 8 thumbnails",
+      "ok": true
+    },
+    {
+      "vp": "tablet-768",
+      "check": "gallery: thumbnail changes image",
+      "ok": true
+    },
+    {
+      "vp": "tablet-768",
+      "check": "gallery: counter 3 / 8",
+      "ok": true
+    },
+    {
+      "vp": "tablet-768",
+      "check": "gallery: stage image paints (variance 34)",
+      "ok": true
+    },
+    {
+      "vp": "tablet-768",
+      "check": "404 page served",
+      "ok": true
+    },
+    {
+      "vp": "tablet-768",
+      "check": "no console errors",
+      "ok": true
+    },
+    {
+      "vp": "tablet-768",
+      "check": "no failed requests",
+      "ok": true
+    },
+    {
+      "vp": "mobile-430",
+      "check": "home: no horizontal overflow",
+      "ok": true
+    },
+    {
+      "vp": "mobile-430",
+      "check": "home: h1 present (PARKJETS ARCHIVE)",
+      "ok": true
+    },
+    {
+      "vp": "mobile-430",
+      "check": "home: 8 featured cards",
+      "ok": true
+    },
+    {
+      "vp": "mobile-430",
+      "check": "catalog: no horizontal overflow",
+      "ok": true
+    },
+    {
+      "vp": "mobile-430",
+      "check": "catalog: 109 cards rendered",
+      "ok": true
+    },
+    {
+      "vp": "mobile-430",
+      "check": "catalog: search \"f-22\" -> 36",
+      "ok": true
+    },
+    {
+      "vp": "mobile-430",
+      "check": "catalog: count \"36 OF 109 AIRCRAFT MATCH\"",
+      "ok": true
+    },
+    {
+      "vp": "mobile-430",
+      "check": "catalog: empty state shown",
+      "ok": true
+    },
+    {
+      "vp": "mobile-430",
+      "check": "catalog: no-result hides every card",
+      "ok": true
+    },
+    {
+      "vp": "mobile-430",
+      "check": "catalog: clear restores all",
+      "ok": true
+    },
+    {
+      "vp": "mobile-430",
+      "check": "catalog: filter Foam -> 107",
+      "ok": true
+    },
+    {
+      "vp": "mobile-430",
+      "check": "catalog: designer Steve Shumate -> 11",
+      "ok": true
+    },
+    {
+      "vp": "mobile-430",
+      "check": "catalog: plan filter Source link only -> 109",
+      "ok": true
+    },
+    {
+      "vp": "mobile-430",
+      "check": "catalog: deep link -> 12",
+      "ok": true
+    },
+    {
+      "vp": "mobile-430",
+      "check": "catalog: unknown filter falls back to All",
+      "ok": true
+    },
+    {
+      "vp": "mobile-430",
+      "check": "catalog: back button restores",
+      "ok": true
+    },
+    {
+      "vp": "mobile-430",
+      "check": "nav: hamburger visible",
+      "ok": true
+    },
+    {
+      "vp": "mobile-430",
+      "check": "nav: opens on tap",
+      "ok": true
+    },
+    {
+      "vp": "mobile-430",
+      "check": "detail: hero image paints on screen (256 distinct samples)",
+      "ok": true
+    },
+    {
+      "vp": "mobile-430",
+      "check": "detail: no horizontal overflow",
+      "ok": true
+    },
+    {
+      "vp": "mobile-430",
+      "check": "detail: \"F-22 Raptor\"",
+      "ok": true
+    },
+    {
+      "vp": "mobile-430",
+      "check": "detail: no broken images",
+      "ok": true
+    },
+    {
+      "vp": "mobile-430",
+      "check": "detail: gallery thumbnails render",
+      "ok": true
+    },
+    {
+      "vp": "mobile-430",
+      "check": "detail: source link OK (Open original source)",
+      "ok": true
+    },
+    {
+      "vp": "mobile-430",
+      "check": "gallery: 8 thumbnails",
+      "ok": true
+    },
+    {
+      "vp": "mobile-430",
+      "check": "gallery: thumbnail changes image",
+      "ok": true
+    },
+    {
+      "vp": "mobile-430",
+      "check": "gallery: counter 3 / 8",
+      "ok": true
+    },
+    {
+      "vp": "mobile-430",
+      "check": "gallery: stage image paints (variance 34)",
+      "ok": true
+    },
+    {
+      "vp": "mobile-430",
+      "check": "404 page served",
+      "ok": true
+    },
+    {
+      "vp": "mobile-430",
+      "check": "no console errors",
+      "ok": true
+    },
+    {
+      "vp": "mobile-430",
+      "check": "no failed requests",
+      "ok": true
+    },
+    {
+      "vp": "mobile-390",
+      "check": "home: no horizontal overflow",
+      "ok": true
+    },
+    {
+      "vp": "mobile-390",
+      "check": "home: h1 present (PARKJETS ARCHIVE)",
+      "ok": true
+    },
+    {
+      "vp": "mobile-390",
+      "check": "home: 8 featured cards",
+      "ok": true
+    },
+    {
+      "vp": "mobile-390",
+      "check": "catalog: no horizontal overflow",
+      "ok": true
+    },
+    {
+      "vp": "mobile-390",
+      "check": "catalog: 109 cards rendered",
+      "ok": true
+    },
+    {
+      "vp": "mobile-390",
+      "check": "catalog: search \"f-22\" -> 36",
+      "ok": true
+    },
+    {
+      "vp": "mobile-390",
+      "check": "catalog: count \"36 OF 109 AIRCRAFT MATCH\"",
+      "ok": true
+    },
+    {
+      "vp": "mobile-390",
+      "check": "catalog: empty state shown",
+      "ok": true
+    },
+    {
+      "vp": "mobile-390",
+      "check": "catalog: no-result hides every card",
+      "ok": true
+    },
+    {
+      "vp": "mobile-390",
+      "check": "catalog: clear restores all",
+      "ok": true
+    },
+    {
+      "vp": "mobile-390",
+      "check": "catalog: filter Foam -> 107",
+      "ok": true
+    },
+    {
+      "vp": "mobile-390",
+      "check": "catalog: designer Steve Shumate -> 11",
+      "ok": true
+    },
+    {
+      "vp": "mobile-390",
+      "check": "catalog: plan filter Source link only -> 109",
+      "ok": true
+    },
+    {
+      "vp": "mobile-390",
+      "check": "catalog: deep link -> 12",
+      "ok": true
+    },
+    {
+      "vp": "mobile-390",
+      "check": "catalog: unknown filter falls back to All",
+      "ok": true
+    },
+    {
+      "vp": "mobile-390",
+      "check": "catalog: back button restores",
+      "ok": true
+    },
+    {
+      "vp": "mobile-390",
+      "check": "nav: hamburger visible",
+      "ok": true
+    },
+    {
+      "vp": "mobile-390",
+      "check": "nav: opens on tap",
+      "ok": true
+    },
+    {
+      "vp": "mobile-390",
+      "check": "detail: hero image paints on screen (256 distinct samples)",
+      "ok": true
+    },
+    {
+      "vp": "mobile-390",
+      "check": "detail: no horizontal overflow",
+      "ok": true
+    },
+    {
+      "vp": "mobile-390",
+      "check": "detail: \"F-22 Raptor\"",
+      "ok": true
+    },
+    {
+      "vp": "mobile-390",
+      "check": "detail: no broken images",
+      "ok": true
+    },
+    {
+      "vp": "mobile-390",
+      "check": "detail: gallery thumbnails render",
+      "ok": true
+    },
+    {
+      "vp": "mobile-390",
+      "check": "detail: source link OK (Open original source)",
+      "ok": true
+    },
+    {
+      "vp": "mobile-390",
+      "check": "gallery: 8 thumbnails",
+      "ok": true
+    },
+    {
+      "vp": "mobile-390",
+      "check": "gallery: thumbnail changes image",
+      "ok": true
+    },
+    {
+      "vp": "mobile-390",
+      "check": "gallery: counter 3 / 8",
+      "ok": true
+    },
+    {
+      "vp": "mobile-390",
+      "check": "gallery: stage image paints (variance 34)",
+      "ok": true
+    },
+    {
+      "vp": "mobile-390",
+      "check": "404 page served",
+      "ok": true
+    },
+    {
+      "vp": "mobile-390",
+      "check": "no console errors",
+      "ok": true
+    },
+    {
+      "vp": "mobile-390",
+      "check": "no failed requests",
+      "ok": true
+    },
+    {
+      "vp": "mobile-375",
+      "check": "home: no horizontal overflow",
+      "ok": true
+    },
+    {
+      "vp": "mobile-375",
+      "check": "home: h1 present (PARKJETS ARCHIVE)",
+      "ok": true
+    },
+    {
+      "vp": "mobile-375",
+      "check": "home: 8 featured cards",
+      "ok": true
+    },
+    {
+      "vp": "mobile-375",
+      "check": "catalog: no horizontal overflow",
+      "ok": true
+    },
+    {
+      "vp": "mobile-375",
+      "check": "catalog: 109 cards rendered",
+      "ok": true
+    },
+    {
+      "vp": "mobile-375",
+      "check": "catalog: search \"f-22\" -> 36",
+      "ok": true
+    },
+    {
+      "vp": "mobile-375",
+      "check": "catalog: count \"36 OF 109 AIRCRAFT MATCH\"",
+      "ok": true
+    },
+    {
+      "vp": "mobile-375",
+      "check": "catalog: empty state shown",
+      "ok": true
+    },
+    {
+      "vp": "mobile-375",
+      "check": "catalog: no-result hides every card",
+      "ok": true
+    },
+    {
+      "vp": "mobile-375",
+      "check": "catalog: clear restores all",
+      "ok": true
+    },
+    {
+      "vp": "mobile-375",
+      "check": "catalog: filter Foam -> 107",
+      "ok": true
+    },
+    {
+      "vp": "mobile-375",
+      "check": "catalog: designer Steve Shumate -> 11",
+      "ok": true
+    },
+    {
+      "vp": "mobile-375",
+      "check": "catalog: plan filter Source link only -> 109",
+      "ok": true
+    },
+    {
+      "vp": "mobile-375",
+      "check": "catalog: deep link -> 12",
+      "ok": true
+    },
+    {
+      "vp": "mobile-375",
+      "check": "catalog: unknown filter falls back to All",
+      "ok": true
+    },
+    {
+      "vp": "mobile-375",
+      "check": "catalog: back button restores",
+      "ok": true
+    },
+    {
+      "vp": "mobile-375",
+      "check": "nav: hamburger visible",
+      "ok": true
+    },
+    {
+      "vp": "mobile-375",
+      "check": "nav: opens on tap",
+      "ok": true
+    },
+    {
+      "vp": "mobile-375",
+      "check": "detail: hero image paints on screen (256 distinct samples)",
+      "ok": true
+    },
+    {
+      "vp": "mobile-375",
+      "check": "detail: no horizontal overflow",
+      "ok": true
+    },
+    {
+      "vp": "mobile-375",
+      "check": "detail: \"F-22 Raptor\"",
+      "ok": true
+    },
+    {
+      "vp": "mobile-375",
+      "check": "detail: no broken images",
+      "ok": true
+    },
+    {
+      "vp": "mobile-375",
+      "check": "detail: gallery thumbnails render",
+      "ok": true
+    },
+    {
+      "vp": "mobile-375",
+      "check": "detail: source link OK (Open original source)",
+      "ok": true
+    },
+    {
+      "vp": "mobile-375",
+      "check": "gallery: 8 thumbnails",
+      "ok": true
+    },
+    {
+      "vp": "mobile-375",
+      "check": "gallery: thumbnail changes image",
+      "ok": true
+    },
+    {
+      "vp": "mobile-375",
+      "check": "gallery: counter 3 / 8",
+      "ok": true
+    },
+    {
+      "vp": "mobile-375",
+      "check": "gallery: stage image paints (variance 34)",
+      "ok": true
+    },
+    {
+      "vp": "mobile-375",
+      "check": "404 page served",
+      "ok": true
+    },
+    {
+      "vp": "mobile-375",
+      "check": "no console errors",
+      "ok": true
+    },
+    {
+      "vp": "mobile-375",
+      "check": "no failed requests",
+      "ok": true
+    }
+  ]
+}

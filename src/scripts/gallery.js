@@ -27,19 +27,13 @@ if (gallery) {
     index = (i + thumbs.length) % thumbs.length;
     const t = thumbs[index];
     const full = t.dataset.full || t.dataset.card;
+    // Swap immediately and let CSS replay the entry animation by restarting it.
     if (full && stageImg.getAttribute('src') !== full) {
-      // Fade out, swap, fade back in once decoded so there is never a flash.
-      stageImg.classList.remove('is-loaded');
-      if (reduce || stageImg.complete) {
-        stageImg.src = full;
-        if (stageImg.complete && stageImg.naturalWidth) stageImg.classList.add('is-loaded');
-      } else {
-        const onLoad = () => {
-          stageImg.classList.add('is-loaded');
-          stageImg.removeEventListener('load', onLoad);
-        };
-        stageImg.addEventListener('load', onLoad);
-        stageImg.src = full;
+      stageImg.src = full;
+      if (!reduce) {
+        stageImg.style.animation = 'none';
+        void stageImg.offsetWidth; // force reflow so the animation restarts
+        stageImg.style.animation = '';
       }
     }
     if (t.dataset.alt) stageImg.alt = t.dataset.alt;
@@ -48,12 +42,6 @@ if (gallery) {
     if (focusThumb) thumbs[index].focus();
     thumbs[index].scrollIntoView({ block: 'nearest', inline: 'nearest', behavior: reduce ? 'auto' : 'smooth' });
   };
-
-  // Mark the first image as soon as it has decoded.
-  if (stageImg) {
-    if (stageImg.complete && stageImg.naturalWidth) stageImg.classList.add('is-loaded');
-    else stageImg.addEventListener('load', () => stageImg.classList.add('is-loaded'), { once: true });
-  }
 
   thumbs.forEach((t, i) => {
     t.addEventListener('click', () => show(i));

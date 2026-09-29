@@ -450,7 +450,11 @@ function bytes(n?: number) {
   .crumbs a {
     color: var(--text-dim);
     text-decoration: none;
+    /* WCAG 2.5.8 — the crumb links sit alone in their <li>. */
+    display: inline-block;
+    padding-block: 0.28rem;
   }
+
   .crumbs a:hover {
     color: var(--cyan);
   }
@@ -531,11 +535,22 @@ function bytes(n?: number) {
     block-size: 100%;
     object-fit: contain;
     background: color-mix(in oklab, #000 35%, transparent);
-    opacity: 0;
-    transition: opacity 260ms var(--ease-out);
+    /* NOTE: the image is never hidden. An opacity-based reveal promotes it to
+       its own compositor layer, and in some environments that layer is not
+       committed to the screenshot / paint — a decoded but invisible hero
+       image. A transform-based reveal keeps the image in the normal paint
+       path and still reads as a transition. */
+    animation: gallery-in 420ms var(--ease-out) both;
   }
-  .gallery-stage img.is-loaded {
-    opacity: 1;
+  @keyframes gallery-in {
+    from {
+      transform: scale(1.015);
+      filter: saturate(0.86) brightness(0.86);
+    }
+    to {
+      transform: none;
+      filter: none;
+    }
   }
   .gallery-stage:not(:has(img)) {
     background: linear-gradient(160deg, var(--ink-700), var(--ink-850));
@@ -874,7 +889,11 @@ function bytes(n?: number) {
   }
   .link {
     color: var(--cyan);
+    /* WCAG 2.5.8 — this link is the whole content of its <dd>. */
+    display: inline-block;
+    padding-block: 0.24rem;
   }
+
 
   .related {
     margin-top: clamp(2rem, 1.5rem + 2.5vw, 3.5rem);

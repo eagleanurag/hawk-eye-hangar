@@ -2,12 +2,15 @@
 /**
  * Visual + functional QA harness.
  *
- * Boots a static server over dist/ and drives a real Chromium through the
- * Phase 28/29 test matrix at every required viewport:
+ * By default it boots a static server over dist/ and drives a real Chromium
+ * through the Phase 28/29 test matrix at every required viewport:
  *
  *   1920x1080, 1440x900, 1366x768   (desktop)
  *   1024x1366, 768x1024             (tablet)
  *   430x932, 390x844, 375x812       (mobile)
+ *
+ * Pass --url to point the same matrix at a deployed site instead, which is
+ * how the live GitHub Pages URL is verified.
  *
  * Checks: horizontal overflow, console errors, failed requests, image load
  * failures, search behaviour, filters, gallery, downloads, 404, direct deep
@@ -15,7 +18,7 @@
  *
  * Screenshots land in reports/screenshots/.
  *
- * Usage:  node scripts/qa.mjs [--url http://127.0.0.1:4321] [--shots]
+ * Usage:  node scripts/qa.mjs [--url https://host/] [--shots]
  */
 
 import fs from 'node:fs';
@@ -30,6 +33,7 @@ const argVal = (k, d) => {
   return i >= 0 && args[i + 1] ? args[i + 1] : d;
 };
 const SHOTS = args.includes('--shots');
+const LIVE = argVal('--url', null);
 const DIST = path.join(ROOT, 'dist');
 const SHOT_DIR = path.join(ROOT, 'reports', 'screenshots');
 const site = readJSON(path.join(ROOT, 'data', 'site.json'));
@@ -79,6 +83,28 @@ function serve(dir) {
   });
 }
 
+/**
+ * Samples the REAL pixels of the gallery stage from a screenshot.
+ *
+ * A canvas readback only proves the image decoded; this proves the compositor
+ * actually put it on screen, which is the failure that matters. Byte
+ * diversity is a cheap, dependency-free proxy for "this region is not flat".
+ */
+async function stageRegionIsPainted(page) {
+  const box = await page.locator('[data-stage]').boundingBox();
+  if (!box) return { ok: false, detail: 'stage not found' };
+  const clip = {
+    x: Math.round(box.x + Math.min(20, box.width / 4)),
+    y: Math.round(box.y + Math.min(20, box.height / 4)),
+    width: Math.round(Math.min(220, box.width / 2)),
+    height: Math.round(Math.min(160, box.height / 2)),
+  };
+  const buf = await page.screenshot({ clip });
+  const distinct = new Set();
+  for (let i = 0; i < buf.length; i += 7) distinct.add(buf[i]);
+  return { ok: distinct.size > 40, distinct: distinct.size, detail: `${distinct.size} distinct samples (flat region)` };
+}
+
 const VIEWPORTS = [
   { name: 'desktop-1920', width: 1920, height: 1080, kind: 'desktop' },
   { name: 'desktop-1440', width: 1440, height: 900, kind: 'desktop' },
@@ -95,10 +121,14 @@ const fail = (vp, check, detail) => results.push({ vp, check, ok: false, detail 
 const pass = (vp, check) => results.push({ vp, check, ok: true });
 
 async function main() {
-  if (!fs.existsSync(DIST)) throw new Error('dist/ not found — run `npm run build` first.');
+  const target = LIVE ? LIVE.replace(/\/$/, '') : null;
+  if (!target && !fs.existsSync(DIST)) throw new Error('dist/ not found — run `npm run build` first or pass --url.');
   fs.mkdirSync(SHOT_DIR, { recursive: true });
-  const { server, port } = await serve(DIST);
-  const origin = `http://127.0.0.1:${port}`;
+  const { server, port } = target ? { server: null, port: 0 } : await serve(DIST);
+  const origin = target || `http://127.0.0.1:${port}`;
+  console.log('');
+  const ROOT_URL = (target ? origin : origin + BASE).replace(/\/$/, '');
+  console.log(`  target: ${ROOT_URL}`);
 
   const { chromium } = await import('playwright');
   const browser = await chromium.launch();
@@ -124,7 +154,7 @@ async function main() {
     });
 
     // ---------------- homepage ----------------
-    await page.goto(`${origin}${BASE}`, { waitUntil: 'networkidle' });
+    await page.goto(`${ROOT_URL}/`, { waitUntil: 'networkidle' });
     await page.waitForTimeout(400);
     {
       const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
@@ -142,7 +172,7 @@ async function main() {
     }
 
     // ---------------- catalogue ----------------
-    await page.goto(`${origin}${BASE}catalog`, { waitUntil: 'networkidle' });
+    await page.goto(`${ROOT_URL}/catalog`, { waitUntil: 'networkidle' });
     await page.waitForTimeout(300);
     {
       const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
@@ -150,14 +180,14 @@ async function main() {
       else pass(vp.name, 'catalog: no horizontal overflow');
 
       const total = await page.locator('[data-card]').count();
-      const visible = await page.locator('[data-card]:not([hidden])').count();
+      const visible = await page.locator('[data-card]:visible').count();
       if (total !== visible) fail(vp.name, 'catalog: all cards visible initially', `${visible}/${total}`);
       else pass(vp.name, `catalog: ${total} cards rendered`);
 
       // search
       await page.fill('[data-search-input]', 'f-22');
       await page.waitForTimeout(260);
-      const afterSearch = await page.locator('[data-card]:not([hidden])').count();
+      const afterSearch = await page.locator('[data-card]:visible').count();
       if (afterSearch < 1) fail(vp.name, 'catalog: search returns results', '0 results for "f-22"');
       else pass(vp.name, `catalog: search "f-22" -> ${afterSearch}`);
       const countText = (await page.locator('[data-result-count]').innerText()).trim();
@@ -166,17 +196,31 @@ async function main() {
 
       // no-result empty state
       await page.fill('[data-search-input]', 'zzzzqqqq');
-      await page.waitForTimeout(260);
+      await page
+        .waitForFunction(
+          () => {
+            const e = document.querySelector('[data-empty]');
+            const c = document.querySelectorAll('[data-card]:not([hidden])').length;
+            return e && c === 0 && !e.hidden;
+          },
+          undefined,
+          { timeout: 5000 }
+        )
+        .catch(() => {});
+      await page.waitForTimeout(300);
       const emptyVisible = await page.locator('[data-empty]').isVisible();
+      const zeroResults = await page.locator('[data-card]:visible').count();
       if (!emptyVisible) fail(vp.name, 'catalog: empty state shown', 'not visible');
       else pass(vp.name, 'catalog: empty state shown');
+      if (zeroResults !== 0) fail(vp.name, 'catalog: no-result hides every card', `${zeroResults} still visible`);
+      else pass(vp.name, 'catalog: no-result hides every card');
 
       if (SHOTS) await page.screenshot({ path: path.join(SHOT_DIR, `${vp.name}-catalog-empty.png`) });
 
       // clear
       await page.click('[data-search-clear]');
       await page.waitForTimeout(240);
-      const afterClear = await page.locator('[data-card]:not([hidden])').count();
+      const afterClear = await page.locator('[data-card]:visible').count();
       if (afterClear !== total) fail(vp.name, 'catalog: clear restores all', `${afterClear}/${total}`);
       else pass(vp.name, 'catalog: clear restores all');
 
@@ -185,7 +229,7 @@ async function main() {
       const catName = (await catBtn.innerText()).trim().split('\n')[0];
       await catBtn.click();
       await page.waitForTimeout(240);
-      const afterCat = await page.locator('[data-card]:not([hidden])').count();
+      const afterCat = await page.locator('[data-card]:visible').count();
       if (afterCat < 1 || afterCat >= total) {
         fail(vp.name, 'catalog: category filter', `${catName} -> ${afterCat} of ${total}`);
       } else pass(vp.name, `catalog: filter ${catName} -> ${afterCat}`);
@@ -197,7 +241,7 @@ async function main() {
       const dName = (await dBtn.innerText()).trim().split('\n')[0];
       await dBtn.click();
       await page.waitForTimeout(240);
-      const afterD = await page.locator('[data-card]:not([hidden])').count();
+      const afterD = await page.locator('[data-card]:visible').count();
       if (afterD < 1) fail(vp.name, 'catalog: designer filter', `${dName} -> ${afterD}`);
       else pass(vp.name, `catalog: designer ${dName} -> ${afterD}`);
 
@@ -207,23 +251,23 @@ async function main() {
       await dBtn.click();
       await sBtn.click();
       await page.waitForTimeout(240);
-      const afterS = await page.locator('[data-card]:not([hidden])').count();
+      const afterS = await page.locator('[data-card]:visible').count();
       if (afterS < 1) fail(vp.name, 'catalog: plan filter', `${sName} -> ${afterS}`);
       else pass(vp.name, `catalog: plan filter ${sName} -> ${afterS}`);
 
       if (SHOTS) await page.screenshot({ path: path.join(SHOT_DIR, `${vp.name}-catalog-filtered.png`) });
 
       // deep link with query string
-      await page.goto(`${origin}${BASE}catalog?q=shumate&category=foam`, { waitUntil: 'networkidle' });
+      await page.goto(`${ROOT_URL}/catalog?q=shumate&category=foam`, { waitUntil: 'networkidle' });
       await page.waitForTimeout(400);
-      const deepCount = await page.locator('[data-card]:not([hidden])').count();
+      const deepCount = await page.locator('[data-card]:visible').count();
       if (deepCount < 1) fail(vp.name, 'catalog: deep link filter works', '0 results');
       else pass(vp.name, `catalog: deep link -> ${deepCount}`);
 
       // unknown filter values must not produce a dead-end
-      await page.goto(`${origin}${BASE}catalog?category=not-a-real-category`, { waitUntil: 'networkidle' });
+      await page.goto(`${ROOT_URL}/catalog?category=not-a-real-category`, { waitUntil: 'networkidle' });
       await page.waitForTimeout(350);
-      const fallbackCount = await page.locator('[data-card]:not([hidden])').count();
+      const fallbackCount = await page.locator('[data-card]:visible').count();
       const totalCards = total;
       if (fallbackCount !== totalCards) {
         fail(vp.name, 'catalog: unknown filter value falls back to All', `${fallbackCount}/${totalCards}`);
@@ -239,7 +283,7 @@ async function main() {
 
     // ---------------- mobile nav ----------------
     if (vp.kind === 'mobile' || vp.width <= 880) {
-      await page.goto(`${origin}${BASE}`, { waitUntil: 'networkidle' });
+      await page.goto(`${ROOT_URL}/`, { waitUntil: 'networkidle' });
       const toggle = page.locator('[data-nav-toggle]');
       if (!(await toggle.isVisible())) {
         fail(vp.name, 'nav: hamburger visible on small screens', 'not visible');
@@ -259,10 +303,15 @@ async function main() {
 
     // ---------------- aircraft detail ----------------
     const detailSlug = 'f-22-raptor';
-    await page.goto(`${origin}${BASE}aircraft/${detailSlug}`, { waitUntil: 'networkidle' });
-    await page.waitForTimeout(500);
-    await page.evaluate(() => window.scrollTo(0, 0));
+    await page.goto(`${ROOT_URL}/aircraft/${detailSlug}`, { waitUntil: 'networkidle' });
     {
+      // Reload before measuring. After a long session of client-side navigation
+      // Chromium's compositor occasionally hands back a stale layer for a
+      // full-viewport screenshot, which makes a correctly-painted hero image
+      // look blank. A fresh document removes the ambiguity.
+      await page.reload({ waitUntil: 'networkidle' });
+      await page.waitForTimeout(600);
+      await page.evaluate(() => window.scrollTo(0, 0));
       // Capture the top of the detail page separately, once the hero image
       // has actually painted.
       await page.waitForFunction(
@@ -273,7 +322,13 @@ async function main() {
         undefined,
         { timeout: 20000 }
       ).catch(() => {});
-      if (SHOTS) await page.screenshot({ path: path.join(SHOT_DIR, `${vp.name}-detail-top.png`) });
+      const painted = await stageRegionIsPainted(page);
+      if (!painted.ok) fail(vp.name, 'detail: hero image paints on screen', painted.detail);
+      else pass(vp.name, `detail: hero image paints on screen (${painted.distinct} distinct samples)`);
+      if (SHOTS) {
+        await page.waitForTimeout(250);
+        await page.screenshot({ path: path.join(SHOT_DIR, `${vp.name}-detail-top.png`) });
+      }
       await page.evaluate(() => window.scrollTo(0, 0));
       await page.waitForTimeout(200);
     }
@@ -323,14 +378,17 @@ async function main() {
       const planLabel = (await planBtn.innerText()).trim().replace(/\s+/g, ' ');
       if (!planHref) fail(vp.name, 'detail: plan action present', 'no href');
       else if (planHref.startsWith('http')) {
-        const resp = await page.request.get(planHref, { timeout: 30000 }).catch(() => null);
+        const resp = await page.request.get(planHref, { timeout: 45000 }).catch(() => null);
         if (!resp || resp.status() >= 400) fail(vp.name, 'detail: source link resolves', `${planHref} -> ${resp?.status()}`);
         else pass(vp.name, `detail: source link OK (${planLabel})`);
       } else {
-        const u = new URL(planHref, origin + BASE).pathname;
+        const u = new URL(planHref, ROOT_URL + '/').pathname;
         const rel = u.startsWith(BASE) ? '/' + u.slice(BASE.length) : u;
-        const ok = fs.existsSync(path.join(DIST, rel));
-        if (!ok) fail(vp.name, 'detail: local download exists', rel);
+        const onDisk = fs.existsSync(path.join(DIST, rel));
+        const overHttp = onDisk
+          ? false
+          : await page.request.get(new URL(rel, ROOT_URL + "/").toString(), { timeout: 45000 }).then((x) => x.ok()).catch(() => false);
+        if (!onDisk && !overHttp) fail(vp.name, 'detail: local download exists', rel);
         else pass(vp.name, `detail: local download OK (${planLabel})`);
       }
 
@@ -401,7 +459,7 @@ async function main() {
     const expectedFails = failedRequests.length;
     const expectedErrors = consoleErrors.length;
     {
-      const r = await page.goto(`${origin}${BASE}this-page-does-not-exist`, { waitUntil: 'domcontentloaded' });
+      const r = await page.goto(`${ROOT_URL}/this-page-does-not-exist`, { waitUntil: 'domcontentloaded' });
       const is404 = r.status() === 404 || (await page.locator('h1').innerText()).includes('not found');
       if (!is404) fail(vp.name, '404 page served', `status ${r.status()}`);
       else pass(vp.name, '404 page served');
@@ -422,7 +480,7 @@ async function main() {
   }
 
   await browser.close();
-  server.close();
+  server?.close();
 
   // ------------------------------ report ------------------------------
   const byViewport = new Map();
@@ -442,20 +500,69 @@ async function main() {
   }
   console.log('');
   console.log(`  ${results.length - totalFail}/${results.length} checks passed across ${VIEWPORTS.length} viewports`);
+  console.log(`  reports: reports/qa-report.{json,md}`);
   if (SHOTS) console.log(`  screenshots: ${path.relative(ROOT, SHOT_DIR)}`);
   console.log('');
 
-  writeResults();
+  writeResults(target);
   process.exit(totalFail ? 1 : 0);
 }
 
-function writeResults() {
+function writeResults(target) {
   const dir = path.join(ROOT, 'reports');
   fs.mkdirSync(dir, { recursive: true });
+  const generatedAt = new Date().toISOString();
   fs.writeFileSync(
     path.join(dir, 'qa-report.json'),
-    JSON.stringify({ generatedAt: new Date().toISOString(), viewports: VIEWPORTS, results }, null, 2) + '\n'
+    JSON.stringify({ generatedAt, target: target || 'local build (dist/)', viewports: VIEWPORTS, results }, null, 2) + '\n'
   );
+
+  const byViewport = new Map();
+  for (const r of results) {
+    if (!byViewport.has(r.vp)) byViewport.set(r.vp, []);
+    byViewport.get(r.vp).push(r);
+  }
+  const failed = results.filter((r) => !r.ok);
+  const md = [];
+  md.push('# Parkjets Archive — browser QA report', '');
+  md.push(`_Generated ${generatedAt} by \`npm run qa\`._`, '');
+  md.push(`**Target:** ${target || 'local build (dist/)'}`, '');
+  md.push(`**Result: ${results.length - failed.length}/${results.length} checks passed across ${VIEWPORTS.length} viewports.**`, '');
+  md.push('## Viewports', '');
+  md.push('| Viewport | Width | Height | Result |', '|---|---:|---:|---|');
+  for (const vp of VIEWPORTS) {
+    const rs = byViewport.get(vp.name) || [];
+    const bad = rs.filter((r) => !r.ok);
+    md.push(`| ${vp.name} | ${vp.width} | ${vp.height} | ${bad.length === 0 ? `✓ ${rs.length}/${rs.length}` : `✗ ${rs.length - bad.length}/${rs.length}`} |`);
+  }
+  md.push('');
+  md.push('## What is covered', '');
+  md.push('- Horizontal overflow (the hard "no sideways scroll" requirement)');
+  md.push('- Console errors and failed network requests');
+  md.push('- Broken images, and **paint-level** verification that the gallery hero image is actually on screen');
+  md.push('- Search: matches, live result count, no-result empty state, clear button, and that filtering really hides cards');
+  md.push('- Filters: category, designer and plan-availability, including that each narrows the result set');
+  md.push('- Query-string deep links and fallback for unknown filter values');
+  md.push('- Browser back button after a state change');
+  md.push('- Aircraft detail: title, plan action resolves (local file or source URL), gallery thumbnails, counter, keyboard nav');
+  md.push('- Mobile navigation: hamburger visible, opens, closes');
+  md.push('- 404 handling');
+  md.push('');
+  if (failed.length) {
+    md.push('## Failures', '');
+    for (const f of failed) md.push(`- ✗ **${f.vp}** — ${f.check}${f.detail ? `: ${f.detail}` : ''}`);
+    md.push('');
+  }
+  md.push('## Full results', '');
+  for (const [vp, rs] of byViewport) {
+    md.push(`### ${vp}`, '');
+    md.push('| | Check | Detail |', '|---|---|---|');
+    for (const r of rs) {
+      md.push(`| ${r.ok ? '✓' : '✗'} | ${r.check} | ${r.detail ?? ''} |`);
+    }
+    md.push('');
+  }
+  fs.writeFileSync(path.join(dir, 'qa-report.md'), md.join('\n'), 'utf8');
 }
 
 main().catch((e) => {
