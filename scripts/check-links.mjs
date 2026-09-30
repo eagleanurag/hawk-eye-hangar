@@ -64,8 +64,20 @@ const missingBase = [];
 for (const f of htmlFiles) {
   const html = fs.readFileSync(f, 'utf8');
 
+  /*
+   * Script and style bodies are not markup. A `src="..."` inside an inline
+   * script is a JavaScript string - often a template placeholder such as
+   * `${base}/image.webp` - not an asset reference the checker can resolve, so
+   * scanning it produces false "broken internal link" errors. Everything else
+   * (real attributes, ids, aria, alt, srcset) is still checked exactly as
+   * before; only script/style text is excluded from the attribute scan.
+   */
+  const markup = html
+    .replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, m => m.replace(/[\s\S]/g, ' '))
+    .replace(/<style\b[^>]*>[\s\S]*?<\/style>/gi, m => m.replace(/[\s\S]/g, ' '));
+
   // ---- links ------------------------------------------------------------
-  for (const m of html.matchAll(/(?:href|src)="([^"]+)"/g)) {
+  for (const m of markup.matchAll(/(?:href|src)="([^"]+)"/g)) {
     const raw = decode(m[1].trim());
     if (!raw) continue;
     if (raw.startsWith('#')) {

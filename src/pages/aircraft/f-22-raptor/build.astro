@@ -1,0 +1,875 @@
+---
+/**
+ * F/A-22 Raptor - How to Build.
+ *
+ * An ADDITION to the catalogue, not a replacement of it. The interactive
+ * aircraft-scroll sequence and both image layers are ported unchanged from the
+ * verified standalone build; only integration edits were applied:
+ *   - CSS scoped under .f22build so it cannot leak into the rest of the site
+ *   - the standalone's own tokens re-declared on .f22build
+ *   - asset paths rewritten to this project's /media locations
+ *   - buttons switched to the site's button classes
+ *
+ * The aircraft is a transparent PNG and the background is a separate PNG.
+ * Neither is generated, masked or processed at build time; both are copied
+ * byte-for-byte into public/media/aircraft/f-22-raptor/build/.
+ */
+import Shell from '../../../layouts/Shell.astro';
+import Base from '../../../layouts/Base.astro';
+import { SITE, BASE, pub, abs, bySlug } from '../../../lib/catalog';
+
+const base = BASE;
+const ac = '/media/aircraft/f-22-raptor';
+const guide = '/media/guides/f-22-raptor';
+
+const a = bySlug.get('f-22-raptor');
+if (!a) throw new Error('F-22 Raptor missing from the catalogue');
+
+const crumb = [
+  { label: 'Home', href: base },
+  { label: 'Catalogue', href: base + 'catalog' },
+  { label: a.name, href: `${base}aircraft/${a.slug}` },
+  { label: 'How to Build', href: `${base}aircraft/${a.slug}/build/` },
+];
+
+const title = 'How to build the ' + a.name;
+const description =
+  'The ' + a.name + ' park jet build experience: scroll to fly the aircraft into ' +
+  'frame, watch it complete a barrel roll, then send it out of frame.';
+---
+
+<Base title={title} description={description} canonical={abs('/aircraft/f-22-raptor/build/')} image="/og-default.png">
+  <Shell>
+    <main id="main" class="f22build-page">
+      <div class="shell f22build-shell">
+        <nav class="crumbs" aria-label="Breadcrumb">
+          <ol>
+            {crumb.map((c, i) => (
+              <li>
+                {i < crumb.length - 1 ? (
+                  <a href={c.href} data-no-transition>{c.label}</a>
+                ) : (
+                  <span aria-current="page">{c.label}</span>
+                )}
+              </li>
+            ))}
+          </ol>
+        </nav>
+
+<div class="f22build" id="top" data-guide={pub(guide)} data-ac={pub(ac)}>
+
+  <!-- ================= HERO ================= -->
+  <div class="hero">
+    <p class="eyebrow">Consolidated build guide · 1,610 posts · 108 pages</p>
+    <h1>F/A-22 Raptor<small>How to build it</small></h1>
+    <p class="lede">
+      Steve Shumate's 26-inch foam park jet with working thrust vectoring, consolidated from his
+      26-page construction guide and the entire 108-page RCGroups build thread (April 2007 –
+      September 2013, 225 builders). The manual tells you what to do. The thread tells you what
+      actually goes wrong, and what the designer changed his mind about.
+    </p>
+    <div class="cta">
+      <a class="btn btn--primary" href="#stages">Start the build</a>
+      <a class="btn btn--ghost" href="#watch">Watch the build</a>
+      <a class="btn btn--ghost" href="#community">Community findings</a>
+    </div>
+    <figure class="hero-fly" id="flight">
+      <!-- Aircraft + background are byte-identical copies of the reference
+             standalone's own layers: f22-plane-transparent.png is that page's
+             plane-cutout.png, f22-background.png is its background.png.
+             Neither is re-cut, masked, processed or regenerated. -->
+      <div class="hero-fly-sticky" id="flightSticky">
+        <img class="hero-fly-bg" src={pub('/media/aircraft/f-22-raptor/build/f22-background.png')} alt="" aria-hidden="true" width="1215" height="864" fetchpriority="high">
+        <img class="hero-fly-plane" id="plane" src={pub('/media/aircraft/f-22-raptor/build/f22-plane-transparent.png')} width="1024" height="728"
+             alt="F-22 Raptor foam RC park jet in flight, side view, against a blurred green background">
+      </div>
+    </figure>
+  </div>
+
+  <!-- ================= QUICK FACTS ================= -->
+  <section id="facts">
+    <h2><span class="n">00</span>Quick facts</h2>
+    <p class="sub">From the designer's own specification sheet (construction guide p.26, and his opening post).</p>
+    <div class="facts">
+      <div><dt>Designer</dt><dd>Steve Shumate <span class="mono" style="color:var(--text-faint)">· jetset44</span></dd></div>
+      <div><dt>Wingspan</dt><dd>26.0"</dd></div>
+      <div><dt>Length</dt><dd>36.3"</dd></div>
+      <div><dt>Wing area</dt><dd>248 sq in</dd></div>
+      <div><dt>Flying weight</dt><dd>16–18 oz RTF</dd></div>
+      <div><dt>Wing loading</dt><dd>10.5 oz/ft²</dd></div>
+      <div><dt>Material</dt><dd>6 mm Depron, heat-formed</dd></div>
+      <div><dt>Motor</dt><dd>Littlescreamers Park Jet Special</dd></div>
+      <div><dt>Battery</dt><dd>Thunder Power 1320 mAh 11.1V Pro-lite</dd></div>
+      <div><dt>Propeller</dt><dd>APC 7x4 or 6x5.5 — <strong style="color:var(--orange)">see the prop warning</strong></dd></div>
+      <div><dt>Controls</dt><dd>Stabilator, flaperons, rudder (opt), thrust vectoring (opt)</dd></div>
+      <div><dt>Current</dt><dd>15 amps nominal · 20 A WOT with 6x4</dd></div>
+      <div><dt>Bare airframe</dt><dd>16.7 oz on the prototype</dd></div>
+      <div><dt>Fully painted</dt><dd>18.1 oz — the paint costs 1.4 oz</dd></div>
+    </div>
+
+    <div class="callout">
+      <p><strong>Budget the paint, it is not free.</strong> The prototype went from <strong>16.7 oz bare
+      to 18.1 oz</strong> finished, with one coat of WBPU/microballoon and two coats of acrylic. The
+      designer's rule of thumb is about <strong>1.0 oz for a model this size</strong>, and 1.5–2.0 oz
+      for a larger park jet. Every gram you save earlier is what pays for the paint job.</p>
+      <p class="src">— jetset44, posts 6846722 &amp; 7998405</p>
+    </div>
+
+    <div class="callout warn">
+      <p><strong>Your battery may be too small.</strong> The LSPJ draws about <strong>18 A</strong>, but
+      the specified Thunder Power 1320 Pro-lite is rated <strong>17 A continuous</strong> — the
+      designer's own pack was at its limit. A builder moved to an Apogee 1500 (20C, 30 A): heavier, but
+      it matches the motor, and it <em>helped</em> the balance, because the prototype carries roughly
+      0.5 oz of nose weight.</p>
+      <p class="src">— jetset44, post 7095994, page 26</p>
+    </div>
+
+    <div class="callout warn">
+      <p><strong>Read this before you plug in a battery.</strong> The manual says 7x4. The designer
+      <strong>corrected that in the thread</strong> and told a builder to cut the model back open:</p>
+      <p><em>"I did initially recommend an APC 7x4 on this model because that's what worked well on my
+      T-38 park jet, but I've since learned that that's way too much prop for this model… On the LSPJ
+      you want the max current at WOT to be under 18 amps if at all possible, which is about what my
+      Raptor setup draws with a 6x4."</em>
+      </p>
+      <p class="src">— jetset44, post 7087033, page 25</p>
+    </div>
+  </section>
+
+  <!-- ================= VIDEO ================= -->
+  <section id="watch">
+    <h2><span class="n">▶</span>See it fly</h2>
+    <p class="sub">Videos posted to the build thread. Nothing is loaded from YouTube until you press play.</p>
+    <div class="vidpick" role="group" aria-label="Choose a video">
+      <button class="is-on" data-vid="dXcSdekd8WA" aria-pressed="true">Scratchbuild</button>
+      <button data-vid="2qOs0wHxfx8" aria-pressed="false">Thrust vectoring</button>
+      <button data-vid="6iLRDalH1Iw" aria-pressed="false">Maiden flight</button>
+    </div>
+    <div class="vid" id="vid">
+      <button class="vid-f" id="vidBtn" aria-label="Play video: F-22 scratchbuild plane by Alex Ng">
+        <img src={pub('/media/aircraft/f-22-raptor/06-1200.webp')} alt="">
+        <span class="vid-b">
+          <svg viewBox="0 0 68 48" width="64" height="45" aria-hidden="true">
+            <path fill="rgba(255,138,61,.28)" d="M66.5 7.7a8.6 8.6 0 0 0-6-6C55.2.2 34 .2 34 .2S12.8.2 7.5 1.7a8.6 8.6 0 0 0-6 6A90 90 0 0 0 0 24a90 90 0 0 0 1.5 16.3 8.6 8.6 0 0 0 6 6C12.8 47.8 34 47.8 34 47.8s21.2 0 26.5-1.5a8.6 8.6 0 0 0 6-6A90 90 0 0 0 68 24a90 90 0 0 0-1.5-16.3Z"/>
+            <path fill="#fff" d="M27 34V14l18 10-18 10Z"/>
+          </svg>
+          Play
+        </span>
+      </button>
+    </div>
+    <p class="vidtitle" id="vidTitle">F-22 scratchbuild plane — Alex Ng</p>
+    <div class="callout note">
+      <p><strong>Why there is no designer walkthrough video.</strong> Steve's own 6mmFlyRC walkthrough
+      was the first video in the thread. YouTube has since taken it down, and it can no longer be
+      embedded anywhere. The three videos above are the working replacements, all posted by builders
+      to the same thread.</p>
+    </div>
+  </section>
+
+  <!-- ================= MATERIALS ================= -->
+  <section id="materials">
+    <h2><span class="n">01</span>Materials &amp; consumables</h2>
+    <p class="sub">Everything the guide calls for, grouped by job. Items marked <span class="opt">opt</span> are the designer's suggestions, never requirements. Electrical sizing in the right-hand column is corrected by the thread where the thread supersedes the manual.</p>
+
+    <div class="matgrid mas">
+      <div class="mat">
+        <h3>Foam</h3>
+        <p class="note">Slots on the plans are drawn at 5 mm to suit either 6 mm Depron (tight) or ~5 mm Bluecore (loose).</p>
+        <ul>
+          <li><b>6 mm Depron sheet</b><span>Every part traced from the paper templates. The designer confirms Depron by name when discussing priming.</span></li>
+          <li><b>Foam jigs (supplied)</b><span>Hold the vertical tails at the correct dihedral while the epoxy cures.</span></li>
+          <li><b>Scrap foam</b><span>Practising bevels and heat forming.</span></li>
+          <li><b>Foam sanding pad</b><span>Sanding the spackled fillets.</span></li>
+          <li><b>Balsa (opt)</b><span>Several builders substituted 1/2" x 3/8" balsa for the stabilator root, sanded to 6 mm, for a much stronger, slop-free pivot.</span></li>
+          <li><b>Foamboard / Bluecore (opt)</b><span>Workable substitute for crash resistance; trim slots undersized to compensate.</span></li>
+        </ul>
+      </div>
+
+      <div class="mat">
+        <h3>Adhesives</h3>
+        <p class="note">The designer's rule: keep epoxy for critical joints, use a light sandable adhesive everywhere else. Weight is the enemy at 16–18 oz.</p>
+        <ul>
+          <li><b>Epoxy 5-minute</b><span>Motor mount into the fuselage slot; stabilator bearings.</span></li>
+          <li><b>Epoxy 30-minute</b><span>Sparing the carbon wing spar into the wing.</span></li>
+          <li><b>Microballons</b><span>Mixed into epoxy to cut weight and fill gaps. The single easiest weight saving on the build.</span></li>
+          <li><b>Cyanoacrylate thin / thick</b><span>Thin for bearings, horns, end stops. Thick to hold the stabilator servo in its slot.</span></li>
+          <li><b>UHU Creativ / UHU POR</b><span>The designer's everyday foam adhesive.</span></li>
+          <li><b>ProBond or Gorilla Glue</b><span>Gap-filling structural bonds on the fuselage boxes and the top piece.</span></li>
+          <li><b>Aliphatic resin</b><span>Lighter sandable alternative on the aft fuselage top.</span></li>
+        </ul>
+      </div>
+
+      <div class="mat">
+        <h3>Tapes, fillers &amp; sealants</h3>
+        <p class="note">Everything that either protects a hinge or keeps the air out of the foam.</p>
+        <ul>
+          <li><b>3M 77 spray</b><span>Every foam lamination, and tacking templates to the sheet.</span></li>
+          <li><b>3M Satin tape (purple tub)</b><span>Flaperon and rudder hinges, leading-edge protection. Green-container Scotch is explicitly not good enough.</span></li>
+          <li><b>Packing tape</b><span>Heat-forming aid; low-friction wrap on the vectoring stick.</span></li>
+          <li><b>Lightweight spackling</b><span>Filling gaps and building fillets. Use the wall-grade version thinned with water for the canopy and nosecone.</span></li>
+          <li><b>Water-based polyurethane (WBPU) (opt)</b><span>Seals and stiffens. Microballons in the mix fill holes better.</span></li>
+          <li><b>Rubbing alcohol</b><span>Degrease the shell before painting.</span></li>
+        </ul>
+      </div>
+
+      <div class="mat">
+        <h3>Structure</h3>
+        <ul>
+          <li><b>Carbon wing spar</b><span>Slotted and epoxied — the primary structure.</span></li>
+          <li><b>Carbon tube stabilator pivot</b><span>Runs through two aluminium bearings; the tail boom blocks brace it.</span></li>
+          <li><b>Forward bulkheads ×3</b><span>Set the forward fuselage box.</span></li>
+          <li><b>Bulkheads F4, F5</b><span>On top of the wing, carrying the aft fuselage sides.</span></li>
+          <li><b>Temporary bulkheads ×4</b><span>Hold the aft sides at the right angle, then removed.</span></li>
+          <li><b>Turtledeck bulkheads T1–T5</b><span>Support the top piece and show how much heat forming it needs.</span></li>
+          <li><b>1/8" plywood side plates ×2</b><span>The vectoring cradle.</span></li>
+          <li><b>1/64" plywood scrap</b><span>Bridges the rudder servo hole so the top sits flat on the spine.</span></li>
+          <li><b>1/16" rod through the servo shoulder (opt)</b><span>Thread-known reinforcement: a piano-wire pin with a 90° bend, epoxied in, stops the arm ever rotating on the carbon tube.</span></li>
+        </ul>
+      </div>
+
+      <div class="mat">
+        <h3>Hardware</h3>
+        <ul>
+          <li><b>Aluminium tube bearing ×1</b><span>In the motor mount stick.</span></li>
+          <li><b>Aluminium stabilator bearings ×2</b><span>Pressed into the aft edge of the wing.</span></li>
+          <li><b>Spare nylon servo horns</b><span>Drilled out to make the end stops and control arm.</span></li>
+          <li><b>Music wire</b><span>Stabilator pushrod.</span></li>
+          <li><b>1/16" threaded music wire</b><span>Vectoring pushrod, large Z-bend at the servo end.</span></li>
+          <li><b>1/32" music wire (opt)</b><span>Soldered to the rudder cable pushrods.</span></li>
+          <li><b>Steel threaded clevis</b><span>Vectoring pushrod to motor mount.</span></li>
+          <li><b>Wire — 18 AWG minimum (opt)</b><span>Corrected by the designer: 16 AWG for the long forward run, 18 AWG ESC-to-motor. See the electrical warning.</span></li>
+          <li><b>Deans Ultra connectors (opt)</b><span>Micro connectors are only good to ~10 A. The designer's upgrade recommendation.</span></li>
+        </ul>
+      </div>
+
+      <div class="mat">
+        <h3>Electronics</h3>
+        <p class="note">As designed, with the thread's corrections applied.</p>
+        <ul>
+          <li><b>Littlescreamers Park Jet Special</b><span>The motor the design assumes — its 3/8" stick mount is what the supplied side plates fit.</span></li>
+          <li><b>Castle Creations Phoenix 25</b><span>Mounted inside an inlet for airflow. The BEC matters more than most builders expect.</span></li>
+          <li><b>Thunder Power 1320 mAh 11.1V Pro-lite</b><span>3S, in the nose.</span></li>
+          <li><b>APC 6x4 (corrected)</b><span>Manual says 7x4 or 6x5.5. Thread correction: <strong style="color:var(--orange)">use a 6x4 and stay under 18 A WOT.</strong></span></li>
+          <li><b>Futaba S3110 ×4 (or HS-55/HS-65HB)</b><span>Stabilator and flaperons, plus rudder if fitted.</span></li>
+          <li><b>Hitec HS-85MG</b><span>Thrust vectoring. Metal geared, 40+ oz/in. A plastic-geared servo strips if the prop hits the ground.</span></li>
+          <li><b>Berg 7P (or Berg 4)</b><span>Receiver, installed aft.</span></li>
+          <li><b>Watt meter (opt)</b><span>The designer's top recommendation: "one of the best investments you can make in this hobby."</span></li>
+        </ul>
+      </div>
+
+      <div class="mat">
+        <h3>Tools</h3>
+        <ul>
+          <li><b>Sharp hobby knife</b><span>Every bevel, cutout and slot. A long knife or saw for the nosecone.</span></li>
+          <li><b>Heat gun</b><span>Clamp it in a bench vice to free both hands. A hair dryer is enough but slow.</span></li>
+          <li><b>Drill press</b><span>So the vectoring pivot hole is exactly perpendicular.</span></li>
+          <li><b>Wood dowel</b><span>The former for the aft fuselage top compound curves.</span></li>
+          <li><b>Sanding block + long bar</b><span>Flattens the lower forward fuselage; squares the bottom edges.</span></li>
+          <li><b>Sandpaper 100 / 220 / 320</b><span>100 rough out, 220 shape, 320 polish.</span></li>
+          <li><b>Bevel cutter (opt)</b><span>One builder made a jig that cut every bevel on the model in about two minutes.</span></li>
+          <li><b>Straightedge</b><span>Straight runs only — the curves are cut freehand.</span></li>
+          <li><b>Airbrush + windshield wiper fluid</b><span>Thin acrylic 50/50 with wiper fluid, not water; it dries faster and reduces runs.</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="callout warn">
+      <p><strong>The electrical trap nobody warns you about.</strong> A builder used 22 AWG wire and
+      Deans micro connectors to save weight. The motor cut out after two seconds at full throttle.
+      The fix, and the designer's diagnosis: 22 AWG is a fire risk, 18 AWG is the absolute minimum,
+      16 AWG is better, and Deans micro connectors are only rated to about 10 A.</p>
+      <p><em>"Lesson: Don't save weight with wire and connectors."</em> — boa279, post 7084581, page 24</p>
+    </div>
+  </section>
+
+  <!-- ================= STAGES ================= -->
+  <section id="stages">
+    <h2><span class="n">02</span>Build stages</h2>
+    <p class="sub">The manual's 26 illustrated pages, grouped into 13 stages in the order the work
+    actually happens. Open any page full size to read the dimensions printed on it.</p>
+    <div id="stageList"></div>
+  </section>
+
+  <!-- ================= COMMUNITY ================= -->
+  <section id="community">
+    <h2><span class="n">03</span>What 1,610 posts taught the builders</h2>
+    <p class="sub">Findings that are not in the manual — hard-won, repeated, and in several cases a
+    correction to it. Every item is traceable to a post.</p>
+
+    <div class="matgrid mas">
+      <div class="mat">
+        <h3>Before you commit</h3>
+        <ul>
+          <li><b>Read the whole guide first</b><span>A builder "corrected" the intentional nose droop with a heat gun before reading the note explaining it. Trim the sides instead.</span></li>
+          <li><b>Keep extra foam on hand</b><span>"You have to be prepared to remake parts, so buy enough depron." — first-time builder, page 55.</span></li>
+          <li><b>It is not a first park jet</b><span>Designer's own words: "this is NOT the model to start with!" Experienced builders rate it mid-range, but it is more heat forming than his F-14.</span></li>
+        </ul>
+      </div>
+      <div class="mat">
+        <h3>Bevels &amp; forming</h3>
+        <ul>
+          <li><b>Upper and lower bevels are parallel</b><span>Cut both sides the same way, not mirrored. The gap on the templates is what tells you which edge to cut.</span></li>
+          <li><b>Glue first, then heat</b><span>Better method found by a builder: tape the bulkheaded sides together, let them twist, then heat. They hold the angle with the tape off.</span></li>
+          <li><b>Don't obsess over bevel accuracy</b><span>"None of the bevels on this ship are really critical, and can be sanded flat with a sanding bar once the model is assembled." — jetset44</span></li>
+        </ul>
+      </div>
+      <div class="mat">
+        <h3>Weak points — where builders break it</h3>
+        <ul>
+          <li><b>The nose section</b><span>The weakest area. With the battery forward as CG demands, any impact loads it. Add fibreglass from ~1" behind the intake forward. One builder found stress cracks at the join <em>just behind the front air intake</em> after high-G flying, and fixed it with flat carbon strips plus two layers of lightweight tissue and two coats of Eazicoat.</span></li>
+          <li><b>The vectoring hardwood plates</b><span>Both cracked on one build; replaced in aluminium. Also a known servo-arm/carbon-tube failure point — and the reason not to over-power the model.</span></li>
+          <li><b>Vertical tails and wingtips</b><span>Next most fragile. The stabilators are the first thing to go in a high-speed reversal.</span></li>
+          <li><b>Carbon tube to servo arm</b><span>Two documented fixes: castellate the arm around the tube, or drill a 1/16" hole through the servo shoulder and the tube and pin it with piano wire.</span></li>
+          <li><b>Stones on the field</b><span>One builder fitted a plastic underbody protector cut from acetate tube, because his field is covered in stones after heavy rain. Cheap insurance for a foam belly.</span></li>
+        </ul>
+      </div>
+      <div class="mat">
+        <h3>Launching — the torque roll</h3>
+        <ul>
+          <li><b>Firm overhand toss, 10–20° nose up</b><span>Steve's own words: a firm, flat toss "helps ensure you have enough airspeed from the get-go to avoid torque rolls." Throwing a pusher jet firm and straight at once takes practice. The thing to avoid is a weak throw, which staggers the model immediately after release.</span></li>
+          <li><b>Add a touch of left roll</b><span>Naturally counters the right roll caused by torque.</span></li>
+          <li><b>Underhand does not suit this model</b><span>Several builders prefer underhand, but Steve points out the F/A-22 has no flat turtledeck to grab. This is a shape problem, not a technique one.</span></li>
+          <li><b>Discus-style works, with a warning</b><span>Grip one wing and throw side-arm. Grip the <strong>carbon spar</strong>, not the skin — "otherwise you'll fail the wing." And never maiden a plane with this throw; it is for after it is well trimmed.</span></li>
+          <li><b>Check the thrust line first</b><span>Hold it at the nose, spool up: if it wants to pitch or yaw, fix that before you ever fly it.</span></li>
+        </ul>
+      </div>
+      <div class="mat">
+        <h3>Flying it</h3>
+        <ul>
+          <li><b>Expo sign is radio-specific</b><span>On a Spektrum, setting "−40% expo" makes it <em>more</em> sensitive, not less. A 20-year veteran lost a plane to exactly this.</span></li>
+          <li><b>Back the throttle off slowly at high alpha</b><span>Cutting throttle at high alpha is like a shot of down elevator because of the vectoring.</span></li>
+          <li><b>Lose a lot of altitude if you roll off at high alpha</b><span>Not a tip stall, but be ready for rapid sink when banking on final.</span></li>
+          <li><b>Rudder needs aileron mixing</b><span>It induces more roll than yaw. Several builders regret fitting rudders on a non-vectoring setup.</span></li>
+          <li><b>Flap coupling vs spoilerons</b><span>Designer: normal coupling adds lift (lower landing speed, tighter turns); reverse coupling adds pitch rate (high-alpha control). Try both.</span></li>
+          <li><b>Radio needs one programmable mix</b><span>Mix the TV channel to the elevator. A single TV servo can drive both if the bank is thin — but you lose the switch.</span></li>
+        </ul>
+      </div>
+      <div class="mat">
+        <h3>Paint &amp; finishing traps</h3>
+        <ul>
+          <li><b>Never run WBPU through an airbrush</b><span>Someone tried it and it clogged the airbrush badly. It is a primer, not a spray product — brush it on and sand it off.</span></li>
+          <li><b>Do not thin WBPU</b><span>The container says not to, and the designer confirms it. Mix in baby powder until you get the consistency you want; there is no ratio. Microballons fill holes even better.</span></li>
+          <li><b>Colour it so you can see it</b><span>Add a little craft paint to the WBPU/baby powder mix. Otherwise the white mixture is nearly invisible on white Depron and you will miss patches.</span></li>
+          <li><b>Thin acrylic with wiper fluid, not water</b><span>About 50/50. It dries faster and reduces runs. Two light coats is plenty.</span></li>
+          <li><b>Clean the airbrush immediately</b><span>Spray a jar of clean water through the brush and pickup tube when you finish. Even then, paint hides around the nozzle and on the needle — take it apart and wipe those with a paper towel. Under a minute.</span></li>
+          <li><b>Clear canopy transforms it</b><span>Multiple builders single out the clear canopy as the single biggest cosmetic improvement to the finished model.</span></li>
+        </ul>
+      </div>
+
+      <div class="mat">
+        <h3>Variations people actually built</h3>
+        <ul>
+          <li><b>120–130% on 6 mm</b><span>Works fine even though the foam isn't thicker. Add a 3 mm CF flat under the stabilators at 90° to the tube — they snapped in a dive without it.</span></li>
+          <li><b>Scaling up from 6 mm</b><span>Scale single-sheet to 135% and step to 9 mm foam rather than scaling 6 mm, or the slots and bevels all need manual rework.</span></li>
+          <li><b>150% and 180%</b><span>Built and flown by several members, including twin-fan EDF conversions and a 48" span gas-free version.</span></li>
+          <li><b>Glasscloth + WBPU (opt)</b><span>Light coat of poly, drape the cloth, second coat, sand 300–400, then baby powder in poly to fill the weave. Roughly +100 g on one build, considered worth it.</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= GALLERY ================= -->
+  <section id="gallery">
+    <h2><span class="n">04</span>The finished model</h2>
+    <p class="sub">The designer's prototype, as held in the HawkEye Hangar library.</p>
+    <div class="gal" id="gal"></div>
+  </section>
+
+  <!-- ================= SOURCES ================= -->
+  <section id="sources">
+    <h2><span class="n">§</span>Sources &amp; honesty</h2>
+    <table class="tbl">
+      <tbody>
+        <tr><td>Construction steps</td><td>Steve Shumate's 26-page construction guide. Rendered page by page in this draft; each stage links to the original page.</td></tr>
+        <tr><td>Quick facts &amp; control setup</td><td>The designer's own specification sheet and flight setup section.</td></tr>
+        <tr><td>Community findings</td><td>All 1,610 posts of the RCGroups build thread were read, and the parts that affect how you build — corrections, failures, technique, sizing — are folded into the stages and findings above, each with the post it came from.</td></tr>
+        <tr><td>Prop, wire &amp; connector sizing</td><td>The designer's own later corrections in the thread, which supersede the manual. Flagged inline.</td></tr>
+        <tr><td>Videos</td><td>Builder videos posted to the thread, checked individually for embeddability. The designer's own walkthrough has been removed by YouTube and cannot be played anywhere.</td></tr>
+        <tr><td>Photographs</td><td>Prototype photographs held in this library.</td></tr>
+        <tr><td>Safety note</td><td>General workshop practice, not from the source.</td></tr>
+      </tbody>
+    </table>
+    <p class="hint">This is a working draft built for review. It is not part of the published site.</p>
+  </section>
+      <p style="margin-top:2.5rem">
+        <a class="btn btn--ghost" href={`${base}aircraft/${a.slug}/`}>&larr; Back to F-22 Raptor</a>
+      </p>
+        </div>
+      </div>
+    </main>
+  </Shell>
+</Base>
+
+<style is:global>
+  /* the shell so the page uses the site's own measure, not the draft's .wrap */
+  .f22build-shell { padding-block: 2rem 4rem; }
+
+.f22build { --fly-travel: 130vh; }
+.f22build {
+  --ink-900:#05080f; --ink-800:#0b1220; --ink-750:#0f1725; --ink-700:#141d2e;
+  --ink-600:#1c2739; --line:rgba(79,214,255,.16); --line-soft:rgba(127,147,181,.18);
+  --text:#e8eefb; --text-dim:#a9b8d4; --text-faint:#7d8dad;
+  --cyan:#4fd6ff; --amber:#ffb454; --orange:#ff8a3d; --green:#4ade80; --rose:#ff7a85;
+  --r:12px;
+  
+  --fly-travel:130vh; --fly-top:60px;
+  --mono:'JetBrains Mono',ui-monospace,Consolas,monospace;
+  --sans:'Inter','Segoe UI',system-ui,-apple-system,sans-serif;
+  --disp:'Space Grotesk','Segoe UI',system-ui,sans-serif;
+}
+.f22build .hero {padding:clamp(2rem,1.4rem+3vw,4rem) 0 1.5rem}
+.f22build .eyebrow {font-family:var(--mono);font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--orange);margin:0 0 .6rem}
+.f22build h1 {font-family:var(--disp);font-size:clamp(2.2rem,1.4rem+4vw,4rem);line-height:1;letter-spacing:-.035em;margin:0 0 .8rem}
+.f22build h1 small {display:block;font-family:var(--mono);font-size:clamp(.9rem,.7rem+1vw,1.4rem);letter-spacing:.32em;text-transform:uppercase;color:var(--orange);margin-top:.35rem}
+.f22build .lede {color:var(--text-dim);max-width:66ch;font-size:1.03rem}
+.f22build .cta {display:flex;gap:.6rem;flex-wrap:wrap;margin-top:1.4rem}
+.f22build .hero-fly {position:relative;margin:1.8rem 0 0;height:calc(clamp(240px,42vw,470px) + var(--fly-travel))}
+.f22build .hero-fly-sticky {position:sticky;top:var(--fly-top,68px);height:clamp(240px,42vw,470px);overflow:hidden;
+  border:1px solid var(--line-soft);border-radius:var(--r);background:#000}
+.f22build .hero-fly-bg,
+.f22build .hero-fly-plane {position:absolute;inset:0;display:block;width:100%;height:100%;
+  object-fit:cover;object-position:center 46%;user-select:none;-webkit-user-drag:none;pointer-events:none}
+.f22build .hero-fly-bg {transform:scale(1.001)}
+.f22build .hero-fly-plane {transform:translate3d(0,0,0);
+  
+  transform-origin:52.05% 44.3%;will-change:transform}
+.f22build section {padding:clamp(2rem,1.5rem+2.5vw,3.4rem) 0;border-top:1px solid var(--line-soft);scroll-margin-top:70px}
+.f22build h2 {font-family:var(--disp);font-size:clamp(1.4rem,1.1rem+1.4vw,2.1rem);letter-spacing:-.025em;margin:0 0 .3rem;display:flex;align-items:baseline;gap:.7rem}
+.f22build h2 .n {font-family:var(--mono);font-size:.68rem;letter-spacing:.14em;color:var(--orange);border:1px solid rgba(255,138,61,.4);background:rgba(255,138,61,.12);border-radius:4px;padding:.25rem .45rem;flex:none}
+.f22build h3 {font-size:1.05rem;margin:1.8rem 0 .6rem}
+.f22build .sub {color:var(--text-faint);max-width:74ch;margin:0 0 1.3rem}
+.f22build .facts {display:grid;gap:1px;background:var(--line-soft);border:1px solid var(--line-soft);border-radius:var(--r);overflow:hidden;grid-template-columns:repeat(auto-fit,minmax(min(100%,15rem),1fr))}
+.f22build .facts div {background:var(--ink-800);padding:.8rem .95rem}
+.f22build .facts dt {font-family:var(--mono);font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;color:var(--text-faint);margin-bottom:.15rem}
+.f22build .facts dd {margin:0;font-size:.92rem}
+.f22build .callout {border-left:2px solid var(--orange);background:rgba(255,138,61,.07);padding:.9rem 1.05rem;border-radius:0 8px 8px 0;margin:1rem 0}
+.f22build .callout.warn {border-color:var(--rose);background:rgba(255,122,133,.07)}
+.f22build .callout.note {border-color:var(--cyan);background:rgba(79,214,255,.07)}
+.f22build .callout p {margin:0 0 .5rem;color:var(--text-dim);font-size:.92rem}
+.f22build .callout p:last-child {margin:0}
+.f22build .callout strong {color:var(--text)}
+.f22build .src {font-family:var(--mono);font-size:.64rem;color:var(--text-faint);letter-spacing:.06em}
+.f22build ul.ticks,
+.f22build ol.steps {list-style:none;padding:0;margin:0 0 1rem;display:grid;gap:.45rem}
+.f22build ul.ticks li,
+.f22build ol.steps li {position:relative;padding-left:1.5rem;color:var(--text-dim);font-size:.93rem}
+.f22build ul.ticks li::before {content:"▸";position:absolute;left:0;color:var(--orange)}
+.f22build ol.steps {counter-reset:s}
+.f22build ol.steps li {counter-increment:s;padding-left:2.1rem}
+.f22build ol.steps li::before {content:counter(s);position:absolute;left:0;top:.05rem;width:1.5rem;height:1.5rem;display:grid;place-items:center;font-family:var(--mono);font-size:.7rem;color:var(--orange);border:1px solid rgba(255,138,61,.4);border-radius:4px}
+.f22build .matgrid {display:grid;gap:1.2rem;grid-template-columns:repeat(auto-fit,minmax(min(100%,19rem),1fr));align-items:start}
+.f22build .mas {display:block;columns:3 19rem;column-gap:1.2rem}
+.f22build .mas>.mat {break-inside:avoid;-webkit-column-break-inside:avoid;page-break-inside:avoid;width:100%;display:inline-block;margin:0 0 1.2rem}
+.f22build .mat {border:1px solid var(--line-soft);border-radius:var(--r);padding:1rem 1.1rem;background:rgba(20,29,46,.35)}
+.f22build .mat h3 {margin:0 0 .2rem;font-family:var(--mono);font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--orange)}
+.f22build .mat p.note {color:var(--text-faint);font-size:.82rem;margin:.3rem 0 .7rem}
+.f22build .mat ul {list-style:none;padding:0;margin:0;display:grid;gap:.5rem}
+.f22build .mat li {font-size:.85rem;padding-bottom:.5rem;border-bottom:1px solid rgba(127,147,181,.1)}
+.f22build .mat li:last-child {border:0;padding-bottom:0}
+.f22build .mat li b {display:block;color:var(--text);font-weight:600}
+.f22build .mat li span {color:var(--text-faint);font-size:.84rem}
+.f22build .opt {color:var(--green) !important;font-family:var(--mono);font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;margin-left:.4rem}
+.f22build .stage {border:1px solid var(--line-soft);border-radius:var(--r);margin:1.2rem 0;overflow:hidden;background:rgba(11,18,32,.5)}
+.f22build .stage-h {display:flex;align-items:center;gap:.8rem;padding:.85rem 1.1rem;background:rgba(255,138,61,.07);border-bottom:1px solid var(--line-soft);flex-wrap:wrap}
+.f22build .stage-h .num {font-family:var(--mono);font-size:1.1rem;color:var(--orange)}
+.f22build .stage-h h3 {margin:0;font-size:1.02rem;font-family:var(--disp)}
+.f22build .stage-h .cnt {margin-left:auto;font-family:var(--mono);font-size:.62rem;color:var(--text-faint);letter-spacing:.1em}
+.f22build .stage-b {padding:1.1rem;display:grid;gap:1.2rem;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr)}
+@media(max-width:900px) {
+.f22build .stage-b {grid-template-columns:1fr}
+}
+.f22build .gfig {margin:0}
+.f22build .gfig button {display:block;width:100%;padding:0;border:0;background:#fff;border-radius:8px;cursor:zoom-in;position:relative;overflow:hidden}
+.f22build .gfig img {display:block;width:100%;height:auto}
+.f22build .gfig button:focus-visible {outline:2px solid var(--orange);outline-offset:2px}
+.f22build .gcap {font-family:var(--mono);font-size:.62rem;color:var(--text-faint);padding:.5rem .2rem 0;display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+.f22build .thumbs {display:flex;gap:.4rem;flex-wrap:wrap;margin-top:.6rem}
+.f22build .thumbs button {padding:0;border:1px solid var(--line-soft);border-radius:6px;background:#fff;cursor:zoom-in;position:relative}
+.f22build .thumbs img {display:block;width:76px;height:auto}
+.f22build .thumbs span {position:absolute;right:2px;bottom:2px;font-family:var(--mono);font-size:.52rem;background:rgba(0,0,0,.7);color:#fff;padding:1px 3px;border-radius:3px}
+.f22build .blk h4 {font-family:var(--mono);font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:var(--text-faint);margin:0 0 .5rem;padding-bottom:.35rem;border-bottom:1px solid var(--line-soft)}
+.f22build .blk.tip h4 {color:var(--cyan);border:0}
+.f22build .blk.tip {background:rgba(79,214,255,.06);border-left:2px solid var(--cyan);border-radius:0 8px 8px 0;padding:.8rem .9rem;margin:0}
+.f22build .blk.check h4 {color:var(--green)}
+.f22build .blk.check ul {list-style:none;padding:0;margin:0;display:grid;gap:.35rem}
+.f22build .blk.check li {padding-left:1.3rem;position:relative;font-size:.87rem;color:var(--text-dim)}
+.f22build .blk.check li::before {content:"✓";position:absolute;left:0;color:var(--green)}
+.f22build .tags {list-style:none;padding:0;margin:0;display:flex;flex-wrap:wrap;gap:.35rem}
+.f22build .tags li {font-family:var(--mono);font-size:.68rem;color:var(--text-dim);padding:.24rem .55rem;border-radius:99px;border:1px solid var(--line-soft);background:rgba(20,29,46,.5)}
+.f22build .acc {border:1px solid var(--line-soft);border-radius:8px;margin-top:1rem;background:rgba(20,29,46,.3);overflow:hidden}
+.f22build .acc>summary {list-style:none;cursor:pointer;min-height:48px;display:flex;align-items:center;gap:.6rem;
+  padding:.55rem .7rem .55rem .85rem;font-family:var(--mono);font-size:.62rem;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--text-dim);user-select:none}
+.f22build .acc>summary::-webkit-details-marker {display:none}
+.f22build .acc>summary::marker {content:""}
+.f22build .acc>summary:hover {background:rgba(255,138,61,.06);color:var(--text)}
+.f22build .acc>summary:focus-visible {outline:2px solid var(--orange);outline-offset:-2px}
+.f22build .acc[open]>summary {color:var(--orange);border-bottom:1px solid var(--line-soft)}
+.f22build .acc-t {flex:none}
+.f22build .accn {color:var(--text-faint);opacity:.7;letter-spacing:.06em;text-transform:none;font-size:.68rem}
+.f22build .acc-a {margin-left:auto;display:inline-flex;align-items:center;gap:.5rem;flex:none;
+  border:1px solid rgba(255,138,61,.5);background:rgba(255,138,61,.14);color:var(--orange);
+  border-radius:99px;padding:.34rem .7rem;line-height:1}
+.f22build .acc-atx {font-size:.6rem;letter-spacing:.14em}
+.f22build .acc .on {display:none}
+.f22build .acc[open] .on {display:inline}
+.f22build .acc[open] .off {display:none}
+.f22build .acc-ar {width:.5rem;height:.5rem;border-right:2.5px solid currentColor;border-bottom:2.5px solid currentColor;
+  transform:rotate(45deg) translate(-2px,-2px);transition:transform .2s}
+.f22build .acc[open] .acc-ar {transform:rotate(-135deg) translate(-1px,-1px)}
+.f22build .acc-b {padding:.9rem .85rem .85rem}
+.f22build .acc-b .tags {padding:0}
+.f22build .acc:not([open])>.acc-b {display:none}
+.f22build .pager {display:flex;gap:.6rem;flex-wrap:wrap;padding:0 1.1rem 1.1rem}
+.f22build .pager a {flex:1 1 13rem;display:grid;gap:.1rem;padding:.65rem .85rem;border:1px solid var(--line-soft);border-radius:8px;text-decoration:none;background:rgba(20,29,46,.4);min-height:44px}
+.f22build .pager a:hover {border-color:rgba(255,138,61,.45)}
+.f22build .pager .k {font-family:var(--mono);font-size:.56rem;letter-spacing:.16em;text-transform:uppercase;color:var(--text-faint)}
+.f22build .pager .t {font-size:.88rem;color:var(--text)}
+.f22build .pager .n {color:var(--orange);font-family:var(--mono);margin-right:.35rem}
+.f22build .pager .nx {text-align:right}
+.f22build .tbl {width:100%;border-collapse:collapse;font-size:.88rem;margin:0 0 1rem}
+.f22build .tbl th,
+.f22build .tbl td {text-align:left;padding:.55rem .7rem;border-bottom:1px solid var(--line-soft);vertical-align:top}
+.f22build .tbl th {font-family:var(--mono);font-size:.6rem;letter-spacing:.13em;text-transform:uppercase;color:var(--text-faint);font-weight:400}
+.f22build .tbl td:first-child {color:var(--text-faint);width:12rem}
+.f22build .tbl td:last-child {color:var(--text)}
+.f22build .gal {display:grid;gap:.7rem;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr))}
+.f22build .gal figure {margin:0}
+.f22build .gal img {display:block;width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;border:1px solid var(--line-soft);border-radius:8px}
+.f22build .gal figcaption {font-size:.73rem;color:var(--text-faint);margin-top:.3rem}
+.f22build .lb {position:fixed;inset:0;z-index:90;display:grid;grid-template-rows:auto 1fr;gap:.5rem;padding:.75rem;background:rgba(3,6,12,.97)}
+.f22build .lb-bar {display:flex;align-items:center;justify-content:space-between;gap:1rem}
+.f22build .lb-cap {font-family:var(--mono);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--text-dim);margin:0}
+.f22build .lb-x {font-size:1.1rem;line-height:1;color:var(--text);background:rgba(28,39,57,.85);border:1px solid var(--line);border-radius:5px;width:2.2rem;height:2.2rem;cursor:pointer}
+.f22build .lb-img {grid-row:2;justify-self:center;align-self:start;max-width:100%;max-height:100%;background:#fff;border-radius:6px}
+.f22build .lb-nav {position:absolute;top:50%;transform:translateY(-50%);font-size:1.6rem;background:rgba(28,39,57,.85);border:1px solid var(--line);border-radius:50%;width:2.5rem;height:2.5rem;color:var(--text);cursor:pointer}
+.f22build .lb-nav.p {left:.5rem}
+.f22build .lb-nav.n {right:.5rem}
+.f22build .lb-nav:disabled {opacity:.3;cursor:default}
+.f22build .vidpick {display:flex;gap:.4rem;flex-wrap:wrap;margin-bottom:.6rem}
+.f22build .vidpick button {font-family:var(--mono);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;
+  padding:.5rem .8rem;min-height:38px;border-radius:6px;border:1px solid var(--line-soft);
+  background:rgba(20,29,46,.5);color:var(--text-dim);cursor:pointer}
+.f22build .vidpick button:hover {color:var(--text);border-color:rgba(255,138,61,.4)}
+.f22build .vidpick button.is-on,
+.f22build .vidpick button[aria-pressed="true"] {color:var(--orange);border-color:rgba(255,138,61,.6);background:rgba(255,138,61,.12)}
+.f22build .vidtitle {font-family:var(--mono);font-size:.7rem;color:var(--text-dim);margin:.6rem 0 0;letter-spacing:.06em}
+.f22build .vid {position:relative;border:1px solid var(--line-soft);border-radius:var(--r);overflow:hidden;background:#050810;aspect-ratio:16/9}
+.f22build .vid.playing {aspect-ratio:auto;height:0;padding-bottom:56.25%}
+.f22build .vid.playing iframe {position:absolute;inset:0;width:100%;height:100%;border:0}
+.f22build .vid-f {position:absolute;inset:0;width:100%;height:100%;border:0;padding:0;background:#050810;cursor:pointer}
+.f22build .vid-f img {width:100%;height:100%;object-fit:cover;opacity:.5;transition:opacity .3s}
+.f22build .vid-f:hover img {opacity:.75}
+.f22build .vid-f:focus-visible {outline:2px solid var(--orange);outline-offset:-3px}
+.f22build .vid-b {position:absolute;inset:0;display:grid;place-content:center;gap:.6rem;justify-items:center;pointer-events:none;font-family:var(--mono);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase}
+.f22build footer {border-top:1px solid var(--line-soft);padding:2rem 0 3rem;color:var(--text-faint);font-size:.85rem}
+.f22build footer p {margin:.3rem 0}
+.f22build .hint {font-size:.78rem;color:var(--text-faint);margin-top:.4rem}
+@media(prefers-reduced-motion:reduce) {
+.f22build {--fly-travel:0px}
+.f22build .hero-fly-plane {transform:none!important}
+}
+
+</style>
+
+<script is:inline>
+const __root = document.querySelector('.f22build');
+const __GUIDE__ = __root ? __root.dataset.guide : '';
+const __IMG__ = __root ? __root.dataset.ac : '';
+
+/* ---------------- video facade ---------------- */
+const VIDEOS={
+  'dXcSdekd8WA':'F-22 scratchbuild plane — Alex Ng',
+  '2qOs0wHxfx8':'RC Raptor with thrust vectoring — Carl Lydick RC',
+  '6iLRDalH1Iw':'F22 maiden flight — peter Roberts'
+};
+const vidHost=document.getElementById('vid'),vidBtn=document.getElementById('vidBtn');
+let curVid='dXcSdekd8WA';
+document.querySelectorAll('.vidpick button').forEach(b=>{
+  b.addEventListener('click',()=>{
+    curVid=b.dataset.vid;
+    document.querySelectorAll('.vidpick button').forEach(x=>{
+      const on=x.dataset.vid===curVid;
+      x.classList.toggle('is-on',on);
+      x.setAttribute('aria-pressed',String(on));
+    });
+    vidBtn.setAttribute('aria-label','Play video: '+VIDEOS[curVid]);
+    document.getElementById('vidTitle').textContent=VIDEOS[curVid];
+    const old=vidHost.querySelector('iframe');
+    if(old){ old.remove(); vidHost.classList.remove('playing'); }
+  });
+});
+vidBtn.addEventListener('click',()=>{
+  const f=document.createElement('iframe');
+  f.src='https://www.youtube-nocookie.com/embed/'+curVid+'?autoplay=1&rel=0';
+  f.title=VIDEOS[curVid];
+  f.allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture';
+  f.allowFullscreen=true;
+  vidHost.replaceChildren(f);vidHost.classList.add('playing');
+});
+
+/* ---------------- stages ---------------- */
+const S=[
+{n:'01',t:'Plan & prepare',p:[2],intro:'Adhesives, tape and template layout — before a single part is cut.',what:[
+'Cut the paper part templates with scissors, trimming to within about 1/8" of the lines.',
+'Test fit all templates on the foam sheet to minimise waste before committing.',
+'Spray the back of each template LIGHTLY with 3M 77 and replace it in the same spot.',
+'Cut every part on the lines with a sharp hobby knife, and keep the template stuck to the piece.'],
+tools:['Paper templates','3M 77 spray','Scissors','Sharp knife','Foam sheet'],
+tip:'Use as little epoxy as possible and save it for the wing spar and motor mounts. Microballons in the epoxy cut weight and fill gaps. The majority of the build wants a light, quick-drying adhesive — foam-safe CA, UHU Creativ or 3M 77.',
+check:['Templates tacked with no gaps or overlaps','Parts cut on the line','Every part still has its template attached']},
+{n:'02',t:'Cutting, bevels & heat forming',p:[3,4],intro:'All the forward fuselage bevels, then the heat-formed curves.',what:[
+'Cut the beveled edges on all forward fuselage pieces as shown on the plans.',
+'Draw a reference line inset from the edge by the dimension on the plans, then cut the bevel. Straight runs take a straightedge; curves are cut freehand.',
+'Heat-soften the lower forward fuselage sides and bend one long gradual curve for the taper seen from above.',
+'Add a quick twist at the aft end so the angled sides meet the vertical centreline support.'],
+tools:['Sharp knife','Straightedge','Heat gun','Scrap foam'],
+tip:'The curves need not be exact — the bulkheads hold the shape once the box closes. Make sure left and right are true mirror images.',
+check:['Left and right are mirror images','Reference lines visible on every part','One smooth taper plus the aft twist']},
+{n:'03',t:'Fuselage box & wing spar',p:[5],intro:'The bulkheads set the box; the spar sets the wing.',what:[
+'Glue the bottom halves of the three fuselage bulkheads to one lower side, perpendicular.',
+'Stand the sides upright and flat, glue the bulkhead edges, and bring the sides together.',
+'Glue the aft ends together and make sure they are perfectly vertical.',
+'Slot the carbon wing spar and epoxy it in. Clamp flat under wax paper and heavy books.',
+'Sand the leading edge and tips round, tape with 3M Satin, then cut the flaperons free.'],
+tools:['Bulkheads ×3','Carbon spar','30-min epoxy','Microballons','Wax paper & books','3M Satin tape'],
+tip:'Mix microballons into the epoxy. You may need a little more heat forming to get the aft ends to align.',
+check:['Bulkheads perpendicular','Aft ends vertical, not raked','Spar fully seated, wing stayed flat','Leading edge rounded and taped']},
+{n:'04',t:'Aft fuselage & wing join',p:[6],intro:'Close the box around the wing, then bring the front fuselage on.',what:[
+'Laminate the two fuselage centreline support pieces with 3M 77.',
+'Bevel the aft fuselage sides, then glue them and the centreline piece under the wing.',
+'Use the four temporary bulkheads to hold the correct angle, pinning as needed. Remove them once dry.',
+'Glue the forward fuselage lower assembly to the front, mating its aft end to the leading edge of the centreline support.'],
+tools:['3M 77','Aft sides','Centreline support ×2','Temporary bulkheads ×4','Pins','Gap-filling glue','Heat gun'],
+tip:'The top of the forward fuselage deliberately droops a few degrees below the wing — that is the scale look. As long as the top mates flat against the wing underside the droop sets itself.',
+check:['Forward fuselage flush with the centreline support','The twist is a smooth curve, not a crease','Temporary bulkheads removed, no gaps at the wing joint']},
+{n:'05',t:'Motor mount',p:[7],intro:'The thrust vectoring mount. This whole stage is optional.',opt:true,what:[
+'Drill the motor mount stick for the aluminium tube bearing and glue it in with thin CA. Chamfer the lower edge.',
+'Wrap the aft end of the stick in packing tape for a low-friction surface.',
+'Sand the inside faces of the two 1/8" plywood side plates and epoxy them to the movable part of the stick.',
+'Drill the pivot hole through both plates at once, exactly perpendicular — use a drill press.',
+'Trim the lower edges to clear the pushrod and clevis.'],
+tools:['Motor mount stick','Aluminium bearing','1/8" ply side plates ×2','Thin CA','Epoxy','Packing tape','Drill press'],
+tip:'The motor thrust line must run straight through the pivot pin, or the vectoring servo is loaded and the trim moves with throttle. A different motor may need new side plates from 1/8" ply to raise or lower the stick. <strong style="color:var(--orange)">Do not fit a bigger motor than the design assumes.</strong> The 3/8" hardwood and 1/8" ply vectoring system was sized for the Littlescreamers Park Jet Special. Steve was blunt about what a Grayson Super MegaJet does to it: "I don\'t think the 3/8" hardwood-1/8" ply TV system of the F-22 can stand up to the weight and power of the MegaJet. At best it will bend and torque and jam under power, and at worst it could break!" Either drop the vectoring and use the bigger motor, or stay near the LSPJ\'s weight and power.',
+check:['Pivot hole goes through both plates in one pass, perpendicular','Pivots smoothly with no slop','Thrust line passes through the pivot pin','Lower edges clear the pushrod','Motor weight within what the TV mount can carry']},
+{n:'06',t:'Stabilator & bearings',p:[8],intro:'Mount the stick, press the bearings, hang the stabilators.',what:[
+'Glue the motor mount into the aft fuselage centreline slot at a zero-zero thrust line. 5-minute epoxy.',
+'Press a circular notch in the aft edge of the wing with the aluminium bearings and glue them in.',
+'Tape the bearings and insert the carbon tube pivot as the glue dries so everything aligns.',
+'Sand the stabilator leading edges round and trailing edges tapered, then tape the leading edges.',
+'Slide the pivot tube, end stops and control horn through the bearings. Glue the end stops with thin CA but NOT the control horn.'],
+tools:['5-min epoxy','Bearing tubes ×2','Carbon pivot tube','Spare servo horns','Thin CA','Epoxy & microballons','3M Satin tape'],
+tip:'End stops butt against the aluminium tubes so the pivot cannot slide sideways. Both end stops and the control arm come from spare servo horns drilled out to fit the carbon tube.',
+check:['Motor mount at zero-zero','Bearings aligned, pivot runs free','End stops glued, control horn not yet','Stabilator moves along the whole pivot']},
+{n:'07',t:'Servos & thrust vectoring',p:[9],intro:'Stabilator servo and pushrod, then the vectoring servo, guides and clevis.',what:[
+'Fit the stabilator servo in its slot — thick CA holds it.',
+'Make a music wire pushrod to the control horn and glue the horn with thin CA once aligned.',
+'Add chordwise fibreglass strips to the stabilator roots, top and bottom, if you fly fast or land in tall grass.',
+'Fit the vectoring servo in its slot, secured with CA.',
+'Make the pushrod from 1/16" threaded music wire with a large Z-bend rising to the servo arm.',
+'Fit pushrod guides to kill flex, and connect to the motor mount with a steel clevis.'],
+tools:['Stabilator servo','HS-85MG or equiv (metal gear, 40+ oz/in)','Music wire','1/16" threaded wire','Thick & thin CA','Steel clevis','Scrap CF tube','Fibreglass + epoxy'],
+tip:'A 40+ oz/in metal-geared servo is required — a plastic-geared one strips if the prop hits the ground. The prototype used a Hitec HS-85MG. Anchor the pushrod guides with fibreglass and epoxy or a rough landing shakes them loose.',
+check:['Stabilator servo fully supported','Control horn glued only after alignment','Vectoring servo metal geared, 40+ oz/in','Pushrod runs straight, guides anchored','System moves freely with minimal slop']},
+{n:'08',t:'Upper fuselage & turtledeck',p:[10,11,16],intro:'Close the top of the forward fuselage, fit the aft sides and the turtledeck, then the spine.',what:[
+'Sand the top of the lower forward fuselage flat, then glue on the upper halves of the three bulkheads.',
+'Test fit the upper sides until the upper and lower meet in a sharp edge — that is the scale look.',
+'Glue the upper sides to the bulkheads and lower sides only. Do not glue the aft to the wing yet.',
+'Glue F4 and F5 to the top of the wing, then the aft of the upper sides, heat-forming the inward curve and pinning.',
+'Bevel the turtledeck supports, glue them to the top inside edges, then the two turtledeck top pieces one at a time.',
+'Glue the turtledeck spine on the centreline and the five bulkheads T1–T5.'],
+tools:['Upper bulkheads ×3','F4 & F5','Turtledeck supports ×2','Turtledeck tops ×2','Spine','T1–T5','3M 77','Sanding block','Heat gun','Pins & tape'],
+tip:'The 1/64" plywood bridge over the rudder servo hole lets the top piece sit flat along the whole spine. Fit the two turtledeck top pieces one at a time so each forms to its own curve.',
+check:['Upper and lower meet in a sharp edge','Aft sides curve inward smoothly','Spine straight, five bulkheads square to it','Forward top fitted but not glued at the aft']},
+{n:'09',t:'Nose, canopy & tail booms',p:[12,13],intro:'Laminated nosecone and canopy, then the booms that carry the stabilator pivots.',what:[
+'Laminate all nosecone and canopy pieces with 3M 77, then glue the nosecone block to the front.',
+'Trace the top outline from the template and cut to shape with a long knife or saw.',
+'100 grit to rough out, 220 to shape, 320 to polish. Carve the canopy the same way.',
+'Laminate the tail boom pieces, carve a channel in the top to clear the stabilator tubes, and epoxy them to the aft fuselage.',
+'Carve the booms: outboard sides angled to match, trailing edge cut and feathered to the stabilators.'],
+tools:['3M 77','Nosecone & canopy pieces','Tail boom pieces','Nosecone template','Long knife or saw','100/220/320 grit','Epoxy'],
+tip:'Make sure the boom blocks fit tight against the stabilator pivot tubes — they add significant strength to the stabilator pivots.',
+check:['All laminations closed before shaping','Nosecone finished to 320 grit','Boom channels clear the tubes, tubes tight against them','Trailing edges feathered to match']},
+{n:'10',t:'Flaperons, fins & rudders',p:[14,15],intro:'Flying surfaces: tape-hinged flaperons, fins on the dihedral jigs, optional rudders.',what:[
+'Cut a 45° bevel in the flaperon leading edges, taper the trailing edges, hinge with 3M Satin tape top and bottom.',
+'Trim for a small, parallel gap from the stabilator leading edge.',
+'Fit the flaperon servos, horns and pushrods — the pushrods angle outboard to put the horn in stronger material.',
+'Glue the vertical tail supports under the wing, trimming to clear the flaperon servos.',
+'Round the fin leading edges, taper the trailing edges, tape the leading edges. Cut the rudders free if you want them.',
+'Cut the fin mounting slots at the correct dihedral using the jigs, sawing through the under-slung supports.',
+'Epoxy the fins in with the jigs holding the angle, pinning while they cure.'],
+tools:['3M Satin tape','Flaperon servos, horns, pushrods','Fin supports','Foam jigs','Epoxy & microballons','Pins','Rudder servo (opt)','Sullivan pushrods (opt)','1/32" wire (opt)'],
+tip:'Rudders are optional but help at high alpha and for aerobatics. Use a 90° servo arm and make sure the pushrods meet it at 90° at neutral so both rudders deflect equally.',
+check:['Flaperon gaps small and parallel to the stabilator leading edge','Horns in strong material','Fin slots at the correct dihedral, through the supports','Fins held by jigs while curing','If fitted, both rudders deflect equally']},
+{n:'11',t:'Fuselage top & electronics',p:[17,18],intro:'The hardest part of the build, then the electronics — where ESC placement matters more than most expect.',what:[
+'Cut all the bevels in the aft top piece, then cover most of the bottom with packing tape so it cannot wrinkle while heating.',
+'Heat-form all the curves, test fitting as you go against the installed turtledeck bulkheads.',
+'Trim to a close fit and glue with a light, sandable, gap-filling adhesive. Pin and tape heavily.',
+'Fill gaps and build large fillets at the turtledeck and wing junctions with spackling, then sand to shape.',
+'Install the receiver aft and the ESC near the middle, with short extensions to motor and nose battery.',
+'Locate everything as far forward as possible — the model is tail-heavy. Twist the ESC wires together and tape all wiring flat.',
+'Mount the ESC where it gets lots of airflow; inside the inlets is ideal. Cut the shrink wrap back.',
+'Cut cooling holes to the battery, then test all controls before the bottom goes on.'],
+tools:['Packing tape','Heat gun','Wood dowel & bench vice','Spackling','Foam sanding pad','Pins & tape','Berg 7P','Phoenix 25 ESC'],
+tip:'Heat gun in a bench vice, dowel on your chest, roll the piece across it — practise on scrap first. Cooling matters more than it looks: the model needs five servos while most ESCs are rated for three or four, so airflow over the integrated BEC is what lets it run them all safely.',
+check:['Top piece heat formed without wrinkles','Gaps spackled and sanded','Electronics as far forward as possible','ESC in moving air, shrink wrap opened','All controls tested before the bottom goes on']},
+{n:'12',t:'Inlets, bottom & finishing',p:[19,20,21,22,23],intro:'Diverter assemblies, the bottom, shaping and sanding, launch fairings, then paint.',what:[
+'Laminate the inlet diverter to the inlet side piece with 3M 77. Make two assemblies and glue them to the inlet fronts.',
+'Cut the bottom piece bevels and the exhaust nozzle bevels, and carve a notch between the nozzles for pushrod and clevis clearance.',
+'Sand across the bottom edges with a long bar until flat and straight, trim to fit, then glue and tape.',
+'Glue on the forward fuselage bottom piece.',
+'Cut slots for the diverters to exit, trim with sandpaper, and slope the inlet leading edges if you want the scale look.',
+'Final sand the whole model. Optional: sand the launch fairings to a feathered shape and glue them in at the CG.',
+'Degrease with rubbing alcohol, fill the canopy and nosecone with thinned wall spackling, then WBPU and paint.'],
+tools:['3M 77','Diverter & side pieces','Long sanding bar','Gap-filling glue','Hobby knife','Sandpaper','Launch fairings (opt)','Rubbing alcohol','Wall spackling','WBPU + baby powder (opt)','Acrylic craft paint','Airbrush','Wiper fluid'],
+tip:'The wide fuselage with angled sides is hard to grip for a hand launch — the small side fairings resemble the real aircraft\'s landing gear blisters but sit lower so your fingers rest behind them. For paint, use water-based acrylic craft paint thinned about <strong>50/50 with windshield wiper fluid</strong>, not water: it dries faster and reduces runs. Two light coats is enough. The designer uses Delta Ceramcoat because it is smooth and will not clog an airbrush, and a Badger Crescendo with the medium nozzle, which handles both base coats and camouflage. Expect about 1.4 oz total including the WBPU coat. Always set the airbrush down over a jar of clean water and spray it through afterwards, and take it apart to wipe paint off the nozzle and needle.',
+check:['Nozzle notch clears pushrod and clevis','Bottom flat and straight along its length','Diverter exit slots open','Fairings, if fitted, at the CG tick','Whole model finally sanded','Airbrush cleaned straight after painting']},
+{n:'13',t:'Setup & first flight',p:[25,26],intro:'The designer\'s own flight setup. All figures are from his specification sheet.',what:[
+'Find the CG on the <strong>assembly drawing</strong>, not the parts templates — it is only shown there, so download that file before you start cutting.',
+'Set the stabilators slightly leading-edge down at neutral. This is deliberate and gives natural positive static stability.',
+'Stabilators ±1.5" at −40% expo. Ailerons ±1.0" at −40% expo. Rudder ±0.5" at −20% expo.',
+'Thrust vectoring ±15° mixed with the elevator.',
+'Mix the vectoring servo linearly with the elevator: full aft stick should give 1.5" of stabilator AND 15° of up vectoring. The designer needed a 50% rate; put it on a switch if you can.',
+'Start with the CG at 3.0" behind the wing root leading edge. It is already conservative — a beginner can go 1/8" further forward for more stability. Ballast in the nose if needed.',
+'Hand launch near the CG at about 75% throttle, moderately hard, straight ahead and slightly nose up. Keep your hand clear of the prop.',
+'Bring the throttle up slowly once it has speed and a little altitude.',
+'On landing, release the elevator just before touchdown and pull the throttle to zero.'],
+tools:['Transmitter with a programmable mix','Receiver','Battery','Ballast if needed'],
+tip:'Start at 15° of vectoring — plenty of manoeuvrability without feeling pitchy. 30° is possible but needs a switch. Never launch at full throttle: prop torque will roll it before there is airspeed to counter it. The model is otherwise docile, with no bad habits. <strong>Know what the vectoring is doing for you:</strong> turn it off and the stabilators alone will not hold the model up. "You would have to move the CG forward quite a bit (about 10–15% MAC) for the Raptor to become statically stable without the horizontal stabilizers." It flies well partly because the CG is already very far forward, and partly because the tail is doing less work than you would think — only the very tip of the root chord meets the wing, so the outboard 80% of the stabilator span behaves like a conventional stabilizer.',
+check:['Deflections measured at the root trailing edge','Stabilators set slightly leading-edge down at neutral','Mix gives 1.5" and 15° at full aft stick','CG at 3.0" behind the root leading edge','Vectoring servo free through its full range']}
+];
+
+const nn=n=>'step-'+String(n).padStart(2,'0')+'.webp';
+const list=document.getElementById('stageList');
+list.innerHTML=S.map((s,i)=>{
+  const prim=s.p[0], others=s.p.slice(1);
+  const othersHtml=others.length?'<div class="thumbs">'+others.map(p=>
+    `<button data-glb="${__GUIDE__}/${nn(p)}" data-cap="Guide page ${p} of 26" aria-label="Open guide page ${p}">
+      <img src="${__GUIDE__}/thumb/${nn(p)}" alt="Construction guide page ${p}" loading="lazy">
+      <span>p${p}</span></button>`).join('')+'</div>':'';
+  return `<article class="stage" id="st${s.n}">
+   <div class="stage-h"><span class="num">${s.n}</span><h3>${s.t}</h3>
+     <span class="cnt">guide p.${s.p.join(', ')}${s.opt?' · OPTIONAL':''}</span></div>
+   <div class="stage-b">
+     <div>
+       <figure class="gfig">
+         <button data-glb="${__GUIDE__}/${nn(prim)}" data-cap="Guide page ${prim} of 26 — ${s.t}" aria-label="Open guide page ${prim} full size">
+           <img src="${__GUIDE__}/${nn(prim)}" alt="Construction guide page ${prim}: ${s.t}" width="1430" height="1105" loading="lazy">
+         </button>
+         <figcaption class="gcap"><span>Original guide page ${prim} of 26</span><span class="mono">⤢ click to enlarge</span></figcaption>
+       </figure>${othersHtml}
+     </div>
+     <div>
+       <div class="blk"><h4>What to do</h4><ol class="steps">${s.what.map(w=>'<li>'+w+'</li>').join('')}</ol></div>
+       <details class="acc">
+         <summary>
+           <span class="acc-t">Tools, tips &amp; checks</span>
+           <span class="accn">${s.tools.length+s.check.length+1} items</span>
+           <span class="acc-a" aria-hidden="true"><span class="acc-atx"><span class="on">Hide</span><span class="off">Show</span></span><span class="acc-ar"></span></span>
+         </summary>
+         <div class="acc-b">
+           <ul class="tags">${s.tools.map(t=>'<li>'+t+'</li>').join('')}</ul>
+           <div class="blk tip" style="margin-top:1.1rem"><h4>Build tip</h4><p style="margin:0;font-size:.88rem;color:var(--text-dim)">${s.tip}</p></div>
+           <div class="blk check" style="margin-top:1.1rem"><h4>Check before continuing</h4><ul>${s.check.map(c=>'<li>'+c+'</li>').join('')}</ul></div>
+         </div>
+       </details>
+     </div>
+   </div>
+   <nav class="pager">
+     ${i>0?`<a href="#st${S[i-1].n}"><span class="k">Previous</span><span class="t"><span class="n">${S[i-1].n}</span>${S[i-1].t}</span></a>`:'<span></span>'}
+     ${i<S.length-1?`<a class="nx" href="#st${S[i+1].n}"><span class="k">Next</span><span class="t"><span class="n">${S[i+1].n}</span>${S[i+1].t}</span></a>`:'<a class="nx" href="#community"><span class="k">Next</span><span class="t"><span class="n">03</span>Community findings</span></a>'}
+   </nav></article>`;
+}).join('');
+
+/* ---------------- lightbox ---------------- */
+let lb=null,lbImg=null,lbCap=null,grp=[],at=0,restore=null;
+function openLb(btn){
+  grp=[...document.querySelectorAll('[data-glb]')];at=grp.indexOf(btn);if(at<0)at=0;restore=btn;
+  lb=document.createElement('div');lb.className='lb';lb.setAttribute('role','dialog');lb.setAttribute('aria-modal','true');
+  lb.innerHTML='<div class="lb-bar"><p class="lb-cap" aria-live="polite"></p><button class="lb-x" aria-label="Close">✕</button></div><button class="lb-nav p" aria-label="Previous">‹</button><img class="lb-img" alt=""><button class="lb-nav n" aria-label="Next">›</button>';
+  document.body.appendChild(lb);document.body.style.overflow='hidden';
+  lbImg=lb.querySelector('.lb-img');lbCap=lb.querySelector('.lb-cap');
+  const P=lb.querySelector('.lb-nav.p'),N=lb.querySelector('.lb-nav.n');
+  lb.querySelector('.lb-x').onclick=closeLb;P.onclick=()=>step(-1);N.onclick=()=>step(1);
+  lb.onclick=e=>{if(e.target===lb)closeLb()};
+  document.addEventListener('keydown',key,true);
+  show();lb.querySelector('.lb-x').focus();
+}
+function show(){const t=grp[at];if(!t)return;lbImg.src=t.dataset.glb;lbImg.alt=t.dataset.cap||'';lbCap.textContent=t.dataset.cap||'';
+  lb.querySelector('.lb-nav.p').disabled=at===0;lb.querySelector('.lb-nav.n').disabled=at===grp.length-1}
+function step(d){const n=at+d;if(n<0||n>=grp.length)return;at=n;show()}
+function key(e){if(!lb)return;if(e.key==='Escape')return closeLb();if(e.key==='ArrowLeft')return step(-1);if(e.key==='ArrowRight')return step(1);
+  if(e.key!=='Tab')return;const f=[...lb.querySelectorAll('button:not([disabled])')];if(!f.length)return;
+  const first=f[0],last=f[f.length-1];
+  if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus()}
+  else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus()}}
+function closeLb(){if(!lb)return;lb.remove();lb=null;document.body.style.overflow='';document.removeEventListener('keydown',key,true);if(restore)restore.focus()}
+document.querySelectorAll('[data-glb]').forEach(b=>b.addEventListener('click',e=>{e.preventDefault();openLb(b)}));
+
+/* ---------------- hero aircraft scroll ----------------
+   Same technique as the working standalone prototype: scroll progress across a
+   tall section translates the aircraft with a composited transform only.
+   No autoplay, no time-based animation, no layout properties touched. */
+(() => {
+  const section = document.getElementById('flight');
+  const sticky  = document.getElementById('flightSticky');
+  const plane   = document.getElementById('plane');
+  const header  = document.querySelector('header.top');
+  if (!section || !sticky || !plane) return;
+
+  const mqReduce = matchMedia('(prefers-reduced-motion: reduce)');
+  if (mqReduce.matches) return;               // styles already neutralise it
+
+  // park the sticky hero directly beneath the real header, whatever its height
+  function measure() {
+    if (!header) return;
+    document.documentElement.style.setProperty('--fly-top', header.offsetHeight + 'px');
+  }
+
+  let raf = 0;
+  function update() {
+    raf = 0;
+    const rect = section.getBoundingClientRect();
+    const top = parseFloat(getComputedStyle(sticky).top) || 0;
+    const travel = Math.max(1, rect.height - sticky.offsetHeight);
+    const p = Math.min(1, Math.max(0, (top - rect.top) / travel));
+
+    // motion sequence, all driven by scroll progress p (0..1):
+  //   hold      the aircraft sits in its original position, unmoved
+  //   roll      a full barrel roll while it is still around the middle
+  //   exit      it tracks left until its tip is past the left edge
+  //   release   p reaches 1, the hero unpins and the page carries on as normal
+  const HOLD = 0.28, ROLL_END = 0.58, EXIT_START = 0.58;
+  const ease = t => t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
+  const span = (a, b) => Math.min(1, Math.max(0, (p - a) / (b - a)));
+
+  const roll = ease(span(HOLD, ROLL_END));
+  const distance = innerWidth * (innerWidth < 600 ? 1.5 : 1.15);
+  const x = -distance * ease(span(EXIT_START, 1));
+  // a very subtle forward scale so it reads as flight, not a flat carousel
+  const scale = 1 + p * (innerWidth < 600 ? 0.04 : 0.08);
+
+  // The jet is seen side-on, so a barrel roll reads as the airframe spinning
+  // about its LONGITUDINAL axis - foreshortening to a blade at 90 deg and back
+  // to full width at 180/360. A flat 2D rotate() would instead swing the 910px
+  // fuselage outside the hero window and fill it with a slab.
+  const spin = roll * 360;
+  const bank = Math.sin(roll * Math.PI * 2) * 16;   // leans into and out of the roll
+
+  plane.style.transform =
+    `translate3d(${x.toFixed(2)}px,0,0) rotate(${bank.toFixed(2)}deg) rotateX(${spin.toFixed(2)}deg) scale(${scale.toFixed(4)})`;
+  }
+
+  function onScroll() { if (!raf) raf = requestAnimationFrame(update); }
+  function onResize() { measure(); onScroll(); }
+
+  addEventListener('scroll', onScroll, { passive: true });
+  addEventListener('resize', onResize, { passive: true });
+  measure();
+  update();
+})();
+/* ---------------- gallery ---------------- */
+const galImgs=['01-1200','02-1200','03-1200','04-1200','05-1200','06-1200','07-1200','08-1200'];
+document.getElementById('gal').innerHTML=galImgs.map(f=>`<figure><img src="${__IMG__}/${f}.webp" alt="F-22 Raptor prototype" loading="lazy"><figcaption>Prototype</figcaption></figure>`).join('');
+
+</script>
