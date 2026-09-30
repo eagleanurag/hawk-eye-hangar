@@ -108,6 +108,10 @@ shipped CSS and HTML. Build before testing, or the suite skips.
 Never weaken, skip or delete a test to make the suite pass. If a test encodes
 behaviour a task intentionally changes, update it deliberately and say so.
 
+## Agent credentials
+
+The agent normally authenticates GitHub operations with the built-in GITHUB_TOKEN. The optional repository secret OPENCODE_AGENT_TOKEN is exposed to the agent job only as AGENT_PUSH_TOKEN and is withheld from the OpenCode child process. It is used only when GitHub explicitly rejects a push because the built-in token lacks the Workflows repository permission, through a temporary git askpass helper that contains no secret. Never print, inspect, copy or commit AGENT_PUSH_TOKEN.
+
 ## Git discipline
 
 - Never `git add -A`. Stage explicit paths.
