@@ -1,5 +1,5 @@
 /**
- * EagleEye Hangar redesign regression tests.
+ * HawkEye Hangar redesign regression tests.
  *
  * These lock in the things that are easy to break silently:
  *   * the public brand, and the deliberate separation between the library's own
@@ -33,22 +33,142 @@ const cssFiles = fs.existsSync(path.join(DIST, '_astro'))
 const allCss = cssFiles.map((f) => read(path.join('_astro', f))).join('\n');
 
 const skip = home ? false : 'dist/ not built';
-test('brand is EagleEye Hangar in the document title', { skip }, () => {
-  assert.match(home, /<title>[^<]*EagleEye Hangar/);
+test('brand is HawkEye Hangar in the document title', { skip }, () => {
+  assert.match(home, /<title>[^<]*HawkEye Hangar/);
 });
 
 test('OpenGraph and Twitter metadata carry the new brand', { skip }, () => {
-  assert.match(home, /property="og:site_name" content="EagleEye Hangar"/);
-  assert.match(home, /property="og:title" content="[^"]*EagleEye Hangar/);
-  assert.match(home, /name="twitter:title" content="[^"]*EagleEye Hangar/);
+  assert.match(home, /property="og:site_name" content="HawkEye Hangar"/);
+  assert.match(home, /property="og:title" content="[^"]*HawkEye Hangar/);
+  assert.match(home, /name="twitter:title" content="[^"]*HawkEye Hangar/);
   assert.doesNotMatch(home, /content="Parkjets Archive"/);
 });
 
 test('the hero uses the required copy', { skip }, () => {
   assert.match(home, /Digital Aviation Library/i);
-  assert.match(home, /EagleEye/);
+  assert.match(home, /HawkEye/);
   assert.match(home, /Hangar/);
   assert.match(home, /RC Aircraft Plans/i);
+});
+
+/* ------------------------------------------------------------------ */
+/* Final identity: the rename to HawkEye Hangar must be complete       */
+/* ------------------------------------------------------------------ */
+
+test('no EagleEye branding survives anywhere in the built site', { skip }, () => {
+  const pages = ['index.html', '404.html', path.join('catalog', 'index.html'),
+    path.join('designers', 'index.html'), path.join('about', 'index.html')];
+  for (const p of pages) {
+    if (!has(p)) continue;
+    assert.doesNotMatch(read(p), /EagleEye/i, `${p} still mentions EagleEye`);
+  }
+  for (const f of cssFiles) {
+    assert.doesNotMatch(read(path.join('_astro', f)), /EagleEye/i, `${f} still mentions EagleEye`);
+  }
+  assert.doesNotMatch(allCss, /eagleeye/i, 'shipped CSS still mentions eagleeye');
+});
+
+test('every internal URL is prefixed with the deployed base path', { skip }, () => {
+  /*
+   * The single most likely silent failure after a project-site rename is a
+   * stale base: pages render fine locally and 404 in production because one
+   * asset path lost its /hawk-eye-hangar/ prefix. site.json is the source of
+   * truth, so the expectation is derived from it rather than hard-coded.
+   */
+  const site = JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'site.json'), 'utf8'));
+  assert.equal(site.base, '/hawk-eye-hangar/', 'base path is the final one');
+  const iconLinks = [...home.matchAll(/<link rel="(?:icon|apple-touch-icon|manifest)" href="([^"]+)"/g)]
+    .map((m) => m[1]);
+  assert.ok(iconLinks.length >= 5, 'the full icon set is linked');
+  for (const href of iconLinks) {
+    assert.ok(href.startsWith(site.base), `${href} is missing the base prefix`);
+  }
+  // the brand artwork is served under the base too
+  assert.match(home, new RegExp(`src="${site.base.replace(/[/]/g, '\\/')}brand\\/hawkeye-hangar-hero`));
+});
+
+test('the brand artwork ships as web derivatives, never the master PNG', { skip }, () => {
+  // A 1.35 MB master must never be requested by a normal page view.
+  assert.doesNotMatch(home, /hawkeye-hangar-(?:logo|hero|favicon-source)\.png/,
+    'a master PNG is being served to visitors');
+  for (const f of ['brand/hawkeye-hangar-logo.webp', 'brand/hawkeye-hangar-logo-nav.webp',
+    'brand/hawkeye-hangar-hero.webp', 'brand/hawkeye-hangar-hero-640.webp']) {
+    assert.ok(has(f), `${f} is missing from the artifact`);
+  }
+});
+
+test('the header and hero logos are dimensioned and lazy where appropriate', { skip }, () => {
+  const imgs = [...home.matchAll(/<img\b[^>]*brand-logo[^>]*>|<img\b[^>]*hangar-crest[^>]*>/g)]
+    .map((m) => m[0]);
+  assert.ok(imgs.length >= 2, 'the header and the footer both carry the logo');
+  for (const t of imgs) {
+    assert.match(t, /\bwidth\s*=/, 'logo has an explicit width (no CLS)');
+    assert.match(t, /\bheight\s*=/, 'logo has an explicit height (no CLS)');
+  }
+  // the hero crest is above the fold and must not be lazy
+  const crest = home.match(/<img\b[^>]*hangar-crest[^>]*>/);
+  assert.ok(crest, 'hero crest is present');
+  assert.doesNotMatch(crest[0], /loading="lazy"/, 'the above-the-fold crest is not lazy');
+  // the footer logo is below the fold and should be
+  assert.match(home, /<img\b[^>]*brand-logo[^>]*loading="lazy"/, 'the footer logo is lazy');
+});
+
+test('the hero crest keeps the master aspect ratio', { skip }, () => {
+  /*
+   * Regression guard for a real defect: the first hawkeye-hangar-hero.webp was a
+   * 1200x1200 square of the *favicon* artwork, which silently destroyed the
+   * master's 3:2 composition. Both the markup and the shipped files must hold
+   * 3:2 (within a pixel of rounding).
+   */
+  const crest = home.match(/<img\b[^>]*hangar-crest[^>]*>/);
+  assert.ok(crest, 'hero crest is present');
+  const dims = crest[0].match(/width="(\d+)"[^>]*height="(\d+)"/);
+  assert.ok(dims, 'the crest declares intrinsic dimensions');
+  const ratio = Number(dims[1]) / Number(dims[2]);
+  assert.ok(Math.abs(ratio - 1.5) < 0.01, `markup ratio is ${ratio}, expected 1.5`);
+
+  // srcset descriptors are CSS widths, so they are checked as widths only.
+  const widths = [...crest[0].matchAll(/(\d+)w/g)].map((m) => Number(m[1]));
+  assert.ok(widths.length >= 2, 'the crest offers more than one width');
+  assert.ok(widths.every((w) => w > 0 && w <= 1200), 'srcset widths are sane');
+
+  // The real check: the encoded files themselves must be 3:2.
+  for (const f of ['brand/hawkeye-hangar-hero.webp', 'brand/hawkeye-hangar-hero-640.webp']) {
+    const buf = fs.readFileSync(path.join(DIST, f));
+    // VP8X extended format: canvas width-1 / height-1 are 24-bit LE at 24 and 27.
+    assert.equal(buf.toString('latin1', 12, 16), 'VP8X', `${f} is a VP8X webp`);
+    const w = 1 + (buf[24] | (buf[25] << 8) | (buf[26] << 16));
+    const h = 1 + (buf[27] | (buf[28] << 8) | (buf[29] << 16));
+    assert.ok(Math.abs(w / h - 1.5) < 0.01, `${f} is ${w}x${h} (${(w / h).toFixed(3)}), expected 3:2`);
+  }
+});
+
+test('the favicon set is the HawkEye mark and never white-backed', { skip }, () => {
+  for (const f of ['favicon.ico', 'favicon-16x16.png', 'favicon-32x32.png', 'favicon-48x48.png',
+    'apple-touch-icon.png', 'favicon.svg']) {
+    assert.ok(has(f), `${f} is missing from the artifact`);
+  }
+  const svg = read('favicon.svg');
+  assert.match(svg, /aria-label="HawkEye Hangar"/, 'the SVG favicon is the HawkEye mark');
+  assert.doesNotMatch(svg, /EagleEye/i);
+  // the raster icons must carry an alpha channel, so no white plate is shipped
+  for (const f of ['favicon-16x16.png', 'favicon-32x32.png', 'favicon-48x48.png']) {
+    const buf = fs.readFileSync(path.join(DIST, f));
+    // PNG colour type 6 = RGBA, 4 = greyscale+alpha
+    const colourType = buf[25];
+    assert.ok(colourType === 6 || colourType === 4, `${f} has no alpha channel (colour type ${colourType})`);
+  }
+});
+
+test('no stale repository or Pages URL is shipped', { skip }, () => {
+  const stale = ['eagleeye-hangar', 'parkjet-aircraft-archive'];
+  for (const p of ['index.html', 'robots.txt', 'site.webmanifest', 'sitemap-0.xml', 'sitemap-index.xml']) {
+    if (!has(p)) continue;
+    const body = read(p);
+    for (const s of stale) {
+      assert.doesNotMatch(body, new RegExp(s, 'i'), `${p} still references ${s}`);
+    }
+  }
 });
 
 test('the hero count is read from the dataset, not hard-coded', { skip }, () => {
@@ -195,7 +315,11 @@ test('the search index still contains searchable prose', { skip }, () => {
 });
 
 test('cards stay lazily loaded and dimensioned', { skip }, () => {
-  const imgs = [...catalog.matchAll(/<img\b[^>]*>/g)].map((m) => m[0]);
+  // Only the catalogue cards are in scope. The shell's brand logo is a
+  // deliberate exception: it is above the fold and must NOT be lazy, so
+  // counting every <img> on the page would make this test assert the opposite
+  // of what is wanted.
+  const imgs = [...catalog.matchAll(/<img\b[^>]*media\/aircraft[^>]*>/g)].map((m) => m[0]);
   assert.ok(imgs.length >= 109, 'every card has an image');
   for (const t of imgs) {
     assert.match(t, /\balt\s*=/, 'image has alt text');
@@ -211,10 +335,18 @@ test('cards stay lazily loaded and dimensioned', { skip }, () => {
 test('the web app manifest carries the new brand', { skip }, () => {
   const mf = has('site.webmanifest') ? read('site.webmanifest') : '';
   const j = JSON.parse(mf);
-  assert.equal(j.name, 'EagleEye Hangar');
+  assert.equal(j.name, 'HawkEye Hangar');
   assert.doesNotMatch(j.name, /Parkjets/i);
   assert.doesNotMatch(j.short_name, /Parkjets/i);
   assert.doesNotMatch(j.description, /Parkjets/i);
+  // the manifest must advertise the real favicon set, including the sizes that
+  // an installable-PWA check looks for
+  const sizes = j.icons.map((i) => i.sizes);
+  assert.ok(sizes.includes('32x32'), 'manifest declares a 32x32 icon');
+  assert.ok(sizes.includes('180x180'), 'manifest declares a 180x180 icon');
+  for (const icon of j.icons) {
+    assert.ok(has(icon.src), `manifest icon ${icon.src} is not in the artifact`);
+  }
 });
 
 test('robots.txt advertises the new sitemap and names the new brand', { skip }, () => {
@@ -223,4 +355,5 @@ test('robots.txt advertises the new sitemap and names the new brand', { skip }, 
   const expected = `${site.url.replace(/\/$/, '')}${site.base}sitemap-index.xml`;
   assert.ok(r.includes(expected), `robots.txt points at ${expected}`);
   assert.doesNotMatch(r, /parkjet-aircraft-archive/, 'no stale Pages path');
+  assert.doesNotMatch(r, /eagleeye-hangar/i, 'no stale Pages path');
 });

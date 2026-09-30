@@ -161,7 +161,7 @@ for (const want of ['/robots.txt', '/sitemap-index.xml', '/favicon.svg', '/og-de
 
 // ---------------------------------------------------------------------------
 console.log('');
-console.log('  EagleEye Hangar — link & markup audit');
+console.log('  HawkEye Hangar — link & markup audit');
 console.log('  ─────────────────────────────────────────────────');
 console.log(`  html pages        ${htmlFiles.length}`);
 console.log(`  files in build    ${files.length}`);

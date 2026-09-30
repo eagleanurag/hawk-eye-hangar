@@ -1,14 +1,26 @@
 {
-  "name": "EagleEye Hangar",
-  "short_name": "EagleEye",
-  "description": "An independent digital aviation library of RC aircraft plans, designs and build resources.",
-  "start_url": "./",
-  "scope": "./",
-  "display": "standalone",
-  "background_color": "#070b14",
-  "theme_color": "#070b14",
+  "name": "HawkEye Hangar",
+  "short_name": "HawkEye",
+  "tagline": "RC Aircraft Plans • Designs • Build Resources",
+  "description": "Explore RC aircraft plans, designs, specifications, designers, photos and build resources in the HawkEye Hangar aviation library — 109 aircraft, 49 designers, 419 photographs.",
+  "url": "https://eagleanurag.github.io",
+  "base": "/hawk-eye-hangar/",
+  "repo": "https://github.com/eagleanurag/hawk-eye-hangar",
+  "sourceSite": "https://www.parkjets.com",
+  "sourceCollection": "https://www.parkjets.com/free-plans",
+  "contactEmail": "parkjets@gmail.com",
+  "locale": "en-GB",
+  "themeColor": "#070b14",
+  "brand": "HawkEye Hangar",
+  "eyebrow": "Digital Aviation Library",
+  "descriptors": "RC Aircraft Plans • Designs • Build Resources",
+  "formerBrand": "EagleEye Hangar",
+  "sourceBrand": "Parkjets",
   "icons": [
+    { "src": "favicon-32x32.png", "sizes": "32x32", "type": "image/png" },
+    { "src": "favicon-48x48.png", "sizes": "48x48", "type": "image/png" },
+    { "src": "apple-touch-icon.png", "sizes": "180x180", "type": "image/png" },
     { "src": "favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" },
-    { "src": "apple-touch-icon.png", "sizes": "180x180", "type": "image/png" }
+    { "src": "favicon.ico", "sizes": "16x16 32x32 48x48", "type": "image/x-icon" }
   ]
 }

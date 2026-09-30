@@ -1,17 +1,18 @@
 {
-  "name": "EagleEye Hangar",
+  "name": "HawkEye Hangar",
   "tagline": "RC Aircraft Plans • Designs • Build Resources",
-  "description": "Explore RC aircraft plans, designs, specifications, designers, photos and build resources in the EagleEye Hangar aviation library — 109 aircraft, 49 designers, 419 photographs.",
+  "description": "Explore RC aircraft plans, designs, specifications, designers, photos and build resources in the HawkEye Hangar aviation library — 109 aircraft, 49 designers, 419 photographs.",
   "url": "https://eagleanurag.github.io",
-  "base": "/eagleeye-hangar/",
-  "repo": "https://github.com/eagleanurag/eagleeye-hangar",
+  "base": "/hawk-eye-hangar/",
+  "repo": "https://github.com/eagleanurag/hawk-eye-hangar",
   "sourceSite": "https://www.parkjets.com",
   "sourceCollection": "https://www.parkjets.com/free-plans",
   "contactEmail": "parkjets@gmail.com",
   "locale": "en-GB",
   "themeColor": "#070b14",
-  "brand": "EagleEye Hangar",
+  "brand": "HawkEye Hangar",
   "eyebrow": "Digital Aviation Library",
   "descriptors": "RC Aircraft Plans • Designs • Build Resources",
-  "formerBrand": "Parkjets Archive"
+  "formerBrand": "EagleEye Hangar",
+  "sourceBrand": "Parkjets"
 }

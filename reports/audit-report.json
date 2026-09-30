@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-09-30T10:30:53.955Z",
+  "generatedAt": "2026-09-30T12:09:00.347Z",
   "payload": {
-    "sharedJsBytes": 14169,
-    "sharedCssBytes": 55605,
-    "htmlBytes": 2982758,
+    "sharedJsBytes": 14168,
+    "sharedCssBytes": 55843,
+    "htmlBytes": 2917223,
     "mediaBytes": 50413786,
     "mediaFiles": 838
   },
@@ -11,42 +11,42 @@
     {
       "page": "home",
       "js": 5157,
-      "css": 46840,
-      "images": 12872,
-      "other": 153520,
-      "count": 10
+      "css": 47078,
+      "images": 115954,
+      "other": 153313,
+      "count": 12
     },
     {
       "page": "catalog",
       "js": 8736,
-      "css": 38852,
-      "images": 766372,
-      "other": 404446,
-      "count": 15
+      "css": 38828,
+      "images": 819066,
+      "other": 403865,
+      "count": 16
     },
     {
       "page": "detail",
-      "js": 5858,
-      "css": 44865,
-      "images": 47764,
-      "other": 133032,
-      "count": 14
+      "js": 5857,
+      "css": 44841,
+      "images": 100458,
+      "other": 132454,
+      "count": 15
     },
     {
       "page": "designers",
       "js": 2849,
-      "css": 34859,
-      "images": 0,
-      "other": 158677,
-      "count": 9
+      "css": 34835,
+      "images": 52694,
+      "other": 158096,
+      "count": 10
     },
     {
       "page": "about",
       "js": 2849,
-      "css": 37366,
-      "images": 0,
-      "other": 125859,
-      "count": 9
+      "css": 37342,
+      "images": 52694,
+      "other": 125276,
+      "count": 10
     }
   ],
   "passes": [

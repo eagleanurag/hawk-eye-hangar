@@ -1,5 +1,5 @@
 /**
- * EagleEye Hangar — motion runtime.
+ * HawkEye Hangar — motion runtime.
  *
  * Deliberately dependency-free (~3 KB, no framework, no GSAP). Everything is
  * CSS-driven; this file only adds the scroll observers, number counters and

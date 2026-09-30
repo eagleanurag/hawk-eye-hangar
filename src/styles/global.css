@@ -1,5 +1,5 @@
 /* ==========================================================================
-   EagleEye Hangar — design system
+   HawkEye Hangar — design system
    Dark aerospace-engineering visual language: blueprint grid, technical
    panels, cyan/ice-blue highlights, aviation editorial typography.
 
@@ -314,16 +314,29 @@
     letter-spacing: 0.01em;
     white-space: nowrap;
   }
-  .brand-mark {
-    display: grid;
-    place-items: center;
-    inline-size: 38px;
-    block-size: 38px;
-    border-radius: 10px;
-    background: linear-gradient(150deg, var(--cyan) 0%, var(--cyan-deep) 55%, #0b5f86 100%);
-    box-shadow: 0 6px 18px -8px color-mix(in oklab, var(--cyan) 80%, transparent);
-    color: #04121b;
+  /*
+   * The header lockup is the real HawkEye artwork rather than a styled text
+   * lockup, so it is sized by HEIGHT only: the crest is 5:4, and driving it
+   * from block-size keeps that ratio locked while the header breathes. 42px on
+   * desktop and 34px on a phone — both inside the 30-44 / 28-36 band, and both
+   * far below the 500px intrinsic width, so this is never a native-size render.
+   */
+  .brand-logo {
+    display: block;
+    block-size: 42px;
+    inline-size: auto;
+    max-inline-size: none;
     flex: none;
+    /* A soft warm halo so the transparent crest separates from the header
+       gradient without adding a plate behind it. */
+    filter: drop-shadow(0 2px 10px rgb(0 0 0 / 0.45));
+  }
+  /* The footer has room for the mark to be read as a crest. */
+  .brand--footer {
+    margin-bottom: 0.9rem;
+  }
+  .brand--footer .brand-logo {
+    block-size: 76px;
   }
   .brand-text small {
     display: block;
@@ -333,6 +346,11 @@
     text-transform: uppercase;
     color: var(--text-faint);
     font-weight: 500;
+  }
+  @media (max-width: 560px) {
+    .brand-logo {
+      block-size: 34px;
+    }
   }
 
   .nav {

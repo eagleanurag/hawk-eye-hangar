@@ -13,7 +13,7 @@ import path from 'node:path';
 import { ROOT, readJSON, log } from './lib.mjs';
 
 const site = readJSON(path.join(ROOT, 'data', 'site.json'));
-const repo = process.env.GITHUB_REPOSITORY || 'eagleanurag/eagleeye-hangar';
+const repo = process.env.GITHUB_REPOSITORY || 'eagleanurag/hawk-eye-hangar';
 
 // ---- resolve the Pages URL from the repository configuration --------------
 async function resolvePagesUrl() {
@@ -77,7 +77,7 @@ async function head(url, method = 'GET') {
 async function main() {
   const pagesUrl = (await resolvePagesUrl()).replace(/\/$/, '');
   log('');
-  log('  EagleEye Hangar — final deployment validation');
+  log('  HawkEye Hangar — final deployment validation');
   log('  ─────────────────────────────────────────────────');
   log(`  repository : https://github.com/${repo}`);
   log(`  pages url  : ${pagesUrl}`);
@@ -125,7 +125,11 @@ async function main() {
     const dist = path.join(ROOT, 'dist');
     const need = ['index.html', '404.html', 'catalog/index.html', 'designers/index.html', 'about/index.html',
       'robots.txt', 'sitemap-index.xml', 'sitemap-0.xml', 'favicon.svg', 'favicon.ico', 'og-default.png',
-      'apple-touch-icon.png', 'site.webmanifest'];
+      'apple-touch-icon.png', 'site.webmanifest',
+      // HawkEye brand derivatives actually requested by the pages
+      'favicon-16x16.png', 'favicon-32x32.png', 'favicon-48x48.png',
+      'brand/hawkeye-hangar-logo.webp', 'brand/hawkeye-hangar-logo-nav.webp',
+      'brand/hawkeye-hangar-hero.webp', 'brand/hawkeye-hangar-hero-640.webp'];
     for (const f of need) {
       const p = path.join(dist, f);
       record(`artifact contains ${f}`, fs.existsSync(p) && fs.statSync(p).size > 0, fs.existsSync(p) ? `${fs.statSync(p).size} bytes` : 'missing');
@@ -155,7 +159,13 @@ async function main() {
   }
 
   // ---- core pages ---------------------------------------------------------
-  for (const p of ['/', '/catalog', '/designers', '/about', '/robots.txt', '/sitemap-index.xml', '/sitemap-0.xml', '/favicon.svg', '/og-default.png', '/site.webmanifest']) {
+  // The brand derivatives are probed explicitly: a base-path mistake shows up
+  // as a 404 on exactly these, while the HTML pages still look correct.
+  for (const p of ['/', '/catalog', '/designers', '/about', '/robots.txt', '/sitemap-index.xml', '/sitemap-0.xml',
+    '/favicon.svg', '/favicon.ico', '/favicon-16x16.png', '/favicon-32x32.png', '/apple-touch-icon.png',
+    '/og-default.png', '/site.webmanifest',
+    '/brand/hawkeye-hangar-logo.webp', '/brand/hawkeye-hangar-logo-nav.webp',
+    '/brand/hawkeye-hangar-hero.webp', '/brand/hawkeye-hangar-hero-640.webp']) {
     try {
       const r = await head(pagesUrl + p);
       record(`GET ${p}`, r.status === 200, `HTTP ${r.status}, ${r.bytes} bytes, ${r.type}`);
@@ -290,7 +300,7 @@ function finish(results, pagesUrl, buildStatus, repo) {
   );
 
   const md = [
-    '# EagleEye Hangar — deployment validation',
+    '# HawkEye Hangar — deployment validation',
     '',
     `_Generated ${new Date().toISOString()}._`,
     '',

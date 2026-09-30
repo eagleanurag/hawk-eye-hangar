@@ -1,5 +1,5 @@
 ---
-import { SITE, stats, BASE } from '../lib/catalog';
+import { SITE, stats, BASE, pub } from '../lib/catalog';
 import '../styles/global.css';
 
 const path = Astro.url.pathname.replace(/\/index\.html$/, '/').replace(/\/$/, '') || '/';
@@ -11,22 +11,45 @@ const nav = [
 ];
 const base = BASE;
 const isCurrent = (href: string) => (href === '/' ? path === '/' : path.startsWith(base.replace(/\/$/, '') + href));
-/* One inline mark, reused in the header and the footer. */
-const brandMark = `<svg width="24" height="24" viewBox="0 0 64 64" fill="none" aria-hidden="true" focusable="false">
-  <path d="M6 32 17 12h30l11 20-11 20H17Z" fill="none" stroke="currentColor" stroke-opacity=".5" stroke-width="3" stroke-linejoin="round"/>
-  <path d="M11 32c6.2-8.4 13-12.6 21-12.6S46.8 23.6 53 32c-6.2 8.4-13 12.6-21 12.6S17.2 40.4 11 32Z" fill="currentColor" fill-opacity=".92"/>
-  <path d="M32 23.4 38.4 37 32 33.4 25.6 37Z" fill="#0a1220"/>
-</svg>`;
+
+/*
+ * Brand imagery.
+ *
+ * The wordmark is real artwork, not text: public/brand/hawkeye-hangar-logo.png
+ * is the master and scripts/gen-brand.mjs derives the web copies from it. The
+ * 1.35 MB master PNG is never requested by a visitor.
+ *
+ *   logo-nav.webp  500x400  the header lockup, rendered ~34-42px tall
+ *   logo.webp     1000x800  the footer lockup, rendered larger
+ *
+ * Both are transparent, and both carry intrinsic width/height so the browser can
+ * reserve the box before the bytes arrive (no CLS). The brand name is kept as
+ * the link's accessible name, because at header size the wordmark inside the
+ * artwork is a texture rather than something to read.
+ */
+const navLogo = {
+  src: pub('/brand/hawkeye-hangar-logo-nav.webp'),
+  width: 500,
+  height: 400,
+};
+const footerLogo = {
+  src: pub('/brand/hawkeye-hangar-logo.webp'),
+  width: 1000,
+  height: 800,
+};
 ---
 
 <header class="site-header" data-header>
   <div class="shell header-inner">
     <a class="brand" href={base} aria-label={`${SITE.name} — home`}>
-      <span class="brand-mark" aria-hidden="true" set:html={brandMark} />
-      <span class="brand-text">
-        EagleEye
-        <small>Hangar</small>
-      </span>
+      <img
+        class="brand-logo"
+        src={navLogo.src}
+        alt=""
+        width={navLogo.width}
+        height={navLogo.height}
+        decoding="async"
+      />
     </a>
 
     <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-nav" data-nav-toggle>
@@ -51,9 +74,16 @@ const brandMark = `<svg width="24" height="24" viewBox="0 0 64 64" fill="none" a
   <div class="shell">
     <div class="footer-grid">
       <div>
-        <a class="brand" href={base} aria-label={`${SITE.name} — home`} style="margin-bottom:.9rem">
-          <span class="brand-mark" aria-hidden="true" set:html={brandMark} />
-          <span class="brand-text">EagleEye<small>Hangar</small></span>
+        <a class="brand brand--footer" href={base} aria-label={`${SITE.name} — home`}>
+          <img
+            class="brand-logo"
+            src={footerLogo.src}
+            alt=""
+            width={footerLogo.width}
+            height={footerLogo.height}
+            loading="lazy"
+            decoding="async"
+          />
         </a>
         <p class="muted" style="max-width:44ch;font-size:.92rem">
           An independent digital aviation library of RC aircraft plans, designs and build

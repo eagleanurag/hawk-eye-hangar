@@ -1,9 +1,9 @@
 {
-  "name": "eagleeye-hangar",
+  "name": "hawk-eye-hangar",
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "description": "EagleEye Hangar - an independent digital aviation library of RC aircraft plans, designs and build resources.",
+  "description": "HawkEye Hangar - an independent digital aviation library of RC aircraft plans, designs and build resources.",
   "license": "MIT",
   "engines": {
     "node": ">=20"
@@ -17,7 +17,8 @@
     "validate": "node scripts/validate-aircraft.mjs",
     "check-links": "node scripts/check-links.mjs",
     "qa": "node scripts/qa.mjs",
-    "icons": "node scripts/gen-icons.mjs && node scripts/gen-og.mjs",
+    "icons": "node scripts/gen-brand.mjs && node scripts/gen-og.mjs",
+    "brand": "node scripts/gen-brand.mjs",
     "report": "node scripts/build-report.mjs",
     "build": "npm run validate && astro build",
     "preview": "astro preview",
@@ -42,6 +43,7 @@
     "astro": "^7.3.5"
   },
   "devDependencies": {
-    "playwright": "^1.63.0"
+    "playwright": "^1.63.0",
+    "sharp": "^0.35.5"
   }
 }

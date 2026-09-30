@@ -3,12 +3,21 @@
  * Generates public/og-default.png — the default social preview image.
  *
  * Drawn procedurally with a dependency-free PNG encoder so the build stays
- * portable. Aircraft pages override this with their own photograph.
+ * portable, then the HawkEye crest is composited on top with sharp.
+ * Aircraft pages override this with their own photograph.
+ *
+ * The crest is the 1200x800 web derivative that scripts/gen-brand.mjs already
+ * produces from public/brand/hawkeye-hangar-hero.png, scaled on one dimension
+ * only, so the OG card cannot drift from the artwork the site actually ships and
+ * the master is never re-encoded at a third size.
+ *
+ * Run: node scripts/gen-og.mjs
  */
 
 import fs from 'node:fs';
 import path from 'node:path';
 import zlib from 'node:zlib';
+import sharp from 'sharp';
 import { ROOT } from './lib.mjs';
 
 const crcTable = (() => {
@@ -159,5 +168,36 @@ for (let y = 0; y < H; y++) {
   }
 }
 
-fs.writeFileSync(path.join(ROOT, 'public', 'og-default.png'), encodePng(W, H, px));
-console.log('✓ wrote public/og-default.png (1200×630)');
+const base = encodePng(W, H, px);
+
+/*
+ * Composite the crest, right of centre and vertically centred in the card, at
+ * 62% of the card height. The procedural aircraft silhouettes stay visible
+ * behind it, so the composition is not merely "logo on a background".
+ */
+const crestPath = path.join(ROOT, 'public', 'brand', 'hawkeye-hangar-hero.webp');
+if (!fs.existsSync(crestPath)) {
+  console.error(`✗ missing ${path.relative(ROOT, crestPath)} — run: node scripts/gen-brand.mjs`);
+  process.exit(1);
+}
+const crestHeight = Math.round(H * 0.74);
+const crestWidth = Math.round(crestHeight * 1.5); // the master is 3:2
+const composed = await sharp(base)
+  .composite([
+    {
+      input: await sharp(crestPath)
+        .resize({ height: crestHeight })
+        .png()
+        .toBuffer(),
+      // Right-aligned with a 56px margin, so the wordmark is never clipped by
+      // the card edge and the left two thirds stay clear for the platform's
+      // own overlay.
+      left: W - crestWidth - 56,
+      top: Math.round((H - crestHeight) / 2),
+    },
+  ])
+  .png({ compressionLevel: 9, effort: 10 })
+  .toBuffer();
+
+fs.writeFileSync(path.join(ROOT, 'public', 'og-default.png'), composed);
+console.log(`✓ wrote public/og-default.png (${W}×${H}) with the HawkEye crest`);

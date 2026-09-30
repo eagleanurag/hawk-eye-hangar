@@ -5,7 +5,7 @@ import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 
 /**
- * EagleEye Hangar - static site configuration.
+ * HawkEye Hangar - static site configuration.
  *
  * Output is 100% static HTML/CSS/JS so GitHub Pages can host it with no
  * server, no adapter and no runtime.

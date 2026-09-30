@@ -26,7 +26,7 @@ const ogImage = image.startsWith('http') ? image : abs(image);
 /*
  * Append the brand suffix only when the supplied title does not already carry
  * it. Without this the homepage rendered as
- * "EagleEye Hangar - RC Aircraft Plans & Designs - EagleEye Hangar".
+ * "HawkEye Hangar - RC Aircraft Plans & Designs - HawkEye Hangar".
  */
 const fullTitle =
   title === SITE.name || title.toLowerCase().includes(SITE.name.toLowerCase())
@@ -65,9 +65,19 @@ const fullTitle =
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
 
+    {/*
+      Icon set generated from public/brand/hawkeye-hangar-favicon-source.png by
+      scripts/gen-brand.mjs. Ordered so the smallest specific PNG wins where a
+      browser supports it, with the multi-size .ico as the catch-all and the SVG
+      last for the browsers that prefer vector. No white-background variant: the
+      mark is a dark hangar interior and is transparent by design.
+    */}
     <link rel="icon" href={pub('/favicon.svg')} type="image/svg+xml" />
-    <link rel="icon" href={pub('/favicon.ico')} sizes="32x32" />
-    <link rel="apple-touch-icon" href={pub('/apple-touch-icon.png')} />
+    <link rel="icon" href={pub('/favicon.ico')} sizes="16x16 32x32 48x48" />
+    <link rel="icon" href={pub('/favicon-16x16.png')} type="image/png" sizes="16x16" />
+    <link rel="icon" href={pub('/favicon-32x32.png')} type="image/png" sizes="32x32" />
+    <link rel="icon" href={pub('/favicon-48x48.png')} type="image/png" sizes="48x48" />
+    <link rel="apple-touch-icon" href={pub('/apple-touch-icon.png')} sizes="180x180" />
     <link rel="manifest" href={pub('/site.webmanifest')} />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />

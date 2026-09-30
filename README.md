@@ -2,7 +2,7 @@
 
 **An independent, self-hosted preservation of the Parkjets RC parkjet & park flyer plan catalogue.**
 
-Live site: **<https://eagleanurag.github.io/eagleeye-hangar/>**
+Live site: **<https://eagleanurag.github.io/hawk-eye-hangar/>**
 
 109 aircraft · 419 photographs · 49 credited designers · fully searchable · no backend, no trackers, no Squarespace.
 

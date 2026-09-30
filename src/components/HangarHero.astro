@@ -1,6 +1,6 @@
 ---
 /**
- * EagleEye Hangar — hero scroll story.
+ * HawkEye Hangar — hero scroll story.
  *
  * Presentation only. The aircraft it depicts is described by a small, explicit
  * `spec` prop rather than by loading the 109-record catalogue, so this component
@@ -10,7 +10,7 @@
  * here come from the real dataset via the caller (see index.astro), so nothing
  * about the archive is hard-coded in this file.
  */
-import { BASE } from '../lib/catalog';
+import { BASE, pub } from '../lib/catalog';
 
 interface Spec {
   label: string;
@@ -29,6 +29,27 @@ interface Props {
 
 const { aircraftCount, designerCount, photoCount, heroName, heroDesigner, specs } = Astro.props;
 const base = BASE;
+
+/*
+ * Brand crest, above the headline.
+ *
+ * public/brand/hawkeye-hangar-hero.png is the master (1536x1024, 3:2,
+ * transparent) and scripts/gen-brand.mjs derives the web copies from it on ONE
+ * dimension, so the composition is scaled and never cropped. Two widths are
+ * published: a phone in a ~300px slot must not download the 1200px file.
+ *
+ * Eager and async-decoded because it is above the fold, with intrinsic
+ * width/height so the box is reserved before the bytes land (no CLS), and a
+ * capped block-size so the hero's carefully tuned vertical rhythm survives.
+ * alt="" is correct: the crest is decorative beside a real <h1> that already
+ * names the brand in text.
+ */
+const crest = {
+  src: pub('/brand/hawkeye-hangar-hero.webp'),
+  src640: pub('/brand/hawkeye-hangar-hero-640.webp'),
+  width: 1200,
+  height: 800,
+};
 ---
 
 <section class="hangar-hero" data-hero-story aria-labelledby="hero-title">
@@ -45,13 +66,26 @@ const base = BASE;
 
   <div class="hangar-hero-inner">
     <div class="hangar-hero-copy" data-hero-copy>
+      <img
+        class="hangar-crest"
+        src={crest.src}
+        srcset={`${crest.src640} 640w, ${crest.src} 1200w`}
+        sizes="(max-width: 560px) 168px, (max-width: 1080px) 132px, 152px"
+        alt=""
+        width={crest.width}
+        height={crest.height}
+        loading="eager"
+        decoding="async"
+        data-hero-crest
+      />
+
       <p class="hangar-eyebrow">
         <span class="hangar-eyebrow-dot" aria-hidden="true"></span>
         Digital Aviation Library
       </p>
 
       <h1 id="hero-title" class="hangar-title">
-        <span class="hangar-title-main">EagleEye</span>
+        <span class="hangar-title-main">HawkEye</span>
         <span class="hangar-title-sub">Hangar</span>
       </h1>
 
@@ -110,21 +144,21 @@ const base = BASE;
           role="presentation"
         >
           <defs>
-            <linearGradient id="eeSkin" x1="0" y1="0" x2="0.3" y2="1">
+            <linearGradient id="heSkin" x1="0" y1="0" x2="0.3" y2="1">
               <stop offset="0%" stop-color="#dbe7fb" />
               <stop offset="42%" stop-color="#a8bcd8" />
               <stop offset="100%" stop-color="#6d84a6" />
             </linearGradient>
-            <linearGradient id="eeSkinTop" x1="0" y1="0" x2="0" y2="1">
+            <linearGradient id="heSkinTop" x1="0" y1="0" x2="0" y2="1">
               <stop offset="0%" stop-color="#eef4ff" />
               <stop offset="100%" stop-color="#b9c9e2" />
             </linearGradient>
-            <linearGradient id="eeGlass" x1="0" y1="0" x2="0.4" y2="1">
+            <linearGradient id="heGlass" x1="0" y1="0" x2="0.4" y2="1">
               <stop offset="0%" stop-color="#2b4a6b" />
               <stop offset="55%" stop-color="#12293f" />
               <stop offset="100%" stop-color="#0a1826" />
             </linearGradient>
-            <linearGradient id="eeAccent" x1="0" y1="0" x2="1" y2="0">
+            <linearGradient id="heAccent" x1="0" y1="0" x2="1" y2="0">
               <stop offset="0%" stop-color="#4fd6ff" />
               <stop offset="100%" stop-color="#1a86bd" />
             </linearGradient>
@@ -132,20 +166,20 @@ const base = BASE;
 
           <!-- filled skin: stage 1 -->
           <g data-hero-skin>
-            <path d="M604 300 792 366 806 386 596 336Z" fill="url(#eeSkin)" opacity=".82" />
-            <path d="M596 300 408 366 394 386 604 336Z" fill="url(#eeSkin)" opacity=".82" />
-            <path d="M600 150 792 372 596 342 408 372Z" fill="url(#eeSkin)" />
-            <path d="M600 150 792 372 764 362 600 196Z" fill="url(#eeSkinTop)" opacity=".75" />
-            <path d="M600 118c26 16 40 44 40 78 0 62-16 128-40 190-24-62-40-128-40-190 0-34 14-62 40-78Z" fill="url(#eeSkin)" />
-            <path d="M600 96c18 14 28 34 28 58 0 8-28 8-28 0 0-24 10-44 28-58Z" fill="url(#eeSkinTop)" />
+            <path d="M604 300 792 366 806 386 596 336Z" fill="url(#heSkin)" opacity=".82" />
+            <path d="M596 300 408 366 394 386 604 336Z" fill="url(#heSkin)" opacity=".82" />
+            <path d="M600 150 792 372 596 342 408 372Z" fill="url(#heSkin)" />
+            <path d="M600 150 792 372 764 362 600 196Z" fill="url(#heSkinTop)" opacity=".75" />
+            <path d="M600 118c26 16 40 44 40 78 0 62-16 128-40 190-24-62-40-128-40-190 0-34 14-62 40-78Z" fill="url(#heSkin)" />
+            <path d="M600 96c18 14 28 34 28 58 0 8-28 8-28 0 0-24 10-44 28-58Z" fill="url(#heSkinTop)" />
             <circle cx="628" cy="140" r="5" fill="#0a1826" />
-            <path d="M600 140c20 12 30 34 28 62-2 26-14 48-28 62-14-14-26-36-28-62-2-28 8-50 28-62Z" fill="url(#eeGlass)" />
+            <path d="M600 140c20 12 30 34 28 62-2 26-14 48-28 62-14-14-26-36-28-62-2-28 8-50 28-62Z" fill="url(#heGlass)" />
             <path d="M588 156c-8 10-12 24-12 40" fill="none" stroke="#8fd4f2" stroke-opacity=".45" stroke-width="3" stroke-linecap="round" />
-            <path d="M600 292 640 236 618 300Z" fill="url(#eeSkin)" opacity=".9" />
-            <path d="M600 292 560 236 582 300Z" fill="url(#eeSkin)" opacity=".9" />
+            <path d="M600 292 640 236 618 300Z" fill="url(#heSkin)" opacity=".9" />
+            <path d="M600 292 560 236 582 300Z" fill="url(#heSkin)" opacity=".9" />
             <path d="M566 214c-10 6-14 18-12 32l16-6c-2-12 0-20 4-26Z" fill="#0d1b2b" />
             <path d="M634 214c10 6 14 18 12 32l-16-6c2-12 0-20-4-26Z" fill="#0d1b2b" />
-            <path d="M600 300v96" stroke="url(#eeAccent)" stroke-width="7" stroke-linecap="round" opacity=".9" />
+            <path d="M600 300v96" stroke="url(#heAccent)" stroke-width="7" stroke-linecap="round" opacity=".9" />
           </g>
 
           <!-- engineering wireframe: stage 2 -->
@@ -288,6 +322,24 @@ const base = BASE;
   .hangar-hero-copy {
     min-width: 0;
     will-change: opacity;
+  }
+  /*
+   * The crest. Capped by block-size so the 3:2 artwork can never push the
+   * headline or the primary call to action below the fold, and given a warm
+   * halo so the transparent PNG separates from the hero gradient without a
+   * plate behind it. Deliberately a plain static image: no animation, no
+   * filter that animates, nothing here that can repaint during the scroll
+   * story.
+   */
+  .hangar-crest {
+    display: block;
+    inline-size: auto;
+    block-size: clamp(88px, 9vw, 152px);
+    max-inline-size: 100%;
+    margin-block-end: clamp(0.9rem, 0.6rem + 1vw, 1.5rem);
+    object-fit: contain;
+    object-position: left center;
+    filter: drop-shadow(0 10px 26px rgb(0 0 0 / 0.5));
   }
   .hangar-eyebrow {
     display: inline-flex;

@@ -1,10 +1,10 @@
 User-agent: *
 Allow: /
 
-# EagleEye Hangar is a static, tracker-free site.
+# HawkEye Hangar is a static, tracker-free site.
 # Nothing here is private, so there is nothing to disallow beyond crawlers
 # wandering generated asset paths.
 Disallow: /media/
 Disallow: /_astro/
 
-Sitemap: https://eagleanurag.github.io/eagleeye-hangar/sitemap-index.xml
+Sitemap: https://eagleanurag.github.io/hawk-eye-hangar/sitemap-index.xml

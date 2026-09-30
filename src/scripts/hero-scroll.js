@@ -1,5 +1,5 @@
 /**
- * EagleEye Hangar — hero scroll story.
+ * HawkEye Hangar — hero scroll story.
  *
  * Deliberately the smallest thing that can drive the hero: no GSAP, no scroll
  * library, no smooth-scroll hijack, no wheel/touch interception. Native browser

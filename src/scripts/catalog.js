@@ -1,5 +1,5 @@
 /**
- * EagleEye Hangar — catalogue search, filtering and sorting.
+ * HawkEye Hangar — catalogue search, filtering and sorting.
  *
  * Progressive enhancement: every card is already server-rendered, so the
  * catalogue is fully browsable and indexable with JavaScript disabled. This
