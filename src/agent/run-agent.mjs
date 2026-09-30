@@ -109,6 +109,10 @@ const DEFAULT_ARGS = {
   prompt: '',
   out: 'attempt.json',
   baseBranch: 'main',
+  // The branch the bootstrap job actually created or reused. When supplied it
+  // is authoritative, so the control plane works on the branch that exists
+  // rather than re-deriving a name that might differ.
+  branch: '',
   model: DEFAULT_MODEL,
   agent: DEFAULT_AGENT,
   version: DEFAULT_VERSION,
@@ -164,7 +168,15 @@ export async function main(argv = process.argv.slice(2)) {
   const args = parseArgs(argv);
 
   const triggerPayload = loadJson(args.trigger);
-  const branch = String(triggerPayload.branch || deriveAgentBranch(args.baseBranch, triggerPayload.issue_number, 1));
+  /*
+   * Prefer the branch the bootstrap job reported. It is the one that actually
+   * exists, and it may differ from the derived name if the issue already owned
+   * a branch. Falling back to the trigger, and only then to a fresh
+   * derivation, keeps this usable outside the workflow.
+   */
+  const branch = String(
+    args.branch || triggerPayload.branch || deriveAgentBranch(args.baseBranch, triggerPayload.issue_number, 1)
+  ).trim();
   const issueNumber = triggerPayload.issue_number ? Number(triggerPayload.issue_number) : null;
   const attempt = Number(args.attempt) || 1;
   const maxAttempts = Number(args.maxAttempts) || 3;
