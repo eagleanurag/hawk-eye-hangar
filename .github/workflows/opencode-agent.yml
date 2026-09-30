@@ -63,6 +63,9 @@ jobs:
       trigger_kind: ${{ steps.check.outputs.trigger_kind }}
       issue_number: ${{ steps.check.outputs.issue_number }}
       branch: ${{ steps.check.outputs.branch }}
+      # The branch a pull request will target, and the tip the agent branch is
+      # created from. Published so the bootstrap job never hardcodes it.
+      base_branch: ${{ steps.check.outputs.base_branch }}
 
     steps:
       - name: Checkout repository
@@ -172,7 +175,8 @@ jobs:
             jq -r '
               "trigger_kind=" + .kind,
               "issue_number=" + ((.issue_number // "") | tostring),
-              "branch=" + (if (.branch // "") == "" then "main" else .branch end)
+              "branch=" + (if (.branch // "") == "" then "main" else .branch end),
+              "base_branch=" + (if (.base_branch // "") == "" then "main" else .base_branch end)
             ' .agent/trigger.json
           } >> "${GITHUB_OUTPUT}"
 
@@ -189,9 +193,76 @@ jobs:
             .agent/event.json
           if-no-files-found: warn
 
+  bootstrap:
+    name: Create or reuse the agent branch
+    # This job exists because `actions/checkout` cannot check out a branch that
+    # does not exist yet. Preflight derives the name agent/issue-main-<n>, but
+    # on a first run for an issue that branch is only a name, and checking it
+    # out fails with:
+    #
+    #   A branch or tag with the name 'agent/issue-main-2' could not be found
+    #
+    # So the branch is created from the base BEFORE the agent job checks out
+    # anything. A continuation for an issue that already owns a branch reuses
+    # it instead of starting a second one.
+    needs: preflight
+    if: needs.preflight.outputs.authorized == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    permissions:
+      # Creating the branch locally needs no remote write at all. The agent job
+      # is what pushes it, and it still cannot push to main.
+      contents: read
+
+    outputs:
+      branch: ${{ steps.bootstrap.outputs.branch }}
+      branch_action: ${{ steps.bootstrap.outputs.branch_action }}
+      head_sha: ${{ steps.bootstrap.outputs.bootstrap_head_sha }}
+      # Republished so the agent job never has to re-read it from the trigger.
+      base_branch: ${{ needs.preflight.outputs.base_branch }}
+
+    steps:
+      # The BASE branch is checked out deliberately: it always exists, which
+      # is the whole point. The agent branch is created from it below.
+      - name: Checkout base branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ needs.preflight.outputs.base_branch || 'main' }}
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Ensure the agent branch exists
+        id: bootstrap
+        env:
+          AGENT_BRANCH: ${{ needs.preflight.outputs.branch }}
+          ISSUE_NUMBER: ${{ needs.preflight.outputs.issue_number }}
+          BASE_BRANCH: ${{ needs.preflight.outputs.base_branch || 'main' }}
+        run: |
+          set -euo pipefail
+
+          # Non-zero here fails the job, and the agent job is skipped. A broken
+          # bootstrap is reported as a failure, never as a task that had
+          # nothing to do.
+          node src/agent/ensure-branch.mjs \
+            --branch "${AGENT_BRANCH}" \
+            --base-branch "${BASE_BRANCH}" \
+            --issue-number "${ISSUE_NUMBER}" \
+            --remote origin
+
+      - name: Report the branch state
+        run: |
+          echo "Agent branch: ${{ steps.bootstrap.outputs.branch }}"
+          echo "Action:       ${{ steps.bootstrap.outputs.branch_action }}"
+          echo "Base commit:  ${{ steps.bootstrap.outputs.bootstrap_head_sha }}"
+
   agent:
     name: Run OpenCode agent
-    needs: preflight
+    needs: [preflight, bootstrap]
     if: needs.preflight.outputs.authorized == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 180
@@ -212,10 +283,12 @@ jobs:
       pull_request_url: ${{ steps.result.outputs.pull_request_url }}
 
     steps:
-      - name: Checkout repository
+      # The ref comes from the bootstrap job, so it is a branch that exists
+      # rather than a name that was only ever derived.
+      - name: Checkout the agent branch
         uses: actions/checkout@v4
         with:
-          ref: ${{ needs.preflight.outputs.branch }}
+          ref: ${{ needs.bootstrap.outputs.branch || needs.preflight.outputs.branch }}
           fetch-depth: 0
 
       - name: Configure git identity
@@ -295,11 +368,15 @@ jobs:
           AGENT_REDACT: 'true'
         run: |
           set +e
+          # The branch comes from the bootstrap job, so the control plane works
+          # on the branch it actually created or reused rather than re-deriving
+          # a name that may not be what exists.
           node src/agent/run-agent.mjs \
             --trigger .agent/trigger.json \
             --prompt agent-prompt.md \
             --out attempt-1.json \
-            --base-branch main \
+            --branch "${{ needs.bootstrap.outputs.branch || needs.preflight.outputs.branch }}" \
+            --base-branch "${{ needs.preflight.outputs.base_branch || 'main' }}" \
             --attempt 1 \
             --max-attempts 3
           echo "exit_code=$?" >> "${GITHUB_OUTPUT}"
@@ -334,7 +411,10 @@ jobs:
 
   report:
     name: Report task result
-    needs: [preflight, agent]
+    # `bootstrap` is included so a bootstrap failure still produces an honest
+    # report. Without it the agent job never runs, and a task that failed
+    # before it started would be reported by nothing at all.
+    needs: [preflight, bootstrap, agent]
     if: >-
       always() &&
       needs.preflight.outputs.authorized == 'true'
@@ -345,24 +425,84 @@ jobs:
       pull-requests: write
 
     steps:
+      - name: Report a bootstrap failure
+        # A failure here means the agent never started. Say so plainly, and
+        # name the real cause, rather than leaving the issue silent.
+        if: >-
+          needs.bootstrap.result == 'failure' ||
+          needs.bootstrap.result == 'cancelled'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ISSUE_NUMBER: ${{ needs.preflight.outputs.issue_number }}
+        run: |
+          set -uo pipefail
+          mkdir -p .agent
+
+          gh run download "${{ github.run_id }}" \
+            -n "opencode-trigger-${{ github.run_id }}" -D .agent 2>/dev/null || true
+
+          BRANCH="${{ needs.bootstrap.outputs.branch || needs.preflight.outputs.branch }}"
+
+          REPORT=$(cat <<EOF
+          ## OpenCode Task Report
+
+          Status: BLOCKED
+
+          Why:
+          The agent branch could not be prepared, so the agent never started.
+
+          - Expected branch: \`${BRANCH}\`
+          - The bootstrap step exited non-zero.
+          - The likely cause is a branch-creation failure, or the base branch
+            being unavailable. See the bootstrap job log for the exact message.
+
+          Human action required:
+          Check the \`Create or reuse the agent branch\` job. The control plane
+          does not create a second branch for this issue, so the next run will
+          reuse the same branch once the underlying problem is fixed.
+          EOF
+          )
+
+          if [ -n "${ISSUE_NUMBER}" ]; then
+            printf '%s\n' "${REPORT}" | gh issue comment "${ISSUE_NUMBER}" --body-file - || \
+              echo "Could not post the bootstrap failure report."
+          fi
+
+          printf '%s\n' "${REPORT}" >> "${GITHUB_STEP_SUMMARY}"
+          printf '%s\n' "${REPORT}" > bootstrap-failure.md
+
       - name: Checkout repository
+        if: >-
+          needs.bootstrap.result != 'failure' &&
+          needs.bootstrap.result != 'cancelled'
         uses: actions/checkout@v4
 
       - name: Setup Node
+        if: >-
+          needs.bootstrap.result != 'failure' &&
+          needs.bootstrap.result != 'cancelled'
         uses: actions/setup-node@v4
         with:
           node-version: 22
 
       # The report job runs on its own runner and needs the same resolved
       # trigger the agent used, so the report names the correct issue and task.
+      #
+      # Skipped on a bootstrap failure: the report job has no Node runtime in
+      # that case, and the failure has already been reported above.
       - name: Download resolved trigger
+        if: >-
+          needs.bootstrap.result != 'failure' &&
+          needs.bootstrap.result != 'cancelled'
         uses: actions/download-artifact@v4
         with:
           name: opencode-trigger-${{ github.run_id }}
           path: .agent
 
       - name: Download agent attempt result
-        if: always()
+        if: >-
+          needs.bootstrap.result != 'failure' &&
+          needs.bootstrap.result != 'cancelled'
         uses: actions/download-artifact@v4
         with:
           name: opencode-agent-logs-${{ github.run_id }}
@@ -370,7 +510,9 @@ jobs:
 
       - name: Collect the agent attempt result
         id: attempt
-        if: always()
+        if: >-
+          needs.bootstrap.result != 'failure' &&
+          needs.bootstrap.result != 'cancelled'
         shell: bash
         run: |
           set -uo pipefail
@@ -382,7 +524,9 @@ jobs:
           fi
 
       - name: Render and publish report
-        if: always()
+        if: >-
+          needs.bootstrap.result != 'failure' &&
+          needs.bootstrap.result != 'cancelled'
         env:
           GH_TOKEN: ${{ github.token }}
           ISSUE_NUMBER: ${{ needs.preflight.outputs.issue_number }}
