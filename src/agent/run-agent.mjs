@@ -298,7 +298,7 @@ export async function main(argv = process.argv.slice(2)) {
       : 'no repository changes';
 
   let humanAction = verdict.humanAction;
-  if (!result.succeeded && isWorkflowPushRejection(`${result.stdout}\n${result.stderr}`)) {
+  if (isWorkflowPushRejection(`${result.stdout}\n${result.stderr}`)) {
     humanAction = workflowPushRemedy();
   }
 
