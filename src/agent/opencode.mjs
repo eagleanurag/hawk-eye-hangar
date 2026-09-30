@@ -12,7 +12,8 @@ import { spawn } from 'node:child_process';
 export const DEFAULT_VERSION = '2.0.20';
 export const DEFAULT_MODEL = 'opencode/space-bunny-free';
 export const DEFAULT_AGENT = 'remote-engineer';
-export const DEFAULT_TIMEOUT_SECONDS = 5400;
+export const DEFAULT_TIMEOUT_SECONDS = 3600;
+export const DEFAULT_STARTUP_TIMEOUT_SECONDS = 120;
 
 /** Convert the public timeout unit (seconds) to the timer unit (milliseconds). */
 export function timeoutMilliseconds(timeoutSeconds) {
@@ -30,13 +31,14 @@ export class OpenCodeError extends Error {
 }
 
 export class OpenCodeResult {
-  constructor({ text, sessionId, exitCode, stdout, stderr, timedOut = false }) {
+  constructor({ text, sessionId, exitCode, stdout, stderr, timedOut = false, startupTimedOut = false }) {
     this.text = text;
     this.sessionId = sessionId;
     this.exitCode = exitCode;
     this.stdout = stdout;
     this.stderr = stderr;
     this.timedOut = timedOut;
+    this.startupTimedOut = startupTimedOut;
   }
 
   get succeeded() {
@@ -65,6 +67,7 @@ export function buildCommand(prompt, options = {}) {
     '--auto',
     '--format',
     'json',
+    '--print-logs',
     '--model',
     model,
     '--agent',
@@ -105,6 +108,7 @@ export function runOpenCode(prompt, options = {}) {
     model = DEFAULT_MODEL,
     agent = DEFAULT_AGENT,
     timeoutSeconds = DEFAULT_TIMEOUT_SECONDS,
+    startupTimeoutSeconds = DEFAULT_STARTUP_TIMEOUT_SECONDS,
     cwd = process.cwd(),
     env = process.env,
     continueSession = false,
@@ -138,10 +142,13 @@ export function runOpenCode(prompt, options = {}) {
     let stdout = '';
     let stderr = '';
     let settled = false;
+    let startupObserved = false;
 
-    const timer = setTimeout(() => {
+    const finishTimeout = (startupTimedOut = false) => {
       if (settled) return;
       settled = true;
+      clearTimeout(timer);
+      clearTimeout(startupTimer);
       child.kill('SIGKILL');
       resolve(
         new OpenCodeResult({
@@ -151,14 +158,29 @@ export function runOpenCode(prompt, options = {}) {
           stdout,
           stderr,
           timedOut: true,
+          startupTimedOut,
         })
       );
-    }, timeoutMilliseconds(timeoutSeconds));
+    };
+
+    const timer = setTimeout(() => finishTimeout(false), timeoutMilliseconds(timeoutSeconds));
+
+    const startupTimer = setTimeout(() => {
+      if (!startupObserved) finishTimeout(true);
+    }, timeoutMilliseconds(startupTimeoutSeconds));
+
+    const markStartupObserved = () => {
+      if (startupObserved) return;
+      startupObserved = true;
+      clearTimeout(startupTimer);
+    };
 
     child.stdout.on('data', (chunk) => {
+      markStartupObserved();
       stdout += chunk.toString();
     });
     child.stderr.on('data', (chunk) => {
+      markStartupObserved();
       stderr += chunk.toString();
     });
 
@@ -166,6 +188,7 @@ export function runOpenCode(prompt, options = {}) {
       if (settled) return;
       settled = true;
       clearTimeout(timer);
+      clearTimeout(startupTimer);
       resolve(
         new OpenCodeResult({
           text: '',
@@ -181,6 +204,7 @@ export function runOpenCode(prompt, options = {}) {
       if (settled) return;
       settled = true;
       clearTimeout(timer);
+      clearTimeout(startupTimer);
       resolve(
         new OpenCodeResult({
           text: extractFinalText(stdout),

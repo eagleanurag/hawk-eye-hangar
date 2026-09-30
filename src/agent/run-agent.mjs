@@ -25,6 +25,12 @@ import { deriveAgentBranch, derivePullRequestTitle, isProtectedBranch } from './
 import { GitHub, boundLog, summarizeChecks, summarizeFailure, waitForChecks } from './ci.mjs';
 import { isOpenCodeAvailable, runOpenCode, DEFAULT_AGENT, DEFAULT_MODEL, DEFAULT_TIMEOUT_SECONDS, DEFAULT_VERSION } from './opencode.mjs';
 import { knownSecrets, redact } from './redaction.mjs';
+import {
+  armPushAuthentication,
+  isWorkflowPushRejection,
+  pushCommitWithAuthentication,
+  workflowPushRemedy,
+} from './credentials.mjs';
 import { STATUS_BLOCKED, TASK_STATUSES, TaskOutcome } from './reporting.mjs';
 import {
   PUSH_NOT_PUSHED,
@@ -184,6 +190,12 @@ export async function main(argv = process.argv.slice(2)) {
   const promptText = fs.readFileSync(args.prompt, 'utf8');
   const secrets = knownSecrets();
 
+  // An optional external repository credential is used only for git pushes.
+  // It is never included in the prompt, argv, reports or source files.
+  // Do not arm the external PAT before the agent runs. The built-in
+  // GITHUB_TOKEN remains the normal path; the PAT is only armed after a
+  // workflow-file push rejection is actually observed.
+
   /*
    * A missing CLI is a clear BLOCKED, not an unexplained spawn failure. It is
    * checked before the run so the report can say what is actually wrong.
@@ -211,11 +223,15 @@ export async function main(argv = process.argv.slice(2)) {
 
   const before = headSha();
 
+  // The external PAT is deliberately withheld from the model process.
+  const agentEnvironment = { ...process.env };
+  delete agentEnvironment.AGENT_PUSH_TOKEN;
   const result = await runOpenCode(promptText, {
     model: args.model,
     agent: args.agent,
     timeoutSeconds: Number(args.timeout) || DEFAULT_TIMEOUT_SECONDS,
     continueSession: args.continueSession,
+    env: agentEnvironment,
   });
 
   const after = headSha();
@@ -225,7 +241,42 @@ export async function main(argv = process.argv.slice(2)) {
   const suite = testSuitePassed();
   const commitCreated = Boolean(after) && after !== before;
 
-  const push = commitCreated ? pushState(after, { ref: branch }) : PUSH_UNKNOWN;
+  let push = commitCreated ? pushState(after, { ref: branch }) : PUSH_UNKNOWN;
+
+  // If GitHub specifically rejected the built-in GitHub App token for a
+  // workflow-file update, and the repository owner supplied the optional PAT,
+  // retry exactly the existing commit with that credential. No other push
+  // failure is silently retried with the external token.
+  const workflowPushRejected = isWorkflowPushRejection(
+    `${result.stdout}\n${result.stderr}`
+  );
+  let externalPushAttempted = false;
+  let externalPushSucceeded = false;
+
+  if (commitCreated && push !== PUSH_PUSHED && workflowPushRejected) {
+    externalPushAttempted = true;
+
+    const fallbackAuth = armPushAuthentication({
+      repositoryRoot: process.cwd(),
+      environ: process.env,
+      log: (message) => console.log(`PUSH_FALLBACK=${message}`),
+    });
+
+    if (fallbackAuth.configured) {
+      const fallback = pushCommitWithAuthentication(
+        branch,
+        fallbackAuth,
+        {
+          repositoryRoot: process.cwd(),
+          environ: process.env,
+        }
+      );
+      externalPushSucceeded = fallback.succeeded;
+      if (externalPushSucceeded) {
+        push = pushState(after, { ref: branch });
+      }
+    }
+  }
 
   // The agent is expected to open the PR; verify it rather than trust it.
   let prState = PR_UNKNOWN;
@@ -282,6 +333,11 @@ export async function main(argv = process.argv.slice(2)) {
       ? files.join(', ')
       : 'no repository changes';
 
+  let humanAction = verdict.humanAction;
+  if (isWorkflowPushRejection(`${result.stdout}\n${result.stderr}`)) {
+    humanAction = workflowPushRemedy();
+  }
+
   const outcome = new TaskOutcome({
     status: verdict.status,
     reason: verdict.reason,
@@ -296,7 +352,7 @@ export async function main(argv = process.argv.slice(2)) {
     maxAttempts,
     filesChanged,
     summary: result.text || 'OpenCode produced no final message.',
-    humanAction: verdict.humanAction,
+    humanAction,
   });
 
   const payload = {
@@ -328,6 +384,9 @@ export async function main(argv = process.argv.slice(2)) {
     files_changed: outcome.filesChanged,
     human_action: outcome.humanAction,
     recoverable: verdict.isRecoverable,
+    external_credential_configured: Boolean(process.env.AGENT_PUSH_TOKEN),
+    external_push_attempted: externalPushAttempted,
+    external_push_succeeded: externalPushSucceeded,
     version: args.version,
     model: args.model,
     agent: args.agent,
