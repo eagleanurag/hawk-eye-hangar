@@ -324,17 +324,26 @@ const crest = {
     will-change: opacity;
   }
   /*
-   * The crest. Capped by block-size so the 3:2 artwork can never push the
-   * headline or the primary call to action below the fold, and given a warm
-   * halo so the transparent PNG separates from the hero gradient without a
-   * plate behind it. Deliberately a plain static image: no animation, no
-   * filter that animates, nothing here that can repaint during the scroll
-   * story.
+   * The crest. Two caps, because two different constraints apply:
+   *
+   *   clamp(84px, 8.5vw, 152px)  the width-driven size, so it scales with the
+   *                              layout and never dominates a wide screen
+   *   12vh                        the height-driven share of the fold. A crest
+   *                              sized only by width pushed the primary CTA
+   *                              just below the fold at 1366x768, so on a short
+   *                              viewport the crest yields vertical space to
+   *                              the headline and the call to action.
+   *
+   * The 3:2 artwork is scaled, never cropped (object-fit: contain plus an
+   * auto width), and the warm halo separates the transparent PNG from the hero
+   * gradient without a plate behind it. Deliberately a plain static image: no
+   * animation, and no filter that animates, so it cannot repaint during the
+   * scroll story.
    */
   .hangar-crest {
     display: block;
     inline-size: auto;
-    block-size: clamp(88px, 9vw, 152px);
+    block-size: min(clamp(84px, 8.5vw, 152px), 12vh);
     max-inline-size: 100%;
     margin-block-end: clamp(0.9rem, 0.6rem + 1vw, 1.5rem);
     object-fit: contain;
@@ -527,6 +536,26 @@ const crest = {
   }
 
   /* ---------------------------- responsive ----------------------------- */
+  /*
+   * Short viewports. The hero is a tall scroll story, but on a laptop the
+   * headline, descriptor, lede and primary call to action should still land
+   * above the fold. When vertical space is the scarce resource the horizontal
+   * padding and the gap above the ledger are given up first; the artwork and
+   * the call to action are not.
+   */
+  @media (max-height: 800px) and (min-width: 1081px) {
+    .hangar-hero {
+      padding-block: clamp(1.5rem, 1rem + 2vw, 3rem) clamp(4rem, 3rem + 4vw, 7rem);
+    }
+    .hangar-ledger {
+      margin-block-start: 1.6rem;
+      padding-block-start: 1rem;
+    }
+    .hangar-actions {
+      margin-block-start: 1.4rem;
+    }
+  }
+
   @media (max-width: 1080px) {
     .hangar-hero {
       --hero-travel-x: 16vw;
