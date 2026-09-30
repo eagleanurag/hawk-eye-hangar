@@ -254,14 +254,20 @@ jobs:
             --issue-number "${ISSUE_NUMBER}" \
             --remote origin
 
+      - name: Publish a newly created agent branch
+        if: steps.bootstrap.outputs.branch_action == 'create'
+        env:
+          AGENT_BRANCH: ${{ needs.preflight.outputs.branch }}
+        run: |
+          set -euo pipefail
+
           # The bootstrap runner is disposable. A branch created only in this
           # local checkout would disappear when this job ends, leaving the next
           # runner unable to check it out. Publish only newly-created branches;
           # existing branches are reused in place and are never force-pushed.
-          if [ "${{ steps.bootstrap.outputs.branch_action }}" = "create" ]; then
-            git push --no-force origin               "refs/heads/${AGENT_BRANCH}:refs/heads/${AGENT_BRANCH}"
-            echo "BRANCH_PUBLISHED=${AGENT_BRANCH}"
-          fi
+          git push --no-force origin \
+            "refs/heads/${AGENT_BRANCH}:refs/heads/${AGENT_BRANCH}"
+          echo "BRANCH_PUBLISHED=${AGENT_BRANCH}"
 
       - name: Report the branch state
         run: |
