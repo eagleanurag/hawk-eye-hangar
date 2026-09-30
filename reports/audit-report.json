@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-09-29T22:41:57.774Z",
+  "generatedAt": "2026-09-30T10:13:33.086Z",
   "payload": {
     "sharedJsBytes": 14169,
     "sharedCssBytes": 55605,
-    "htmlBytes": 3038597,
+    "htmlBytes": 2982758,
     "mediaBytes": 50413786,
     "mediaFiles": 838
   },
@@ -13,7 +13,7 @@
       "js": 5157,
       "css": 46840,
       "images": 12872,
-      "other": 154486,
+      "other": 153520,
       "count": 10
     },
     {
@@ -21,7 +21,7 @@
       "js": 8736,
       "css": 38852,
       "images": 766372,
-      "other": 408595,
+      "other": 404446,
       "count": 15
     },
     {
@@ -29,15 +29,15 @@
       "js": 5858,
       "css": 44865,
       "images": 47764,
-      "other": 133590,
+      "other": 133032,
       "count": 14
     },
     {
       "page": "designers",
       "js": 2849,
-      "css": 34859,
+      "css": 36537,
       "images": 0,
-      "other": 160297,
+      "other": 146929,
       "count": 9
     },
     {
@@ -45,7 +45,7 @@
       "js": 2849,
       "css": 37366,
       "images": 0,
-      "other": 126102,
+      "other": 125859,
       "count": 9
     }
   ],

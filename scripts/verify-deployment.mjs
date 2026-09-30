@@ -13,7 +13,7 @@ import path from 'node:path';
 import { ROOT, readJSON, log } from './lib.mjs';
 
 const site = readJSON(path.join(ROOT, 'data', 'site.json'));
-const repo = process.env.GITHUB_REPOSITORY || 'eagleanurag/parkjet-aircraft-archive';
+const repo = process.env.GITHUB_REPOSITORY || 'eagleanurag/eagleeye-hangar';
 
 // ---- resolve the Pages URL from the repository configuration --------------
 async function resolvePagesUrl() {

@@ -1,6 +1,6 @@
 # EagleEye Hangar — performance & accessibility audit
 
-_Generated 2026-09-29T22:41:57.773Z by `npm run audit`._
+_Generated 2026-09-30T10:13:33.086Z by `npm run audit`._
 
 ## Payload
 
@@ -8,7 +8,7 @@ _Generated 2026-09-29T22:41:57.773Z by `npm run audit`._
 |---|---|
 | Shared JavaScript | 13.8 KB (6 files) |
 | Shared CSS | 54.3 KB (6 files) |
-| HTML | 2967.4 KB across 114 pages |
+| HTML | 2912.8 KB across 114 pages |
 | Archived media | 48.1 MB across 838 files |
 
 No third-party JavaScript is shipped. The only external request the site can make is a webfont stylesheet, loaded non-render-blocking.
@@ -17,11 +17,11 @@ No third-party JavaScript is shipped. The only external request the site can mak
 
 | Page | Requests | JS | CSS | Images | Other |
 |---|---:|---:|---:|---:|---:|
-| home | 10 | 5.0 KB | 45.7 KB | 12.6 KB | 150.9 KB |
-| catalog | 15 | 8.5 KB | 37.9 KB | 748.4 KB | 399.0 KB |
-| detail | 14 | 5.7 KB | 43.8 KB | 46.6 KB | 130.5 KB |
-| designers | 9 | 2.8 KB | 34.0 KB | 0.0 KB | 156.5 KB |
-| about | 9 | 2.8 KB | 36.5 KB | 0.0 KB | 123.1 KB |
+| home | 10 | 5.0 KB | 45.7 KB | 12.6 KB | 149.9 KB |
+| catalog | 15 | 8.5 KB | 37.9 KB | 748.4 KB | 395.0 KB |
+| detail | 14 | 5.7 KB | 43.8 KB | 46.6 KB | 129.9 KB |
+| designers | 9 | 2.8 KB | 35.7 KB | 0.0 KB | 143.5 KB |
+| about | 9 | 2.8 KB | 36.5 KB | 0.0 KB | 122.9 KB |
 
 ## Checks
 

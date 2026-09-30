@@ -2,8 +2,8 @@
 
 _Generated 2026-09-29T22:58:25.229Z._
 
-**Repository:** https://github.com/eagleanurag/parkjet-aircraft-archive  
-**Live site:** https://eagleanurag.github.io/parkjet-aircraft-archive  
+**Repository:** https://github.com/eagleanurag/eagleeye-hangar  
+**Live site:** https://eagleanurag.github.io/eagleeye-hangar  
 **Pages build status:** built
 
 **Result: 38/38 checks passed.**

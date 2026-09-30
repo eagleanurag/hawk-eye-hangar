@@ -231,7 +231,7 @@ function Get-ResumePrompt {
   $lines.Add('  npm run check-links     # post-build link / asset / alt / ARIA audit')
   $lines.Add('  npm run audit           # payload + accessibility audit')
   $lines.Add('  npm run qa              # browser matrix, 8 viewports')
-  $lines.Add('  npm run qa -- --url https://eagleanurag.github.io/parkjet-aircraft-archive --shots')
+  $lines.Add('  npm run qa -- --url https://eagleanurag.github.io/eagleeye-hangar --shots')
   $lines.Add('')
   $lines.Add('RULES')
   $lines.Add('  * Never fabricate aircraft data. A specification is recorded only when the')

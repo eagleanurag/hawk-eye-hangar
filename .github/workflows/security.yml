@@ -1,21 +1,75 @@
-{
-  "$schema": "https://json.schemastore.org/github-workflow.json",
-  "name": "Dependency review",
-  "on": { "pull_request": { "branches": ["main"] } },
-  "permissions": { "contents: read" },
-  "jobs": {
-    "audit": {
-      "name": "npm audit (high and critical only)",
-      "runs-on": "ubuntu-latest",
-      "steps": [
-        { "uses": "actions/checkout@v4" },
-        { "uses": "actions/setup-node@v4", "with": { "node-version": 22, "cache": "npm" } },
-        { "run": "npm ci" },
-        {
-          "name": Fail on high or critical advisories",
-          "run": "npm audit --audit-level=high --omit=dev"
-        }
-      ]
-    }
-  }
-}
+# Dependency security checks for EagleEye Hangar.
+#
+# Why this file was rewritten
+# ---------------------------
+# It was previously a `.yml` file containing JSON, one of whose values was
+# `{ "contents: read" }` — an object with a key and no value, which is not
+# valid JSON and is ambiguous YAML. Combined with a `pull_request`-only
+# trigger, which can never produce a run on a push, it produced a red status
+# on every single commit with zero jobs: GitHub recorded a run, no runner was
+# ever allocated, and nothing actually executed.
+#
+# It is now ordinary YAML with triggers that match how this repository is
+# actually used, so the checks really do run. The intent is unchanged: fail on
+# high or critical advisories in production dependencies, and require the
+# reviewable dependency graph on pull requests.
+#
+# Safety properties preserved deliberately:
+#   * No secrets are read or required. The default token is read-only.
+#   * `permissions: contents: read` at workflow level, tightened to
+#     `contents: read` for the audit job and `pull-requests: write` only where
+#     the official `actions/dependency-review-action` requires it.
+#   * No long-running processes: the only steps are checkout, Node setup,
+#     `npm ci` and `npm audit`, all of which terminate.
+#   * It does not deploy anything, so it cannot conflict with the Pages
+#     workflow.
+
+name: Dependency security
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    name: npm audit (high and critical)
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci --omit=dev
+
+      - name: Fail on high or critical advisories
+        run: npm audit --audit-level=high --omit=dev
+
+  dependency-review:
+    name: Dependency review (pull requests)
+    # Only meaningful on a pull request, where there is a base to diff against.
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v4
+
+      - name: Review dependency changes
+        uses: actions/dependency-review-action@v4
+        with:
+          fail-on-severity: high
