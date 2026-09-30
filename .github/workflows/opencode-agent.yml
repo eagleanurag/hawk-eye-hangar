@@ -1,0 +1,442 @@
+name: OpenCode Remote Agent
+
+# Remote control plane: turn a GitHub issue, an issue comment, a PR review
+# comment, or a manual dispatch into an autonomous OpenCode engineering task.
+#
+#   GitHub issue titled "[OpenCode] <task>"
+#     -> this workflow (owner only)
+#     -> preflight authorizes, then the agent runs
+#     -> the agent works on its OWN branch and opens a pull request
+#     -> GitHub CI validates the pull request
+#     -> bounded repair cycle
+#     -> report back into the issue
+#
+# The agent never pushes to main. Engineering changes reach main only through
+# a pull request and a human merge. Nothing deploys production Pages except a
+# merge, because deploy-pages.yml only publishes on a push to main.
+#
+# Unrelated issues, and unrelated comments from anyone, never reach OpenCode.
+
+on:
+  issues:
+    types: [opened]
+  issue_comment:
+    types: [created]
+  pull_request_review_comment:
+    types: [created]
+  workflow_dispatch:
+    inputs:
+      task:
+        description: 'Task for OpenCode to perform.'
+        required: true
+        type: string
+      issue_number:
+        description: 'Optional issue number to report the result into.'
+        required: false
+        type: string
+      base_branch:
+        description: 'Branch the pull request will target.'
+        required: false
+        default: main
+        type: string
+
+# One writer per issue. Queued runs wait rather than cancelling, so an
+# in-flight engineering task is never destroyed by a new comment.
+concurrency:
+  group: opencode-agent-${{ github.event.issue.number || github.event.pull_request.number || 'dispatch' }}
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  preflight:
+    name: Authorize request
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      issues: read
+      pull-requests: read
+
+    outputs:
+      authorized: ${{ steps.check.outputs.authorized }}
+      trigger_kind: ${{ steps.check.outputs.trigger_kind }}
+      issue_number: ${{ steps.check.outputs.issue_number }}
+      branch: ${{ steps.check.outputs.branch }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Fetch issue context for continuation
+        if: github.event_name == 'issue_comment'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          node src/agent/issue-context.mjs \
+            --issue "${{ github.event.issue.number }}" \
+            --out .agent/context.json \
+            --repository "${GITHUB_REPOSITORY}"
+
+      - name: Extract event fields
+        id: event
+        shell: bash
+        # GitHub does not create per-field environment variables for the event
+        # payload. The payload is a JSON document on disk at GITHUB_EVENT_PATH,
+        # so it is read from there with jq into a JSON document. Untrusted text
+        # is passed with --arg, never interpolated into the shell.
+        run: |
+          set -euo pipefail
+          mkdir -p .agent
+
+          case "${GITHUB_EVENT_NAME}" in
+            issues)
+              jq -n \
+                --arg actor "$(jq -r '.issue.user.login // ""' "${GITHUB_EVENT_PATH}")" \
+                --arg title "$(jq -r '.issue.title // ""' "${GITHUB_EVENT_PATH}")" \
+                --arg body "$(jq -r '.issue.body // ""' "${GITHUB_EVENT_PATH}")" \
+                --arg number "$(jq -r '.issue.number // ""' "${GITHUB_EVENT_PATH}")" \
+                '{event: "issues", actor: $actor, title: $title, body: $body, issue_number: $number}' \
+                > .agent/event.json
+              ;;
+            issue_comment)
+              jq -n \
+                --arg actor "$(jq -r '.comment.user.login // ""' "${GITHUB_EVENT_PATH}")" \
+                --arg title "$(jq -r '.issue.title // ""' "${GITHUB_EVENT_PATH}")" \
+                --arg body "$(jq -r '.comment.body // ""' "${GITHUB_EVENT_PATH}")" \
+                --arg number "$(jq -r '.issue.number // ""' "${GITHUB_EVENT_PATH}")" \
+                '{event: "issue_comment", actor: $actor, title: $title, body: $body, issue_number: $number}' \
+                > .agent/event.json
+              ;;
+            pull_request_review_comment)
+              jq -n \
+                --arg actor "$(jq -r '.comment.user.login // ""' "${GITHUB_EVENT_PATH}")" \
+                --arg body "$(jq -r '.comment.body // ""' "${GITHUB_EVENT_PATH}")" \
+                --arg number "$(jq -r '.issue.number // ""' "${GITHUB_EVENT_PATH}")" \
+                --arg title "$(jq -r '.pull_request.title // ""' "${GITHUB_EVENT_PATH}")" \
+                '{event: "issue_comment", actor: $actor, title: $title, body: $body, issue_number: $number}' \
+                > .agent/event.json
+              ;;
+            *)
+              jq -n \
+                --arg actor "${GITHUB_ACTOR}" \
+                --arg number "${{ inputs.issue_number }}" \
+                --arg task "${{ inputs.task }}" \
+                --arg base "${{ inputs.base_branch }}" \
+                '{event: "workflow_dispatch", actor: $actor, title: "", body: "",
+                  issue_number: $number, task: $task, base_branch: $base}' \
+                > .agent/event.json
+              ;;
+          esac
+
+          echo "Event: $(jq -r '.event' .agent/event.json)"
+          echo "Actor: $(jq -r '.actor' .agent/event.json)"
+
+      - name: Validate actor, convention and task text
+        id: check
+        shell: bash
+        env:
+          REPO_OWNER: ${{ github.repository_owner }}
+        run: |
+          set -uo pipefail
+
+          CONTEXT_ARGS=()
+          if [ -f .agent/context.json ]; then
+            CONTEXT_ARGS=(--context-file .agent/context.json)
+          fi
+
+          # Every event-derived value is read from JSON by Node and passed as an
+          # argv element. No untrusted text is ever expanded by the shell.
+          set +e
+          node src/agent/preflight.mjs \
+            --event-file .agent/event.json \
+            --owner "${REPO_OWNER}" \
+            "${CONTEXT_ARGS[@]}" \
+            --out .agent/trigger.json
+          STATUS=$?
+          set -e
+
+          if [ "${STATUS}" -ne 0 ]; then
+            echo "authorized=false" >> "${GITHUB_OUTPUT}"
+            echo "Preflight declined the event (exit ${STATUS})."
+            exit 0
+          fi
+
+          {
+            echo "authorized=true"
+            jq -r '
+              "trigger_kind=" + .kind,
+              "issue_number=" + ((.issue_number // "") | tostring),
+              "branch=" + (if (.branch // "") == "" then "main" else .branch end)
+            ' .agent/trigger.json
+          } >> "${GITHUB_OUTPUT}"
+
+          echo "Authorized $(jq -r '.kind' .agent/trigger.json) task on $(jq -r '.branch' .agent/trigger.json)"
+
+      - name: Upload trigger record
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: opencode-trigger-${{ github.run_id }}
+          retention-days: 7
+          path: |
+            .agent/trigger.json
+            .agent/event.json
+          if-no-files-found: warn
+
+  agent:
+    name: Run OpenCode agent
+    needs: preflight
+    if: needs.preflight.outputs.authorized == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+
+    permissions:
+      # Push the agent's own branch and open the pull request.
+      contents: write
+      # Report back into the originating issue.
+      issues: write
+      # Comment on the pull request the agent opened.
+      pull-requests: write
+      # Read check-run conclusions and failing logs.
+      actions: read
+
+    outputs:
+      status: ${{ steps.result.outputs.status }}
+      head_sha: ${{ steps.result.outputs.head_sha }}
+      pull_request_url: ${{ steps.result.outputs.pull_request_url }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ needs.preflight.outputs.branch }}
+          fetch-depth: 0
+
+      - name: Configure git identity
+        run: |
+          git config --global user.name "opencode-agent[bot]"
+          git config --global user.email \
+            "41898282+github-actions[bot]@users.noreply.github.com"
+          git config --global --add safe.directory "${GITHUB_WORKSPACE}"
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install project dependencies
+        run: npm ci
+
+      - name: Install pinned OpenCode CLI
+        env:
+          OPENCODE_VERSION: 2.0.20
+        run: |
+          npm install --global "@opencode/cli@${OPENCODE_VERSION}"
+          opencode --version
+
+      - name: Verify runtime
+        run: |
+          node --version
+          gh --version | head -n 1
+
+      # The resolved trigger was produced in the preflight job. Each job gets a
+      # fresh checkout, so it travels as an artifact rather than a leftover file.
+      - name: Download resolved trigger
+        uses: actions/download-artifact@v4
+        with:
+          name: opencode-trigger-${{ github.run_id }}
+          path: .agent
+
+      - name: Build task prompt
+        id: prompt
+        env:
+          BASE_BRANCH: main
+        run: |
+          node - <<'NODE'
+          import fs from 'node:fs';
+          import { Trigger } from './src/agent/events.mjs';
+          import { buildPrompt, MAX_REPAIR_ATTEMPTS } from './src/agent/prompt.mjs';
+
+          const payload = JSON.parse(fs.readFileSync('.agent/trigger.json', 'utf8'));
+
+          const trigger = new Trigger({
+            kind: payload.kind,
+            task: payload.task,
+            instruction: payload.instruction,
+            issueNumber: payload.issue_number,
+            issueTitle: payload.issue_title,
+            actor: payload.actor,
+            priorContext: payload.prior_context,
+            baseBranch: payload.base_branch || process.env.BASE_BRANCH,
+          });
+
+          const prompt = buildPrompt(trigger, {
+            maxAttempts: MAX_REPAIR_ATTEMPTS,
+            baseBranch: payload.base_branch || process.env.BASE_BRANCH,
+          });
+
+          fs.writeFileSync('agent-prompt.md', prompt, 'utf8');
+          console.log(`Prompt written for ${trigger.kind} task.`);
+          NODE
+
+      - name: Run OpenCode and verify delivery
+        id: result
+        env:
+          GH_TOKEN: ${{ github.token }}
+          # Read by the redaction helpers so a credential echoed by a tool can
+          # never reach an issue comment or an artifact.
+          AGENT_REDACT: 'true'
+        run: |
+          set +e
+          node src/agent/run-agent.mjs \
+            --trigger .agent/trigger.json \
+            --prompt agent-prompt.md \
+            --out attempt-1.json \
+            --base-branch main \
+            --attempt 1 \
+            --max-attempts 3
+          echo "exit_code=$?" >> "${GITHUB_OUTPUT}"
+
+          # Publish the observed facts as step outputs. Status, commit and PR
+          # come from the attempt file, never from the process exit code.
+          node - <<'NODE'
+          import fs from 'node:fs';
+
+          const payload = JSON.parse(fs.readFileSync('attempt-1.json', 'utf8'));
+          const out = process.env.GITHUB_OUTPUT;
+
+          fs.appendFileSync(out, `status=${payload.status || ''}\n`);
+          fs.appendFileSync(out, `head_sha=${payload.head_sha || ''}\n`);
+          fs.appendFileSync(out, `pull_request_url=${payload.pull_request_url || ''}\n`);
+          fs.appendFileSync(out, `ci_result=${(payload.ci_result || '').replace(/\n/g, ' ')}\n`);
+          NODE
+          exit 0
+
+      - name: Upload agent logs and prompt
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: opencode-agent-logs-${{ github.run_id }}
+          retention-days: 14
+          if-no-files-found: ignore
+          path: |
+            agent-logs/
+            agent-prompt.md
+            attempt-1.json
+            failure-evidence.log
+
+  report:
+    name: Report task result
+    needs: [preflight, agent]
+    if: >-
+      always() &&
+      needs.preflight.outputs.authorized == 'true'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      issues: write
+      pull-requests: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      # The report job runs on its own runner and needs the same resolved
+      # trigger the agent used, so the report names the correct issue and task.
+      - name: Download resolved trigger
+        uses: actions/download-artifact@v4
+        with:
+          name: opencode-trigger-${{ github.run_id }}
+          path: .agent
+
+      - name: Download agent attempt result
+        if: always()
+        uses: actions/download-artifact@v4
+        with:
+          name: opencode-agent-logs-${{ github.run_id }}
+          path: .agent-logs
+
+      - name: Collect the agent attempt result
+        id: attempt
+        if: always()
+        shell: bash
+        run: |
+          set -uo pipefail
+          if [ -f .agent-logs/attempt-1.json ]; then
+            cp .agent-logs/attempt-1.json attempt-1.json
+            echo "collected=true" >> "${GITHUB_OUTPUT}"
+          else
+            echo "collected=false" >> "${GITHUB_OUTPUT}"
+          fi
+
+      - name: Render and publish report
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ISSUE_NUMBER: ${{ needs.preflight.outputs.issue_number }}
+          PR_URL: ${{ needs.agent.outputs.pull_request_url }}
+        run: |
+          set +e
+
+          ARGS=()
+          if [ "${{ steps.attempt.outputs.collected }}" = "true" ]; then
+            ARGS+=(--attempt attempt-1.json)
+          fi
+
+          if [ -f failure-evidence.log ]; then
+            ARGS+=(--failure-evidence failure-evidence.log)
+          fi
+
+          if [ -n "${ISSUE_NUMBER}" ]; then
+            ARGS+=(--post)
+          fi
+
+          node src/agent/report.mjs \
+            --trigger .agent/trigger.json \
+            "${ARGS[@]}" \
+            --out report.md \
+            --summary job-summary.md
+          echo "report_exit=$?"
+
+          # Also leave the result on the pull request, so review feedback and the
+          # delivery record live in the same place.
+          if [ -n "${PR_URL}" ]; then
+            PR_NUMBER="${PR_URL##*/}"
+            if [ -f report.md ]; then
+              gh pr comment "${PR_NUMBER}" --body-file report.md || \
+                echo "Could not comment on PR ${PR_NUMBER}."
+            fi
+          fi
+          exit 0
+
+      - name: Write report to the job summary
+        if: always()
+        run: |
+          if [ -f job-summary.md ]; then
+            cat job-summary.md >> "${GITHUB_STEP_SUMMARY}"
+          fi
+
+      - name: Upload report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: opencode-report-${{ github.run_id }}
+          retention-days: 30
+          if-no-files-found: warn
+          path: |
+            report.md
+            job-summary.md
+            attempt-1.json
+            failure-evidence.log

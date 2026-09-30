@@ -1,0 +1,153 @@
+# HawkEye Hangar — project instructions
+
+Repository instructions for OpenCode and for any human or agent working here.
+Scoped to the whole repository.
+
+## What this is
+
+A static Astro site holding an independent archive of the Parkjets RC aircraft
+plan catalogue: 109 aircraft, 49 designers, 419 archived photographs, and 109
+validated plan files with recorded SHA-256 digests.
+
+- Live site: <https://eagleanurag.github.io/hawk-eye-hangar/>
+- Repository: <https://github.com/eagleanurag/hawk-eye-hangar>
+- Stack: Node 22, Astro, no client framework, no runtime server.
+
+## Commands
+
+```bash
+npm test              # integrity + regression tests (node --test)
+npm run build         # validate + astro build
+npm run check-links   # post-build link, asset, alt and ARIA audit
+npm run audit         # payload + accessibility audit
+npm run qa            # browser matrix, 8 viewports
+npm run verify:deployment
+npm run validate      # data integrity on its own
+npm run verify        # validate + test + build + check-links + audit
+```
+
+`data/site.json` is the **single source of truth** for the deployment base
+path, the site URL, the repository URL and the brand. `astro.config.mjs` and
+`src/lib/catalog.ts` both read it. Do not introduce a second source of truth.
+
+## Brand
+
+The public brand is **HawkEye Hangar**. It is settled.
+
+- Never introduce a new public reference to "Parkjets" or "EagleEye". Both are
+  historical names and must not reappear on public pages.
+- Keep "Parkjets" only where it is legitimate provenance: the original source,
+  attribution, the About disclosure, the historical record, the migration
+  history, original source links, third-party credits and LICENSE.
+- Never turn an ordinary public page into archive, migration or preservation
+  messaging.
+- Do not change provenance or legal wording unless a task explicitly asks for
+  a provenance or branding change.
+- `public/brand/` holds the artwork. The three master PNGs are the artwork of
+  record: never flatten them onto white, distort them, crop them, or serve
+  them to visitors at native size. `scripts/gen-brand.mjs` derives every
+  shipped image from them.
+
+## Archive protection
+
+`data/` and `public/plans/` are protected. For any UI, content, layout or
+engineering task that is not explicitly about archive data, do not modify
+either directory.
+
+If a task does change archive data, verify before finishing:
+
+- aircraft count is 109
+- plan file count is 109 (105 ZIP + 4 PDF)
+- filenames and file types are unchanged
+- SHA-256 values in `data/archive-manifest.json` match the files on disk
+- you can state the before/after comparison
+- no binary was silently replaced
+- archive verification was not weakened
+
+`npm run validate` is the authority for archive integrity.
+
+## Responsive requirement
+
+Any change touching pages, layouts, CSS, components, navigation, galleries,
+cards, tables, forms, lightboxes, modals, fixed or sticky UI, responsive
+behaviour or interactive controls must be checked at all eight viewports:
+
+```
+1920x1080   1440x900   1366x768   1024x1366
+768x1024    430x932    390x844    375x812
+```
+
+Check each for horizontal overflow, clipping, overlap, broken mobile
+navigation, fixed or sticky elements covering content, image overflow, cards
+breaking, table or form overflow, modal and lightbox problems, keyboard focus
+and focus visibility, and reduced-motion behaviour.
+
+Run `npm run qa` for any visual, layout, responsive or interaction change.
+
+## Performance
+
+The homepage scroll architecture is deliberate and measured. Reference point:
+median scroll frame time near 16.7ms, LCP around 1.3s, homepage weight around
+290KB, zero infinite animations.
+
+Do not regress it. Avoid scroll handlers doing expensive work, layout
+thrashing, forced synchronous layout, full-viewport background animation,
+unnecessary infinite animations, custom smooth-scrolling engines, heavy
+frontend libraries, new client-side dependencies, and `backdrop-filter` on
+sticky or fixed surfaces.
+
+`tests/redesign.test.mjs` enforces this contract. Read it before changing
+animation or CSS.
+
+## Testing
+
+`tests/redesign.test.mjs` is a regression suite that runs against the **built**
+output in `dist/`, because the failure modes it guards only exist in the
+shipped CSS and HTML. Build before testing, or the suite skips.
+
+Never weaken, skip or delete a test to make the suite pass. If a test encodes
+behaviour a task intentionally changes, update it deliberately and say so.
+
+## Git discipline
+
+- Never `git add -A`. Stage explicit paths.
+- Never force-push.
+- Never push to `main`. Engineering changes reach main through a pull request
+  and a human merge. Only merged `main` changes publish production Pages.
+- Before finishing: `git status --short`, `git diff`, `git diff --cached`.
+- Remove generated junk, caches, screenshots and debug artifacts unless they
+  are intentionally part of the task.
+- `reports/` holds generated QA and audit output. It is regenerated by
+  `npm run qa` and `npm run audit`; do not hand-edit it.
+
+## Deployment
+
+`.github/workflows/deploy-pages.yml` is authoritative. It validates, tests,
+builds, checks links, and deploys **only** on a push to `main`. A pull request
+runs the same validation without deploying. Do not add a second deployment
+path.
+
+`.github/workflows/security.yml` runs dependency security checks. Do not break
+or disable it.
+
+## Agent automation
+
+`.github/workflows/opencode-agent.yml` turns an owner-created issue titled
+`[OpenCode] <task>` into an autonomous task. The control plane lives in
+`src/agent/`:
+
+| Module | Responsibility |
+|---|---|
+| `events.mjs` | trigger authorization, task extraction, branch naming |
+| `preflight.mjs` | CLI entry point: authorize an event, write the trigger |
+| `issue-context.mjs` | bounded issue/comment history for continuations |
+| `prompt.mjs` | the task contract handed to the model |
+| `opencode.mjs` | OpenCode CLI invocation and output capture |
+| `verdict.mjs` | classify the outcome from observed repository state |
+| `ci.mjs` | pull requests, check runs, bounded failure logs |
+| `run-agent.mjs` | one attempt, end to end |
+| `reporting.mjs` | report and job-summary rendering |
+| `report.mjs` | deliver the report to the issue and pull request |
+
+A clean OpenCode exit is **not** success. Success requires a commit, a push,
+and a pull request, verified independently of what the model claims.
