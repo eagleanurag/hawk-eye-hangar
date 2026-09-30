@@ -211,9 +211,9 @@ jobs:
     timeout-minutes: 10
 
     permissions:
-      # Creating the branch locally needs no remote write at all. The agent job
-      # is what pushes it, and it still cannot push to main.
-      contents: read
+      # Bootstrap must publish a newly created branch so the next job, which
+      # runs on a fresh runner, can check it out.
+      contents: write
 
     outputs:
       branch: ${{ steps.bootstrap.outputs.branch }}
@@ -253,6 +253,15 @@ jobs:
             --base-branch "${BASE_BRANCH}" \
             --issue-number "${ISSUE_NUMBER}" \
             --remote origin
+
+          # The bootstrap runner is disposable. A branch created only in this
+          # local checkout would disappear when this job ends, leaving the next
+          # runner unable to check it out. Publish only newly-created branches;
+          # existing branches are reused in place and are never force-pushed.
+          if [ "${{ steps.bootstrap.outputs.branch_action }}" = "create" ]; then
+            git push --no-force origin               "refs/heads/${AGENT_BRANCH}:refs/heads/${AGENT_BRANCH}"
+            echo "BRANCH_PUBLISHED=${AGENT_BRANCH}"
+          fi
 
       - name: Report the branch state
         run: |

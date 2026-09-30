@@ -1261,7 +1261,7 @@ test('the workflow takes the minimum permissions each job needs', () => {
   const workflow = fs.readFileSync(WORKFLOW, 'utf8');
 
   // Preflight must not be able to write anything.
-  const preflightBlock = workflow.slice(workflow.indexOf('\n  preflight:'), workflow.indexOf('\n  agent:'));
+  const preflightBlock = workflow.slice(workflow.indexOf('\n  preflight:'), workflow.indexOf('\n  bootstrap:'));
   assert.match(preflightBlock, /contents: read/);
   assert.doesNotMatch(preflightBlock, /contents: write/);
 

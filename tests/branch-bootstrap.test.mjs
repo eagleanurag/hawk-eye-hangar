@@ -467,11 +467,13 @@ test('a bootstrap failure still produces an honest report', () => {
   assert.match(workflow, /the agent never started/);
 });
 
-test('the bootstrap job cannot push or write anything', () => {
+test('the bootstrap job can publish a new agent branch without force-pushing', () => {
   const workflow = fs.readFileSync(WORKFLOW, 'utf8');
   const bootstrapBlock = workflow.slice(workflow.indexOf('\n  bootstrap:'), workflow.indexOf('\n  agent:'));
 
-  // Creating the branch locally needs no remote write.
-  assert.match(bootstrapBlock, /contents: read/);
-  assert.doesNotMatch(bootstrapBlock, /contents: write/);
+  // The bootstrap runner is disposable, so a first-run branch must be
+  // published for the separate agent runner to check it out.
+  assert.match(bootstrapBlock, /contents: write/);
+  assert.match(bootstrapBlock, /git push --no-force origin/);
+  assert.doesNotMatch(bootstrapBlock, /git push --force/);
 });
