@@ -142,10 +142,10 @@ or disable it.
 | `preflight.mjs` | CLI entry point: authorize an event, write the trigger |
 | `issue-context.mjs` | bounded issue/comment history for continuations |
 | `prompt.mjs` | the task contract handed to the model |
-| `opencode.mjs` | OpenCode CLI invocation and output capture |
+| `opencode.mjs` | OpenCode CLI invocation, startup timeout and output capture |
 | `verdict.mjs` | classify the outcome from observed repository state |
 | `ci.mjs` | pull requests, check runs, bounded failure logs |
-| `run-agent.mjs` | one attempt, end to end |
+| `run-agent.mjs` | one attempt, credential setup, delivery verification |
 | `reporting.mjs` | report and job-summary rendering |
 | `report.mjs` | deliver the report to the issue and pull request |
 
