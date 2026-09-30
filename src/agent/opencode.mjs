@@ -14,6 +14,12 @@ export const DEFAULT_MODEL = 'opencode/space-bunny-free';
 export const DEFAULT_AGENT = 'remote-engineer';
 export const DEFAULT_TIMEOUT_SECONDS = 5400;
 
+/** Convert the public timeout unit (seconds) to the timer unit (milliseconds). */
+export function timeoutMilliseconds(timeoutSeconds) {
+  const seconds = Number(timeoutSeconds);
+  return Math.max(1, Number.isFinite(seconds) ? seconds * 1000 : DEFAULT_TIMEOUT_SECONDS * 1000);
+}
+
 const EXIT_TIMEOUT = 124;
 
 export class OpenCodeError extends Error {
@@ -147,7 +153,7 @@ export function runOpenCode(prompt, options = {}) {
           timedOut: true,
         })
       );
-    }, timeoutSeconds);
+    }, timeoutMilliseconds(timeoutSeconds));
 
     child.stdout.on('data', (chunk) => {
       stdout += chunk.toString();
