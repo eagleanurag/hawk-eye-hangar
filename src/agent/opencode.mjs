@@ -204,6 +204,7 @@ export function runOpenCode(prompt, options = {}) {
       if (settled) return;
       settled = true;
       clearTimeout(timer);
+      clearTimeout(startupTimer);
       resolve(
         new OpenCodeResult({
           text: extractFinalText(stdout),
