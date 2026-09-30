@@ -146,6 +146,7 @@ or disable it.
 | `verdict.mjs` | classify the outcome from observed repository state |
 | `ci.mjs` | pull requests, check runs, bounded failure logs |
 | `run-agent.mjs` | one attempt, credential setup, delivery verification |
+| `credentials.mjs` | optional external git credential via secret-backed askpass |
 | `reporting.mjs` | report and job-summary rendering |
 | `report.mjs` | deliver the report to the issue and pull request |
 
