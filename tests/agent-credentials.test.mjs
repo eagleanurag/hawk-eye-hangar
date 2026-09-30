@@ -89,11 +89,16 @@ test('the external credential is armed without writing the token into the askpas
     assert.equal(environment.GIT_ASKPASS, authentication.helperPath);
     assert.equal(environment.AGENT_PUSH_TOKEN, undefined);
 
-    const remainingHeader = execFileSync(
-      'git',
-      ['config', '--local', '--get-all', 'http.https://github.com/.extraheader'],
-      { cwd: directory, encoding: 'utf8' }
-    );
+    let remainingHeader = '';
+    try {
+      remainingHeader = execFileSync(
+        'git',
+        ['config', '--local', '--get-all', 'http.https://github.com/.extraheader'],
+        { cwd: directory, encoding: 'utf8' }
+      );
+    } catch {
+      // No values means git correctly reports a non-zero exit.
+    }
     assert.equal(remainingHeader.trim(), '');
   } finally {
     fs.rmSync(directory, { recursive: true, force: true });
