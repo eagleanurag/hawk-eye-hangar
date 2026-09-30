@@ -346,6 +346,9 @@ jobs:
         id: prompt
         env:
           BASE_BRANCH: main
+          # Boolean only: lets the prompt/reporting layer describe whether the
+          # optional external Git credential is available without exposing it.
+          AGENT_CREDENTIAL_ARMED: ${{ secrets.OPENCODE_AGENT_TOKEN != '' }}
         run: |
           node - <<'NODE'
           import fs from 'node:fs';
@@ -378,6 +381,10 @@ jobs:
         id: result
         env:
           GH_TOKEN: ${{ github.token }}
+          # Optional repository-scoped PAT. It is used only by git through the
+          # askpass helper when a push needs permissions the built-in token lacks.
+          # The value is never placed in argv, source, prompts or reports.
+          AGENT_PUSH_TOKEN: ${{ secrets.OPENCODE_AGENT_TOKEN }}
           # Read by the redaction helpers so a credential echoed by a tool can
           # never reach an issue comment or an artifact.
           AGENT_REDACT: 'true'
