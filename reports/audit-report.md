@@ -1,6 +1,6 @@
 # EagleEye Hangar — performance & accessibility audit
 
-_Generated 2026-09-30T10:13:33.086Z by `npm run audit`._
+_Generated 2026-09-30T10:30:53.954Z by `npm run audit`._
 
 ## Payload
 
@@ -20,7 +20,7 @@ No third-party JavaScript is shipped. The only external request the site can mak
 | home | 10 | 5.0 KB | 45.7 KB | 12.6 KB | 149.9 KB |
 | catalog | 15 | 8.5 KB | 37.9 KB | 748.4 KB | 395.0 KB |
 | detail | 14 | 5.7 KB | 43.8 KB | 46.6 KB | 129.9 KB |
-| designers | 9 | 2.8 KB | 35.7 KB | 0.0 KB | 143.5 KB |
+| designers | 9 | 2.8 KB | 34.0 KB | 0.0 KB | 155.0 KB |
 | about | 9 | 2.8 KB | 36.5 KB | 0.0 KB | 122.9 KB |
 
 ## Checks

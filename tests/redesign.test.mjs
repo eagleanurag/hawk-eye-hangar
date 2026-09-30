@@ -207,3 +207,20 @@ test('cards stay lazily loaded and dimensioned', { skip }, () => {
     'all but the first row are lazy loaded'
   );
 });
+
+test('the web app manifest carries the new brand', { skip }, () => {
+  const mf = has('site.webmanifest') ? read('site.webmanifest') : '';
+  const j = JSON.parse(mf);
+  assert.equal(j.name, 'EagleEye Hangar');
+  assert.doesNotMatch(j.name, /Parkjets/i);
+  assert.doesNotMatch(j.short_name, /Parkjets/i);
+  assert.doesNotMatch(j.description, /Parkjets/i);
+});
+
+test('robots.txt advertises the new sitemap and names the new brand', { skip }, () => {
+  const r = has('robots.txt') ? read('robots.txt') : '';
+  const site = JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'site.json'), 'utf8'));
+  const expected = `${site.url.replace(/\/$/, '')}${site.base}sitemap-index.xml`;
+  assert.ok(r.includes(expected), `robots.txt points at ${expected}`);
+  assert.doesNotMatch(r, /parkjet-aircraft-archive/, 'no stale Pages path');
+});

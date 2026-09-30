@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-30T10:13:33.086Z",
+  "generatedAt": "2026-09-30T10:30:53.955Z",
   "payload": {
     "sharedJsBytes": 14169,
     "sharedCssBytes": 55605,
@@ -35,9 +35,9 @@
     {
       "page": "designers",
       "js": 2849,
-      "css": 36537,
+      "css": 34859,
       "images": 0,
-      "other": 146929,
+      "other": 158677,
       "count": 9
     },
     {

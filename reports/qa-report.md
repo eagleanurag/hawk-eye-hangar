@@ -1,6 +1,6 @@
 # EagleEye Hangar — browser QA report
 
-_Generated 2026-09-30T10:17:19.493Z by `npm run qa`._
+_Generated 2026-09-30T10:32:39.337Z by `npm run qa`._
 
 **Target:** local build (dist/)
 

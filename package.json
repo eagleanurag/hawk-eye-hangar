@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "description": "Parkjets Archive — an independent, self-hosted preservation of the Parkjets RC aircraft plan catalogue.",
+  "description": "EagleEye Hangar - an independent digital aviation library of RC aircraft plans, designs and build resources.",
   "license": "MIT",
   "engines": {
     "node": ">=20"

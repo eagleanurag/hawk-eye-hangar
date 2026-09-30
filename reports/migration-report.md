@@ -1,6 +1,6 @@
 # EagleEye Hangar — migration report
 
-_Generated 2026-09-30T10:15:35.335Z by `npm run report` from the actual archive artefacts.
+_Generated 2026-09-30T10:32:40.170Z by `npm run report` from the actual archive artefacts.
 Every number below is computed from `data/aircraft.json` and `data/archive-manifest.json`._
 
 ## 1. Source

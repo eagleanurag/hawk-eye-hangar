@@ -1,7 +1,7 @@
 User-agent: *
 Allow: /
 
-# Parkjets Archive is a static, tracker-free site.
+# EagleEye Hangar is a static, tracker-free site.
 # Nothing here is private, so there is nothing to disallow beyond crawlers
 # wandering generated asset paths.
 Disallow: /media/
