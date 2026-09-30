@@ -1,0 +1,1614 @@
+---
+import Shell from '../../layouts/Shell.astro';
+import Base from '../../layouts/Base.astro';
+import { bySlug, pub, abs, BASE } from '../../lib/catalog';
+
+const base = BASE;
+const jet = bySlug.get('f-22-raptor');
+if (!jet) throw new Error('f-22-raptor missing from data/aircraft.json');
+
+const guide = (n: string) => pub('/media/guides/f-22-raptor/' + n);
+const stepImg = (p: number) => guide('step-' + String(p).padStart(2, '0') + '.webp');
+const stepThumb = (p: number) => guide('thumb/step-' + String(p).padStart(2, '0') + '.webp');
+
+const title = 'F/A-22 Raptor Park Jet — Build Guide';
+const description =
+  'A stage-by-stage build guide for Steve Shumate’s 26-inch F/A-22 Raptor foam park jet: materials, tools, 13 illustrated construction stages, control setup and first flight.';
+
+const THREAD = 'https://www.rcgroups.com/forums/showthread.php?628812-F-A-22-Raptor-Park-Jet%C2%97Part-2';
+const YT_ID = 'b10X7zagCmA';
+
+const d = jet.download;
+
+/* ------------------------------------------------------------------ */
+/* Quick facts — verified from the designer's own specification sheet  */
+/* ------------------------------------------------------------------ */
+const QUICK = [
+  ['Designer', 'Steve Shumate'],
+  ['Wingspan', '26.0"'],
+  ['Length', '36.3"'],
+  ['Flying weight', '16 – 18 oz RTF'],
+  ['Material', 'Foam (Depron), heat-formed'],
+  ['Motor', 'Littlescreamers Park Jet Special'],
+  ['Battery', 'Thunder Power 1320 mAh 11.1V Pro-lite'],
+  ['Propeller', 'APC 7x4 aerobatic · APC 6x5.5 speed'],
+  ['Controls', 'Stabilator, flaperons, rudder (opt), thrust vectoring (opt)'],
+];
+
+const HEADLINE = [
+  ['26.0"', 'Wingspan'],
+  ['36.3"', 'Length'],
+  ['16–18 oz', 'Flying weight'],
+  ['248 sq in', 'Wing area'],
+];
+
+/* ------------------------------------------------------------------ */
+/* Materials — every entry is a use stated in the construction guide   */
+/* ------------------------------------------------------------------ */
+type Mat = { n: string; u: string; opt?: boolean };
+const MATS: { g: string; note?: string; items: Mat[] }[] = [
+  {
+    g: 'Foam',
+    items: [
+      { n: 'Depron foam sheet', u: 'Every part is traced from the paper templates and cut from foam. The guide names Depron when it discusses sealing and priming.' },
+      { n: 'Foam jigs (supplied)', u: 'Hold the vertical tails at the correct dihedral angle while the epoxy cures.' },
+      { n: 'Scrap foam', u: 'Practising bevel cuts and heat forming before cutting the real parts.' },
+      { n: 'Small foam offcuts', u: 'Supporting the rudder pushrods near the servo.' },
+      { n: 'Thin foam sanding pad', u: 'Sanding the rounded fillets after spackling.' },
+    ],
+  },
+  {
+    g: 'Adhesives & tape',
+    note: 'Several joints need a light, sandable, gap-filling adhesive rather than the strongest thing you own — every gram counts at 16–18 oz.',
+    items: [
+      { n: 'Epoxy — 5 minute', u: 'Motor mount into the fuselage slot; the stabilator tube bearings.' },
+      { n: 'Epoxy — 30 minute', u: 'Sparing the carbon wing spar into the wing.' },
+      { n: 'Epoxy — general', u: 'Motor mount side plates, stabilators to the pivot tube, tail booms, vertical tails.' },
+      { n: 'Microballons', u: 'Mixed into the epoxy to reduce weight and help it fill gaps better. The single easiest way to keep the model light.' },
+      { n: 'Cyanoacrylate — thin', u: 'Bearing in the motor mount stick, the stabilator end stops, the control horns.' },
+      { n: 'Cyanoacrylate — thick', u: 'Holding the stabilator servo in its slot.' },
+      { n: '3M 77 spray adhesive', u: 'Every foam lamination — centreline supports, nosecone, canopy, tail booms, inlet diverters — and tacking the paper templates to the sheet.' },
+      { n: 'UHU Creativ for Styrofoam / UHU POR', u: 'The designer’s everyday foam adhesive: strong and quick drying.' },
+      { n: 'ProBond or Gorilla Glue', u: 'Gap-filling structural bonds on the fuselage boxes and the aft fuselage top. Sandable.' },
+      { n: 'Aliphatic resin', u: 'A lighter, sandable alternative to ProBond on the aft fuselage top.' },
+      { n: 'Hot glue gun', u: 'General purpose and temporary fixturing.' },
+      { n: '3M Satin tape (purple tub)', u: 'Flaperon and rudder hinges, stabilator and vertical tail leading edges, fuselage leading-edge protection. The green-container Scotch and packing tape do not work nearly as well.' },
+      { n: 'Packing tape', u: 'Heat-forming aid on the aft fuselage top; low-friction wrap on the vectoring mount stick.' },
+      { n: 'Lightweight spackling compound', u: 'Filling gaps and building large fillets at the turtledeck and wing junctions.' },
+      { n: 'Lightweight wall spackling', u: 'Filling the canopy and nosecone before painting, thinned with water.' },
+      { n: 'Water-based polyurethane (WBPU)', u: 'Optional sealing coat over the foam. Microballons in the WBPU fill holes even better.', opt: true },
+      { n: 'Fibreglass cloth + epoxy', u: 'Reinforcing stabilator roots; anchoring the thrust vectoring pushrod guides.', opt: true },
+      { n: 'Windshield wiper fluid', u: 'Thinning acrylic roughly 50/50 for airbrushing — dries faster than water and does not affect the finish.' },
+    ],
+  },
+  {
+    g: 'Structure',
+    items: [
+      { n: 'Carbon wing spar', u: 'Slotted into the wing and epoxied in. The primary structure.' },
+      { n: 'Carbon tube stabilator pivot', u: 'Runs through the two stabilator bearings; the tail boom blocks brace it and add significant strength.' },
+      { n: 'Forward fuselage bulkheads ×3', u: 'Set the shape of the forward fuselage box.' },
+      { n: 'Bulkheads F4, F5', u: 'Fitted to the top of the wing to carry the aft fuselage sides.' },
+      { n: 'Temporary bulkheads ×4', u: 'Hold the aft fuselage sides at the correct angle while the glue dries, then removed.' },
+      { n: 'Turtledeck bulkheads T1–T5', u: 'Support the aft fuselage top piece and show how much heat forming it needs.' },
+      { n: 'Turtledeck support pieces ×2', u: 'Glued to the top inside edges of the fuselage sides.' },
+      { n: 'Vertical tail support pieces', u: 'Under the wing, centred over the vertical tail mounting slots.' },
+      { n: '1/8" plywood side plates ×2', u: 'The thrust vectoring cradle.' },
+      { n: '1/64" plywood scrap', u: 'Bridges the rudder servo clearance hole so the fuselage top sits flat along the spine.', opt: true },
+    ],
+  },
+  {
+    g: 'Hardware',
+    items: [
+      { n: 'Aluminium tube bearing ×1', u: 'Pressed into the main motor mount stick as the pivot bearing.' },
+      { n: 'Aluminium stabilator tube bearings ×2', u: 'Pressed into the aft edge of the wing to carry the stabilator pivot.' },
+      { n: 'Spare nylon servo horns', u: 'Drilled out in the centre to make the stabilator end stops and control arm.' },
+      { n: 'Small bolt and nut', u: 'The thrust vectoring pivot pin.' },
+      { n: 'Music wire', u: 'The stabilator pushrod.' },
+      { n: '1/16" threaded music wire', u: 'The thrust vectoring pushrod, with a large Z-bend at the servo end.' },
+      { n: '1/32" music wire', u: 'Soldered onto the rudder cable pushrods.', opt: true },
+      { n: 'Steel threaded clevis', u: 'Connects the vectoring pushrod to the motor mount.' },
+      { n: 'Pins, wax paper, books', u: 'Holding parts while glue cures; wax paper under the wing spar.' },
+    ],
+  },
+  {
+    g: 'Electronics',
+    items: [
+      { n: 'Littlescreamers Park Jet Special', u: 'The motor the design was made for. Its 3/8" stick mount is what the supplied vectoring side plates assume.' },
+      { n: 'Thunder Power 1320 mAh 11.1V Pro-lite', u: 'Flight battery, in the nose.' },
+      { n: 'Castle Creations Phoenix 25', u: 'Speed control, mounted inside an inlet for airflow.' },
+      { n: 'Berg 7P', u: 'Receiver, installed aft with short extensions.' },
+      { n: 'Futaba S3110 ×4', u: 'Stabilator, flaperons and rudder.' },
+      { n: 'Hitec HS-85MG', u: 'Thrust vectoring. Metal geared, 40+ oz/in — a plastic-geared servo can strip if the prop hits the ground.' },
+      { n: 'APC 7x4 or 6x5.5', u: '7x4 for aerobatics, 6x5.5 for speed. A 7" prop is the maximum the model will take.' },
+    ],
+  },
+  {
+    g: 'Tools',
+    items: [
+      { n: 'Sharp hobby knife', u: 'Every bevel, cutout and slot. A long knife or small saw for the nosecone.' },
+      { n: 'Straightedge / ruler', u: 'Straight bevel runs and the 45° flaperon bevel. Curved segments are cut freehand.' },
+      { n: 'Heat gun', u: 'Heat forming. Clamp it in a bench vice to free both hands.' },
+      { n: 'Drill + drill press', u: 'Bearing bores and the vectoring pivot hole. A press keeps the hole square.' },
+      { n: 'Sanding block', u: 'Flattens the top of the lower forward fuselage before the upper sides go on.' },
+      { n: 'Long sanding bar', u: 'Squares the bottom edges of the fuselage.' },
+      { n: 'Sandpaper 100 / 220 / 320', u: '100 roughs out, 220 shapes, 320 polishes the nosecone and canopy.' },
+      { n: 'Wood dowel', u: 'Rolled across the heated aft fuselage top to form the compound curves.' },
+      { n: 'Scissors', u: 'Cutting the paper templates out.' },
+      { n: 'Airbrush or brush', u: 'Acrylic craft paint.' },
+      { n: 'Rubbing alcohol', u: 'Degreasing the whole model before painting.' },
+    ],
+  },
+  {
+    g: 'Optional',
+    note: 'None of these are required to fly the model. Each is a builder choice the guide explicitly offers.',
+    items: [
+      { n: 'Rudder servo + 90° arm', u: 'Improved control at high alpha and better aerobatics. The 90° arm makes both rudders deflect equally at neutral.', opt: true },
+      { n: 'Sullivan micro flexible cable pushrods', u: 'Rudder pushrods.', opt: true },
+      { n: 'Dubro micro pushrod keepers + EZ connectors', u: 'Rudder horn and servo-end linkage.', opt: true },
+      { n: 'Launch fairings', u: 'Small side blisters that give your fingers something to grip for a hand launch.', opt: true },
+      { n: 'Fibreglass stabilator root strips', u: 'Extra insurance against structural failure if you fly fast or land in tall grass.', opt: true },
+      { n: 'Straight motor stick', u: 'In place of the vectoring mount, if you do not want thrust vectoring.', opt: true },
+    ],
+  },
+];
+
+/* ------------------------------------------------------------------ */
+/* Key techniques the guide singles out                                */
+/* ------------------------------------------------------------------ */
+const TECHNIQUES = [
+  ['Heat forming', 'The heat gun goes in a bench vice and a large wood dowel on your chest becomes the former. Practise on scrap — bending gently without wrinkling is the skill.'],
+  ['Bevel cuts', 'Nearly every fuselage part is beveled on several edges. Straight runs take a straightedge; the curves are cut freehand.'],
+  ['Foam shaping', '100 grit to rough out, 220 to shape, 320 to polish. The nosecone and canopy are the pieces that show it most.'],
+  ['Alignment', 'Bulkheads square, fuselage sides vertical, spar fully seated. The four temporary bulkheads exist purely to hold the aft sides at the right angle.'],
+  ['Critical joints', 'Epoxy is reserved for the wing spar and the motor mounts. Everything else wants a light, sandable, gap-filling adhesive.'],
+  ['Motor mount', 'The motor thrust line must run straight through the pivot pin, or the vectoring servo is loaded and the trim moves with throttle.'],
+];
+
+/* ------------------------------------------------------------------ */
+/* Build stages                                                        */
+/* ------------------------------------------------------------------ */
+type Stage = {
+  n: string; title: string; pages: number[]; primary: number;
+  intro: string; what: string[]; tools: string[]; tip?: string; check: string[]; opt?: boolean;
+};
+
+const STAGES: Stage[] = [
+  {
+    n: '01', title: 'Plan & prepare', pages: [2], primary: 2,
+    intro: 'Adhesives, tape and template layout — before a single part is cut. Get this stage right and the rest of the build is straightforward.',
+    what: [
+      'Cut the paper part templates out with scissors, trimming them to within about 1/8" of the lines.',
+      'Test fit all the templates onto the foam sheet, trying to minimise wasted foam as much as possible.',
+      'Once the layout is settled, remove each template individually, spray the back LIGHTLY with 3M 77, and replace it on the same spot. Repeat for every template.',
+      'Cut all the pieces out on the lines with a sharp hobby knife.',
+      'Keep the paper templates stuck to each piece until you are ready to use it.',
+    ],
+    tools: ['Paper part templates', '3M 77 spray adhesive', 'Scissors', 'Sharp hobby knife', 'Foam sheet'],
+    tip: 'To minimise weight, use as little epoxy as possible and save it for critical joints such as the wing spar and the motor mounts. Mixing microballons into the epoxy reduces weight considerably and helps it fill gaps better. The majority of the construction should use a lightweight, quick-drying adhesive such as foam-safe CA, UHU Creativ, or 3M 77.',
+    check: [
+      'Templates are tacked down with no gaps or overlaps.',
+      'Parts are cut on the line, not inside it.',
+      'Every part still has its paper template attached.',
+    ],
+  },
+  {
+    n: '02', title: 'Cutting, bevels & heat forming', pages: [3, 4], primary: 3,
+    intro: 'All of the forward fuselage bevels, then the heat-formed curves that give the fuselage its shape. Practise both on scrap foam first.',
+    what: [
+      'Carefully cut the beveled edges on all the forward fuselage pieces as shown on the plans.',
+      'Draw a reference line on each part, inset from the edge by the distance indicated on the plans — you can trace the line from an identical part onto its opposite.',
+      'Cut the bevel with a sharp hobby knife. Use a straightedge for straight segments; the curved segments are cut by hand.',
+      'Use a heat gun to gently heat and soften the lower forward fuselage sides, and bend them to the drawn shape.',
+      'Form one gradual curve over the whole piece — this is the taper of the fuselage seen from above.',
+      'Add a quick twist at the aft end so the angled fuselage sides match the vertical fuselage centreline support.',
+    ],
+    tools: ['Sharp hobby knife', 'Straightedge', 'Heat gun', 'Scrap foam for practice'],
+    tip: 'The curves do not have to be exact — the bulkheads will help form the fuselage as well once it is assembled. Make sure you produce mirror-image left and right pieces.',
+    check: [
+      'Left and right pieces are true mirror images.',
+      'Reference lines are visible on every beveled part.',
+      'The fuselage sides show one smooth taper plus the aft twist.',
+    ],
+  },
+  {
+    n: '03', title: 'Fuselage box & wing spar', pages: [5], primary: 5,
+    intro: 'The three bulkheads form the box that sets the whole forward fuselage, and the carbon spar sets the wing.',
+    what: [
+      'Glue the bottom half of the three fuselage bulkheads — the ones with the notch on top — to one of the lower forward fuselage sides at the plan locations, making sure they are perpendicular.',
+      'Set the fuselage sides upright and flat on the workbench, apply glue to the edges of the bulkheads, and glue the two fuselage sides together.',
+      'After the glue has dried, glue the aft ends of the fuselage sides together, ensuring they are perfectly vertical.',
+      'Cut a slot to fit the carbon wing spar and use 30 minute epoxy to spar it into place.',
+      'Place wax paper and some heavy books on top of the wing to hold it perfectly flat as the glue cures.',
+      'Sand the leading edge of the wing to a well-rounded shape, as well as the wing tips, and apply a strip of 3M Satin tape around the leading edge.',
+      'Cut the flaperons free from the wing.',
+    ],
+    tools: ['Fuselage bulkheads ×3', 'Carbon wing spar', '30 minute epoxy', 'Microballons', 'Wax paper & heavy books', '3M Satin tape', 'Sandpaper', 'Sharp hobby knife'],
+    tip: 'Mixing microballons into the epoxy is recommended to reduce weight and help the glue fill gaps better; ProBond also works. You may need to heat-form the foam a little more to get the aft ends of the fuselage sides to align just right.',
+    check: [
+      'Bulkheads are perpendicular to the side they are glued to.',
+      'The aft ends of the fuselage sides are vertical, not raked.',
+      'The spar is fully seated and the wing stayed flat under weight while the epoxy cured.',
+      'The leading edge is rounded and taped before any handling.',
+    ],
+  },
+  {
+    n: '04', title: 'Aft fuselage & wing join', pages: [6], primary: 6,
+    intro: 'The aft fuselage sides and the centreline support close the box around the wing, then the forward fuselage goes on the front.',
+    what: [
+      'Laminate the two fuselage centreline support pieces together — 3M 77 spray adhesive is recommended.',
+      'Cut bevels on the edges of the aft fuselage sides as indicated on the plans.',
+      'Place the wing on a flat surface and glue the two aft fuselage sides and the centreline piece onto the bottom of the wing.',
+      'Use the four temporary bulkheads to ensure the fuselage sides are glued on at the proper angle. Pins can hold everything while the glue dries, then the bulkheads are removed.',
+      'Glue the forward fuselage lower assembly in place on the front of the wing, making sure its aft end mates with the forward edge of the centreline support piece.',
+      'Make sure the curvature is smooth where the angled forward fuselage sides twist to meet the vertical centreline support. Some trimming and additional heat-forming will likely be required.',
+    ],
+    tools: ['3M 77 spray adhesive', 'Aft fuselage sides', 'Fuselage centreline support (2 parts)', 'Temporary bulkheads ×4', 'Pins', 'Gap-filling glue — epoxy with microballons or ProBond', 'Heat gun'],
+    tip: 'The top of the forward fuselage droops down a few degrees relative to the wing, and that is what gives the model its scale look. As long as the top of the forward fuselage assembly mates flat against the bottom of the wing, the droop is set automatically. Trim the fuselage sides if necessary to achieve this.',
+    check: [
+      'The forward fuselage mates flush with the leading edge of the centreline support.',
+      'The twist into the centreline is a smooth curve, not a crease.',
+      'The temporary bulkheads are removed and no gaps remain at the wing joint.',
+    ],
+  },
+  {
+    n: '05', title: 'Motor mount', pages: [7], primary: 7, opt: true,
+    intro: 'The thrust vectoring motor mount. This whole stage is optional — you may install a straight motor stick instead if you do not want thrust vectoring.',
+    what: [
+      'Drill a hole in the main motor mount stick to fit the aluminium tube bearing, then glue the bearing in place with thin CA.',
+      'Cut a small chamfer in the lower edge as shown.',
+      'Wrap the aft end of this stick with a layer of packing tape to ensure a smooth and low friction surface.',
+      'Sand the inside surface of the two 1/8" plywood side plates to make them as smooth as possible, then glue both to the movable portion of the motor mount stick using epoxy.',
+      'After the glue is dry, drill the pivot hole through the top of both side plates at the same time, making sure it is exactly perpendicular to the plates. A drill press is highly recommended.',
+      'Trim the lower edges of the motor mount if required to clear the pushrod and clevis.',
+    ],
+    tools: ['Main motor mount stick', 'Aluminium tube bearing', '1/8" plywood side plates ×2', 'Thin CA', 'Epoxy', 'Packing tape', 'Drill press', 'Drill', 'Sandpaper'],
+    tip: 'IMPORTANT: it is important that the thrust line of the motor runs directly through the pivot pin. This minimises strain on the thrust vectoring servo and prevents pitch trim changes with throttle setting. The supplied parts were designed for the Littlescreamers Park Jet Special with its stock 3/8" stick mount. If you use a different motor you may need to make new custom side plates from 1/8" plywood that raise or lower the movable stick to realign the thrust line — the design is simple, just trim or extend the square upper edge.',
+    check: [
+      'The pivot hole goes through both side plates in one pass and is exactly perpendicular.',
+      'The movable portion pivots smoothly on the bolt, with no slop.',
+      'The motor thrust line passes through the pivot pin.',
+      'The lower edges clear the pushrod and clevis.',
+    ],
+  },
+  {
+    n: '06', title: 'Stabilator & bearings', pages: [8], primary: 8,
+    intro: 'Mount the motor stick into the fuselage, press the stabilator bearings into the wing, and hang the stabilators on the carbon pivot.',
+    what: [
+      'Glue the completed motor mount into the slot in the aft fuselage centreline support, aligning it to a zero-zero thrust line — no left/right or up/down thrust angle. Use 5 minute epoxy.',
+      'Press a circular notch along the length of the aft edge of the wing assembly using the aluminium stabilator tube bearings.',
+      'Glue the stabilator bearings into place using 5 minute epoxy. Use small strips of tape to hold them and insert the carbon tube stabilator pivot as the glue dries, to make sure they are perfectly aligned.',
+      'Sand the leading edge of the stabilators to a well-rounded shape and the trailing edge to a tapered shape, then apply a strip of 3M Satin tape to the leading edge.',
+      'Lay the wing assembly down on a flat surface and slide the carbon pivot tube, end stops and control horn through the aluminium bearings.',
+      'Once everything is in place and aligned, glue the end stops into place with thin CA — but do not glue the control horn yet.',
+      'Glue both stabilators to the carbon tube using epoxy, mixing with microballons recommended.',
+    ],
+    tools: ['5 minute epoxy', 'Aluminium stabilator tube bearings ×2', 'Carbon tube stabilator pivot', 'Spare nylon servo horns (end stops + control arm)', 'Thin CA', 'Epoxy & microballons', '3M Satin tape', 'Masking tape'],
+    tip: 'The single carbon tube pivot runs inside two short pieces of aluminium tube, and two end stops butt up against the aluminium tube to keep the pivot from sliding left/right. Both the end stops and the control arm can be made from spare nylon servo horns, drilled out in the centre to fit the carbon tube.',
+    check: [
+      'The motor mount sits at a zero-zero thrust line.',
+      'Both bearings are aligned so the carbon pivot runs through them without binding.',
+      'End stops are glued; the control horn is not yet glued.',
+      'The stabilator moves freely along the whole pivot.',
+    ],
+  },
+  {
+    n: '07', title: 'Servos & thrust vectoring', pages: [9], primary: 9,
+    intro: 'Stabilator servo, control horn and pushrod, then the vectoring servo with its pushrod, guides and clevis.',
+    what: [
+      'Install the stabilator servo into the slot in the fuselage centreline support — thick CA can be used to hold the servo in place.',
+      'Make and install a music wire pushrod to the stab control horn. Once everything is properly aligned, glue the stab control horn into place using thin CA.',
+      'For extra strength, add small strips of fibreglass chordwise to the roots of the stabilators, both top and bottom, as shown on the plans.',
+      'Install the thrust vectoring servo in the slot in the fuselage centreline support, securing it with CA.',
+      'Make the pushrod from 1/16" threaded music wire, with a large Z-bend at the front end to rise up to the servo arm.',
+      'Install pushrod guides as shown to eliminate flex in the pushrod — scrap carbon fibre tubes from the stabilator pivot rod were used.',
+      'Use a steel threaded clevis to connect the pushrod to the motor mount, then verify the system moves freely and with minimal slop.',
+    ],
+    tools: ['Stabilator servo', 'Hitec HS-85MG or equivalent (metal gear, 40+ oz/in)', 'Music wire', '1/16" threaded music wire', 'Thick CA', 'Thin CA', 'Steel threaded clevis', 'Scrap carbon tube (pushrod guides)', 'Fibreglass cloth & epoxy'],
+    tip: 'A strong servo rated at 40+ oz/in of torque is required, since a plastic-geared servo could get stripped if the prop hits the ground during landings. The prototype used a Hitec HS-85MG, which worked very well. Make sure the pushrod guides are very securely attached, or a rough landing could break them free — small strips of fibreglass cloth with epoxy over the guides give a very strong attachment. The stabilator root fibreglass is not required for normal park flying, but if you intend to fly really fast or land in tall grass it adds extra insurance.',
+    check: [
+      'The stabilator servo is fully supported in its slot.',
+      'The control horn is glued only after the alignment is correct.',
+      'The vectoring servo is metal geared and rated 40+ oz/in.',
+      'The vectoring pushrod runs straight with no visible flex, and its guides are anchored.',
+      'The whole system moves freely with minimal slop.',
+    ],
+  },
+  {
+    n: '08', title: 'Upper fuselage & turtledeck', pages: [10, 11, 16], primary: 10,
+    intro: 'Close the top of the forward fuselage, fit the aft sides and the turtledeck, then build the spine the top piece will sit on.',
+    what: [
+      'Use a sanding block to lightly sand the top of the lower forward fuselage until it is flat and even, then glue on the upper half of each of the three forward fuselage bulkheads.',
+      'Test fit the upper forward fuselage sides, trimming and sanding as required to get a perfect fit. The upper and lower pieces should meet to form a sharp edge — that is what gives the scale Raptor look.',
+      'Glue the upper forward fuselage sides onto the bulkheads and lower fuselage sides only. Do not glue the aft part to the top of the wing yet; use tape to hold the sides while the glue dries.',
+      'Glue bulkheads F4 and F5 to the top of the wing in the plan locations, then glue the aft part of the upper forward fuselage sides to the top of the wing and the bulkheads. The sides curve inward as they run aft — heat form the foam slightly to attain this, and use pins to hold it while the glue cures.',
+      'Cut the bevel in the two turtledeck support pieces and glue them in place on the top inside edges of the fuselage sides.',
+      'Glue the two turtledeck top pieces in place one at a time, so they can be formed to the proper curvature. Once the glue is dry, carve and sand the turtledeck roughly to shape, then install the forward fuselage top.',
+      'Glue the turtledeck top spine into place on the wing centreline, then the five turtledeck bulkheads T1 through T5.',
+      'If you installed rudders, cut a clearance hole in the top spine for the rudder servo and glue a small scrap of 1/64" plywood over the gap.',
+    ],
+    tools: ['Upper forward bulkheads ×3', 'Bulkheads F4, F5', 'Turtledeck support pieces ×2', 'Turtledeck top pieces ×2', 'Turtledeck top spine', 'Turtledeck bulkheads T1–T5', '3M 77 spray adhesive', 'Sanding block', 'Heat gun', 'Pins & tape', '1/64" plywood scrap (if rudders fitted)'],
+    tip: 'The plywood bridge over the rudder servo clearance hole allows the fuselage top piece to sit flat along the entire length of the spine. Fit the two turtledeck top pieces one at a time so each can be formed to its own curvature before the next goes on.',
+    check: [
+      'The upper and lower forward fuselage meet in a sharp edge, with no step.',
+      'The aft fuselage sides curve inward smoothly — heat formed, not creased.',
+      'The turtledeck spine is straight and the five bulkheads are square to it.',
+      'The forward fuselage top is fitted but not yet glued down at the aft.',
+    ],
+  },
+  {
+    n: '09', title: 'Nose, canopy & tail booms', pages: [12, 13], primary: 12,
+    intro: 'Laminated nosecone and canopy, then the laminated tail booms that carry the stabilator pivots.',
+    what: [
+      'Laminate all of the nosecone and canopy pieces together using 3M 77 adhesive, then glue the nosecone block to the front of the fuselage.',
+      'Once the glue has dried, sand the nosecone to shape. Trace the top outline onto the foam using the provided template and cut it to shape with a long knife or saw.',
+      'Start with coarse sandpaper (100 grit) to rough out the basic shape, move to 220 grit for the final shaping, and end with 320 grit for the polish pass and a very smooth surface.',
+      'Carve the canopy to shape using a similar procedure.',
+      'Laminate the tail boom pieces together using 3M 77 adhesive.',
+      'Carve out a small channel in the top of the tail boom blocks first to clear the aluminium stabilator pivot tubes, then glue the blocks to the aft fuselage with epoxy.',
+      'Carve the tail booms to shape: the outboard sides are angled to match the aft fuselage sides, the trailing edge is cut at an angle to match the stabilator trailing edge angle, and the trailing edge is sanded down to a feathered edge to match the stabilators.',
+    ],
+    tools: ['3M 77 spray adhesive', 'Nosecone & canopy pieces', 'Tail boom pieces', 'Nosecone template', 'Long knife or saw', 'Sandpaper 100 / 220 / 320', 'Epoxy'],
+    tip: 'Make sure the tail boom blocks fit tight against the stabilator pivot tubes, since they provide significant extra strength to the stabilator pivots.',
+    check: [
+      'All laminations are fully closed before shaping — no gaps in the 3M 77 joints.',
+      'The nosecone is finished to 320 grit with no coarse scratches left.',
+      'The boom channels clear the stabilator tubes, with the tubes sitting tight against them.',
+      'Boom trailing edges are feathered and angled to match the stabilators.',
+    ],
+  },
+  {
+    n: '10', title: 'Flaperons, fins & rudders', pages: [14, 15], primary: 14,
+    intro: 'The flying surfaces: flaperons hinged with tape, vertical tails set on the dihedral jigs, and optional rudders.',
+    what: [
+      'Cut a 45 degree bevel in the leading edge of the flaperons using a ruler and a hobby knife, and sand the trailing edges to a tapered shape.',
+      'Hinge the flaperons with strips of 3M Satin tape top and bottom, trimming as necessary to provide a small and parallel gap from the leading edge of the stabilators.',
+      'Install the flaperon servos, control horns and pushrods. The pushrods are angled out slightly to allow locating the control horn in a stronger area of the flaperon.',
+      'Glue the vertical tail support pieces under the wing, centred over the vertical tail mounting slots, trimming them if required to clear the flaperon servos.',
+      'Sand the vertical tail leading edges to a well-rounded shape and the trailing edges to a tapered shape, and apply a strip of 3M Satin tape to the leading edge.',
+      'Cut the vertical tail mounting slots in the aft wing at the proper dihedral angle, using the foam jigs as a guide, cutting all the way through the support pieces mounted underneath the wing.',
+      'Glue the vertical tails in place with epoxy (microballons recommended), using the foam jig pieces to ensure the proper dihedral angle, and pin them while the epoxy cures.',
+      'Optional — if incorporating rudders, cut them free, bevel the leading edges and hinge with strips of 3M Satin tape, then install the rudder servo in a slot on the centreline just aft of the wing spar.',
+      'Optional — use Sullivan micro flexible cable pushrods with small pieces of 1/32" music wire soldered onto the rudder end, support them near the servo on small scraps of foam, and embed the aft end into a slot in the foam in the vertical tail, adding epoxy over the slot later to re-strengthen the area.',
+    ],
+    tools: ['3M Satin tape', 'Flaperon servos, horns & pushrods', 'Vertical tail support pieces', 'Foam jigs', 'Epoxy & microballons', 'Pins', 'Rudder servo (optional)', 'Sullivan micro cable pushrods (optional)', '1/32" music wire (optional)', '90° servo arm (optional)'],
+    tip: 'Rudders are not required, but they are helpful for improved control at high alpha and for better aerobatics. The designer used Dubro micro pushrod keepers on the rudder horn and Dubro micro EZ connectors at the servo end. Use a 90 degree servo arm and make sure the pushrods connect to the servo arm at a 90 degree angle at neutral, to ensure the rudders deflect equally.',
+    check: [
+      'Flaperon hinge gaps are small and parallel to the stabilator leading edge.',
+      'Flaperon pushrods angle outboard and the horns sit in strong material.',
+      'Vertical tail slots are cut at the correct dihedral, right through the under-slung supports.',
+      'The tails are held at the dihedral by the jigs while the epoxy cures.',
+      'If rudders are fitted, both deflect equally at neutral.',
+    ],
+  },
+  {
+    n: '11', title: 'Fuselage top & electronics', pages: [17, 18], primary: 17,
+    intro: 'The most demanding part of the build, then the electronics — where ESC placement matters more than most builders expect.',
+    what: [
+      'Cut all the beveled edges in the aft fuselage top piece as shown on the plans, then cover most of the bottom of the part with packing tape. The tape keeps the piece from wrinkling as it is heat formed and is removed when done.',
+      'Use a heat gun to gently form all the curves, testing the fit onto the model as you go and using the installed turtledeck bulkheads to guide how much and where.',
+      'Test fit the piece and trim as required to get a good fit. It should be close but does not have to be perfect, since gaps can be filled later.',
+      'Glue the top piece in place using a lightweight, sandable, gap-filling glue such as epoxy with microballons, ProBond, or aliphatic resin. Use lots of pins and tape to hold it while the glue dries.',
+      'After the glue dries, use lightweight spackling compound to fill any gaps and create large fillets at the junction with the fuselage turtledeck and at the junction with the wings. Sand the fillets to shape.',
+      'Install the receiver aft and the speed control near the middle of the plane, with short wire extensions to both the motor and the battery in the nose.',
+      'Try to locate everything as far forward as possible — this model tends to be tail-heavy.',
+      'Twist all the ESC wires together to help reduce electromagnetic interference, and tape all wiring down flat against the foam to keep it from flopping around in flight.',
+      'Install the speed control where it will get LOTS of cooling airflow — mounting it inside the inlets is ideal, and the designer even cut away some of the plastic shrink wrap to promote even better cooling.',
+      'Cut cooling holes in the forward fuselage to provide airflow to the battery, choosing a location that suits your battery.',
+      'Test all the controls thoroughly to make sure everything works and that you are not getting major interference — once the fuselage bottom is glued on, access means cutting holes in the foam.',
+    ],
+    tools: ['Packing tape', 'Heat gun', 'Wood dowel & bench vice', 'Lightweight spackling compound', 'Foam sanding pad', 'Pins & tape', 'Berg 7P receiver', 'Castle Creations Phoenix 25 ESC'],
+    tip: 'The designer’s method for the compound curves: put the heat gun in a bench vice to leave both hands free, place a large diameter wood dowel on your chest, and roll the fuselage top piece back and forth across the dowel in front of the heat gun. Practise on scrap foam first. Cooling matters more than it looks — this model requires five servos while most speed controls are only rated for three or four, so ample airflow over the integrated BEC is what lets it operate all of them safely and helps prevent premature shutdown due to overheating. A separate, more powerful BEC is the alternative, but that adds weight and cost.',
+    check: [
+      'The top piece is heat formed without wrinkles — the packing tape did its job.',
+      'The fit is close, and remaining gaps are filled with spackling and sanded to shape.',
+      'Electronics sit as far forward as possible.',
+      'The ESC is in moving air with its shrink wrap opened up.',
+      'All controls are tested and working with no interference, before the bottom goes on.',
+    ],
+  },
+  {
+    n: '12', title: 'Inlets, bottom & finishing', pages: [19, 20, 21, 22, 23], primary: 20,
+    intro: 'Diverter assemblies, the fuselage bottom, shaping and sanding, optional launch fairings, then paint.',
+    what: [
+      'Laminate the inlet diverter piece and the inlet side piece together using 3M 77 adhesive. Make two assemblies, then glue them at the front of the inlets.',
+      'Cut the bevels in the sides of the aft fuselage bottom piece as shown on the plans, and cut bevels in the exhaust nozzles.',
+      'Carve a small notch in the centre between the exhaust nozzles to provide clearance for the thrust vectoring pushrod and clevis — test fit the part to determine how much clearance is required.',
+      'Use a long sanding bar to sand across the bottom edges of the fuselage to make it perfectly flat and straight, then test fit and trim the bottom piece to a good fit.',
+      'Glue on the bottom piece using a lightweight, sandable, gap-filling glue, and tape it while the glue dries. Lastly, glue on the forward fuselage bottom piece.',
+      'Cut slots in the aft fuselage bottom piece to provide exits for the inlet diverters — insert a hobby knife between the diverter pieces to cut the slot, then trim with sandpaper.',
+      'The leading edges of the inlets can be sanded to a downward sloping angle if desired, to improve scale appearance. Mark the lines, sand down to them, and trim the inside edges to the lines with a sharp hobby knife.',
+      'Sand the sides of the inlets down to a sharp edge and sand a slight radius on the bottom edges of the aft fuselage bottom piece, then final sand the entire model to shape.',
+      'Optional — sand the launch fairings to shape first, sanding all sides to a highly feathered shape, then glue them in place. The front edge is roughly aligned with the indicated CG location.',
+      'Wipe the entire model with rubbing alcohol before painting to remove all grease and dirt.',
+      'Fill rough areas such as the canopy and nosecone with lightweight wall spackling compound thinned with water, which sands to a very smooth finish with minimal weight gain.',
+      'Primer is not required over Depron, but a coat of water-based polyurethane helps seal the foam and provide a smoother finish. Mixing microballons in with it fills holes even better.',
+      'When thinning acrylic paint for an airbrush, thin roughly 50/50 with windshield wiper fluid.',
+    ],
+    tools: ['3M 77 spray adhesive', 'Inlet diverter & side pieces', 'Long sanding bar', 'Gap-filling glue', 'Sharp hobby knife', 'Sandpaper', 'Launch fairings (optional)', 'Rubbing alcohol', 'Lightweight wall spackling', 'Water-based polyurethane (optional)', 'Acrylic craft paint', 'Windshield wiper fluid'],
+    tip: 'Because this model has a wide fuselage with angled sides, it can be difficult to get a firm grip for hand launching. The small side fairings resemble the real aircraft’s landing gear blisters in size and shape, but sit a little lower on the fuselage so your fingers can rest just behind them. Wiper fluid rather than water lets the acrylic dry faster, which reduces the chance of runs, and it will not affect the finish.',
+    check: [
+      'The notch between the exhaust nozzles clears the vectoring pushrod and clevis.',
+      'The fuselage bottom is flat and straight along its whole length.',
+      'Inlet diverter exit slots are open and trimmed cleanly.',
+      'Launch fairings, if fitted, are aligned to the CG tick mark.',
+      'The whole model has had a final sand before painting.',
+    ],
+  },
+  {
+    n: '13', title: 'Setup & first flight', pages: [25, 26], primary: 25,
+    intro: 'The designer’s own flight setup — control deflections, the vectoring mix, CG and launch technique. All figures below are from his specification sheet.',
+    what: [
+      'Set the stabilators to ±1.5" at −40% expo, measured at the root trailing edge.',
+      'Set the ailerons to ±1.0" at −40% expo.',
+      'Set the rudder to ±0.5" at −20% expo.',
+      'Set thrust vectoring to ±15 degrees, mixed with the elevator.',
+      'Set the thrust vectoring servo up to use a simple linear mix with the elevator control. Done properly, full aft stick should produce 1.5" of stabilator deflection AND 15 degrees of up thrust vectoring. This required a 50% mixing rate on the designer’s particular transmitter and model setup. Ideally programme the mix to a transmitter switch so the TV can be turned on and off at will.',
+      'Start with the CG at 3.0" behind the wing root leading edge. Depending on the motor and battery selected, the model may require some ballast in the nose to achieve this. It is a relatively conservative forward CG, great for making first flights — move it aft later if you want more maneuverability.',
+      'To hand launch, grip the airplane near the CG, apply about 75% throttle, and throw it moderately hard straight ahead and slightly nose up. Make sure to keep your hand away from the prop.',
+      'Slowly bring the throttle up as soon as the model has gained some speed and altitude.',
+      'Belly landings are easy, but always release the elevator control right before touchdown to prevent the forward stabilator tips digging into the grass or ground, and pull the throttle back to zero just before touchdown so the propeller and motor mount is not damaged.',
+    ],
+    tools: ['Transmitter with a mixable channel', 'Receiver', 'Battery', 'Ballast (if the CG needs it)'],
+    tip: 'Start with 15 degrees of thrust vectoring — it provides amazing maneuverability without making the model seem pitchy. You can go all the way up to 30 degrees for even more, though you will definitely want to be able to turn TV off with a switch since that much deflection will make the model very pitchy at high speeds. Do not launch at full throttle: the torque from the propeller can cause the airplane to roll uncontrollably before it has enough airspeed to counter it. The model is otherwise surprisingly docile and predictable, with no bad habits.',
+    check: [
+      'Control deflections are measured at the root trailing edge and match the table.',
+      'The mix gives 1.5" of stabilator and 15 degrees of up-vectoring at full aft stick.',
+      'CG is at 3.0" behind the wing root leading edge, with nose ballast if needed.',
+      'The vectoring servo moves freely through its full range with no slop.',
+    ],
+  },
+];
+
+const DEFS = [
+  ['Stabilators', '± 1.5"', '−40% expo'],
+  ['Ailerons', '± 1.0"', '−40% expo'],
+  ['Rudder', '± 0.5"', '−20% expo'],
+  ['Thrust vectoring', '± 15°', 'mixed with elevator'],
+  ['CG', '3.0" behind wing root LE', 'ballast in the nose if needed'],
+];
+
+/* ------------------------------------------------------------------ */
+/* General workshop safety — NOT from the source document              */
+/* ------------------------------------------------------------------ */
+const SAFETY = [
+  ['Sharp tools', 'The build is cutting-intensive: a sharp hobby knife, a long knife or saw for the nosecone, and a sanding bar all get used repeatedly. Cut away from your body, keep a clear bench, and replace blades as soon as they drag.'],
+  ['Heat', 'A heat gun softens foam fast enough to burn skin. Work on a heat-resistant surface, keep the nozzle moving, and give the piece a moment to cool before handling it.'],
+  ['Adhesives', 'Cyanoacrylate and epoxy are sensitisers for some people. Work in a ventilated space, wear gloves when handling the sanding and filling compounds, and dispose of waste carefully.'],
+  ['LiPo battery', 'Keep the battery away from heat, direct sun and impact. Inspect for swelling or damage before every flight, and never charge unattended or on a combustible surface.'],
+  ['Propeller', 'The 7" prop is heavy and it is right behind a 16–18 oz airframe. Keep fingers clear, and fit the propeller only after the motor mount is complete and secure.'],
+  ['First power-up', 'Secure the model on a stand with the prop fitted but the battery disconnected. Move each control through its full range and confirm the direction of travel before the first flight.'],
+];
+
+const fmtBytes = (n?: number) => {
+  if (!n) return 'Unknown size';
+  if (n < 1024) return `${n} B`;
+  if (n < 1048576) return `${(n / 1024).toFixed(1)} KB`;
+  return `${(n / 1048576).toFixed(2)} MB`;
+};
+---
+
+<Base title={title} description={description} canonical={abs('/guides/f-22-raptor')} image="/og-default.png">
+  <Shell>
+    <main id="main" class="page g">
+     <div class="shell">
+      <!-- ============================== HERO ============================== -->
+      <header class="hero-head">
+        <p class="eyebrow" data-reveal="fade">Build guide · {jet.designer}</p>
+        <h1 data-reveal style="--reveal-delay:60ms">
+          <span class="h1-model">F/A-22 Raptor</span>
+          <span class="h1-sub">Build guide</span>
+        </h1>
+        <p class="lede" data-reveal style="--reveal-delay:120ms">
+          A 26-inch foam park jet with working thrust vectoring, built from Steve Shumate's
+          published plans. This guide follows his construction manual stage by stage — the
+          materials and tools it actually calls for, the order it calls for them in, and the
+          checks worth making before you move on.
+        </p>
+      </header>
+
+      <figure class="hero panel brackets" data-reveal>
+        <img
+          src={pub(jet.images[0].full ?? jet.images[0].card ?? '')}
+          alt="F-22 Raptor foam RC park jet in flight, side view"
+          width="1024" height="728" fetchpriority="high" decoding="async" />
+        <figcaption>
+          The finished prototype in flight. The model is deliberately difficult to build —
+          see <a href="#before">before you start</a>.
+        </figcaption>
+      </figure>
+
+      <div class="strip panel" data-reveal>
+        <dl class="strip-stats">
+          {HEADLINE.map(([v, l]) => (
+            <div><dd class="mono">{v}</dd><dt>{l}</dt></div>
+          ))}
+        </dl>
+        <div class="strip-cta">
+          <a class="btn btn--go" href={pub(d.file)} download>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M12 3v12m0 0 4-4m-4 4-4-4M4 19h16" />
+            </svg>
+            Download plan
+          </a>
+          <a class="btn btn--ghost" href="#watch">Watch the build</a>
+        </div>
+      </div>
+
+      <!-- ============================ BEFORE ============================= -->
+      <section id="before" class="sec" data-reveal>
+        <h2 class="sec-h"><span class="sec-n">00</span> Before you start</h2>
+        <div class="warn">
+          <p class="warn-q">This is not a first park jet.</p>
+          <p>
+            In the designer's own words: <em>"this design is quite a bit more complex than my
+            other park jet designs, due mostly to the complex geometry of the real F/A-22. It
+            requires a LOT of heat forming foam as well as making a lot of bevel cuts and
+            aligning parts at odd angles. If you haven't built a park jet before, this is NOT
+            the model to start with!"</em>
+          </p>
+        </div>
+        <ul class="bullets">
+          <li>Budget real time. The fuselage boxes, the aft fuselage top and the nosecone are where a first-timer stalls.</li>
+          <li>Buy a heat gun and access to a drill press before you start, not after.</li>
+          <li>Practise bevels and heat forming on scrap foam. Both are skills, not steps.</li>
+          <li>The 7" prop is a hard limit — a larger prop will not clear the model.</li>
+          <li>Keep microballons on hand. Weight is the enemy on a 16–18 oz airframe.</li>
+        </ul>
+      </section>
+
+      <!-- =========================== QUICK FACTS ========================= -->
+      <section id="facts" class="sec" data-reveal>
+        <h2 class="sec-h"><span class="sec-n mono">§</span> Quick facts</h2>
+        <p class="sec-lede">From the designer's own specification sheet.</p>
+        <dl class="facts">
+          {QUICK.map(([k, v]) => (
+            <div><dt>{k}</dt><dd>{v}</dd></div>
+          ))}
+        </dl>
+      </section>
+
+      <!-- ============================= VIDEO ============================= -->
+      <section id="watch" class="sec" data-reveal>
+        <h2 class="sec-h"><span class="sec-n">▶</span> Watch the build</h2>
+        <p class="sec-lede">
+          A three-minute walkaround of the kit version, posted by the designer. The fastest way
+          to see the finished result before committing to the build.
+        </p>
+        <div class="video" data-video data-youtube={YT_ID} data-title="F-22 Raptor build walkaround">
+          <button class="video-facade" type="button" data-video-play
+            aria-label="Play the build video (3 minutes 20 seconds). Loads from YouTube.">
+            <img
+              src={pub(jet.images[5].full ?? jet.images[5].card ?? '')}
+              alt=""
+              width="1024" height="768" loading="lazy" decoding="async" />
+            <span class="video-badge" aria-hidden="true">
+              <svg viewBox="0 0 68 48" width="64" height="45" focusable="false">
+                <path class="vb-bg" d="M66.5 7.7a8.6 8.6 0 0 0-6-6C55.2.2 34 .2 34 .2S12.8.2 7.5 1.7a8.6 8.6 0 0 0-6 6A90 90 0 0 0 0 24a90 90 0 0 0 1.5 16.3 8.6 8.6 0 0 0 6 6C12.8 47.8 34 47.8 34 47.8s21.2 0 26.5-1.5a8.6 8.6 0 0 0 6-6A90 90 0 0 0 68 24a90 90 0 0 0-1.5-16.3Z"/>
+                <path class="vb-fg" d="M27 34V14l18 10-18 10Z"/>
+              </svg>
+              <span>Play · 3:20</span>
+            </span>
+          </button>
+        </div>
+        <p class="fine muted">Nothing is requested from YouTube until you press play.</p>
+      </section>
+
+      <!-- ============================= PLANS ============================= -->
+      <section id="plans" class="sec" data-reveal>
+        <h2 class="sec-h"><span class="sec-n">▤</span> Plans</h2>
+        <p class="sec-lede">
+          The published plan set. It contains the assembly drawing, the parts templates, the
+          tail lettering sheet and the full illustrated construction guide used throughout this
+          page.
+        </p>
+        <div class="dl panel panel--pad">
+          <div class="dl-info">
+            <p class="dl-name mono">{d.filename}</p>
+            <dl class="file-meta">
+              <div><dt>Type</dt><dd class="mono">{d.fileType}</dd></div>
+              <div><dt>Size</dt><dd class="mono">{fmtBytes(d.bytes)}</dd></div>
+              <div><dt>SHA-256</dt><dd class="mono file-hash">{d.sha256}</dd></div>
+            </dl>
+          </div>
+          <a class="btn btn--go" href={pub(d.file)} download>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M12 3v12m0 0 4-4m-4 4-4-4M4 19h16" />
+            </svg>
+            Download plan
+          </a>
+        </div>
+        <div class="plans">
+          <figure>
+            <img src={guide('plan-assembly-01.webp')} alt="F-22 Raptor assembly drawing" width="1650" height="1275" loading="lazy" decoding="async" />
+            <figcaption>Assembly drawing</figcaption>
+          </figure>
+          <figure>
+            <img src={guide('plan-parts-01.webp')} alt="F-22 Raptor parts templates" width="1650" height="1275" loading="lazy" decoding="async" />
+            <figcaption>Parts templates</figcaption>
+          </figure>
+          <figure>
+            <img src={guide('plan-tail-01.webp')} alt="F-22 Raptor tail lettering sheet" width="1650" height="1275" loading="lazy" decoding="async" />
+            <figcaption>Tail lettering</figcaption>
+          </figure>
+        </div>
+        <p class="fine muted">
+          Published in both tiled and non-tiled formats. The drawings are reproduced here at
+          reduced size — use the PDF for full detail.
+        </p>
+      </section>
+
+      <!-- =========================== MATERIALS =========================== -->
+      <section id="materials" class="sec" data-reveal>
+        <h2 class="sec-h"><span class="sec-n">01</span> Materials &amp; tools</h2>
+        <p class="sec-lede">
+          Everything the guide calls for, grouped by what it is for, with the job each item
+          does. Items marked optional are the designer's own suggestions, not requirements.
+        </p>
+        <div class="mats">
+          {MATS.map((grp) => (
+            <section class="mat-grp" aria-labelledby={'mat-' + grp.g.replace(/[^a-z]+/gi, '-')}>
+              <h3 id={'mat-' + grp.g.replace(/[^a-z]+/gi, '-')}>{grp.g}</h3>
+              {grp.note && <p class="mat-note">{grp.note}</p>}
+              <ul>
+                {grp.items.map((m) => (
+                  <li class={m.opt ? 'is-opt' : undefined}>
+                    <strong>{m.n}</strong>
+                    <span>{m.u}</span>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          ))}
+        </div>
+      </section>
+
+      <!-- ========================== TECHNIQUES ========================== -->
+      <section id="technique" class="sec" data-reveal>
+        <h2 class="sec-h"><span class="sec-n">02</span> The techniques that decide this build</h2>
+        <p class="sec-lede">Six things the manual keeps coming back to.</p>
+        <ul class="techs">
+          {TECHNIQUES.map(([t, b]) => (
+            <li><strong>{t}</strong><span>{b}</span></li>
+          ))}
+        </ul>
+      </section>
+
+      <!-- ======================= STAGES + NAV =========================== -->
+      <section id="stages" class="sec sec--stages" data-reveal>
+        <h2 class="sec-h"><span class="sec-n">03</span> Build stages</h2>
+        <p class="sec-lede">
+          The manual's 26 illustrated pages, grouped into {STAGES.length} build stages in the
+          order the work actually happens. Open any stage image full size to read the
+          dimensions and notes printed on it.
+        </p>
+        <nav class="rail" aria-label="Build stages" data-rail>
+          <p class="rail-count" aria-live="polite">
+            Stage <span class="mono" data-rail-cur>01</span>
+            <span class="rail-of">of {String(STAGES.length).padStart(2, '0')}</span>
+          </p>
+          <ol class="rail-list">
+            {STAGES.map((s, i) => (
+              <li>
+                <a href={'#stage-' + s.n} data-rail-link data-idx={i}>
+                  <span class="mono">{s.n}</span>
+                  <span class="rail-t">{s.title}</span>
+                </a>
+              </li>
+            ))}
+          </ol>
+        </nav>
+      </section>
+
+      {STAGES.map((s, i) => {
+        const prev = STAGES[i - 1];
+        const next = STAGES[i + 1];
+        const others = s.pages.filter((p) => p !== s.primary);
+        return (
+        <section id={'stage-' + s.n} class="sec stage" data-stage={s.n} data-title={s.title} data-reveal>
+          <header class="stage-head">
+            <p class="stage-n mono">{s.n}</p>
+            <div class="stage-titles">
+              <h2>{s.title}</h2>
+              <p class="stage-of">Stage {s.n} of {String(STAGES.length).padStart(2, '0')}</p>
+            </div>
+            {s.opt && <p class="chip chip--opt">Optional stage</p>}
+          </header>
+          <p class="stage-intro">{s.intro}</p>
+
+          <div class="stage-body">
+            <div class="stage-fig panel">
+              <button
+                class="stage-primary"
+                type="button"
+                data-glb={stepImg(s.primary)}
+                data-glb-alt={'Construction guide page ' + s.primary + ' — ' + s.title}
+                data-glb-cap={'Guide page ' + s.primary + ' of 26'}
+                aria-label={'Open guide page ' + s.primary + ' full size'}>
+                <img
+                  src={stepImg(s.primary)}
+                  alt={'Construction guide page ' + s.primary + ' — ' + s.title}
+                  width="1430" height="1105" loading="lazy" decoding="async" />
+                <span class="zoom-hint" aria-hidden="true">⤢ Click to enlarge</span>
+              </button>
+              {others.length > 0 && (
+                <div class="stage-thumbs">
+                  <p class="stage-thumbs-l">Also in this stage</p>
+                  <ul>
+                    {others.map((p) => (
+                      <li>
+                        <button
+                          type="button"
+                          data-glb={stepImg(p)}
+                          data-glb-alt={'Construction guide page ' + p}
+                          data-glb-cap={'Guide page ' + p + ' of 26'}>
+                          <img
+                            src={stepThumb(p)}
+                            alt={'Construction guide page ' + p}
+                            width="594" height="459" loading="lazy" decoding="async" />
+                          <span class="mono">p{p}</span>
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </div>
+
+            <div class="stage-notes">
+              <section class="note note--what" aria-labelledby={'what-' + s.n}>
+                <h3 id={'what-' + s.n}>What to do</h3>
+                <ol>{s.what.map((w) => <li>{w}</li>)}</ol>
+              </section>
+
+              <section class="note note--tools" aria-labelledby={'tools-' + s.n}>
+                <h3 id={'tools-' + s.n}>Tools &amp; materials</h3>
+                <ul class="tags">{s.tools.map((t) => <li>{t}</li>)}</ul>
+              </section>
+
+              {s.tip && (
+                <section class="note note--tip" aria-labelledby={'tip-' + s.n}>
+                  <h3 id={'tip-' + s.n}>Build tip</h3>
+                  <p>{s.tip}</p>
+                </section>
+              )}
+
+              <section class="note note--check" aria-labelledby={'check-' + s.n}>
+                <h3 id={'check-' + s.n}>Check before continuing</h3>
+                <ul>{s.check.map((c) => <li>{c}</li>)}</ul>
+              </section>
+            </div>
+          </div>
+
+          <nav class="pager" aria-label={'Stage ' + s.n + ' navigation'}>
+            {prev ? (
+              <a class="pager-b" href={'#stage-' + prev.n} rel="prev">
+                <span class="pager-k">Previous</span>
+                <span class="pager-t"><span class="mono">{prev.n}</span> {prev.title}</span>
+              </a>
+            ) : <span class="pager-b is-off" aria-hidden="true"></span>}
+            {next ? (
+              <a class="pager-b pager-b--next" href={'#stage-' + next.n} rel="next">
+                <span class="pager-k">Next</span>
+                <span class="pager-t"><span class="mono">{next.n}</span> {next.title}</span>
+              </a>
+            ) : (
+              <a class="pager-b pager-b--next" href="#finish">
+                <span class="pager-k">Next</span>
+                <span class="pager-t"><span class="mono">✓</span> Finish &amp; reference</span>
+              </a>
+            )}
+          </nav>
+        </section>
+        );
+      })}
+
+      <!-- ============================= FINISH ============================ -->
+      <section id="finish" class="sec" data-reveal>
+        <h2 class="sec-h"><span class="sec-n">✓</span> Setup &amp; first flight reference</h2>
+        <p class="sec-lede">
+          <strong>Designer specification.</strong> Every figure below is quoted from the
+          construction guide's own flight setup and specification pages.
+        </p>
+        <dl class="defs">
+          {DEFS.map(([k, v, n]) => (
+            <div><dt>{k}</dt><dd class="mono">{v} <span class="defs-n">{n}</span></dd></div>
+          ))}
+        </dl>
+
+        <h3 class="sub">Powerplant &amp; airframe specification</h3>
+        <dl class="defs defs--two">
+          <div><dt>Wing area</dt><dd class="mono">248 sq in</dd></div>
+          <div><dt>Wing loading</dt><dd class="mono">10.5 oz/ft²</dd></div>
+          <div><dt>Current</dt><dd class="mono">15 amps</dd></div>
+          <div><dt>Power</dt><dd class="mono">150 W · 140–150 W/lb</dd></div>
+          <div><dt>Propeller limit</dt><dd class="mono">7" maximum</dd></div>
+          <div><dt>Receiver</dt><dd class="mono">Berg 7P</dd></div>
+          <div><dt>Flight servos</dt><dd class="mono">Futaba S3110 ×4</dd></div>
+          <div><dt>Vectoring servo</dt><dd class="mono">Hitec HS-85MG</dd></div>
+          <div><dt>Speed control</dt><dd class="mono">Castle Creations Phoenix 25</dd></div>
+          <div><dt>Battery</dt><dd class="mono">Thunder Power 1320 mAh 11.1V Pro-lite</dd></div>
+        </dl>
+
+        <div class="split">
+          <div class="split-box">
+            <h3 class="sub">From the construction guide</h3>
+            <ul class="bullets">
+              <li>Everything in the two tables above, plus the stage-by-stage build, is the designer's own content.</li>
+              <li>The 7" prop limit and the zero-zero thrust line are stated as requirements, not preferences.</li>
+              <li>The vectoring servo must be metal geared and rated 40+ oz/in.</li>
+            </ul>
+          </div>
+          <div class="split-box split-box--alt">
+            <h3 class="sub">General workshop guidance</h3>
+            <p class="fine">
+              Not from the source document. Standard practice for working with sharp tools,
+              hot air, cyanoacrylate and LiPo batteries — included because the build uses all
+              four heavily, not because the manual says so.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================= SAFETY ============================ -->
+      <section id="safety" class="sec" data-reveal>
+        <h2 class="sec-h"><span class="sec-n">⚠</span> Safety</h2>
+        <p class="sec-lede">
+          General workshop practice, not part of the source design. Nothing exotic — this is a
+          foam-and-glue build with a hot air gun and a sharp knife.
+        </p>
+        <ul class="safety">
+          {SAFETY.map(([t, b]) => (
+            <li><strong>{t}</strong><span>{b}</span></li>
+          ))}
+        </ul>
+      </section>
+
+      <!-- ============================= GALLERY =========================== -->
+      <section id="gallery" class="sec" data-reveal>
+        <h2 class="sec-h"><span class="sec-n">▦</span> The finished model</h2>
+        <p class="sec-lede">Photographs of the designer's prototype, held in the HawkEye Hangar library.</p>
+        <div class="shots">
+          {jet.images.slice(0, 7).map((im, i) => (
+            <figure>
+              <img
+                src={pub((im.full ?? im.card) as string)}
+                alt={im.alt}
+                width={im.width} height={im.height}
+                loading="lazy" decoding="async" />
+              <figcaption>{im.caption}</figcaption>
+            </figure>
+          ))}
+        </div>
+      </section>
+
+      <!-- ============================ SOURCES ============================ -->
+      <section id="sources" class="sec" data-reveal>
+        <h2 class="sec-h"><span class="sec-n">§</span> What this page is made of</h2>
+        <p class="sec-lede">
+          So you can tell what is the designer's and what is ours.
+        </p>
+        <dl class="prov">
+          <div>
+            <dt>Construction guide</dt>
+            <dd>
+              Verified. The 26-page illustrated construction guide published with the plans is
+              the source for every build stage, the materials lists, the tools lists, the
+              control deflections and the specification figures. The stage groupings, the
+              summaries and the check lists are a reading of that guide.
+            </dd>
+          </div>
+          <div>
+            <dt>Plan set</dt>
+            <dd>
+              Verified. The downloadable plan file, checksummed as shown above. Unmodified.
+            </dd>
+          </div>
+          <div>
+            <dt>Photographs</dt>
+            <dd>
+              Photographs of the designer's prototype held in the HawkEye Hangar library. Used
+              for identification and reference.
+            </dd>
+          </div>
+          <div>
+            <dt>External reference</dt>
+            <dd>
+              The build thread this model was published in, linked below. The page does not
+              reproduce the discussion.
+            </dd>
+          </div>
+          <div>
+            <dt>General safety guidance</dt>
+            <dd>
+              Not from the source. Standard workshop practice, labelled as such wherever it
+              appears.
+            </dd>
+          </div>
+        </dl>
+        <ul class="link-list">
+          <li>
+            <a class="ext-card" href={THREAD} target="_blank" rel="noopener nofollow">
+              <strong>RC Groups build thread</strong>
+              <span>Where the design and its plans were published.</span>
+            </a>
+          </li>
+          <li>
+            <a class="ext-card" href={base + 'aircraft/f-22-raptor'} data-no-transition>
+              <strong>Library entry — F-22 Raptor</strong>
+              <span>Full specifications, plan file and photo set.</span>
+            </a>
+          </li>
+        </ul>
+        <p class="fine muted">
+          The design, plans and construction guide are the work of Steve Shumate. This page
+          reproduces his guide for study; the design and its files remain his property.
+        </p>
+      </section>
+     </div>
+    </main>
+
+    <!-- ====================== STICKY STAGE NAV ====================== -->
+    <nav class="mobar" aria-label="Stage progress" data-mobar hidden>
+      <span class="mobar-c mono" data-mobar-cur>01 / {String(STAGES.length).padStart(2, '0')}</span>
+      <span class="mobar-bar" aria-hidden="true"><span class="mobar-fill" data-mobar-fill></span></span>
+      <span class="mobar-t" data-mobar-title>{STAGES[0].title}</span>
+    </nav>
+  </Shell>
+</Base>
+
+<script>
+  import '../../scripts/motion.js';
+
+  /* ---------------------------------------------------------------
+     Click-to-load video. Nothing third-party is requested until the
+     visitor asks for it.
+  --------------------------------------------------------------- */
+  const YT = 'https://www.youtube-nocookie.com/embed/';
+  for (const host of document.querySelectorAll('[data-video]')) {
+    const btn = host.querySelector('[data-video-play]');
+    const id = host.getAttribute('data-youtube');
+    const title = host.getAttribute('data-title') ?? 'Video';
+    if (!btn || !id) continue;
+    btn.addEventListener('click', () => {
+      const frame = document.createElement('iframe');
+      frame.src = YT + id + '?autoplay=1&rel=0';
+      frame.title = title;
+      frame.allow = 'accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture';
+      frame.allowFullscreen = true;
+      host.replaceChildren(frame);
+      host.classList.add('is-playing');
+    });
+  }
+
+  /* ---------------------------------------------------------------
+     Lightbox for the guide pages.
+  --------------------------------------------------------------- */
+  let lb = null;
+  let lbImg = null;
+  let lbCap = null;
+  let lbPrev = null;
+  let lbNext = null;
+  let group = [];
+  let at = 0;
+  let restoreTo = null;
+
+  function openLb(trigger) {
+    group = Array.from(document.querySelectorAll('[data-glb]'));
+    at = group.indexOf(trigger);
+    if (at < 0) at = 0;
+    restoreTo = trigger;
+
+    lb = document.createElement('div');
+    lb.className = 'lb';
+    lb.setAttribute('role', 'dialog');
+    lb.setAttribute('aria-modal', 'true');
+    lb.setAttribute('aria-label', 'Construction guide page, enlarged');
+    lb.innerHTML =
+      '<div class="lb-bar">' +
+      '<p class="lb-cap" aria-live="polite"></p>' +
+      '<button class="lb-x" type="button" aria-label="Close">✕</button>' +
+    '</div>' +
+    '<button class="lb-nav lb-nav--prev" type="button" aria-label="Previous page">‹</button>' +
+    '<img class="lb-img" alt="">' +
+    '<button class="lb-nav lb-nav--next" type="button" aria-label="Next page">›</button>';
+    document.body.appendChild(lb);
+    document.body.classList.add('no-scroll');
+
+    lbImg = lb.querySelector('.lb-img');
+    lbCap = lb.querySelector('.lb-cap');
+    lbPrev = lb.querySelector('.lb-nav--prev');
+    lbNext = lb.querySelector('.lb-nav--next');
+
+    lb.querySelector('.lb-x').addEventListener('click', closeLb);
+    lbPrev.addEventListener('click', () => stepLb(-1));
+    lbNext.addEventListener('click', () => stepLb(1));
+    lb.addEventListener('click', (e) => { if (e.target === lb) closeLb(); });
+    document.addEventListener('keydown', onLbKey, true);
+
+    showLb();
+    lb.querySelector('.lb-x').focus();
+  }
+
+  function showLb() {
+    const t = group[at];
+    if (!t) return;
+    lbImg.src = t.getAttribute('data-glb');
+    lbImg.alt = t.getAttribute('data-glb-alt') || '';
+    lbCap.textContent = t.getAttribute('data-glb-cap') || '';
+    lbPrev.disabled = at === 0;
+    lbNext.disabled = at === group.length - 1;
+  }
+
+  function stepLb(d) {
+    const n = at + d;
+    if (n < 0 || n >= group.length) return;
+    at = n;
+    showLb();
+  }
+
+  function onLbKey(e) {
+    if (!lb) return;
+    if (e.key === 'Escape') { closeLb(); return; }
+    if (e.key === 'ArrowLeft') { stepLb(-1); return; }
+    if (e.key === 'ArrowRight') { stepLb(1); return; }
+    if (e.key !== 'Tab') return;
+    // keep focus inside the dialog
+    const f = lb.querySelectorAll('button:not([disabled])');
+    if (!f.length) return;
+    const first = f[0];
+    const last = f[f.length - 1];
+    if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+  }
+
+  function closeLb() {
+    if (!lb) return;
+    lb.remove();
+    lb = null;
+    document.body.classList.remove('no-scroll');
+    document.removeEventListener('keydown', onLbKey, true);
+    if (restoreTo) restoreTo.focus();
+  }
+
+  for (const t of document.querySelectorAll('[data-glb]')) {
+    t.addEventListener('click', (e) => { e.preventDefault(); openLb(t); });
+  }
+
+  /* ---------------------------------------------------------------
+     Stage progress: rail on desktop, compact bar on mobile.
+     One observer, no scroll handler.
+  --------------------------------------------------------------- */
+  const stages = Array.from(document.querySelectorAll('[data-stage]'));
+  const railLinks = Array.from(document.querySelectorAll('[data-rail-link]'));
+  const mobar = document.querySelector('[data-mobar]');
+  const railCur = document.querySelector('[data-rail-cur]');
+  const mobCur = document.querySelector('[data-mobar-cur]');
+  const mobFill = document.querySelector('[data-mobar-fill]');
+  const mobTitle = document.querySelector('[data-mobar-title]');
+  const N = stages.length;
+
+  function mark(i) {
+    const s = stages[i];
+    if (!s) return;
+    const label = s.getAttribute('data-stage');
+    if (railCur) railCur.textContent = label;
+    if (mobCur) mobCur.textContent = label + ' / ' + String(N).padStart(2, '0');
+    if (mobFill) mobFill.style.width = ((i + 1) / N) * 100 + '%';
+    if (mobTitle && s.dataset.title) mobTitle.textContent = s.dataset.title;
+    railLinks.forEach((a, j) => a.setAttribute('aria-current', j === i ? 'true' : 'false'));
+  }
+
+  if (stages.length) {
+    const seen = new Array(N).fill(false);
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) {
+          const i = stages.indexOf(e.target);
+          if (i >= 0 && e.isIntersecting) seen[i] = true;
+        }
+        // the topmost stage that has been on screen is the one you are reading
+        let idx = seen.indexOf(true);
+        if (idx < 0) idx = 0;
+        for (let j = 0; j < N; j++) if (seen[j]) idx = j;
+        mark(idx);
+      },
+      { rootMargin: '-72px 0px -55% 0px', threshold: 0 }
+    );
+    stages.forEach((s) => io.observe(s));
+    mark(0);
+
+    if (mobar && matchMedia('(max-width: 979px)').matches) mobar.hidden = false;
+  }
+</script>
+
+<style>
+  /* Guide-scoped identity: orange leads, house cyan stays restrained. */
+  .g {
+    --g: #ff8a3d;
+    --g-soft: color-mix(in oklab, var(--g) 16%, transparent);
+    --g-line: color-mix(in oklab, var(--g) 38%, transparent);
+  }
+
+  .page { padding-block: clamp(1.5rem, 1rem + 2.5vw, 3rem) 1rem; }
+
+  /* ------------------------------- hero ------------------------------- */
+  .hero-head h1 {
+    margin-block: 0.3rem 0.7rem;
+    display: grid;
+    gap: 0.1em;
+  }
+  .h1-model {
+    font-size: var(--step-4);
+    letter-spacing: -0.035em;
+    line-height: 0.95;
+  }
+  .h1-sub {
+    font-family: var(--font-mono);
+    font-size: clamp(0.95rem, 0.8rem + 1vw, 1.5rem);
+    letter-spacing: 0.34em;
+    text-transform: uppercase;
+    color: var(--g);
+  }
+  .lede { max-width: 66ch; color: var(--text-dim); }
+
+  .hero { margin: 1.4rem 0 0; overflow: hidden; }
+  .hero img {
+    display: block; width: 100%; height: auto;
+    aspect-ratio: 2 / 1; object-fit: cover;
+    object-position: center 46%;
+  }
+  .hero figcaption {
+    padding: 0.7rem 1rem 0.85rem;
+    font-size: 0.8rem; color: var(--text-faint);
+    border-top: 1px solid var(--line-soft);
+  }
+  .hero figcaption a { color: var(--cyan); }
+
+  /* ------------------------- stat strip + CTA ------------------------ */
+  .strip {
+    margin-top: 0.9rem;
+    padding: 1rem 1.1rem;
+    display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem 1.5rem;
+  }
+  .strip-stats { display: flex; flex-wrap: wrap; gap: 0.4rem 2rem; margin: 0; }
+  .strip-stats > div { display: grid; gap: 0.05rem; }
+  .strip-stats dd { margin: 0; font-size: 1.32rem; color: var(--text); line-height: 1.1; }
+  .strip-stats dt {
+    font-family: var(--font-mono); font-size: 0.58rem; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--text-faint);
+  }
+  .strip-cta { display: flex; gap: 0.6rem; flex-wrap: wrap; }
+
+  .btn--go {
+    background: linear-gradient(180deg, color-mix(in oklab, var(--g) 92%, #fff), var(--g));
+    color: #1a0d02;
+    border-color: transparent;
+    font-weight: 600;
+  }
+  .btn--go:hover { filter: brightness(1.06); }
+
+  /* ---------------------------- sections ----------------------------- */
+  .sec { margin-top: clamp(2.4rem, 1.8rem + 3vw, 4.25rem); scroll-margin-top: calc(var(--header-h) + 1.5rem); }
+  .sec-h {
+    display: flex; align-items: center; gap: 0.85rem;
+    font-size: var(--step-2); letter-spacing: -0.02em;
+    padding-bottom: 0.6rem; margin-bottom: 1rem;
+    border-bottom: 1px solid var(--line-soft);
+  }
+  .sec-n {
+    font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.14em;
+    color: var(--g); border: 1px solid var(--g-line);
+    border-radius: var(--radius-xs); padding: 0.28rem 0.45rem;
+    background: var(--g-soft); flex: none;
+  }
+  .sec-lede { max-width: 70ch; color: var(--text-dim); margin-bottom: 1.2rem; }
+  .sub { font-size: var(--step-1); margin: 1.8rem 0 0.7rem; }
+  .fine { font-size: 0.8rem; }
+  .muted { color: var(--text-faint); }
+
+  .bullets { list-style: none; padding: 0; display: grid; gap: 0.5rem; max-width: 74ch; }
+  .bullets li { position: relative; padding-left: 1.4rem; color: var(--text-dim); }
+  .bullets li::before { content: '▸'; position: absolute; left: 0; color: var(--g); }
+
+  .warn {
+    border-left: 2px solid var(--g);
+    background: color-mix(in oklab, var(--g) 7%, transparent);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    padding: 0.95rem 1.1rem; margin-bottom: 1.1rem; max-width: 80ch;
+  }
+  .warn p { color: var(--text-dim); }
+  .warn-q { color: var(--g) !important; font-weight: 600; letter-spacing: 0.01em; }
+  .warn em { color: var(--text); font-style: italic; }
+
+  /* --------------------------- quick facts --------------------------- */
+  .facts {
+    display: grid; gap: 0;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr));
+    border: 1px solid var(--line-soft); border-radius: var(--radius); overflow: hidden;
+  }
+  .facts > div {
+    display: grid; gap: 0.2rem; padding: 0.85rem 1rem;
+    border-bottom: 1px solid var(--line-soft);
+    background: color-mix(in oklab, var(--ink-700) 34%, transparent);
+  }
+  .facts dt {
+    font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--text-faint);
+  }
+  .facts dd { margin: 0; color: var(--text); font-size: 0.92rem; }
+
+  /* ------------------------------ video ------------------------------ */
+  .video {
+    position: relative; margin-bottom: 0.6rem;
+    border: 1px solid var(--line-soft); border-radius: var(--radius);
+    overflow: hidden; background: var(--ink-850); aspect-ratio: 16 / 9;
+  }
+  .video.is-playing { aspect-ratio: auto; height: 0; padding-bottom: 56.25%; }
+  .video.is-playing iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+  .video-facade {
+    position: absolute; inset: 0; width: 100%; height: 100%;
+    display: block; padding: 0; border: 0; cursor: pointer;
+    background: var(--ink-800); color: var(--text);
+  }
+  .video-facade img { width: 100%; height: 100%; object-fit: cover; opacity: 0.5;
+    transition: opacity var(--dur) var(--ease-out); }
+  .video-facade:hover img, .video-facade:focus-visible img { opacity: 0.72; }
+  .video-facade:focus-visible { outline: 2px solid var(--g); outline-offset: -3px; }
+  .video-badge {
+    position: absolute; inset: 0; display: grid; place-content: center; gap: 0.6rem;
+    justify-items: center; pointer-events: none;
+    font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+  .video-badge svg { display: block; filter: drop-shadow(0 6px 18px rgb(0 0 0 / 0.7)); }
+  .vb-bg { fill: color-mix(in oklab, var(--g) 26%, rgb(0 0 0 / 0.55)); }
+  .vb-fg { fill: #fff; }
+
+  /* ------------------------------ plans ------------------------------ */
+  .dl { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem; margin-bottom: 1.1rem; }
+  .dl-name { font-size: 0.98rem; color: var(--text); margin: 0 0 0.5rem; }
+  .file-meta { display: grid; gap: 0.05rem; min-width: min(100%, 26rem); }
+  .file-meta > div {
+    display: grid; grid-template-columns: 5rem minmax(0, 1fr); gap: 0.6rem;
+    padding: 0.3rem 0; align-items: baseline;
+    border-bottom: 1px solid color-mix(in oklab, var(--line-soft) 55%, transparent);
+    font-size: 0.8rem;
+  }
+  .file-meta > div:last-child { border-bottom: 0; }
+  .file-meta dt {
+    color: var(--text-faint); font-family: var(--font-mono);
+    font-size: 0.58rem; letter-spacing: 0.12em; text-transform: uppercase;
+  }
+  .file-meta dd { margin: 0; color: var(--text-dim); min-width: 0; }
+  .file-hash { font-size: 0.68rem; overflow-wrap: anywhere; }
+
+  .plans { display: grid; gap: 0.9rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 210px), 1fr)); }
+  .plans figure { margin: 0; }
+  .plans img {
+    display: block; width: 100%; height: auto; background: #fff;
+    border: 1px solid var(--line-soft); border-radius: var(--radius-sm);
+    aspect-ratio: 1650 / 1275; object-fit: contain;
+  }
+  .plans figcaption { font-size: 0.76rem; color: var(--text-faint); margin-top: 0.35rem; }
+
+  /* ---------------------------- materials ---------------------------- */
+  .mats { display: grid; gap: 1.5rem; }
+  .mat-grp h3 {
+    font-size: 0.74rem; font-family: var(--font-mono);
+    letter-spacing: 0.16em; text-transform: uppercase; color: var(--g);
+    padding-bottom: 0.45rem; margin-bottom: 0.7rem;
+    border-bottom: 1px solid var(--g-line);
+  }
+  .mat-note { font-size: 0.82rem; color: var(--text-faint); margin-bottom: 0.7rem; max-width: 74ch; }
+  .mat-grp ul { list-style: none; padding: 0; display: grid; gap: 0.35rem; }
+  .mat-grp li {
+    display: grid; grid-template-columns: minmax(8.5rem, 14rem) minmax(0, 1fr); gap: 0.2rem 1rem;
+    padding: 0.5rem 0.8rem; font-size: 0.83rem;
+    border: 1px solid var(--line-soft); border-radius: var(--radius-sm);
+    background: color-mix(in oklab, var(--ink-700) 34%, transparent);
+  }
+  .mat-grp strong { color: var(--text); font-weight: 600; }
+  .mat-grp span { color: var(--text-faint); }
+  .mat-grp li.is-opt { border-style: dashed; }
+  .mat-grp li.is-opt strong::after {
+    content: 'opt'; margin-left: 0.45rem; font-family: var(--font-mono);
+    font-size: 0.55rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--green);
+  }
+
+  /* --------------------------- techniques ---------------------------- */
+  .techs {
+    list-style: none; padding: 0; display: grid; gap: 0.7rem;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr));
+  }
+  .techs li {
+    padding: 0.85rem 0.95rem; border: 1px solid var(--line-soft);
+    border-radius: var(--radius-sm); background: color-mix(in oklab, var(--ink-700) 34%, transparent);
+  }
+  .techs strong {
+    display: block; color: var(--g); font-family: var(--font-mono);
+    font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 0.4rem;
+  }
+  .techs span { font-size: 0.85rem; color: var(--text-dim); }
+
+  /* -------------------------- stage rail ----------------------------- */
+  .rail {
+    margin-top: 1.2rem; padding: 0.9rem 1rem;
+    border: 1px solid var(--line-soft); border-radius: var(--radius);
+    background: color-mix(in oklab, var(--ink-700) 34%, transparent);
+  }
+  .rail-count {
+    font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.16em;
+    text-transform: uppercase; color: var(--text-faint); margin-bottom: 0.7rem;
+  }
+  .rail-count .mono { color: var(--g); }
+  .rail-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 0.2rem;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 15rem), 1fr)); }
+  .rail-list a {
+    display: flex; gap: 0.6rem; align-items: baseline;
+    padding: 0.4rem 0.55rem; border-radius: var(--radius-xs);
+    font-size: 0.83rem; color: var(--text-faint); text-decoration: none;
+    border: 1px solid transparent;
+  }
+  .rail-list a .mono { color: var(--text-faint); font-size: 0.7rem; }
+  .rail-list a:hover { color: var(--text-dim); background: color-mix(in oklab, var(--cyan) 6%, transparent); }
+  .rail-list a[aria-current='true'] {
+    color: var(--text); background: var(--g-soft);
+    border-color: var(--g-line);
+  }
+  .rail-list a[aria-current='true'] .mono { color: var(--g); }
+
+  /* ----------------------------- stages ------------------------------ */
+  .stage { scroll-margin-top: calc(var(--header-h) + 1.25rem); }
+  .stage-head { display: flex; align-items: center; gap: 0.9rem; flex-wrap: wrap; margin-bottom: 0.5rem; }
+  .stage-n {
+    font-size: 1.5rem; color: var(--g); line-height: 1; flex: none;
+    min-width: 2.4rem; text-align: center;
+  }
+  .stage-titles h2 { font-size: var(--step-2); letter-spacing: -0.02em; }
+  .stage-of {
+    font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.16em;
+    text-transform: uppercase; color: var(--text-faint); margin-top: 0.2rem;
+  }
+  .chip--opt {
+    background: color-mix(in oklab, var(--green) 12%, transparent);
+    color: var(--green); border: 1px solid color-mix(in oklab, var(--green) 30%, transparent);
+  }
+  .stage-intro { color: var(--text-dim); max-width: 74ch; margin-bottom: 1.2rem; }
+
+  .stage-body { display: grid; gap: 1.3rem; }
+  .stage-fig { margin: 0; padding: 0.5rem; align-self: start; }
+  .stage-primary {
+    display: block; width: 100%; padding: 0; border: 0; background: #fff;
+    border-radius: var(--radius-xs); cursor: zoom-in; position: relative;
+  }
+  .stage-primary img { display: block; width: 100%; height: auto; }
+  .stage-primary:focus-visible { outline: 2px solid var(--g); outline-offset: 2px; }
+  .zoom-hint {
+    position: absolute; right: 0.5rem; bottom: 0.5rem;
+    font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.1em;
+    padding: 0.25rem 0.45rem; border-radius: var(--radius-xs);
+    background: rgb(0 0 0 / 0.6); color: #fff; opacity: 0;
+    transition: opacity var(--dur-fast) var(--ease-out);
+  }
+  .stage-primary:hover .zoom-hint, .stage-primary:focus-visible .zoom-hint { opacity: 1; }
+
+  .stage-thumbs { margin-top: 0.7rem; }
+  .stage-thumbs-l {
+    font-family: var(--font-mono); font-size: 0.58rem; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--text-faint); margin-bottom: 0.4rem;
+  }
+  .stage-thumbs ul { list-style: none; padding: 0; display: flex; gap: 0.45rem; flex-wrap: wrap; }
+  .stage-thumbs button {
+    position: relative; display: block; padding: 0; cursor: zoom-in;
+    background: #fff; border: 1px solid var(--line-soft); border-radius: var(--radius-xs);
+  }
+  .stage-thumbs img { display: block; width: 92px; height: auto; }
+  .stage-thumbs button:focus-visible { outline: 2px solid var(--g); outline-offset: 2px; }
+  .stage-thumbs span {
+    position: absolute; right: 3px; bottom: 3px;
+    font-family: var(--font-mono); font-size: 0.55rem; color: var(--text);
+    background: rgb(0 0 0 / 0.65); border-radius: 3px; padding: 1px 4px;
+  }
+
+  .stage-notes { display: grid; gap: 1.1rem; align-content: start; }
+  .note h3 {
+    font-family: var(--font-mono); font-size: 0.64rem; letter-spacing: 0.16em;
+    text-transform: uppercase; color: var(--text-faint);
+    padding-bottom: 0.4rem; margin-bottom: 0.55rem;
+    border-bottom: 1px solid var(--line-soft);
+  }
+  .note ol, .note ul { margin: 0; padding-left: 1.15rem; display: grid; gap: 0.4rem; }
+  .note li { color: var(--text-dim); font-size: 0.87rem; }
+  .note ol li::marker { color: var(--g); font-family: var(--font-mono); font-size: 0.8rem; }
+  .note p { color: var(--text-dim); font-size: 0.87rem; }
+
+  .note--what h3 { color: var(--g); border-color: var(--g-line); }
+  .note--tip {
+    padding: 0.85rem 0.95rem; border-radius: var(--radius-sm);
+    background: color-mix(in oklab, var(--cyan) 7%, transparent);
+    border-left: 2px solid var(--cyan);
+  }
+  .note--tip h3 { color: var(--cyan); border: 0; padding: 0; margin-bottom: 0.4rem; }
+  .note--check h3 { color: var(--green); }
+  .note--check li::marker { color: var(--green); }
+
+  /* needs to outrank `.note ul` (0,1,1) so the pills wrap instead of stacking */
+  .note ul.tags { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 0.35rem; }
+  .tags li {
+    font-family: var(--font-mono); font-size: 0.68rem; color: var(--text-dim);
+    padding: 0.24rem 0.5rem; border-radius: 999px;
+    border: 1px solid var(--line-soft); background: color-mix(in oklab, var(--ink-700) 40%, transparent);
+  }
+
+  /* ------------------------------ pager ------------------------------ */
+  .pager { display: flex; gap: 0.7rem; margin-top: 1.4rem; flex-wrap: wrap; }
+  .pager-b {
+    flex: 1 1 14rem; display: grid; gap: 0.15rem;
+    padding: 0.7rem 0.9rem; text-decoration: none;
+    border: 1px solid var(--line-soft); border-radius: var(--radius-sm);
+    background: color-mix(in oklab, var(--ink-700) 34%, transparent);
+    transition: border-color var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out);
+  }
+  .pager-b:hover { border-color: var(--g-line); transform: translateY(-2px); }
+  .pager-b:focus-visible { outline: 2px solid var(--g); outline-offset: 2px; }
+  .pager-b.is-off { visibility: hidden; }
+  .pager-b--next { text-align: right; }
+  .pager-k {
+    font-family: var(--font-mono); font-size: 0.58rem; letter-spacing: 0.16em;
+    text-transform: uppercase; color: var(--text-faint);
+  }
+  .pager-t { color: var(--text); font-size: 0.9rem; }
+  .pager-t .mono { color: var(--g); margin-right: 0.35rem; }
+
+  /* --------------------------- finish / defs -------------------------- */
+  .defs {
+    display: grid; gap: 0.05rem; margin: 0 0 0.5rem;
+    border: 1px solid var(--line-soft); border-radius: var(--radius); overflow: hidden;
+  }
+  .defs > div {
+    display: grid; grid-template-columns: 11rem minmax(0, 1fr); gap: 0.8rem;
+    padding: 0.6rem 0.95rem; align-items: baseline;
+    background: color-mix(in oklab, var(--ink-700) 34%, transparent);
+    border-bottom: 1px solid var(--line-soft);
+  }
+  .defs > div:last-child { border-bottom: 0; }
+  .defs dt {
+    font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--text-faint); padding-top: 0.15rem;
+  }
+  .defs dd { margin: 0; color: var(--text); font-size: 0.9rem; }
+  .defs-n { color: var(--text-faint); font-size: 0.78rem; }
+  .defs--two { grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr)); }
+  .defs--two > div { grid-template-columns: 8rem minmax(0, 1fr); border-right: 1px solid var(--line-soft); }
+
+  .split { display: grid; gap: 0.9rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 19rem), 1fr)); margin-top: 1.6rem; }
+  .split-box { padding: 0.9rem 1rem; border: 1px solid var(--line-soft); border-radius: var(--radius-sm); }
+  .split-box .sub { margin: 0 0 0.5rem; font-size: 0.8rem; }
+  .split-box p { color: var(--text-faint); margin: 0; }
+  .split-box--alt { border-style: dashed; }
+  .split-box--alt .sub { color: var(--text-faint); }
+
+  /* ------------------------------ safety ------------------------------ */
+  .safety {
+    list-style: none; padding: 0; display: grid; gap: 0.7rem;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
+  }
+  .safety li {
+    padding: 0.85rem 0.95rem; border: 1px solid var(--line-soft);
+    border-radius: var(--radius-sm); background: color-mix(in oklab, var(--ink-700) 34%, transparent);
+  }
+  .safety strong {
+    display: block; color: var(--g); font-family: var(--font-mono);
+    font-size: 0.66rem; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 0.4rem;
+  }
+  .safety span { font-size: 0.85rem; color: var(--text-dim); }
+
+  /* ----------------------------- gallery ------------------------------ */
+  .shots { display: grid; gap: 0.8rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr)); }
+  .shots figure { margin: 0; }
+  .shots img {
+    display: block; width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover;
+    border: 1px solid var(--line-soft); border-radius: var(--radius-sm);
+  }
+  .shots figcaption { font-size: 0.73rem; color: var(--text-faint); margin-top: 0.32rem; }
+
+  /* ---------------------------- provenance ---------------------------- */
+  .prov { display: grid; gap: 0.05rem; margin: 0 0 1.4rem; }
+  .prov > div {
+    display: grid; grid-template-columns: 13rem minmax(0, 1fr); gap: 1rem;
+    padding: 0.7rem 0; border-bottom: 1px solid var(--line-soft);
+  }
+  .prov > div:last-child { border-bottom: 0; }
+  .prov dt {
+    font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--g); padding-top: 0.15rem;
+  }
+  .prov dd { margin: 0; color: var(--text-dim); font-size: 0.86rem; max-width: 74ch; }
+
+  .link-list { list-style: none; padding: 0; display: grid; gap: 0.6rem; margin-bottom: 1.1rem;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr)); }
+  .ext-card {
+    display: grid; gap: 0.2rem; padding: 0.7rem 0.9rem; text-decoration: none;
+    border: 1px solid var(--line-soft); border-radius: var(--radius-sm); color: var(--text-dim);
+    transition: border-color var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out);
+  }
+  .ext-card:hover { border-color: var(--g-line); transform: translateY(-2px); }
+  .ext-card:focus-visible { outline: 2px solid var(--g); outline-offset: 2px; }
+  .ext-card strong { color: var(--text); }
+  .ext-card span { font-size: 0.8rem; color: var(--text-faint); }
+
+  /* -------------------------- mobile progress ------------------------- */
+  .mobar {
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: 40;
+    display: grid; grid-template-columns: auto 1fr; gap: 0.15rem 0.6rem;
+    align-items: center; padding: 0.5rem 0.9rem calc(0.5rem + env(safe-area-inset-bottom));
+    background: color-mix(in oklab, var(--ink-850) 92%, transparent);
+    border-top: 1px solid var(--g-line);
+  }
+  .mobar[hidden] { display: none; }
+  .mobar-c { font-size: 0.66rem; color: var(--g); }
+  .mobar-t { grid-column: 1 / -1; font-size: 0.72rem; color: var(--text-faint);
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .mobar-bar { height: 3px; border-radius: 2px; background: color-mix(in oklab, var(--g) 16%, transparent); overflow: hidden; }
+  .mobar-fill { display: block; height: 100%; width: 0; background: var(--g); }
+
+  /* ---------------------------- lightbox ------------------------------ */
+  :global(.lb) {
+    position: fixed; inset: 0; z-index: 90;
+    display: grid; grid-template-rows: auto 1fr; gap: 0.5rem;
+    padding: 0.75rem; background: rgb(3 6 12 / 0.96);
+  }
+  :global(.lb-bar) { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+  :global(.lb-cap) {
+    font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--text-dim); margin: 0;
+  }
+  :global(.lb-x) {
+    font-size: 1.1rem; line-height: 1; color: var(--text);
+    background: color-mix(in oklab, var(--ink-600) 80%, transparent);
+    border: 1px solid var(--line); border-radius: var(--radius-xs);
+    width: 2.2rem; height: 2.2rem; cursor: pointer; flex: none;
+  }
+  :global(.lb-x):focus-visible { outline: 2px solid var(--g); outline-offset: 2px; }
+  :global(.lb-img) {
+    grid-row: 2; justify-self: center; align-self: start;
+    max-width: 100%; max-height: 100%; width: auto; height: auto;
+    background: #fff; border-radius: var(--radius-xs);
+  }
+  :global(.lb-nav) {
+    position: absolute; top: 50%; transform: translateY(-50%);
+    font-size: 1.7rem; line-height: 1; color: var(--text);
+    background: color-mix(in oklab, var(--ink-600) 78%, transparent);
+    border: 1px solid var(--line); border-radius: 50%;
+    width: 2.6rem; height: 2.6rem; cursor: pointer;
+  }
+  :global(.lb-nav):focus-visible { outline: 2px solid var(--g); outline-offset: 2px; }
+  :global(.lb-nav):disabled { opacity: 0.3; cursor: default; }
+  :global(.lb-nav--prev) { left: 0.6rem; }
+  :global(.lb-nav--next) { right: 0.6rem; }
+
+  /* ---------------------------- responsive ---------------------------- */
+  @media (min-width: 1180px) {
+    .stage-body { grid-template-columns: minmax(0, 1.08fr) minmax(0, 1fr); gap: 1.6rem; }
+  }
+  @media (max-width: 979px) {
+    /* reserve room for the fixed progress bar so it never sits over body text */
+    .page { padding-bottom: 5.5rem; }
+    .mats .mat-grp li { grid-template-columns: 1fr; }
+    .prov > div { grid-template-columns: 1fr; gap: 0.2rem; }
+    .defs > div { grid-template-columns: 1fr; gap: 0.15rem; }
+  }
+  @media (max-width: 560px) {
+    .strip { padding: 0.85rem; }
+    .strip-stats { gap: 0.3rem 1.3rem; }
+    .strip-stats dd { font-size: 1.12rem; }
+    .strip-cta { width: 100%; }
+    .strip-cta .btn { flex: 1 1 auto; justify-content: center; }
+    .pager-b { flex: 1 1 100%; }
+    :global(.lb-nav) { width: 2.3rem; height: 2.3rem; font-size: 1.3rem; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .zoom-hint, .video-facade img, .pager-b, .ext-card { transition: none; }
+    .pager-b:hover, .ext-card:hover { transform: none; }
+  }
+</style>
