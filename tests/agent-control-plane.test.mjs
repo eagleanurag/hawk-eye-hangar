@@ -81,6 +81,8 @@ import {
   extractFinalText,
   extractSessionId,
   agentFilePath,
+  DEFAULT_TIMEOUT_SECONDS,
+  timeoutMilliseconds,
 } from '../src/agent/opencode.mjs';
 import {
   STATUS_BLOCKED,
@@ -1287,4 +1289,11 @@ test('the workflow treats a preflight decline as a normal, non-failing outcome',
   const workflow = fs.readFileSync(WORKFLOW, 'utf8');
   assert.match(workflow, /authorized=false/);
   assert.match(workflow, /Preflight declined the event/);
+});
+
+
+test('OpenCode timeout is interpreted in seconds, not milliseconds', () => {
+  assert.equal(timeoutMilliseconds(1), 1000);
+  assert.equal(timeoutMilliseconds(DEFAULT_TIMEOUT_SECONDS), DEFAULT_TIMEOUT_SECONDS * 1000);
+  assert.equal(timeoutMilliseconds('2.5'), 2500);
 });
