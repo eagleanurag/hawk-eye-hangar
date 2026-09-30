@@ -21,7 +21,7 @@ export const GIT_TERMINAL_PROMPT_ENV = 'GIT_TERMINAL_PROMPT';
 
 const CHECKOUT_EXTRAHEADER = 'http.https://github.com/.extraheader';
 
-const ASKPASS_SCRIPT = '#!/bin/sh\nprintf "%s" "$AGENT_PUSH_TOKEN"\n';
+const ASKPASS_SCRIPT = `#!/bin/sh\ncase "\\$1" in\n  *Username*) printf '%s' 'x-access-token' ;;\n  *) printf '%s' "\\$AGENT_PUSH_TOKEN" ;;\nesac\n`;
 
 export function resolvePushToken(environ = process.env) {
   return String(environ[PUSH_TOKEN_ENV] || '').trim();
@@ -96,11 +96,55 @@ export function armPushAuthentication({
 export function pushEnvironment(authentication, environ = {}) {
   const result = { ...environ };
 
-  if (!authentication?.configured) return result;
+  // Never expose the PAT to the model process unless the control plane is
+  // explicitly performing the fallback Git push.
+  if (!authentication?.configured) {
+    delete result[PUSH_TOKEN_ENV];
+    delete result[GIT_ASKPASS_ENV];
+    return result;
+  }
 
   result[GIT_ASKPASS_ENV] = authentication.helperPath;
   result[GIT_TERMINAL_PROMPT_ENV] = '0';
   return result;
+}
+
+/** Push exactly the current HEAD to the named agent branch with the external credential. */
+export function pushCommitWithAuthentication(
+  branch,
+  authentication,
+  { repositoryRoot = process.cwd(), environ = process.env } = {}
+) {
+  if (!authentication?.configured) {
+    return { succeeded: false, reason: 'external credential is not configured' };
+  }
+
+  const environment = pushEnvironment(authentication, environ);
+
+  try {
+    execFileSync(
+      'git',
+      ['push', '--no-force', 'origin', `HEAD:refs/heads/${branch}`],
+      {
+        cwd: repositoryRoot,
+        env: environment,
+        encoding: 'utf8',
+        stdio: ['ignore', 'pipe', 'pipe'],
+        maxBuffer: 16 * 1024 * 1024,
+      }
+    );
+    return { succeeded: true, reason: '' };
+  } catch {
+    return { succeeded: false, reason: 'external credential push failed' };
+  } finally {
+    if (authentication.helperPath) {
+      try {
+        fs.rmSync(authentication.helperPath, { force: true });
+      } catch {
+        // The runner's disposable git directory is the final cleanup boundary.
+      }
+    }
+  }
 }
 
 export function isWorkflowPushRejection(output) {
