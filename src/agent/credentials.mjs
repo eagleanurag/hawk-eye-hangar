@@ -21,7 +21,7 @@ export const GIT_TERMINAL_PROMPT_ENV = 'GIT_TERMINAL_PROMPT';
 
 const CHECKOUT_EXTRAHEADER = 'http.https://github.com/.extraheader';
 
-const ASKPASS_SCRIPT = `#!/bin/sh\ncase "\\$1" in\n  *Username*) printf '%s' 'x-access-token' ;;\n  *) printf '%s' "\\$AGENT_PUSH_TOKEN" ;;\nesac\n`;
+const ASKPASS_SCRIPT = '#!/bin/sh\ncase "$1" in\n  *Username*) printf \'%s\' \'x-access-token\' ;;\n  *) printf \'%s\' "$AGENT_PUSH_TOKEN" ;;\nesac\n';
 
 export function resolvePushToken(environ = process.env) {
   return String(environ[PUSH_TOKEN_ENV] || '').trim();
