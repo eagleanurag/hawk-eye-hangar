@@ -1,0 +1,10 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "default_agent": "remote-engineer",
+  "agents": {
+    "remote-engineer": {
+      "description": "Autonomous engineering agent for HawkEye Hangar. Works on its own branch, tests, opens a pull request, and repairs CI failures within a bounded budget.",
+      "mode": "primary"
+    }
+  }
+}
