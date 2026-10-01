@@ -1,0 +1,512 @@
+---
+/**
+ * Aircraft "How to Build" page.
+ *
+ * The single renderer for every aircraft build guide. Sections render only when
+ * the guide has content for them, so a thin source produces a short page rather
+ * than an empty one, and no section can ever show a heading with nothing under
+ * it.
+ *
+ * The F-22 Raptor page does not use this component; it is a bespoke
+ * interactive experience and is deliberately left untouched.
+ *
+ * Styling is scoped to `.build-page` and reuses the site's own design tokens,
+ * so nothing here can leak into the rest of the catalogue.
+ */
+import Shell from '../layouts/Shell.astro';
+import Base from '../layouts/Base.astro';
+import { BASE, pub, bySlug, type Aircraft } from '../lib/catalog';
+import {
+  PROVENANCE_LABEL,
+  type BuildGuide,
+  type Quote,
+} from '../data/build-guides';
+
+interface Props {
+  guide: BuildGuide;
+}
+const { guide } = Astro.props;
+
+const base = BASE.endsWith('/') ? BASE : BASE + '/';
+const a: Aircraft | undefined = bySlug.get(guide.slug);
+if (!a) throw new Error(`Build guide references unknown aircraft slug: ${guide.slug}`);
+
+const aircraftHref = `${base}aircraft/${a.slug}/`;
+const crumbs = [
+  { label: 'Home', href: base },
+  { label: 'Catalogue', href: `${base}catalog` },
+  { label: a.name, href: aircraftHref },
+  { label: 'How to Build', href: null },
+];
+
+const title = `How to build the ${a.name}`;
+const description = guide.intro;
+
+const n = (x?: unknown[]) => (x ? x.length : 0);
+const has = (x?: unknown[]) => n(x) > 0;
+
+/** Quote groups render the same way, so one component covers five sections. */
+type QuoteGroup = {
+  id: string;
+  heading: string;
+  lead: string;
+  items?: Quote[];
+};
+
+const groups: QuoteGroup[] = [
+  {
+    id: 'materials',
+    heading: 'Materials',
+    lead: 'What the thread names as materials, in the builders’ own words.',
+    items: guide.materials,
+  },
+  {
+    id: 'electronics',
+    heading: 'Electronics & power',
+    lead: 'Motors, ESCs, batteries, propellers and control setup, as recorded in the thread.',
+    items: guide.electronics,
+  },
+  {
+    id: 'balance',
+    heading: 'Balance & CG',
+    lead: 'Where builders put the centre of gravity, and what they used to get it there.',
+    items: guide.balance,
+  },
+  {
+    id: 'finishing',
+    heading: 'Finishing',
+    lead: 'Covering, painting and finishing, as described by the people who did it.',
+    items: guide.finishing,
+  },
+  {
+    id: 'flight',
+    heading: 'Flying it',
+    lead: 'Maiden flights, flight time and handling, reported by the builders.',
+    items: guide.flightNotes,
+  },
+];
+const shownGroups = groups.filter((g) => has(g.items));
+---
+
+<Base title={title} description={description} canonical={`${aircraftHref}build/`} image={guide.hero ? pub(guide.hero.image) : undefined}>
+  <Shell>
+    <main id="main" class="detail build-page">
+      <div class="shell">
+        <nav class="crumbs" aria-label="Breadcrumb">
+          <ol>
+            {crumbs.map((c) => (
+              <li>
+                {c.href ? (
+                  <a href={c.href} data-no-transition>{c.label}</a>
+                ) : (
+                  <span aria-current="page">{c.label}</span>
+                )}
+              </li>
+            ))}
+          </ol>
+        </nav>
+
+        <!-- ------------------------------ head ------------------------------ -->
+        <header class="bp-head">
+          <p class="eyebrow">How to Build</p>
+          <h1 class="bp-title">{a.name}</h1>
+          <p class="bp-intro">{guide.intro}</p>
+
+          {has(guide.threads) && (
+            <p class="bp-thread">
+              {guide.threads!.map((t, i) => (
+                <Fragment>
+                  {i > 0 && <span aria-hidden="true"> · </span>}
+                  <a href={t.url} rel="noopener nofollow" target="_blank">{t.label}</a>
+                </Fragment>
+              ))}
+            </p>
+          )}
+        </header>
+
+        <!-- ------------------------------ hero ------------------------------ -->
+        {guide.hero && (
+          <figure class="bp-hero">
+            <img src={pub(guide.hero.image)} alt={guide.hero.alt} width="1200" height="800" fetchpriority="high" />
+            {guide.hero.caption && <figcaption>{guide.hero.caption}</figcaption>}
+          </figure>
+        )}
+
+        <!-- ---------------------------- overview ---------------------------- -->
+        {has(guide.overview) && (
+          <section id="overview" class="bp-sec">
+            <h2>About this aircraft</h2>
+            {guide.overview!.map((o) => (
+              <blockquote class="bp-quote">
+                <p>{o.text}</p>
+                <footer>
+                  {o.author && <cite>{o.author}</cite>}
+                  {o.date && <span>{o.date}</span>}
+                </footer>
+              </blockquote>
+            ))}
+          </section>
+        )}
+
+        {/* ---------------------------- at a glance -------------------------- */}
+        {has(guide.facts) && (
+          <section id="at-a-glance" class="bp-sec">
+            <h2>At a glance</h2>
+            <dl class="bp-facts">
+              {guide.facts!.map((f) => (
+                <div>
+                  <dt>{f.label}</dt>
+                  <dd>
+                    <span class="bp-val">{f.value}</span>
+                    <span class="bp-src" title={PROVENANCE_LABEL[f.source]}>{PROVENANCE_LABEL[f.source]}</span>
+                  </dd>
+                </div>
+              ))}
+            </dl>
+          </section>
+        )}
+
+        {/* ----------------------------- the thread -------------------------- */}
+        {has(guide.threads) && (
+          <section id="thread" class="bp-sec">
+            <h2>Build thread</h2>
+            <p class="bp-lead">
+              The designer’s own discussion is the primary source for this guide. It is a long,
+              informal record rather than an instruction manual, so what follows is reconstructed
+              from it and from the published plans. Each item below is attributed to the person
+              who wrote it.
+            </p>
+            <ul class="bp-threads">
+              {guide.threads!.map((t) => (
+                <li>
+                  <a href={t.url} rel="noopener nofollow" target="_blank">{t.label}</a>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
+
+        {/* -------------------------- construction --------------------------- */}
+        {has(guide.stages) && (
+          <section id="construction" class="bp-sec">
+            <h2>Construction</h2>
+            <p class="bp-lead">
+              Taken from the builders’ own running accounts, in the order they posted them. These
+              are their descriptions of what they did, not a substitute for the drawings.
+            </p>
+            <ol class="bp-stages">
+              {guide.stages!.map((s, i) => (
+                <li class="bp-stage">
+                  <h3><span class="bp-num">{String(i + 1).padStart(2, '0')}</span>{s.title}</h3>
+                  <ul>{s.body.map((b) => <li>{b}</li>)}</ul>
+                  {(s.author || s.date) && (
+                    <p class="bp-attrib">
+                      {s.author && <cite>{s.author}</cite>}
+                      {s.date && <span>{s.date}</span>}
+                    </p>
+                  )}
+                </li>
+              ))}
+            </ol>
+          </section>
+        )}
+
+        {/* ------------------------ quote group sections -------------------- */}
+        {shownGroups.map((g) => (
+          <section id={g.id} class="bp-sec">
+            <h2>{g.heading}</h2>
+            <p class="bp-lead">{g.lead}</p>
+            <ul class="bp-quotes">
+              {g.items!.map((q) => (
+                <li>
+                  <p>{q.text}</p>
+                  <p class="bp-attrib">
+                    {q.author && <cite>{q.author}</cite>}
+                    {q.date && <span>{q.date}</span>}
+                  </p>
+                </li>
+              ))}
+            </ul>
+          </section>
+        ))}
+
+        {/* ------------------------ problems & solutions --------------------- */}
+        {has(guide.problems) && (
+          <section id="problems" class="bp-sec">
+            <h2>Problems &amp; solutions</h2>
+            <div class="bp-grid">
+              {guide.problems!.map((p) => (
+                <div class="bp-card bp-card--warn">
+                  <h3>{p.title}</h3>
+                  <p class="bp-cardnote">{p.problem}</p>
+                  <p class="bp-fix">{p.fix}</p>
+                  {(p.author || p.date) && (
+                    <p class="bp-attrib">
+                      {p.author && <cite>{p.author}</cite>}
+                      {p.date && <span>{p.date}</span>}
+                    </p>
+                  )}
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {/* ------------------------ references & sources -------------------- */}
+        <section id="sources" class="bp-sec">
+          <h2>Sources &amp; provenance</h2>
+          {has(guide.references) && (
+            <ul class="bp-list">
+              {guide.references!.map((r) => (
+                <li>
+                  <a href={r.href} rel={r.external ? 'noopener nofollow' : undefined} target={r.external ? '_blank' : undefined}>
+                    {r.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          )}
+          <p class="bp-prov">{guide.provenance}</p>
+          {has(guide.limitations) && (
+            <div class="bp-note">
+              <h3>What the source does not establish</h3>
+              <ul>{guide.limitations!.map((l) => <li>{l}</li>)}</ul>
+            </div>
+          )}
+        </section>
+
+        <p class="bp-back">
+          <a class="btn btn--ghost" href={aircraftHref}>&larr; Back to {a.name}</a>
+        </p>
+      </div>
+    </main>
+  </Shell>
+</Base>
+
+<style>
+  /* Scoped to .build-page so none of this can reach the rest of the site. */
+  .build-page .shell { padding-block: 2rem 4rem; }
+
+  /* ---- breadcrumb ----
+     Declared the same way the aircraft page declares it, so the two are
+     visually identical. Kept local rather than moved into global.css so this
+     component cannot restyle the catalogue. */
+  .build-page .crumbs ol {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    padding: 0;
+    margin: 0 0 1.1rem;
+    font-size: 0.8rem;
+    color: var(--text-faint);
+  }
+  .build-page .crumbs li + li::before {
+    content: '/';
+    margin-right: 0.4rem;
+    opacity: 0.5;
+  }
+  .build-page .crumbs a {
+    color: var(--text-dim);
+    text-decoration: none;
+    display: inline-block;
+    padding-block: 0.28rem;
+  }
+  .build-page .crumbs a:hover { color: var(--cyan); }
+
+  /* ---- head ---- */
+  .bp-head { margin-bottom: 1.5rem; }
+  .bp-title {
+    font-family: var(--font-display);
+    font-size: var(--step-4);
+    line-height: 1.02;
+    letter-spacing: -0.03em;
+    margin: 0 0 0.6rem;
+  }
+  /* overflow-wrap: a designer intro can contain a run of asterisks or a filename
+     with no spaces, which would otherwise push the page sideways on a phone. */
+  .bp-intro { color: var(--text-dim); max-width: 66ch; font-size: var(--step-1); margin: 0 0 0.8rem; overflow-wrap: anywhere; }
+  .bp-thread { font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-faint); margin: 0; }
+  .bp-thread a { color: var(--cyan); }
+
+  /* ---- hero ---- */
+  .bp-hero {
+    margin: 0 0 2.5rem;
+    border: 1px solid var(--line-soft);
+    border-radius: var(--radius);
+    overflow: hidden;
+    background: var(--ink-800);
+  }
+  .bp-hero img { display: block; width: 100%; height: clamp(220px, 38vw, 460px); object-fit: cover; }
+  .bp-hero figcaption {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    color: var(--text-faint);
+    padding: 0.6rem 0.9rem;
+    border-top: 1px solid var(--line-soft);
+  }
+
+  /* ---- sections ---- */
+  .bp-sec { margin: 0 0 2.75rem; }
+  .bp-sec > h2 {
+    font-family: var(--font-display);
+    font-size: var(--step-2);
+    letter-spacing: -0.02em;
+    margin: 0 0 0.35rem;
+    padding-top: 1.4rem;
+    border-top: 1px solid var(--line-soft);
+    scroll-margin-top: calc(var(--header-h) + 1rem);
+  }
+  .bp-lead { color: var(--text-dim); max-width: 74ch; font-size: 0.95rem; }
+
+  /* ---- facts ---- */
+  .bp-facts {
+    display: grid;
+    gap: 1px;
+    background: var(--line-soft);
+    border: 1px solid var(--line-soft);
+    border-radius: var(--radius);
+    overflow: hidden;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
+    margin: 1rem 0 0;
+  }
+  .bp-facts > div { background: var(--ink-800); padding: 0.75rem 0.9rem; }
+  .bp-facts dt {
+    font-family: var(--font-mono);
+    font-size: 0.58rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+    margin-bottom: 0.15rem;
+  }
+  .bp-facts dd {
+    margin: 0;
+    font-size: 0.92rem;
+    display: flex;
+    gap: 0.5rem;
+    align-items: baseline;
+    flex-wrap: wrap;
+  }
+  .bp-val { overflow-wrap: anywhere; }
+  .bp-src {
+    font-family: var(--font-mono);
+    font-size: 0.55rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+    border: 1px solid var(--line-soft);
+    border-radius: 99px;
+    padding: 0.05rem 0.4rem;
+    white-space: nowrap;
+  }
+
+  /* ---- attributed quotes ---- */
+  .bp-quote {
+    margin: 1rem 0 0;
+    padding: 0.7rem 0.95rem;
+    border-left: 2px solid var(--cyan);
+    background: rgba(79, 214, 255, 0.05);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  }
+  .bp-quote p { margin: 0; font-size: 0.92rem; color: var(--text-dim); overflow-wrap: anywhere; }
+  .bp-attrib {
+    margin: 0.45rem 0 0;
+    display: flex;
+    gap: 0.6rem;
+    align-items: baseline;
+    flex-wrap: wrap;
+  }
+  .bp-attrib cite {
+    font-style: normal;
+    font-family: var(--font-mono);
+    font-size: 0.66rem;
+    letter-spacing: 0.04em;
+    color: var(--cyan);
+  }
+  .bp-attrib span { font-family: var(--font-mono); font-size: 0.64rem; color: var(--text-faint); }
+
+  .bp-quotes { list-style: none; padding: 0; margin: 1rem 0 0; display: grid; gap: 0.7rem; max-width: 82ch; }
+  .bp-quotes > li {
+    border: 1px solid var(--line-soft);
+    border-radius: var(--radius-sm);
+    padding: 0.7rem 0.9rem;
+    background: rgba(11, 18, 32, 0.45);
+  }
+  .bp-quotes > li > p:first-child { margin: 0; font-size: 0.9rem; color: var(--text-dim); overflow-wrap: anywhere; }
+
+  /* ---- stages ---- */
+  /* Thread text is quoted verbatim and can contain long unbroken runs
+     (asterisks, filenames, URLs). Sections holding quoted text must be
+     breakable or they push a phone layout sideways. */
+  .bp-stages { list-style: none; padding: 0; margin: 1rem 0 0; display: grid; gap: 1.1rem; }
+  .bp-stage { border: 1px solid var(--line-soft); border-radius: var(--radius); padding: 1rem 1.1rem; background: rgba(11, 18, 32, 0.5); }
+  .bp-stage h3 { display: flex; align-items: baseline; gap: 0.7rem; margin: 0 0 0.6rem; font-size: 1.02rem; font-family: var(--font-display); }
+  .bp-num { font-family: var(--font-mono); font-size: 0.8rem; color: #ff8a3d; flex: none; }
+  .bp-stage > ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 0.4rem; counter-reset: b; }
+  .bp-stage > ul > li { position: relative; padding-left: 1.9rem; font-size: 0.9rem; color: var(--text-dim); counter-increment: b; overflow-wrap: anywhere; }
+  .bp-stage > ul > li::before {
+    content: counter(b);
+    position: absolute;
+    left: 0;
+    top: 0.15rem;
+    width: 1.4rem;
+    height: 1.4rem;
+    display: grid;
+    place-items: center;
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    color: #ff8a3d;
+    border: 1px solid rgba(255, 138, 61, 0.4);
+    border-radius: var(--radius-xs);
+  }
+
+  /* ---- problems ---- */
+  .bp-grid {
+    display: grid;
+    gap: 1.1rem;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 19rem), 1fr));
+    align-items: start;
+    margin-top: 1rem;
+  }
+  .bp-card { border: 1px solid var(--line-soft); border-radius: var(--radius); padding: 1rem 1.1rem; background: rgba(20, 29, 46, 0.35); }
+  .bp-card h3 {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #ff8a3d;
+    margin: 0 0 0.45rem;
+    overflow-wrap: anywhere;
+  }
+  .bp-cardnote { color: var(--text-dim); font-size: 0.86rem; margin: 0 0 0.6rem; overflow-wrap: anywhere; }
+  .bp-card--warn { border-color: rgba(255, 138, 61, 0.4); background: rgba(255, 138, 61, 0.06); }
+  .bp-fix { margin: 0; font-size: 0.85rem; color: var(--text-dim); overflow-wrap: anywhere; }
+  .bp-fix::before {
+    content: 'Fix';
+    font-family: var(--font-mono);
+    font-size: 0.55rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--green);
+    display: block;
+    margin-bottom: 0.2rem;
+  }
+
+  /* ---- lists ---- */
+  .bp-list { margin: 1rem 0 0; padding: 0; list-style: none; display: grid; gap: 0.45rem; max-width: 78ch; }
+  .bp-list li { position: relative; padding-left: 1.4rem; font-size: 0.9rem; color: var(--text-dim); }
+  .bp-list li::before { content: '▸'; position: absolute; left: 0; color: #ff8a3d; }
+
+  .bp-threads { list-style: none; padding: 0; margin: 1rem 0 0; display: grid; gap: 0.5rem; }
+  .bp-threads li { display: flex; gap: 0.7rem; align-items: baseline; flex-wrap: wrap; }
+
+  /* ---- provenance ---- */
+  .bp-prov { font-size: 0.85rem; color: var(--text-faint); max-width: 78ch; }
+  .bp-note { margin-top: 1.1rem; border-left: 2px solid var(--amber); background: rgba(255, 180, 84, 0.07); border-radius: 0 var(--radius-sm) var(--radius-sm) 0; padding: 0.8rem 0.95rem; }
+  .bp-note h3 { font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--amber); margin: 0 0 0.5rem; }
+  .bp-note ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 0.35rem; }
+  .bp-note li { position: relative; padding-left: 1.3rem; font-size: 0.85rem; color: var(--text-dim); }
+  .bp-note li::before { content: '!'; position: absolute; left: 0; color: var(--amber); font-family: var(--font-mono); }
+
+  .bp-back { margin: 2.5rem 0 0; }
+</style>

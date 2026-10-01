@@ -12,6 +12,7 @@ import {
   bySlug,
   type Aircraft,
 } from '../../lib/catalog';
+import { hasBuildGuide } from '../../data/build-guides';
 
 export function getStaticPaths() {
   return [...bySlug.values()].map((aircraft) => ({ params: { slug: aircraft.slug }, props: { aircraft } }));
@@ -114,10 +115,10 @@ function bytes(n?: number) {
 
           <div class="dhead-actions">
             <a class="btn btn--primary" href="#plan">Get the plan</a>
-            {a.slug === 'f-22-raptor' ? (
-              /* The F-22 carries a dedicated interactive build page. It opens
-                 in the same tab so the reader keeps their place in the
-                 catalogue. Every other aircraft keeps its source link. */
+            {hasBuildGuide(a.slug) ? (
+              /* This aircraft has a How to Build guide. It opens in the same tab so the
+                 reader keeps their place in the catalogue. Aircraft without a guide
+                 keep their original source link. */
               <a class="btn btn--ghost" href={`${base}aircraft/${a.slug}/build/`}>How to Build</a>
             ) : (
               <a class="btn btn--ghost" href={a.sourceUrl} rel="noopener nofollow" target="_blank">
