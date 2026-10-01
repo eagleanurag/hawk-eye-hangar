@@ -1,0 +1,16 @@
+---
+/**
+ * B-52 Buff - How to Build.
+ *
+ * A thin route file, matching the F-22 precedent of one static route per
+ * aircraft. All structure, styling and provenance handling live in the shared
+ * AircraftBuildPage component, so the batch cannot drift into ten designs.
+ */
+import AircraftBuildPage from '../../../components/AircraftBuildPage.astro';
+import { buildGuide } from '../../../data/build-guides';
+
+const guide = buildGuide('b-52-buff');
+if (!guide) throw new Error('No How to Build guide for b-52-buff');
+---
+
+<AircraftBuildPage guide={guide} />
